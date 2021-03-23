@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "UMK",
+    "slug": "umk-mobile-app",
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "pl.nfinity.umk",
+      "buildNumber": "1.0.0",
+      "supportsTablet": false,
+      "config": {
+        "googleMapsApiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
+      },
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "Permission to access the device's location is necessary in order to use location function. Granting consent is voluntary, but failure to do so may restrict access to certain functions.",
+        "NSCalendarsUsageDescription": "Access to the calendar is necessary for the purpose of data integration with calendar of the device. Consent for access is voluntary, but failure to do so may result in restriction or loss of the functionality."
+      }
+    },
+    "android": {
+      "package": "pl.nfinity.umk",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
+        }
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR"
+      ]
+    }
+  }
+}
