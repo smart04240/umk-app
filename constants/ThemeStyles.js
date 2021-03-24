@@ -1,18 +1,14 @@
+import Colors from "./Colors";
+
 export default {
-    container: {
-        light: {
+    Container: {
+        Light: {
             flex: 1,
-            backgroundColor: '#fff',
-            alignItems: 'center',
-            justifyContent: 'center',
+            backgroundColor: Colors.Background.Primary.Light,
         },
-        dark: {
-            container: {
-                flex: 1,
-                backgroundColor: '#111',
-                alignItems: 'center',
-                justifyContent: 'center',
-            },
+        Dark: {
+            flex: 1,
+            backgroundColor: Colors.Background.Primary.Dark,
         },
     },
 };
