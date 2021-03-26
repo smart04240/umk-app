@@ -7,6 +7,9 @@ import Routes from "./helpers/Routes";
 import * as Font from "expo-font";
 import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
+import ReduxAwareInterceptors from "./helpers/ReduxAwareInterceptors";
+
+ReduxAwareInterceptors(store);
 
 const Main = React.memo(props => {
     const theme = useSelector(state => state.theme);

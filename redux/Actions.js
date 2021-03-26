@@ -9,7 +9,12 @@ export default {
     Locale: {
         Toggle: createAction('locale/toggle'),
     },
-	User: {
-		Update: createAction('user/update')
-	}
+    User: {
+        Login: createAction('user/login'),
+        Logout: createAction('user/logout'),
+        Update: createAction('user/update', payload => {
+            API.post('someurl', payload);
+            return payload;
+        }),
+    },
 };

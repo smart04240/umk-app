@@ -7,8 +7,11 @@ const user_init = {
 	token: null
 }
 
-export default createReducer( null , builder => {
-    builder.addCase(Actions.User.Update, state => {
-        // return state === 'pl' ? 'en' : 'pl';
-    });
+export default createReducer(null, builder => {
+	builder
+		.addCase(Actions.User.Login, (state, action) => action.payload)
+		.addCase(Actions.User.Logout, () => null)
+		.addCase(Actions.User.Update, (state, action) => {
+			state.user.nick_name = action.payload.nick_name;
+		});
 });
