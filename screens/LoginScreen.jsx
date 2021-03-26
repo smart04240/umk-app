@@ -1,19 +1,27 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
-import {useDispatch} from "react-redux";
-import Actions from "../redux/Actions";
+import { Text, TouchableOpacity, View} from "react-native";
+
 import useThemeStyles from "../hooks/useThemeStyles";
-import ThemeStyles from "../constants/ThemeStyles";
+import UniversityLogo from "../components/UniversityLogo";
+import LocaleSwitcher from "../components/locale/LocaleSwitcher";
 
 export default function LoginScreen(props) {
-    const dispatch = useDispatch();
-    const Styles = useThemeStyles(ThemeStyles.Container);
+
+    const ThemeStyles = useThemeStyles();
+
+	React.useLayoutEffect(() => {
+        props.navigation.setOptions({ 
+			headerLeft: () => null,
+			headerRight: () => null,
+			headerTitle: '',
+			headerStyle: { height: 0 }
+		});
+    }, [ props.navigation ]);
+
     return (
-        <View style={Styles}>
-            <Text>Login</Text>
-            <TouchableOpacity onPress={() => dispatch(Actions.Theme.Toggle())}>
-                <Text>Toggle theme</Text>
-            </TouchableOpacity>
+        <View style={[ ThemeStyles.bg, { flex: 1 }]}>
+            <LocaleSwitcher/>
+			<UniversityLogo/>
         </View>
     );
 };

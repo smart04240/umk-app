@@ -7,4 +7,7 @@ export default {
     Locale: {
         Toggle: createAction('locale/toggle'),
     },
+	User: {
+		Update: createAction('user/update')
+	}
 };
