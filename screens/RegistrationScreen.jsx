@@ -2,33 +2,18 @@ import React from "react";
 import { Text, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
 
 import useThemeStyles from "../hooks/useThemeStyles";
+import useTranslated from "../hooks/useTranslated";
 import GeneralStyles from "../constants/GeneralStyles"
 import Colors from "../constants/Colors";
+import { ucfirst } from "../helpers/functions";
 
 import UniversityLogo from "../components/UniversityLogo";
 import Container from "../components/general/Container";
 import Input from "../components/form/Input";
 import Checkbox from "../components/form/Checkbox";
 import Button from "../components/form/Button";
+import Translations from "../constants/Translations";
 
-
-const checkboxes = [
-	{ 
-		name: "regulations",
-		label: "Oświadczam, iż zapoznałem się z treścią Regulaminu.",
-		warning: "Zaakceptowanie powyższej zgody jest obowiązkowe podczas rejestracji w aplikacji!",
-		required: true
-	},
-	{ 
-		name: "personal_data",
-		label: "Zgoda na przetwarzanie danych osobowych adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea commodo consequat.",
-		required: true
-	},
-	{ 
-		name: "lorem",
-		label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-	},
-]
 
 export default function LoginScreen(props) {
 
@@ -43,6 +28,25 @@ export default function LoginScreen(props) {
 		});
     }, [ props.navigation ]);
 
+
+	const checkboxes = [
+		{ 
+			name: "regulations",
+			label: useTranslated( Translations.RegCheckboxLabel1 ),
+			warning: useTranslated( Translations.RegCheckboxWarning1 ),
+			required: true
+		},
+		{ 
+			name: "personal_data",
+			label: useTranslated( Translations.RegCheckboxLabel2 ),
+			required: true
+		},
+		{ 
+			name: "lorem",
+			label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+		},
+	]
+
     return (
 		<View style={[ ThemeStyles.bg, { flex: 1 }]}>
 			<ScrollView>
@@ -50,19 +54,16 @@ export default function LoginScreen(props) {
 					<UniversityLogo/>
 
 					<Text style={[ styles.text, ThemeStyles.dark_text ]}>
-						Rejestracja możliwa tylko dla studentów {`\n`}
-						Wydziału Filozofii i Nauk Społecznych
-						Uniwersytetu Mikołaja Kopernika w Toruniu
+						{ useTranslated( Translations.RegText1 )}
 					</Text>
 
 					<Text style={[ styles.text, ThemeStyles.dark_text ]}>
-						W celu zarejestrowania podaj swój nick
-						i zaakceptuj zgody.
+						{ useTranslated( Translations.RegText2 )}
 					</Text>
 
 					<Input 
-						label="Podaj swój nick"
-						placeholder="Nazwa użytkownika"
+						label={ useTranslated( Translations.EnterNickname )}
+						placeholder={ useTranslated( Translations.UserName )}
 					/>
 
 					<View style={ styles.checkboxes_container }>
@@ -70,10 +71,12 @@ export default function LoginScreen(props) {
 					</View>
 
 
-					<Button> Zarejestruj się </Button>
+					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
 
 					<TouchableOpacity onPress={ () => props.navigation.navigate("login") }> 
-						<Text style={ styles.back }> Anuluj </Text> 
+						<Text style={ styles.back }>
+							{ useTranslated( Translations.Cancel )}
+						</Text> 
 					</TouchableOpacity>
 				</Container>
 			</ScrollView>
