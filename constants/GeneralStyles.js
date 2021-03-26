@@ -1,4 +1,5 @@
 export default {
+
 	flex_centered: {
 		alignItems: "center", 
 		justifyContent: "center" 
