@@ -6,6 +6,7 @@ import Actions from "../../redux/Actions";
 import Colors from "../../constants/Colors";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslated from "../../hooks/useTranslated";
 import Translations from '../../constants/Translations';
 import Fonts from '../../constants/Fonts';
 
@@ -30,7 +31,7 @@ const LocaleSwitcher = () => {
 			/>
 
 			<Text style={[ ThemeStyles.text, styles.text ]}> 
-				{ Translations.switchLanguage[ locale ] || "" } 
+				{ useTranslated( Translations.switchLanguage )} 
 			</Text>
 
 			<Image style={ styles.img } source={ flags[ locale ] }/>

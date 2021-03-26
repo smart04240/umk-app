@@ -7,7 +7,8 @@ import LocaleSwitcher from "../components/locale/LocaleSwitcher";
 import GeneralStyles from "../constants/GeneralStyles"
 import Colors from "../constants/Colors";
 import Container from "../components/general/Container";
-import Fonts from "../constants/Fonts";
+import useTranslated from "../hooks/useTranslated";
+import Translations from "../constants/Translations";
 
 export default function LoginScreen(props) {
 
@@ -30,17 +31,24 @@ export default function LoginScreen(props) {
 				<UniversityLogo/>
 
 				<TouchableOpacity style={{ width: "100%" }}> 
-					<Text style={[ ThemeStyles.blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> Zaloguj się </Text> 
+					<Text style={[ ThemeStyles.blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> 
+						{ useTranslated( Translations.SignIn )} 
+					</Text> 
 				</TouchableOpacity>
 
-				<TouchableOpacity style={[ GeneralStyles.flex_centered, styles.button ]}> 
-					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold ]}> Logowanie za pomocą</Text>
-					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold ]}> Centralnego Punktu Logowania UMK </Text>
+				<TouchableOpacity style={[ styles.button ]}> 
+					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold, { textAlign: "center" } ]}>
+						{ useTranslated( Translations.LoginInUsingNCU )}
+					</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={[ GeneralStyles.row_centered ]}>
-					<Text style={[ GeneralStyles.text_regular ]}> Jeśli nie masz konta - </Text>
-					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> zarejestruj się </Text>
+				<TouchableOpacity onPress={ () => props.navigation.navigate("registration") } style={[ GeneralStyles.row_centered ]}>
+					<Text style={[ GeneralStyles.text_regular ]}> 
+						{ useTranslated( Translations.IfYouDontHaveAcc )}
+					</Text>
+					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> 
+						{ useTranslated( Translations.Register )} 
+					</Text>
 				</TouchableOpacity>
 			</Container>
         </View>
@@ -50,7 +58,8 @@ export default function LoginScreen(props) {
 const styles = StyleSheet.create({
 	button: {
 		backgroundColor: Colors.Orange,
-		padding: 17,
+		paddingVertical: 17,
+		paddingHorizontal: 15,
 		borderRadius: 15,
 		marginTop: 30,
 		marginBottom: 45

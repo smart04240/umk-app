@@ -2,7 +2,9 @@ import React from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
 import {useSelector} from "react-redux";
+
 import LoginScreen from "../screens/LoginScreen";
+import RegistrationScreen from "../screens/RegistrationScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -49,6 +51,10 @@ const RegisteredScreens = {
             name: 'login',
             component: LoginScreen,
         },
+		{
+			name: 'registration',
+			component: RegistrationScreen
+		}
     ],
     LoggedIn: [
         {
