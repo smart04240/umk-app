@@ -5,12 +5,14 @@ import {persistor, store} from "./redux/store";
 import {PersistGate} from "redux-persist/integration/react";
 import Routes from "./helpers/Routes";
 import * as Font from "expo-font";
+import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
 
 const Main = React.memo(props => {
     const theme = useSelector(state => state.theme);
     return (
         <>
+            <InternetMonitor/>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'}/>
             {!props.loading && (
                 <>

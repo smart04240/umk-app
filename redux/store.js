@@ -4,11 +4,13 @@ import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, RE
 import themeReducer from "./reducers/themeReducer";
 import localeReducer from "./reducers/localeReducer";
 import userReducer from "./reducers/userReducer";
+import internetReducer from "./reducers/internetReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
     locale: localeReducer,
-	user: userReducer
+    user: userReducer,
+    online: internetReducer,
 });
 
 const persistConfig = {
