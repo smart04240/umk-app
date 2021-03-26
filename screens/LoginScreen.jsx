@@ -30,17 +30,17 @@ export default function LoginScreen(props) {
 				<UniversityLogo/>
 
 				<TouchableOpacity style={{ width: "100%" }}> 
-					<Text style={[ ThemeStyles.blue_text, { fontSize: 20, textAlign: "center" }]}> Zaloguj się </Text> 
+					<Text style={[ ThemeStyles.blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> Zaloguj się </Text> 
 				</TouchableOpacity>
 
 				<TouchableOpacity style={[ GeneralStyles.flex_centered, styles.button ]}> 
-					<Text style={[ ThemeStyles.blue_text, styles.bold_text ]}> Logowanie za pomocą</Text>
-					<Text style={[ ThemeStyles.blue_text, styles.bold_text ]}> Centralnego Punktu Logowania UMK </Text>
+					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold ]}> Logowanie za pomocą</Text>
+					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold ]}> Centralnego Punktu Logowania UMK </Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={[ GeneralStyles.row_centered ]}>
-					<Text style={[ styles.text ]}> Jeśli nie masz konta - </Text>
-					<Text style={[ ThemeStyles.blue_text, styles.text, { textDecorationLine: "underline" } ]}> zarejestruj się </Text>
+					<Text style={[ GeneralStyles.text_regular ]}> Jeśli nie masz konta - </Text>
+					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> zarejestruj się </Text>
 				</TouchableOpacity>
 			</Container>
         </View>
@@ -54,8 +54,5 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		marginTop: 30,
 		marginBottom: 45
-	},
-
-	bold_text: { fontFamily: Fonts.ProximaNova.SemiBold, fontSize: 16 },
-	text: { fontFamily: Fonts.ProximaNova.Regular, fontSize: 16 }
+	}
 })

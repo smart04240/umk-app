@@ -7,6 +7,12 @@ import Colors from "../../constants/Colors";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Translations from '../../constants/Translations';
+import Fonts from '../../constants/Fonts';
+
+const flags = {
+	"en": require("../../assets/images/flags/pl.png"),
+	"pl": require("../../assets/images/flags/en.png")
+}
 
 const LocaleSwitcher = () => {
 
@@ -27,7 +33,7 @@ const LocaleSwitcher = () => {
 				{ Translations.switchLanguage[ locale ] || "" } 
 			</Text>
 
-			<Image style={ styles.img } source={ require("../../assets/images/flags/en.png") }/>
+			<Image style={ styles.img } source={ flags[ locale ] }/>
 		</View>
 	)
 }
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
 		elevation: 6,
 	},
 
-	text: { fontSize: 16, marginLeft: 10 },
+	text: { fontFamily: Fonts.ProximaNova.Regular, fontSize: 16, marginHorizontal: 5 },
 
 	img: { marginLeft: "auto" }
 })

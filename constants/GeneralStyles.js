@@ -1,4 +1,16 @@
+import Fonts from "./Fonts";
+
 export default {
+
+	text_semibold: {
+		fontSize: 16,
+		fontFamily: Fonts.ProximaNova.SemiBold
+	},
+
+	text_regular: {
+		fontSize: 16,
+		fontFamily: Fonts.ProximaNova.Regular
+	},
 
 	flex_centered: {
 		alignItems: "center", 
