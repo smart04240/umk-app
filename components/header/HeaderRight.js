@@ -8,7 +8,7 @@ import Colors from '../../constants/Colors';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from '../../constants/Fonts';
 
-import Sidebar from '../navigation/Sidebar';
+import Sidebar from '../sidebar/Sidebar';
 
 const HeaderRight = props => {
 

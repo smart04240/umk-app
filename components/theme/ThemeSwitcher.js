@@ -6,19 +6,20 @@ import useTranslated from "../../hooks/useTranslated";
 import Translations from '../../constants/Translations';
 import Switch from '../form/Switch';
 
-const LocaleSwitcher = () => {
+const ThemeSwitcher = props => {
 
 	const dispatch = useDispatch();
-	const locale = useSelector( state => state.locale );
+	const theme = useSelector( state => state.theme );
 
 	return (
 		<Switch 
-			onValueChange={ () => dispatch( Actions.Locale.Toggle()) }
-			value={ locale === "en" }
-			label={  useTranslated( Translations.switchToEnglish )}
+			onValueChange={ () => dispatch( Actions.Theme.Toggle()) }
+			value={ theme === "dark" }
+			label={ useTranslated( Translations.TurnOnDarkTheme )}
+			style={ props.style }
 		/>
 	)
 }
 
 
-export default LocaleSwitcher;
+export default ThemeSwitcher;

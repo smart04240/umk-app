@@ -4,6 +4,51 @@ export default {
         pl: 'Twój Profil',
     },
 
+	EditProfile: {
+		en: "Edit profile",
+		pl: "Edytuj profil"
+	},
+
+	TurnOnDarkTheme: {
+		en: "Turn on the dark theme",
+		pl: "Włącz ciemny motyw"
+	},
+
+	Profile: {
+		en: "Profile",
+		pl: "Profil"
+	},
+
+	MapOfStudies: {
+		en: "Map of studies",
+		pl: "Mapa studiów"
+	},
+
+	Rankings: {
+		en: "Rankings",
+		pl: "Rankingi"
+	},
+
+	Simulations: {
+		en: "Simulations",
+		pl: "Symulacje"
+	},
+
+	ToDoList: {
+		en: "To do list",
+		pl: "Lista zadań"
+	},
+
+	Calendar: {
+		en: "Calendar",
+		pl: "Kalendarz"
+	},
+
+	LocatingNCUFacilities: {
+		en: "Locating NCU facilities",
+		pl: "Lokalizowanie obiektów UMK"
+	},
+
 	SignIn: {
 		en: "Sign In",
 		pl: "Zaloguj się"
@@ -65,8 +110,8 @@ export default {
 		pl: "Zgoda na przetwarzanie danych osobowych adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea commodo consequat."
 	},
 
-	switchLanguage: {
-		en: 'Zmień język na polski',
+	switchToEnglish: {
+		en: 'Zmień język na angielski',
 		pl: 'Switch language to English'
 	}
 };

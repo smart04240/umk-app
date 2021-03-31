@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import UniversityLogo from "../components/UniversityLogo";
-import LocaleSwitcher from "../components/locale/LocaleSwitcher";
+import LocaleSwitcherBox from "../components/locale/LocaleSwitcherBox";
 import GeneralStyles from "../constants/GeneralStyles"
 import Colors from "../constants/Colors";
 import Container from "../components/general/Container";
@@ -25,7 +25,7 @@ export default function LoginScreen(props) {
 
     return (
         <View style={[ ThemeStyles.bg, { flex: 1 }]}>
-            <LocaleSwitcher/>
+            <LocaleSwitcherBox/>
 
 			<Container>
 				<UniversityLogo/>

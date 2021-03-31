@@ -4,6 +4,7 @@ export default {
 	
 	Light: {
 		dark_text: { color: Colors.Bunker },
+		dark_blue_text: { color: Colors.PrussianBlue },
 		blue_text: { color: Colors.Blue },
 		text: { color: Colors.PrussianBlue },
 		bg: { backgroundColor: Colors.AliceBlue },
@@ -13,6 +14,7 @@ export default {
 
 	Dark: {
 		dark_text: { color: Colors.White },
+		dark_blue_text: { color: Colors.White },
 		blue_text: { color: Colors.White },
 		text: { color: Colors.White },
 		bg: { backgroundColor: Colors.Bunker },
