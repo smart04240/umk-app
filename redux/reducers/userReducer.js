@@ -7,7 +7,7 @@ const user_init = {
 	token: null
 }
 
-export default createReducer(null, builder => {
+export default createReducer( user_init , builder => {
 	builder
 		.addCase(Actions.User.Login, (state, action) => action.payload)
 		.addCase(Actions.User.Logout, () => null)

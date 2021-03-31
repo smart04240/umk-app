@@ -8,13 +8,15 @@ export default {
 		text: { color: Colors.PrussianBlue },
 		bg: { backgroundColor: Colors.AliceBlue },
 		box: { backgroundColor: Colors.White },
+		icon_color: Colors.Blue
 	},
 
 	Dark: {
-		dark_text: { color: Colors.white },
-		blue_text: { color: Colors.white },
-		text: { color: Colors.white },
+		dark_text: { color: Colors.White },
+		blue_text: { color: Colors.White },
+		text: { color: Colors.White },
 		bg: { backgroundColor: Colors.Bunker },
 		box: { backgroundColor: Colors.PaynesGrey },
+		icon_color: Colors.White
 	}
 };

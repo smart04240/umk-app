@@ -5,6 +5,10 @@ import {useSelector} from "react-redux";
 
 import LoginScreen from "../screens/LoginScreen";
 import RegistrationScreen from "../screens/RegistrationScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import useThemeStyles from "../hooks/useThemeStyles";
+import Fonts from "../constants/Fonts";
+import HeaderRight from "../components/header/HeaderRight";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -12,6 +16,7 @@ const ScreenOptions = {
         open: TransitionSpecs.TransitionIOSSpec,
         close: TransitionSpecs.TransitionIOSSpec,
     },
+
     headerStyleInterpolator: HeaderStyleInterpolators.forFade,
     cardStyleInterpolator: ({current, next, layouts}) => {
         return {
@@ -59,28 +64,36 @@ const RegisteredScreens = {
     LoggedIn: [
         {
             name: 'profile',
-            component: null,
+			header_title: 'TWÓJ PROFIL',
+            component: ProfileScreen,
         },
     ],
 };
 
 export default function Routes() {
-    const user = useSelector(state => state.user);
 
-    const routes = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const user = useSelector(state => state.user);
+    const ThemeStyles = useThemeStyles();
+
+    const routes = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    // const routes = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
-            key={screen.name}
-            name={screen.name}
-            // options={() => ({
-            // headerTitle: "",
-            // headerStyle: {backgroundColor: Colors.dark_blue},
-            // headerLeft: () => <MenuToggle/>,
-            // headerRight: () => <NavigationRight/>,
-            // })}
+            key={ screen.name }
+            name={ screen.name }
+            options={{
+            	title: screen.header_title,
+				headerStyle: {...ThemeStyles.box },
+				headerTitleStyle: {
+					...ThemeStyles.blue_text,
+					fontSize: 20,
+					fontFamily: Fonts.ProximaNova.Regular,
+				},
+				headerRight: () => <HeaderRight/>
+			}}
         >
-            {props => <screen.component {...props} extraData={{screenData: screen}}/>}
+            { props => <screen.component {...props} /> }
         </Stack.Screen>
-    )), [user]);
+    )), [ user, ThemeStyles ]);
 
     return (
         <NavigationContainer>
