@@ -75,8 +75,8 @@ export default function Routes() {
     const user = useSelector(state => state.user);
     const ThemeStyles = useThemeStyles();
 
-    const routes = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    // const routes = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    // const routes = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    const routes = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }
