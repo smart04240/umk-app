@@ -118,5 +118,15 @@ export default {
 	LogOut: {
 		en: "Log out",
 		pl: "Wyloguj"
+	},
+
+	ECTSEarned: {
+		en: "ECTS earned",
+		pl: "Zdobyte ECTS"
+	},
+
+	EndOfStudies: {
+		en: "Until the end of my studies",
+		pl: "Do końca studiów"
 	}
 };

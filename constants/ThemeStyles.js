@@ -3,22 +3,24 @@ import Colors from "./Colors";
 export default {
 	
 	Light: {
-		dark_text: { color: Colors.Bunker },
-		dark_blue_text: { color: Colors.PrussianBlue },
-		blue_text: { color: Colors.Blue },
-		text: { color: Colors.PrussianBlue },
-		bg: { backgroundColor: Colors.AliceBlue },
-		box: { backgroundColor: Colors.White },
-		icon_color: Colors.Blue
+		dark_text: Colors.Bunker,
+		dark_blue_text: Colors.PrussianBlue,
+		blue_text: Colors.Blue,
+		text_color: Colors.PrussianBlue,
+		main_bg: Colors.AliceBlue,
+		box_bg: Colors.White,
+		icon_color: Colors.Blue,
+		blue_rgba: o => Colors.BlueRgba(o)
 	},
 
 	Dark: {
-		dark_text: { color: Colors.White },
-		dark_blue_text: { color: Colors.White },
-		blue_text: { color: Colors.White },
-		text: { color: Colors.White },
-		bg: { backgroundColor: Colors.Bunker },
-		box: { backgroundColor: Colors.PaynesGrey },
-		icon_color: Colors.White
+		dark_text: Colors.White,
+		dark_blue_text: Colors.White,
+		blue_text: Colors.White,
+		text_color: Colors.White,
+		main_bg: Colors.Bunker,
+		box_bg: Colors.PaynesGrey,
+		icon_color: Colors.White,
+		blue_rgba: o => Colors.WhiteRgba(o)
 	}
 };

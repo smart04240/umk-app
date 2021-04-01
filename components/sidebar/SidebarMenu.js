@@ -30,7 +30,7 @@ const SidebarMenu = () => {
 				<TouchableOpacity key={ index } onPress={ () => console.log( item.screen )}>
 					<Text style={[ 
 						GeneralStyles.text_regular, 
-						ThemeStyles.dark_blue_text, 
+						{ color: ThemeStyles.dark_blue_text }, 
 						styles.menu_item,
 						index + 1 === menu_items.length ? { borderBottomWidth: 0 } : {} 
 					]}> { item.label } </Text>

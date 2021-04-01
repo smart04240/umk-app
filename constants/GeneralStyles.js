@@ -7,6 +7,11 @@ export default {
 		fontFamily: Fonts.ProximaNova.SemiBold
 	},
 
+	text_bold: {
+		fontSize: 16,
+		fontFamily: Fonts.ProximaNova.Bold
+	},
+
 	text_regular: {
 		fontSize: 16,
 		fontFamily: Fonts.ProximaNova.Regular
@@ -43,5 +48,11 @@ export default {
 		flexDirection: "row", 
 		alignItems: "center", 
 		justifyContent: "space-around" 
+	},
+	
+	row_center_between: {
+		flexDirection: "row", 
+		alignItems: "center", 
+		justifyContent: "space-between" 
 	}
 }

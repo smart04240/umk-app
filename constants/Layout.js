@@ -4,5 +4,5 @@ const window = Dimensions.get('window');
 
 export default {
 	...window,
-	horizontalPadding: 23
+	paddingHorizontal: 23
 }

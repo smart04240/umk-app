@@ -48,16 +48,16 @@ export default function LoginScreen(props) {
 	]
 
     return (
-		<View style={[ ThemeStyles.bg, { flex: 1 }]}>
+		<View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
 			<ScrollView>
 				<Container>
 					<UniversityLogo/>
 
-					<Text style={[ styles.text, ThemeStyles.dark_text ]}>
+					<Text style={[ styles.text, { color: ThemeStyles.dark_text } ]}>
 						{ useTranslated( Translations.RegText1 )}
 					</Text>
 
-					<Text style={[ styles.text, ThemeStyles.dark_text ]}>
+					<Text style={[ styles.text, { color: ThemeStyles.dark_text } ]}>
 						{ useTranslated( Translations.RegText2 )}
 					</Text>
 

@@ -18,7 +18,7 @@ export default props => {
 				{...props }
 			/>
 
-			<Text style={[ ThemeStyles.dark_blue_text, GeneralStyles.text_regular, { marginHorizontal: 5 } ]}> 
+			<Text style={[ { color: ThemeStyles.dark_blue_text }, GeneralStyles.text_regular, { marginHorizontal: 5 } ]}> 
 				{ props.label }
 			</Text>
 		</View>

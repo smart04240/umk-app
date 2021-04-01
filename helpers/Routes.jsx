@@ -3,11 +3,14 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
 import {useSelector} from "react-redux";
 
+import useThemeStyles from "../hooks/useThemeStyles";
+import Fonts from "../constants/Fonts";
+
 import LoginScreen from "../screens/LoginScreen";
 import RegistrationScreen from "../screens/RegistrationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import useThemeStyles from "../hooks/useThemeStyles";
-import Fonts from "../constants/Fonts";
+import EditProfileScreen from "../screens/EditProfileScreen";
+
 import HeaderRight from "../components/header/HeaderRight";
 
 const ScreenOptions = {
@@ -53,20 +56,25 @@ const Stack = createStackNavigator();
 const RegisteredScreens = {
     LoggedOut: [
         {
-            name: 'login',
+            name: "login",
             component: LoginScreen,
         },
 		{
-			name: 'registration',
+			name: "registration",
 			component: RegistrationScreen
 		}
     ],
     LoggedIn: [
         {
-            name: 'profile',
-			header_title: 'TWÓJ PROFIL',
+            name: "profile",
+			header_title: "TWÓJ PROFIL",
             component: ProfileScreen,
         },
+		{
+			name: "edit_profile",
+			header_title: "EDYTUJ PROFIL",
+			component: EditProfileScreen
+		}
     ],
 };
 
@@ -82,9 +90,10 @@ export default function Routes() {
             name={ screen.name }
             options={{
             	title: screen.header_title,
-				headerStyle: {...ThemeStyles.box },
+				headerStyle: { backgroundColor: ThemeStyles.box_bg },
+				headerTintColor: ThemeStyles.blue_text,
 				headerTitleStyle: {
-					...ThemeStyles.blue_text,
+					color: ThemeStyles.blue_text,
 					fontSize: 20,
 					fontFamily: Fonts.ProximaNova.Regular,
 				},

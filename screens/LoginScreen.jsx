@@ -24,7 +24,7 @@ export default function LoginScreen(props) {
     }, [ props.navigation ]);
 
     return (
-        <View style={[ ThemeStyles.bg, { flex: 1 }]}>
+        <View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
             <LocaleSwitcherBox/>
 
 			<Container>

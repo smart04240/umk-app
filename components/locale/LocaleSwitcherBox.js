@@ -19,7 +19,7 @@ const LocaleSwitcherBox = () => {
     const ThemeStyles = useThemeStyles();
 
 	return (
-		<View style={[ ThemeStyles.box, GeneralStyles.row_ac, styles.box ]}>
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box ]}>
 			<LocaleSwitcher/>
 			<Image style={ styles.img } source={ flags[ locale ] }/>
 		</View>

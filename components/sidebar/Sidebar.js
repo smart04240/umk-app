@@ -48,7 +48,7 @@ const Sidebar = props => {
 
 	return (
 		<Animated.View style={[ 
-			ThemeStyles.box,
+			{ backgroundColor: ThemeStyles.box_bg },
 			styles.sidebar, 
 			{ width: sidebar_with, height: sidebar_height },
 			{ transform: [{ translateX: moveAnim }] }
@@ -74,7 +74,7 @@ const Sidebar = props => {
 
 
 					<TouchableOpacity style={{ marginTop: 40 }} onPress={ () => dispatch( Actions.User.Logout())}>
-						<Text style={[ GeneralStyles.text_regular, ThemeStyles.blue_text ]}> 
+						<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}> 
 							{ useTranslated( Translations.LogOut )} 
 						</Text>
 					</TouchableOpacity>

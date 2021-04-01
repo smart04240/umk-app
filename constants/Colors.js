@@ -1,5 +1,6 @@
 export default {
 	White: "#ffffff",
+	WhiteRgba: ( o = "1" ) => `rgba( 255, 255, 255, ${o})`,
 	AliceBlue: "#FBFCFE",
 	Blue: "#034EA2",
 	BlueRgba: ( o = "1") => `rgba( 3, 78, 162, ${o})`,
