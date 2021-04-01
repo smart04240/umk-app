@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { TouchableWithoutFeedback, ScrollView } from "react-native-gesture-handler";
+
 import GeneralStyles from '../../constants/GeneralStyles';
 import { isFunction } from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -23,7 +25,7 @@ const Dropdown = props => {
 
 	const icon_name = useMemo(() => open ? "angle-up" : "angle-down", [ open ]);
 
-	
+
 	useEffect(() => {
 		if ( isFunction( onChange )) 
 			onChange({ name, value });
@@ -69,26 +71,30 @@ const Dropdown = props => {
 
 			{( options && !!options.length && !!open ) &&
 				<View style={[ 
-					styles.options, 
+					styles.options_box, 
 					{ 
 						borderColor: ThemeStyles.blue_text,
 						backgroundColor: ThemeStyles.box_bg
-					} 
-				]}>
-					{ options.map( opt => (
-						<TouchableWithoutFeedback 
-							key={ opt.value } 
-							onPress={ () => onOptionPress( opt.value )}
-						>
-							<Text style={[ 
-								GeneralStyles.text_regular, 
-								styles.option_text,
-								{ color: ThemeStyles.blue_text } 
-							]}> 
-								{ opt.label } 
-							</Text>
-						</TouchableWithoutFeedback>
-					)) }
+					},
+					props.options_box_style || {}
+				]}>	
+					<ScrollView>
+						{ options.map( opt => (
+							<TouchableWithoutFeedback 
+								key={ opt.value } 
+								onPress={ () => onOptionPress( opt.value )}
+							>
+								<Text style={[ 
+									GeneralStyles.text_regular, 
+									styles.option_text,
+									{ color: ThemeStyles.blue_text },
+									props.option_text_style || {}
+								]}> 
+									{ opt.label } 
+								</Text>
+							</TouchableWithoutFeedback>
+						)) }
+					</ScrollView>
 				</View>
 			}
 		</View>
@@ -107,11 +113,13 @@ const styles = StyleSheet.create({
 	box_open: {
 		borderBottomLeftRadius: 0,
 		borderBottomRightRadius: 0,
+		borderBottomWidth: 0
 	},
 
 	value_label: { flexWrap: "wrap", flex: 1 },
 
-	options: {
+	options_box: {
+		maxHeight: 120,
 		position: "absolute",
 		left: 0,
 		top: "100%",
@@ -121,13 +129,12 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		zIndex: 10,
 		borderWidth: 1,
+		borderTopWidth: 0.4,
 		borderBottomLeftRadius: 7,
 		borderBottomRightRadius: 7,
 	},
 
-	option_text: {
-		paddingVertical: 6,
-	}
+	option_text: { paddingVertical: 5 }
 })
 
 
