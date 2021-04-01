@@ -128,5 +128,15 @@ export default {
 	EndOfStudies: {
 		en: "Until the end of my studies",
 		pl: "Do końca studiów"
+	},
+
+	EditAvatar: {
+		en: "Edit avatar",
+		pl: "Edytuj awatar"
+	},
+
+	ChangeYouNick: {
+		en: "Change your nickname",
+		pl: "Zmień swój nick"
 	}
 };

@@ -8,7 +8,7 @@ const TopBox = props => {
     const ThemeStyles = useThemeStyles();
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, props.styles || {} ]}>
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, props.style || {} ]}>
 			{ props.children }
 		</View>
 	)
