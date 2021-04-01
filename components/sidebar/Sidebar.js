@@ -60,7 +60,7 @@ const Sidebar = props => {
 					<SidebarUserInfo/>
 
 					<CloseButton 
-						style={{ marginLeft: "auto" }} 
+						style={{ marginLeft: "auto", top: -5 }} 
 						onPress={ () => toggleSidebar("hide")} 
 					/>
 				</View>
