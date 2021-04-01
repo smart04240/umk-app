@@ -153,5 +153,20 @@ export default {
 	DeleteAccount: {
 		en: "Delete account",
 		pl: "Usuń konto"
+	},
+
+	Information: {
+		en: "Information",
+		pl: "Informacje"
+	},
+
+	Statistics: {
+		en: "Statistics",
+		pl: "Statystyki"
+	},
+
+	Badgets: {
+		en: "Badgets",
+		pl: "Odznaki"
 	}
 };

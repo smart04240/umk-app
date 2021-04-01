@@ -9,6 +9,7 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from '../../constants/Fonts';
 
 import Sidebar from '../sidebar/Sidebar';
+import Layout from '../../constants/Layout';
 
 const HeaderRight = props => {
 
@@ -23,7 +24,7 @@ const HeaderRight = props => {
 
 	return (
 		<>
-			<View style={ styles.container }>
+			<View style={[ GeneralStyles.row_ac ]}>
 
 				<TouchableOpacity style={[ styles.button, { position: "relative" } ]}>
 			
@@ -39,7 +40,7 @@ const HeaderRight = props => {
 
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={ openSidebar } style={[ styles.button, { marginHorizontal: 14, } ]}>
+				<TouchableOpacity onPress={ openSidebar } style={[ styles.button, { marginLeft: 14, marginRight: Layout.paddingHorizontal - 10 } ]}>
 					<FontAwesome name="navicon" size={ 25 } color={ ThemeStyles.icon_color } />
 				</TouchableOpacity>
 			</View>
@@ -50,7 +51,6 @@ const HeaderRight = props => {
 }
 
 const styles = StyleSheet.create({
-	container: {...GeneralStyles.row_ac },
 	button: { padding: 10 },
 	notification: { 
 		...GeneralStyles.row_centered,

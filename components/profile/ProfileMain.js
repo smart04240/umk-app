@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
+import Layout from "../../constants/Layout";
 
 import useThemeStyles from '../../hooks/useThemeStyles';
 import useTranslated from '../../hooks/useTranslated';
@@ -13,18 +14,28 @@ import ProfileMainInfo from './ProfileMainInfo';
 
 const ProfileMain = props => {
 
-	const { active_tab, tabClick } = props;
-
 	const navigation = useNavigation();
     const ThemeStyles = useThemeStyles();
+	
+	const { active_tab, tabClick } = props;
+	const avatar_size = Math.floor( Layout.width * 0.308 );
 
-	const tabs = [ "INFORMACJE", "STATYSTYKI", "ODZNAKI" ];
+	const tabs = [ 
+		useTranslated( Translations.Information ), 
+		useTranslated( Translations.Statistics ), 
+		useTranslated( Translations.Badgets ) 
+	];
+
 
 	return (
 		<TopBox>
 			
 			<View style={{ flexDirection: "row", marginBottom: 18 }}>
-				<ProfileAvatar size={ 132 }/>
+				
+				<View style={{ marinRight: 100 }}>
+					<ProfileAvatar size={ avatar_size > 132 ? 132 : avatar_size }/>
+				</View>
+
 				<ProfileMainInfo />
 			</View>
 
@@ -41,7 +52,7 @@ const ProfileMain = props => {
 				
 					return (
 						<TouchableOpacity key={ index } onPress={ () => tabClick( index )}>
-							<Text style={[ text_font, { color: text_color } ]}>
+							<Text style={[ text_font, { color: text_color, textTransform: "uppercase" } ]}>
 								{ text }
 							</Text>
 						</TouchableOpacity>
@@ -51,10 +62,6 @@ const ProfileMain = props => {
 		</TopBox>
 	)
 }
-
-
-const styles = StyleSheet.create({
-})
 
 
 export default ProfileMain;

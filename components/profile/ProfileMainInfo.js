@@ -33,7 +33,7 @@ const ProfileMainInfo = props => {
 	]
 
 	return (
-		<View>
+		<View style={{ flexGrow: 1 }}>
 			<Text style={[ styles.font_family, styles.big, { color: ThemeStyles.dark_blue_text } ]}> { nick_name } </Text>
 
 			<Dropdown

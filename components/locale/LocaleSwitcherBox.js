@@ -2,11 +2,11 @@ import React from 'react';
 import { Image, View, StyleSheet } from "react-native";
 import { useSelector } from 'react-redux';
 
-import Actions from "../../redux/Actions";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Fonts from '../../constants/Fonts';
 import LocaleSwitcher from './LocaleSwitcher';
+import Layout from '../../constants/Layout';
 
 const flags = {
 	"en": require("../../assets/images/flags/pl.png"),
@@ -28,7 +28,7 @@ const LocaleSwitcherBox = () => {
 
 const styles = StyleSheet.create({
 	box: {
-		paddingHorizontal: 22,
+		paddingHorizontal: Layout.paddingHorizontal,
 		paddingTop: 35,
 		paddingBottom: 20,
 		borderBottomLeftRadius: 20,

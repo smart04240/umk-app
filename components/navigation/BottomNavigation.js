@@ -13,11 +13,11 @@ const BottomNavigation = props => {
 	const navigation = useNavigation();
 
 	const buttons = [
-		{ icon: "account", screen: "profile" },
-		{ icon: "map-outline", screen: "profile" },
-		{ icon: "medal-outline", screen: "profile" },
-		{ icon: "comment-question-outline", screen: "profile" },
-		{ icon: "calendar-blank", screen: "profile" }
+		{ icon: "account-outline", icon_active: "account", screen: "profile" },
+		{ icon: "map-outline", icon_active: "map", screen: "profile" },
+		{ icon: "medal-outline", icon_active: "medal", screen: "profile" },
+		{ icon: "comment-question-outline", icon_active: "comment-question", screen: "profile" },
+		{ icon: "calendar-blank-outline", icon_active: "calendar-blank", screen: "profile" }
 	];
 
 	return (

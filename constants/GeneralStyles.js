@@ -1,19 +1,22 @@
 import Fonts from "./Fonts";
+import Layout from "./Layout";
+
+const main_font_size = Layout.width < 420 ? 14 : 16;
 
 export default {
 
 	text_semibold: {
-		fontSize: 16,
+		fontSize: main_font_size,
 		fontFamily: Fonts.ProximaNova.SemiBold
 	},
 
 	text_bold: {
-		fontSize: 16,
+		fontSize: main_font_size,
 		fontFamily: Fonts.ProximaNova.Bold
 	},
 
 	text_regular: {
-		fontSize: 16,
+		fontSize: main_font_size,
 		fontFamily: Fonts.ProximaNova.Regular
 	},
 
