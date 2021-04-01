@@ -74,7 +74,7 @@ export default function LoginScreen(props) {
 					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
 
 					<TouchableOpacity onPress={ () => props.navigation.navigate("login") }> 
-						<Text style={ styles.back }>
+						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
 							{ useTranslated( Translations.Cancel )}
 						</Text> 
 					</TouchableOpacity>
@@ -86,7 +86,7 @@ export default function LoginScreen(props) {
 
 const styles = StyleSheet.create({
 	text: { ...GeneralStyles.text_regular, textAlign: "center", marginBottom: 28 },
-	back: { ...GeneralStyles.text_regular, color: Colors.Blue, textAlign: "right", textDecorationLine: "underline" },
+	back: { ...GeneralStyles.text_regular, textAlign: "right", textDecorationLine: "underline" },
 	checkboxes_container: {
 		marginTop: 30,
 		marginBottom: 50,

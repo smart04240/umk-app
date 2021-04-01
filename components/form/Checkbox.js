@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons'; 
+import useThemeStyles from '../../hooks/useThemeStyles';
 
 import Colors from '../../constants/Colors';
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -8,6 +9,7 @@ import { isFunction } from '../../helpers/functions';
 
 const Checkbox = props => {
 
+    const ThemeStyles = useThemeStyles();
 	const { name, init_checked, label, warning, required, onChange } = props;
 	const [ checked, setChecked ] = React.useState( init_checked || false );
 
@@ -18,13 +20,18 @@ const Checkbox = props => {
 	return (
 		<TouchableWithoutFeedback onPress={ () => setChecked( !checked )}>
 			<View style={ styles.row }>
-				<View style={[ GeneralStyles.row_centered, styles.checkbox, !!checked ? styles.checked : {} ]}>
+				<View style={[ 
+					GeneralStyles.row_centered, 
+					styles.checkbox, 
+					{ borderColor: ThemeStyles.blue_text }, 
+					!!checked ? styles.checked : {} 
+				]}>
 					{ !!checked && <Ionicons name="checkmark" size={ 14 } color="#fff" /> }
 				</View> 
 
 				<View style={{ flexShrink: 1 }}>
 					{ label && 
-						<Text style={[ GeneralStyles.text_regular ]}> 
+						<Text style={[ { color: ThemeStyles.dark_text }, GeneralStyles.text_regular ]}> 
 							{ label } 
 							{ !!required && <Text style={[ GeneralStyles.text_regular, styles.red ]}> * </Text> }
 						</Text> 
@@ -57,8 +64,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		borderWidth: 1,
 		marginRight: 18,
-		borderStyle: "solid",
-		borderColor: Colors.Blue
+		borderStyle: "solid"
 	},
 
 	checked: {

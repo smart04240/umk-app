@@ -1,18 +1,30 @@
 import React from "react";
 import { StyleSheet, TextInput, Text, View } from "react-native";
 
-import Colors from "../../constants/Colors";
 import GeneralStyles from "../../constants/GeneralStyles";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
-export default props => (
-	<View style={{ width: "100%", marginBottom: 20 }}>
-		{ props.label && <Text style={[ GeneralStyles.text_regular, styles.label ]}> { props.label } </Text> }
-		<TextInput
-			style={[ GeneralStyles.text_regular, styles.input, props.style || {} ]}
-			{...props }
-		/>
-	</View>
-);
+export default props => {
+
+    const ThemeStyles = useThemeStyles();
+	const text_color = { color: ThemeStyles.dark_text };
+
+	return (
+		<View style={{ width: "100%", marginBottom: 20 }}>
+			{ props.label && <Text style={[ text_color, GeneralStyles.text_regular, styles.label ]}> { props.label } </Text> }
+			<TextInput
+				style={[ 
+					text_color,
+					GeneralStyles.text_regular, 
+					styles.input,
+					{ borderColor: ThemeStyles.blue_text }, 
+					props.style || {} 
+				]}
+				{...props }
+			/>
+		</View>
+	)
+}
 
 
 const styles = StyleSheet.create({
@@ -20,10 +32,8 @@ const styles = StyleSheet.create({
 	input: {
 		paddingHorizontal: 20,
 		paddingVertical: 10,
-		borderColor: Colors.Blue,
 		borderRadius: 7,
 		borderStyle: "solid",
-		borderWidth: 1,
-		color: Colors.Bunker
+		borderWidth: 1
 	}
 })

@@ -23,6 +23,8 @@ export default function LoginScreen(props) {
 		});
     }, [ props.navigation ]);
 
+	const blue_text = { color: ThemeStyles.blue_text };
+
     return (
         <View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
             <LocaleSwitcherBox/>
@@ -31,22 +33,22 @@ export default function LoginScreen(props) {
 				<UniversityLogo/>
 
 				<TouchableOpacity style={{ width: "100%" }}> 
-					<Text style={[ ThemeStyles.blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> 
+					<Text style={[ blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> 
 						{ useTranslated( Translations.SignIn )} 
 					</Text> 
 				</TouchableOpacity>
 
 				<TouchableOpacity style={[ styles.button ]}> 
-					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_semibold, { textAlign: "center" } ]}>
+					<Text style={[ blue_text, GeneralStyles.text_semibold, { textAlign: "center" } ]}>
 						{ useTranslated( Translations.LoginInUsingNCU )}
 					</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity onPress={ () => props.navigation.navigate("registration") } style={[ GeneralStyles.row_centered ]}>
-					<Text style={[ GeneralStyles.text_regular ]}> 
+					<Text style={[ { color: ThemeStyles.dark_text }, GeneralStyles.text_regular ]}> 
 						{ useTranslated( Translations.IfYouDontHaveAcc )}
 					</Text>
-					<Text style={[ ThemeStyles.blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> 
+					<Text style={[ blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> 
 						{ useTranslated( Translations.Register )} 
 					</Text>
 				</TouchableOpacity>
