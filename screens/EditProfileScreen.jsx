@@ -42,12 +42,17 @@ export default function EditProfileScreen(props) {
 					/>
 
 					<View style={{ marginTop: 50 }}>
-						<Button transparent_bg={ true }> Dodaj zdarzenie losowe </Button>
-						<Button> Zapisz zmiany </Button>
+						<Button transparent_bg={ true }>
+							{ useTranslated( Translations.AddRandomEvent )}
+						</Button>
+
+						<Button>
+							{ useTranslated( Translations.SaveChanges )}
+						</Button>
 
 						<TouchableOpacity>
 							<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}>
-								Usuń konto
+								{ useTranslated( Translations.DeleteAccount )}
 							</Text>
 						</TouchableOpacity>
 					</View>

@@ -138,5 +138,20 @@ export default {
 	ChangeYouNick: {
 		en: "Change your nickname",
 		pl: "Zmień swój nick"
+	},
+
+	AddRandomEvent: {
+		en: "Add a random event",
+		pl: "Dodaj zdarzenie losowe"
+	},
+
+	SaveChanges: {
+		en: "Zapisz zmiany",
+		pl: "Save changes"
+	},
+
+	DeleteAccount: {
+		en: "Delete account",
+		pl: "Usuń konto"
 	}
 };

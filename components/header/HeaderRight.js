@@ -50,7 +50,7 @@ const HeaderRight = props => {
 }
 
 const styles = StyleSheet.create({
-	container: {...GeneralStyles.row_ac, marginRight: "auto" },
+	container: {...GeneralStyles.row_ac },
 	button: { padding: 10 },
 	notification: { 
 		...GeneralStyles.row_centered,
