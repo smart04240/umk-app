@@ -90,7 +90,7 @@ export default function Routes() {
             name={ screen.name }
             options={{
             	title: screen.header_title,
-				headerStyle: { backgroundColor: ThemeStyles.box_bg },
+				headerStyle: { backgroundColor: ThemeStyles.box_bg, elevation: 0 },
 				headerTintColor: ThemeStyles.blue_text,
 				headerTitleStyle: {
 					color: ThemeStyles.blue_text,

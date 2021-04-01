@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
 		paddingTop: 16,
 		paddingBottom: 19,
 		paddingHorizontal: Layout.paddingHorizontal,
-		elevation: 99,
-		zIndex: 99
+		elevation: 100,
+		zIndex: 100
 	}
 })
 
