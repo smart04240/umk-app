@@ -1,14 +1,16 @@
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 
+import useTranslated from "../hooks/useTranslated";
 import useThemeStyles from "../hooks/useThemeStyles";
+import GeneralStyles from "../constants/GeneralStyles";
+import Colors from "../constants/Colors";
+
 import UniversityLogo from "../components/UniversityLogo";
 import LocaleSwitcherBox from "../components/locale/LocaleSwitcherBox";
-import GeneralStyles from "../constants/GeneralStyles"
-import Colors from "../constants/Colors";
 import Container from "../components/general/Container";
-import useTranslated from "../hooks/useTranslated";
 import Translations from "../constants/Translations";
+import Main from "../components/general/Main";
 
 export default function LoginScreen(props) {
 
@@ -26,7 +28,7 @@ export default function LoginScreen(props) {
 	const blue_text = { color: ThemeStyles.blue_text };
 
     return (
-        <View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
+        <Main>
             <LocaleSwitcherBox/>
 
 			<Container>
@@ -53,7 +55,7 @@ export default function LoginScreen(props) {
 					</Text>
 				</TouchableOpacity>
 			</Container>
-        </View>
+        </Main>
     );
 };
 

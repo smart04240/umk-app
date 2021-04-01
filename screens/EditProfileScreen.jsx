@@ -13,6 +13,7 @@ import ProfileAvatar from "../components/profile/ProfileAvatar";
 import Input from "../components/form/Input";
 import { useSelector } from "react-redux";
 import Button from "../components/form/Button";
+import MainWithNavigation from "../components/general/MainWithNavigation";
 
 export default function EditProfileScreen(props) {
 
@@ -22,7 +23,7 @@ export default function EditProfileScreen(props) {
 	const nick_name = "nick_studenta123";
 
     return (
-		<View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
+		<MainWithNavigation>
 			
 			<TopBox style={{ alignItems: "center" }}>
 				<ProfileAvatar size={ 132 }/>
@@ -58,6 +59,6 @@ export default function EditProfileScreen(props) {
 					</View>
 				</ScrollView>
 			</Container>
-		</View>
+		</MainWithNavigation>
     );
 };

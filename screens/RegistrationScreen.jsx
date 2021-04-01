@@ -3,8 +3,8 @@ import { Text, ScrollView, TouchableOpacity, View, StyleSheet } from "react-nati
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslated from "../hooks/useTranslated";
-import GeneralStyles from "../constants/GeneralStyles"
-import Colors from "../constants/Colors";
+import GeneralStyles from "../constants/GeneralStyles";
+import Translations from "../constants/Translations";
 import { ucfirst } from "../helpers/functions";
 
 import UniversityLogo from "../components/UniversityLogo";
@@ -12,7 +12,7 @@ import Container from "../components/general/Container";
 import Input from "../components/form/Input";
 import Checkbox from "../components/form/Checkbox";
 import Button from "../components/form/Button";
-import Translations from "../constants/Translations";
+import Main from "../components/general/Main";
 
 
 export default function LoginScreen(props) {
@@ -48,7 +48,7 @@ export default function LoginScreen(props) {
 	]
 
     return (
-		<View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
+		<Main>
 			<ScrollView>
 				<Container>
 					<UniversityLogo/>
@@ -80,7 +80,7 @@ export default function LoginScreen(props) {
 					</TouchableOpacity>
 				</Container>
 			</ScrollView>
-		</View>
+		</Main>
     );
 };
 

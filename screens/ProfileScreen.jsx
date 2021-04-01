@@ -6,14 +6,14 @@ import GeneralStyles from "../constants/GeneralStyles";
 
 import ProfileMain from "../components/profile/ProfileMain";
 import Container from "../components/general/Container";
+import MainWithNavigation from "../components/general/MainWithNavigation";
 
 export default function ProfileScreen(props) {
 
 	const [ active_tab, setActiveTab ] = React.useState( 0 );
-    const ThemeStyles = useThemeStyles();
 
     return (
-		<View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }}>
+		<MainWithNavigation>
 			
 			<ProfileMain 
 				active_tab={ active_tab }
@@ -35,7 +35,8 @@ export default function ProfileScreen(props) {
 					</Text>
 				</ScrollView>
 			</Container>
-		</View>
+
+		</MainWithNavigation>
     );
 };
 
