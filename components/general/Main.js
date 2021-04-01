@@ -7,7 +7,7 @@ export default props => {
     const ThemeStyles = useThemeStyles();
 
 	return (
-		<View style={{ backgroundColor: ThemeStyles.main_bg, flex: 1 }} >
+		<View style={[ { backgroundColor: ThemeStyles.main_bg, flex: 1 }, props.style || {} ]} >
 			{ props.children }
 		</View>
 	)
