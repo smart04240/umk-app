@@ -113,5 +113,10 @@ export default {
 	switchToEnglish: {
 		en: 'Zmień język na angielski',
 		pl: 'Switch language to English'
+	},
+
+	LogOut: {
+		en: "Log out",
+		pl: "Wyloguj"
 	}
 };

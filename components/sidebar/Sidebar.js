@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { View, StyleSheet, Animated } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, Animated } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from 'react-redux';
 
+import Actions from "../../redux/Actions";
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Layout from "../../constants/Layout";
 import { isFunction } from '../../helpers/functions';
@@ -11,9 +13,13 @@ import SidebarUserInfo from './SidebarUserInfo';
 import CloseButton from '../buttons/CloseButton';
 import LocaleSwitcher from '../locale/LocaleSwitcher';
 import ThemeSwitcher from "../theme/ThemeSwitcher";
+import useTranslated from '../../hooks/useTranslated';
+import Translations from '../../constants/Translations';
+import GeneralStyles from '../../constants/GeneralStyles';
 
 const Sidebar = props => {
 	
+	const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
 
 	const window_w = Layout.width;
@@ -48,8 +54,8 @@ const Sidebar = props => {
 			{ transform: [{ translateX: moveAnim }] }
 		]}>
 			
-			<ScrollView>
-
+			<ScrollView style={{ flex: 1 }}>
+				
 				<View style={{ flexDirection: "row", marginBottom: 35 }}>
 					<SidebarUserInfo/>
 
@@ -66,9 +72,16 @@ const Sidebar = props => {
 					<LocaleSwitcher/>
 					<ThemeSwitcher style={{ marginVertical: 15 }} />
 
-				</View>
 
+					<TouchableOpacity style={{ marginTop: 40 }} onPress={ () => dispatch( Actions.User.Logout())}>
+						<Text style={[ GeneralStyles.text_regular, ThemeStyles.blue_text ]}> 
+							{ useTranslated( Translations.LogOut )} 
+						</Text>
+					</TouchableOpacity>
+				</View>
+				
 			</ScrollView>
+			
 		</Animated.View>
 		
 	)
