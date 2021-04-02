@@ -188,5 +188,20 @@ export default {
 	ExportToPdfAgree: {
 		en: 'By clicking "Export to PDF" you agree to getting your name and surname for the purpose generate a diploma.',
 		pl: 'Klikając "Eksportuj do PDF" wyrażasz zgodę na pobranie Twojego imienia i nazwiska w celu wygenerowania dyplomu.'
+	},
+
+	IndexNumber: {
+		en: "Index number",
+		pl: "Numer indeksu"
+	},
+
+	StartedBudges: {
+		en: "Badges you have started earning",
+		pl: "Odznaki, których zdobywanie jest rozpoczęte"
+	},
+
+	OtherBudgesToEarn: {
+		en: "Other badges you can earn",
+		pl: "Inne odznaki możliwe do zdobycia"
 	}
 };

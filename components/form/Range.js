@@ -8,7 +8,7 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 const Range = props => {
 
 	const ThemeStyles = useThemeStyles();
-	const { data, label, color } = props;
+	const { data, label, color, hide_value_label } = props;
 
 	if ( !data || !data.type ) return null;
 	const { type, value, total } = data;
@@ -61,16 +61,19 @@ const Range = props => {
 				{ label && 
 					<Text style={[ 
 						GeneralStyles.text_regular, 
-						{ color: ThemeStyles.dark_text } 
+						{ color: ThemeStyles.dark_text },
+						props.label_style || {}
 					]}>
 						{ label }
 					</Text>
 				}
 
-				<Text style={[ 
-					GeneralStyles.text_regular, 
-					{ color: ThemeStyles.dark_text, fontSize: 14 } 
-				]}> { value_label } </Text>
+				{( !hide_value_label && !!value_label ) &&
+					<Text style={[ 
+						GeneralStyles.text_regular, 
+						{ color: ThemeStyles.dark_text, fontSize: 14 } 
+					]}> { value_label } </Text>
+				}
 
 			</View>
 			<View style={[ styles.slider_box, { backgroundColor: slider_box_bg } ]}>

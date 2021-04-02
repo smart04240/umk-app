@@ -6,10 +6,10 @@ import Badge from '../badge/Badge';
 const ProfileBadges = props => {
 
 	const badges = [
-		{ id: 1, active: true, name: "Podróżnik" },
-		{ id: 2, active: false, name: "Odkrywca" },
-		{ id: 3, active: true, name: "Bezpieczny student" },
-		{ id: 4, active: true, name: "Stypendysta" },
+		{ id: 1, name: "Podróżnik" },
+		{ id: 2, not_active: false, name: "Odkrywca" },
+		{ id: 3, name: "Bezpieczny student" },
+		{ id: 4, name: "Stypendysta" },
 	]
 
 	return (

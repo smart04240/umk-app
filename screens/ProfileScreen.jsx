@@ -7,11 +7,12 @@ import MainWithNavigation from "../components/general/MainWithNavigation";
 
 import ProfileStatistics from "../components/profile/ProfileStatistics";
 import ProfileBadges from "../components/profile/ProfileBadges";
+import ProfileInformation from "../components/profile/ProfileInformation";
 
 export default function ProfileScreen(props) {
 
 	const [ active_tab, setActiveTab ] = useState( 0 );
-	const TabComponent = useMemo(() => [ null, ProfileStatistics, ProfileBadges ][ active_tab ], [ active_tab ]);
+	const TabComponent = useMemo(() => [ ProfileInformation, ProfileStatistics, ProfileBadges ][ active_tab ], [ active_tab ]);
 
     return (
 		<MainWithNavigation>

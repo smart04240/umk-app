@@ -13,12 +13,12 @@ const Badge = props => {
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
-	const { id, name, active } = props;
+	const { id, name, not_active } = props;
 	if ( !id || !name ) return null;
 
 	return (
 		<TouchableWithoutFeedback onPress={ () => active ? navigation.navigate( Routes.ProfileBadge, { id }) : null }>
-			<View style={{ marginBottom: 35, opacity: active ? 1 : 0.35 }}>
+			<View style={{ marginBottom: 35, opacity: not_active ? 0.35 : 1 }}>
 
 				<BadgeCircle/>
 
