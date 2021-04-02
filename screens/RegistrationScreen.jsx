@@ -25,7 +25,7 @@ export default function LoginScreen(props) {
 			headerLeft: () => null,
 			headerRight: () => null,
 			headerTitle: '',
-			headerStyle: { height: 0 }
+			headerStyle: { height: 25, elevation: 0 }
 		});
     }, [ props.navigation ]);
 
