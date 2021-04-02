@@ -59,12 +59,18 @@ const Range = props => {
 		<View style={{ marginBottom: 23 }}>
 			<View style={[ GeneralStyles.row_center_between, { marginBottom: 10 } ]}>
 				{ label && 
-					<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.dark_text }  ]}>
+					<Text style={[ 
+						GeneralStyles.text_regular, 
+						{ color: ThemeStyles.dark_text } 
+					]}>
 						{ label }
 					</Text>
 				}
 
-				<Text style={[ GeneralStyles.text_regular, { fontSize: 14 } ]}> { value_label } </Text>
+				<Text style={[ 
+					GeneralStyles.text_regular, 
+					{ color: ThemeStyles.dark_text, fontSize: 14 } 
+				]}> { value_label } </Text>
 
 			</View>
 			<View style={[ styles.slider_box, { backgroundColor: slider_box_bg } ]}>

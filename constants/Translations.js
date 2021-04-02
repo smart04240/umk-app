@@ -165,8 +165,28 @@ export default {
 		pl: "Statystyki"
 	},
 
-	Badgets: {
-		en: "Badgets",
+	Badges: {
+		en: "Badges",
 		pl: "Odznaki"
+	},
+
+	FindOutMore: {
+		en: "Find out more",
+		pl: "Dowiedz się więcej"
+	},
+
+	HowToGetIt: {
+		en: "How to get it?",
+		pl: "Jak ją zdobyć?"
+	},
+
+	ExportToPdf: {
+		en: "Export to PDF",
+		pl: "Eksportuj do PDF"
+	},
+
+	ExportToPdfAgree: {
+		en: 'By clicking "Export to PDF" you agree to getting your name and surname for the purpose generate a diploma.',
+		pl: 'Klikając "Eksportuj do PDF" wyrażasz zgodę na pobranie Twojego imienia i nazwiska w celu wygenerowania dyplomu.'
 	}
 };

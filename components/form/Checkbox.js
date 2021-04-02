@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons'; 
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -11,9 +11,9 @@ const Checkbox = props => {
 
     const ThemeStyles = useThemeStyles();
 	const { name, init_checked, label, warning, required, onChange } = props;
-	const [ checked, setChecked ] = React.useState( init_checked || false );
+	const [ checked, setChecked ] = useState( init_checked || false );	
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if ( isFunction( onChange )) onChange({ name, checked })
 	}, [ checked ])
 

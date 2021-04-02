@@ -24,7 +24,7 @@ const ProfileMain = props => {
 	const tabs = [ 
 		useTranslated( Translations.Information ), 
 		useTranslated( Translations.Statistics ), 
-		useTranslated( Translations.Badgets ) 
+		useTranslated( Translations.Badges ) 
 	];
 
 
@@ -33,7 +33,7 @@ const ProfileMain = props => {
 			
 			<View style={{ flexDirection: "row", marginBottom: 18 }}>
 				
-				<View style={{ marinRight: 100 }}>
+				<View style={{ marinRight: 10 }}>
 					<ProfileAvatar size={ avatar_size > 132 ? 132 : avatar_size }/>
 				</View>
 

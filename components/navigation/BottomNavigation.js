@@ -12,6 +12,7 @@ const BottomNavigation = props => {
 
 	const ThemeStyles = useThemeStyles();
 	const route = useRoute();
+	const navigation= useNavigation();
 
 	const isButtonActive = name => route.name.split(".")[0] === name;
 
