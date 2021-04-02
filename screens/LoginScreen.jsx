@@ -11,6 +11,7 @@ import LocaleSwitcherBox from "../components/locale/LocaleSwitcherBox";
 import Container from "../components/general/Container";
 import Translations from "../constants/Translations";
 import Main from "../components/general/Main";
+import Routes from "../constants/Routes";
 
 export default function LoginScreen(props) {
 
@@ -46,7 +47,7 @@ export default function LoginScreen(props) {
 					</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={ () => props.navigation.navigate("registration") } style={[ GeneralStyles.row_centered ]}>
+				<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Registration )} style={[ GeneralStyles.row_centered ]}>
 					<Text style={[ { color: ThemeStyles.dark_text }, GeneralStyles.text_regular ]}> 
 						{ useTranslated( Translations.IfYouDontHaveAcc )}
 					</Text>

@@ -3,7 +3,7 @@ import React from 'react';
 import {Provider, useSelector} from "react-redux";
 import {persistor, store} from "./redux/store";
 import {PersistGate} from "redux-persist/integration/react";
-import Routes from "./helpers/Routes";
+import Screens from "./helpers/Screens";
 import * as Font from "expo-font";
 import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
@@ -19,7 +19,7 @@ const Main = React.memo(props => {
             <StatusBar style={theme === 'light' ? 'dark' : 'light'}/>
             {!props.loading && (
                 <>
-                    <Routes/>
+                    <Screens/>
                 </>
             )}
         </>

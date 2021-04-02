@@ -13,6 +13,7 @@ import Input from "../components/form/Input";
 import Checkbox from "../components/form/Checkbox";
 import Button from "../components/form/Button";
 import Main from "../components/general/Main";
+import Routes from "../constants/Routes";
 
 
 export default function LoginScreen(props) {
@@ -73,7 +74,7 @@ export default function LoginScreen(props) {
 
 					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
 
-					<TouchableOpacity onPress={ () => props.navigation.navigate("login") }> 
+					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
 						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
 							{ useTranslated( Translations.Cancel )}
 						</Text> 

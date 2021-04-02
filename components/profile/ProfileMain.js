@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import Layout from "../../constants/Layout";
+import Routes from "../../constants/Routes";
 
 import useThemeStyles from '../../hooks/useThemeStyles';
 import useTranslated from '../../hooks/useTranslated';
@@ -39,7 +40,7 @@ const ProfileMain = props => {
 				<ProfileMainInfo />
 			</View>
 
-			<Button onPress={ () => navigation.navigate("edit_profile")} transparent_bg={ true }>
+			<Button onPress={ () => navigation.navigate( Routes.ProfileEdit )} transparent_bg={ true }>
 				{ useTranslated( Translations.EditProfile )}
 			</Button>
 			

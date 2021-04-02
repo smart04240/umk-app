@@ -146,8 +146,8 @@ export default {
 	},
 
 	SaveChanges: {
-		en: "Zapisz zmiany",
-		pl: "Save changes"
+		en: "Save changes",
+		pl: "Zapisz zmiany"
 	},
 
 	DeleteAccount: {

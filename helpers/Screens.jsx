@@ -5,13 +5,15 @@ import {useSelector} from "react-redux";
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import Fonts from "../constants/Fonts";
+import Routes from "../constants/Routes";
+
+import HeaderRight from "../components/header/HeaderRight";
 
 import LoginScreen from "../screens/LoginScreen";
 import RegistrationScreen from "../screens/RegistrationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
-
-import HeaderRight from "../components/header/HeaderRight";
+import BadgeScreen from "../screens/BadgeScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -56,35 +58,40 @@ const Stack = createStackNavigator();
 const RegisteredScreens = {
     LoggedOut: [
         {
-            name: "login",
+            name: Routes.Login,
             component: LoginScreen,
         },
 		{
-			name: "registration",
+			name: Routes.Registration,
 			component: RegistrationScreen
 		}
     ],
     LoggedIn: [
         {
-            name: "profile",
+            name: Routes.Profile,
 			header_title: "TWÓJ PROFIL",
             component: ProfileScreen,
         },
 		{
-			name: "edit_profile",
+			name: Routes.ProfileEdit,
 			header_title: "EDYTUJ PROFIL",
 			component: EditProfileScreen
+		},
+		{
+			name: Routes.ProfileBadge,
+			header_title: "ODZNAKA",
+			component: BadgeScreen
 		}
     ],
 };
 
-export default function Routes() {
+export default function Screens() {
 
     const user = useSelector(state => state.user);
     const ThemeStyles = useThemeStyles();
 
-    // const routes = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    const routes = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }
@@ -107,7 +114,7 @@ export default function Routes() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={ScreenOptions}>
-                {routes}
+                { screens }
             </Stack.Navigator>
         </NavigationContainer>
     );
