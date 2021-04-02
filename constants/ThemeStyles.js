@@ -19,7 +19,7 @@ export default {
 		blue_text: Colors.White,
 		text_color: Colors.White,
 		main_bg: Colors.Bunker,
-		box_bg: Colors.PaynesGrey,
+		box_bg: Colors.PayneGrey,
 		icon_color: Colors.White,
 		blue_rgba: o => Colors.WhiteRgba(o)
 	}
