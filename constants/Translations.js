@@ -223,5 +223,10 @@ export default {
 	ChooseOneOption: {
 		en: "Choose one option",
 		pl: "Wybierz jedną opcję"
-	}
+	},
+
+	Map: {
+		en: 'Map',
+		pl: 'Mapa',
+	},
 };

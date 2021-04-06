@@ -5,12 +5,14 @@ import themeReducer from "./reducers/themeReducer";
 import localeReducer from "./reducers/localeReducer";
 import userReducer from "./reducers/userReducer";
 import internetReducer from "./reducers/internetReducer";
+import mapReducer from "./reducers/mapReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
     locale: localeReducer,
     user: userReducer,
     online: internetReducer,
+    mapData: mapReducer,
 });
 
 const persistConfig = {

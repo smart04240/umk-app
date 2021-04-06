@@ -7,5 +7,7 @@ export default {
 	ProfileEdit: "profile.edit",
 	ProfileBadges: "profile.badges",
 	ProfileBadge: "profile.badge",
-	ProfileEvents: "profile.events"
+	ProfileEvents: "profile.events",
+
+	Map: "map",
 }

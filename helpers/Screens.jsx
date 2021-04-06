@@ -4,7 +4,7 @@ import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@
 import {useSelector} from "react-redux";
 
 import useThemeStyles from "../hooks/useThemeStyles";
-import { getTranslated } from "../helpers/functions";
+import useTranslator from "../hooks/useTranslator";
 
 import Fonts from "../constants/Fonts";
 import Routes from "../constants/Routes";
@@ -18,6 +18,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import BadgeScreen from "../screens/BadgeScreen";
 import ProfileEventsScreen from "../screens/ProfileEventsScreen";
+import MapScreen from "../screens/MapScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -65,41 +66,44 @@ const RegisteredScreens = {
             name: Routes.Login,
             component: LoginScreen,
         },
-		{
-			name: Routes.Registration,
-			component: RegistrationScreen
-		}
+        {
+            name: Routes.Registration,
+            component: RegistrationScreen,
+        },
     ],
-
     LoggedIn: [
         {
             name: Routes.Profile,
-			header_tr_key: "YourProfile",
+            title: "YourProfile",
             component: ProfileScreen,
         },
-		{
-			name: Routes.ProfileEdit,
-			header_tr_key: "EditProfile",
-			component: EditProfileScreen
-		},
-		{
-			name: Routes.ProfileBadge,
-			header_tr_key: "Badge",
-			component: BadgeScreen
-		},
-		{
-			name: Routes.ProfileEvents,
-			header_tr_key: "YourEvents",
-			component: ProfileEventsScreen
-		}
+        {
+            name: Routes.ProfileEdit,
+            title: "EditProfile",
+            component: EditProfileScreen,
+        },
+        {
+            name: Routes.ProfileBadge,
+            title: "Badge",
+            component: BadgeScreen,
+        },
+        {
+            name: Routes.ProfileEvents,
+            title: "YourEvents",
+            component: ProfileEventsScreen,
+        },
+        {
+            name: Routes.Map,
+            title: Translations.Map,
+            component: MapScreen,
+        },
     ],
 };
 
 export default function Screens() {
-
-    const user = useSelector( state => state.user );
-	const locale = useSelector( state => state.locale );
+    const user = useSelector(state => state.user);
     const ThemeStyles = useThemeStyles();
+    const translate = useTranslator();
 
     // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
     const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
@@ -107,20 +111,20 @@ export default function Screens() {
             key={ screen.name }
             name={ screen.name }
             options={{
-            	title: screen.header_tr_key ? getTranslated( Translations[ screen.header_tr_key ], locale ) : "",
-				headerStyle: { backgroundColor: ThemeStyles.box_bg, elevation: 0 },
-				headerTintColor: ThemeStyles.blue_text,
-				headerTitleStyle: {
-					color: ThemeStyles.blue_text,
-					fontSize: 20,
-					fontFamily: Fonts.ProximaNova.Regular,
-				},
-				headerRight: () => <HeaderRight/>
-			}}
+                title: translate(screen.title),
+                headerStyle: {backgroundColor: ThemeStyles.box_bg, elevation: 0},
+                headerTintColor: ThemeStyles.blue_text,
+                headerTitleStyle: {
+                    color: ThemeStyles.blue_text,
+                    fontSize: 20,
+                    fontFamily: Fonts.ProximaNova.Regular,
+                },
+                headerRight: () => <HeaderRight/>
+            }}
         >
-            { props => <screen.component {...props} /> }
+            {props => <screen.component {...props} />}
         </Stack.Screen>
-    )), [ user, locale, ThemeStyles ]);
+    )), [user, ThemeStyles, translate]);
 
     return (
         <NavigationContainer>
