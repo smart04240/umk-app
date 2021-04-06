@@ -1,20 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation, useRoute } from '@react-navigation/core';
 
 import useTranslated from "../../hooks/useTranslated";
-import Translations from "../../constants/Translations";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import Colors from '../../constants/Colors';
+import Routes from '../../constants/Routes';
+import Translations from "../../constants/Translations";
 
 
 const SidebarMenu = () => {
 
     const ThemeStyles = useThemeStyles();
+	const navigation = useNavigation();
+	const route = useRoute();
 
 	const menu_items = [
-		{ label: useTranslated( Translations.Profile ), screen: "profile" },
+		{ label: useTranslated( Translations.Profile ), screen: Routes.Profile },
 		{ label: useTranslated( Translations.MapOfStudies ), screen: "" },
 		{ label: useTranslated( Translations.Rankings ), screen: "" },
 		{ label: useTranslated( Translations.Simulations ), screen: "" },
@@ -22,16 +25,17 @@ const SidebarMenu = () => {
 		{ label: useTranslated( Translations.Calendar ), screen: "" },
 		{ label: useTranslated( Translations.LocatingNCUFacilities ), screen: "" },
 		{ label: "UOWiRO", screen: "" }
-	]	
+	];
+
 
 	return (
 		<View style={ styles.box }>
 			{ menu_items.map(( item, index ) => (
-				<TouchableOpacity key={ index } onPress={ () => console.log( item.screen )}>
-					<Text style={[ 
-						GeneralStyles.text_regular, 
-						{ color: ThemeStyles.dark_blue_text }, 
+				<TouchableOpacity key={ index } onPress={ () => item.screen ? navigation.navigate( item.screen ) : null }>
+					<Text style={[
 						styles.menu_item,
+						{ color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text }, 
+						item.screen === route.name ? GeneralStyles.text_bold : GeneralStyles.text_regular, 
 						index + 1 === menu_items.length ? { borderBottomWidth: 0 } : {} 
 					]}> { item.label } </Text>
 				</TouchableOpacity>
@@ -46,8 +50,7 @@ const styles = StyleSheet.create({
 	menu_item: {
 		paddingLeft: 15,
 		paddingVertical: 15,
-		borderBottomWidth: 0.5,
-		borderColor: Colors.PrussianBlue
+		borderBottomWidth: 0.5
 	}
 });
 
