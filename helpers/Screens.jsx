@@ -4,8 +4,11 @@ import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@
 import {useSelector} from "react-redux";
 
 import useThemeStyles from "../hooks/useThemeStyles";
+import { getTranslated } from "../helpers/functions";
+
 import Fonts from "../constants/Fonts";
 import Routes from "../constants/Routes";
+import Translations from "../constants/Translations";
 
 import HeaderRight from "../components/header/HeaderRight";
 
@@ -14,6 +17,7 @@ import RegistrationScreen from "../screens/RegistrationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import BadgeScreen from "../screens/BadgeScreen";
+import AddEventScreen from "../screens/AddEventScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -66,28 +70,35 @@ const RegisteredScreens = {
 			component: RegistrationScreen
 		}
     ],
+
     LoggedIn: [
         {
             name: Routes.Profile,
-			header_title: "TWÓJ PROFIL",
+			header_tr_key: "YourProfile",
             component: ProfileScreen,
         },
 		{
 			name: Routes.ProfileEdit,
-			header_title: "EDYTUJ PROFIL",
+			header_tr_key: "EditProfile",
 			component: EditProfileScreen
 		},
 		{
 			name: Routes.ProfileBadge,
-			header_title: "ODZNAKA",
+			header_tr_key: "Badge",
 			component: BadgeScreen
+		},
+		{
+			name: Routes.ProfileAddEvent,
+			header_tr_key: "RandomEvent",
+			component: AddEventScreen
 		}
     ],
 };
 
 export default function Screens() {
 
-    const user = useSelector(state => state.user);
+    const user = useSelector( state => state.user );
+	const locale = useSelector( state => state.locale );
     const ThemeStyles = useThemeStyles();
 
     // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
@@ -96,7 +107,7 @@ export default function Screens() {
             key={ screen.name }
             name={ screen.name }
             options={{
-            	title: screen.header_title,
+            	title: screen.header_tr_key ? getTranslated( Translations[ screen.header_tr_key ], locale ) : "",
 				headerStyle: { backgroundColor: ThemeStyles.box_bg, elevation: 0 },
 				headerTintColor: ThemeStyles.blue_text,
 				headerTitleStyle: {
@@ -109,7 +120,7 @@ export default function Screens() {
         >
             { props => <screen.component {...props} /> }
         </Stack.Screen>
-    )), [ user, ThemeStyles ]);
+    )), [ user, locale, ThemeStyles ]);
 
     return (
         <NavigationContainer>

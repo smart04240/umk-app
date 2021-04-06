@@ -1,7 +1,7 @@
 export default {
     YourProfile: {
-        en: 'Your Profile',
-        pl: 'Twój Profil',
+        en: 'Your profile',
+        pl: 'Twój profil',
     },
 
 	EditProfile: {
@@ -140,6 +140,11 @@ export default {
 		pl: "Zmień swój nick"
 	},
 
+	RandomEvent: {
+		en: "Random event",
+		pl: "Zdarzenie losowe"
+	},
+
 	AddRandomEvent: {
 		en: "Add a random event",
 		pl: "Dodaj zdarzenie losowe"
@@ -168,6 +173,11 @@ export default {
 	Badges: {
 		en: "Badges",
 		pl: "Odznaki"
+	},
+
+	Badge: {
+		en: "Badge",
+		pl: "Odznaka"
 	},
 
 	FindOutMore: {
