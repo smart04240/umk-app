@@ -74,22 +74,22 @@ const RegisteredScreens = {
     LoggedIn: [
         {
             name: Routes.Profile,
-            title: "YourProfile",
+            title: Translations.YourProfile,
             component: ProfileScreen,
         },
         {
             name: Routes.ProfileEdit,
-            title: "EditProfile",
+            title: Translations.EditProfile,
             component: EditProfileScreen,
         },
         {
             name: Routes.ProfileBadge,
-            title: "Badge",
+            title: Translations.Badge,
             component: BadgeScreen,
         },
         {
             name: Routes.ProfileEvents,
-            title: "YourEvents",
+            title: Translations.YourEvents,
             component: ProfileEventsScreen,
         },
         {
