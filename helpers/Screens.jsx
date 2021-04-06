@@ -17,7 +17,7 @@ import RegistrationScreen from "../screens/RegistrationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import BadgeScreen from "../screens/BadgeScreen";
-import AddEventScreen from "../screens/AddEventScreen";
+import ProfileEventsScreen from "../screens/ProfileEventsScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -88,9 +88,9 @@ const RegisteredScreens = {
 			component: BadgeScreen
 		},
 		{
-			name: Routes.ProfileAddEvent,
-			header_tr_key: "RandomEvent",
-			component: AddEventScreen
+			name: Routes.ProfileEvents,
+			header_tr_key: "YourEvents",
+			component: ProfileEventsScreen
 		}
     ],
 };

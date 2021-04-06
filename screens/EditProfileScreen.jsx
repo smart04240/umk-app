@@ -1,11 +1,13 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslated from "../hooks/useTranslated";
 import GeneralStyles from "../constants/GeneralStyles";
 import Translations from "../constants/Translations";
+import Routes from "../constants/Routes";
 
 import TopBox from "../components/general/TopBox";
 import Container from "../components/general/Container";
@@ -18,6 +20,7 @@ import MainWithNavigation from "../components/general/MainWithNavigation";
 export default function EditProfileScreen(props) {
 
     const ThemeStyles = useThemeStyles();
+	const navigation = useNavigation();
 	const user = useSelector( state => state );
 
 	const nick_name = "nick_studenta123";
@@ -43,8 +46,8 @@ export default function EditProfileScreen(props) {
 					/>
 
 					<View style={{ marginTop: 50 }}>
-						<Button transparent_bg={ true }>
-							{ useTranslated( Translations.AddRandomEvent )}
+						<Button onPress={ () => navigation.navigate( Routes.ProfileEvents )} transparent_bg={ true }>
+							{ useTranslated( Translations.YourEvents )}
 						</Button>
 
 						<Button>

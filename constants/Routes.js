@@ -6,5 +6,6 @@ export default {
 	Profile: "profile",
 	ProfileEdit: "profile.edit",
 	ProfileBadges: "profile.badges",
-	ProfileBadge: "profile.badge"
+	ProfileBadge: "profile.badge",
+	ProfileEvents: "profile.events"
 }

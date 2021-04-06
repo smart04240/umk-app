@@ -150,6 +150,11 @@ export default {
 		pl: "Dodaj zdarzenie losowe"
 	},
 
+	YourEvents: {
+		en: "Your events",
+		pl: "Twoje zdarzenia"
+	},
+
 	SaveChanges: {
 		en: "Save changes",
 		pl: "Zapisz zmiany"
