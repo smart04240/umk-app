@@ -1,18 +1,21 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableWithoutFeedback, ScrollView } from "react-native-gesture-handler";
+import { FontAwesome } from '@expo/vector-icons';
 
 import GeneralStyles from '../../constants/GeneralStyles';
+import Translations from '../../constants/Translations';
 import { isFunction } from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import { FontAwesome } from '@expo/vector-icons';
+import useTranslated from '../../hooks/useTranslated';
+import Colors from '../../constants/Colors';
 
 const Dropdown = props => {
 
 	const ThemeStyles = useThemeStyles();
 
 	const { init_value, name, options, onChange } = props;
-	const placeholder = props.placeholder || "Choose one option";
+	const placeholder = props.placeholder || useTranslated( Translations.ChooseOneOption );
 
 	const [ value, setValue ] = useState( init_value || null ); 
 	const [ open, setOpen ] = useState( false );
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
 	box_open: {
 		borderBottomLeftRadius: 0,
 		borderBottomRightRadius: 0,
-		borderBottomWidth: 0
+		borderBottomColor: Colors.BlueRgba(0)
 	},
 
 	value_label: { flexWrap: "wrap", flex: 1 },

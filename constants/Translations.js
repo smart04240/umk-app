@@ -203,5 +203,10 @@ export default {
 	OtherBudgesToEarn: {
 		en: "Other badges you can earn",
 		pl: "Inne odznaki możliwe do zdobycia"
+	},
+
+	ChooseOneOption: {
+		en: "Choose one option",
+		pl: "Wybierz jedną opcję"
 	}
 };
