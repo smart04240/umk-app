@@ -4,11 +4,11 @@ import { MaterialCommunityIcons  } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
 
 import Layout from '../../constants/Layout';
-import Routes from "../../constants/Routes";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
+import Menu from "../../constants/Menu";
 
-const BottomNavigation = props => {
+const BottomNavigation = () => {
 
 	const ThemeStyles = useThemeStyles();
 	const route = useRoute();
@@ -16,51 +16,25 @@ const BottomNavigation = props => {
 
 	const isButtonActive = name => route.name.split(".")[0] === name;
 
-	const buttons = [
-		{
-			icon: "account-outline", 
-			icon_active: "account",
-			active: isButtonActive("profile"), 
-			screen: Routes.Profile 
-		},
-		{ 
-			icon: "map-outline", 
-			icon_active: "map",
-			active: isButtonActive("map"), 
-			screen: "profile" 
-		},
-		{ 
-			icon: "medal-outline", 
-			icon_active: "medal",
-			active: isButtonActive("statistics"), 
-			screen: "profile" 
-		},
-		{ 
-			icon: "comment-question-outline", 
-			icon_active: "comment-question",
-			active: isButtonActive("questions"), 
-			screen: "profile" 
-		},
-		{ 
-			icon: "calendar-blank-outline", 
-			icon_active: "calendar-blank",
-			active: isButtonActive("calendar"), 
-			screen: "profile" 
-		}
-	];
-
 	return (
 		<View style={[ GeneralStyles.row_center_between, styles.nav, { backgroundColor: ThemeStyles.box_bg } ]}>
 			
-			{ buttons.map(( button, index ) => {
-			
-				const icon = button.active ? button.icon_active : button.icon;
+			{ Menu.map(( item, index ) => {
 
-				return (
-					<TouchableOpacity key={ index } onPress={ () => navigation.navigate( button.screen )}>
-						<MaterialCommunityIcons name={ icon } size={ 25} color={ ThemeStyles.icon_color } />
-					</TouchableOpacity>
-				)
+				const is_active = isButtonActive( item.screen );
+				const icon = is_active ? item.icon_active : item.icon;
+				
+				return item.bottom
+					? (
+						<TouchableOpacity key={ index } onPress={ () => navigation.navigate( item.screen )}>
+							<MaterialCommunityIcons 
+								name={ icon } 
+								size={ 25 } 
+								color={ ThemeStyles.icon_color } 
+							/>
+						</TouchableOpacity>
+					)
+					: null
 			})}
 		</View>
 	)

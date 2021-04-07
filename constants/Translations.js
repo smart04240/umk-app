@@ -263,5 +263,10 @@ export default {
 	ListOfEventsNotAffectLengthStudy: {
 		en: "List of events that do not affect the length studying",
 		pl: "Lista zdarzeń, które nie wpływają na długość studiowania"
+	},
+
+	Reminders: {
+		en: "Reminders",
+		pl: "Przypomnienia"
 	}
 };

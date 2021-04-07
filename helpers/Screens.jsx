@@ -12,6 +12,7 @@ import Translations from "../constants/Translations";
 
 import HeaderRight from "../components/header/HeaderRight";
 
+import StartScreen from "../screens/StartScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegistrationScreen from "../screens/RegistrationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -72,6 +73,11 @@ const RegisteredScreens = {
         },
     ],
     LoggedIn: [
+		{
+			name: Routes.Start,
+			title: "UMK Toruń",
+			component: StartScreen
+		},
         {
             name: Routes.Profile,
             title: Translations.YourProfile,
