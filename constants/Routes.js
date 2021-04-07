@@ -1,9 +1,10 @@
 export default {
-	
+
 	Login: "login",
 	Registration: "registration",
 
 	Start: "start",
+	Tutorial: "tutorial",
 
 	Profile: "profile",
 	ProfileEdit: "profile.edit",

@@ -273,5 +273,20 @@ export default {
 	Reminders: {
 		en: "Reminders",
 		pl: "Przypomnienia"
+	},
+
+	Tutorial: {
+		en: "Tutorial",
+		pl: "Samouczek"
+	},
+
+	SkipIt: {
+		en: "Skip it",
+		pl: "Pomiń"
+	},
+
+	Next: {
+		en: "Next",
+		pl: "Dalej"
 	}
 };
