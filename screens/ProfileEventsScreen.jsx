@@ -1,42 +1,80 @@
-import React from "react";
+import React, { useState, useMemo, useLayoutEffect } from "react";
 import { View, ScrollView, Text } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
+
+import GeneralStyles from "../constants/GeneralStyles";
+import Translations from "../constants/Translations";
+import Routes from "../constants/Routes";
+
+import useTranslated from "../hooks/useTranslated";
+import useThemeStyles from "../hooks/useThemeStyles";
 
 import Container from "../components/general/Container";
 import MainWithNavigation from "../components/general/MainWithNavigation";
+import Tabs from "../components/general/Tabs";
+import ProfileUsosEvents from "../components/profile-events/ProfileUsosEvents";
+import Button from "../components/form/Button";
+import ProfileEventsTab from "../components/profile-events/ProfileEventsTab";
+import ProfileCollegeGraduationTab from "../components/profile-events/ProfileCollegeGraduationTab";
+import ProfileOtherTab from "../components/profile-events/ProfileOtherTab";
 
 const ProfileEventsScreen = props => {
 
-	React.useLayoutEffect(() => {
-        props.navigation.setOptions({
-			headerStyle: { 
-				elevation: 5, 
-				borderBottomLeftRadius: 20, 
-				borderBottomRightRadius: 20, 
-			}
-		});
-    }, [ props.navigation ]);
+	const theme = useSelector( state => state.theme );
+	const ThemeStyles = useThemeStyles();
+	const navigation = useNavigation();
 
-	const options = [
-		{ label: "Urlop okolicznościowy długoterminowy", value: 1 },
-		{ label: "Urlop zdrowotny", value: 2 },
-		{ label: "Urlop rodzicielski", value: 3 },
-		{ label: "Urlop sportowy", value: 4 },
-		{ label: "Powtarzanie roku", value: 5 },
-		{ label: "Skreślenie z listy studentów", value: 6 },
-		{ label: "Wznowienie studiów", value: 7 }
-	]
+	const [ active_tab, setActiveTab ] = useState( 0 );
+	const TabContent = useMemo(() => [ ProfileEventsTab, ProfileOtherTab, ProfileCollegeGraduationTab ][ active_tab ], [ active_tab ]);
+
+	useLayoutEffect(() => {
+        props.navigation.setOptions({
+			headerStyle: [ 
+				theme === "light" ? GeneralStyles.header_without_tb : {},
+				{ backgroundColor: ThemeStyles.box_bg } 
+			]
+		});
+    }, [ props.navigation, ThemeStyles ]);
+
 
 	return (
 		<MainWithNavigation>
 			<Container>
 				<ScrollView>
 					
+					<ProfileUsosEvents/>
+
+					<Text style={{ ...GeneralStyles.text_regular, marginBottom: 13, color: ThemeStyles.dark_text }}>
+						Dowiedz się więcej o innych zdarzeniach
+					</Text>
+
+					<Tabs
+						style={{ marginBottom: 25 }}
+						tabs={[ 
+							useTranslated( Translations.Events ),
+							useTranslated( Translations.Other ),
+							useTranslated( Translations.CollegeGraduation )
+						]}
+						onTabChangeCallback={ index => setActiveTab( index )}
+					/>
+
+					<TabContent/>
 					
+					<View style={{ marginTop: 60 }}>
+						<Button 
+							transparent_bg={ true } 
+							onPress={ () => navigation.navigate( Routes.ProfileEdit )}
+						>
+							{ useTranslated( Translations.ReturnToProfileEdit )}
+						</Button>
+					</View>
 
 				</ScrollView>
 			</Container>
 		</MainWithNavigation>
 	)
 }
+
 
 export default ProfileEventsScreen;

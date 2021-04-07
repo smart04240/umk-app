@@ -229,4 +229,39 @@ export default {
 		en: 'Map',
 		pl: 'Mapa',
 	},
+
+	Events: {
+		en: "Events",
+		pl: "Zdarzenia"
+	},
+
+	Other: {
+		en: "Other",
+		pl: "Inne"
+	},
+
+	CollegeGraduation: {
+		en: "College graduation",
+		pl: "Ukończenie studiów"
+	},
+
+	EventsImportedFromUsos: {
+		en: "List of events imported from USOS",
+		pl: "Lista zdarzeń zaimportowanych z USOS"
+	},
+
+	ReturnToProfileEdit: {
+		en: "Return to profile editing",
+		pl: "Powrót do edycji profilu"
+	},
+
+	ListOfEventsAffectLengthStudy: {
+		en: "List of events that affect the length of study",
+		pl: "Lista zdarzeń, które wpływają na długość studiowania"
+	},
+
+	ListOfEventsNotAffectLengthStudy: {
+		en: "List of events that do not affect the length studying",
+		pl: "Lista zdarzeń, które nie wpływają na długość studiowania"
+	}
 };

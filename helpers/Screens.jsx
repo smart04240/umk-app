@@ -101,9 +101,8 @@ const RegisteredScreens = {
 };
 
 export default function Screens() {
-    const user = useSelector(state => state.user);
-	const theme = useSelector( state => state.theme );
 
+    const user = useSelector(state => state.user);
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
@@ -126,7 +125,7 @@ export default function Screens() {
         >
             {props => <screen.component {...props} />}
         </Stack.Screen>
-    )), [user, theme, translate]);
+    )), [user, ThemeStyles, translate]);
 
     return (
         <NavigationContainer>

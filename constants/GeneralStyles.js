@@ -57,5 +57,11 @@ export default {
 		flexDirection: "row", 
 		alignItems: "center", 
 		justifyContent: "space-between" 
+	},
+
+	header_without_tb: {
+		elevation: 5, 
+		borderBottomLeftRadius: 20, 
+		borderBottomRightRadius: 20 
 	}
 }

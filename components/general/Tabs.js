@@ -31,7 +31,7 @@ const Tabs = props => {
 				const text_font = index === active_tab ? GeneralStyles.text_bold : GeneralStyles.text_regular;
 			
 				return (
-					<TouchableOpacity key={ index } onPress={ () => tabClick( index )}>
+					<TouchableOpacity key={ index } style={{ flexShrink: 1 }} onPress={ () => tabClick( index )}>
 						<Text style={[ text_font, { color: text_color, textTransform: "uppercase" } ]}>
 							{ text }
 						</Text>
