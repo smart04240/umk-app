@@ -1,4 +1,3 @@
-
 import {useSelector} from "react-redux";
 import ThemeStyles from "../constants/ThemeStyles";
 import {ucfirst} from "../helpers/functions";

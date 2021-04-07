@@ -48,20 +48,25 @@ export default {
 	},
 
 	row_center_around: {
-		flexDirection: "row", 
-		alignItems: "center", 
-		justifyContent: "space-around" 
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-around"
 	},
-	
+
 	row_center_between: {
-		flexDirection: "row", 
-		alignItems: "center", 
-		justifyContent: "space-between" 
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between"
+	},
+
+	bottom_border_radius: {
+		borderBottomLeftRadius: 20,
+		borderBottomRightRadius: 20,
 	},
 
 	header_without_tb: {
-		elevation: 5, 
-		borderBottomLeftRadius: 20, 
-		borderBottomRightRadius: 20 
+		elevation: 5,
+		borderBottomLeftRadius: 20,
+		borderBottomRightRadius: 20
 	}
 }

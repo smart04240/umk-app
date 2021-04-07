@@ -230,6 +230,11 @@ export default {
 		pl: 'Mapa',
 	},
 
+	Search: {
+		en: 'Search...',
+		pl: 'Szukaj...',
+	},
+
 	Events: {
 		en: "Events",
 		pl: "Zdarzenia"
