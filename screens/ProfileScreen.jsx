@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 
 import ProfileMain from "../components/profile/ProfileMain";
 import Container from "../components/general/Container";
@@ -11,7 +11,7 @@ import ProfileInformation from "../components/profile/ProfileInformation";
 
 export default function ProfileScreen(props) {
 
-	const [ active_tab, setActiveTab ] = useState( 0 );
+	const [ active_tab, setActiveTab ] = useState( null );
 	const TabComponent = useMemo(() => [ ProfileInformation, ProfileStatistics, ProfileBadges ][ active_tab ], [ active_tab ]);
 
     return (
@@ -19,7 +19,7 @@ export default function ProfileScreen(props) {
 			
 			<ProfileMain 
 				active_tab={ active_tab }
-				tabClick= { index => setActiveTab( index )}
+				onTabChangeCallback= { index => setActiveTab( index )}
 			/>
 
 			<Container>
