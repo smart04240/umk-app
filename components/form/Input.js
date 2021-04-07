@@ -1,26 +1,27 @@
 import React from "react";
-import { StyleSheet, TextInput, Text, View } from "react-native";
+import {StyleSheet, Text, View} from "react-native";
+import DebouncedInput from "../general/DebouncedInput";
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
-export default props => {
+export default function Input(props) {
 
-    const ThemeStyles = useThemeStyles();
-	const text_color = { color: ThemeStyles.dark_text };
+	const ThemeStyles = useThemeStyles();
+	const text_color = {color: ThemeStyles.dark_text};
 
 	return (
-		<View style={{ width: "100%", marginBottom: 20 }}>
-			{ props.label && <Text style={[ text_color, GeneralStyles.text_regular, styles.label ]}> { props.label } </Text> }
-			<TextInput
-				style={[ 
+		<View style={{width: "100%"}}>
+			{props.label && <Text style={[text_color, GeneralStyles.text_regular, styles.label]}> {props.label} </Text>}
+			<DebouncedInput
+				{...props}
+				style={[
 					text_color,
-					GeneralStyles.text_regular, 
+					GeneralStyles.text_regular,
 					styles.input,
-					{ borderColor: ThemeStyles.blue_text }, 
-					props.style || {} 
+					{borderColor: ThemeStyles.blue_text},
+					props.style,
 				]}
-				{...props }
 			/>
 		</View>
 	)

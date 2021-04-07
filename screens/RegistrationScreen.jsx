@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslated from "../hooks/useTranslated";
 import GeneralStyles from "../constants/GeneralStyles";
 import Translations from "../constants/Translations";
-import { ucfirst } from "../helpers/functions";
+import {ucfirst} from "../helpers/functions";
 
 import UniversityLogo from "../components/UniversityLogo";
 import Container from "../components/general/Container";
@@ -54,25 +54,26 @@ export default function LoginScreen(props) {
 				<Container>
 					<UniversityLogo/>
 
-					<Text style={[ styles.text, { color: ThemeStyles.dark_text } ]}>
-						{ useTranslated( Translations.RegText1 )}
+					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+						{useTranslated(Translations.RegText1)}
 					</Text>
 
-					<Text style={[ styles.text, { color: ThemeStyles.dark_text } ]}>
-						{ useTranslated( Translations.RegText2 )}
+					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+						{useTranslated(Translations.RegText2)}
 					</Text>
 
-					<Input 
-						label={ useTranslated( Translations.EnterNickname )}
-						placeholder={ useTranslated( Translations.UserName )}
+					<Input
+						style={{marginBottom: 20}}
+						label={useTranslated(Translations.EnterNickname)}
+						placeholder={useTranslated(Translations.UserName)}
 					/>
 
-					<View style={ styles.checkboxes_container }>
-						{ checkboxes.map( checkbox => <Checkbox key={ checkbox.name } {...checkbox } /> )}
+					<View style={styles.checkboxes_container}>
+						{checkboxes.map(checkbox => <Checkbox key={checkbox.name} {...checkbox} />)}
 					</View>
 
 
-					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
+					<Button> {ucfirst(useTranslated(Translations.Register))} </Button>
 
 					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
 						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>

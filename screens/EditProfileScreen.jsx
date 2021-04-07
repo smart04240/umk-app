@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/core";
+import {Text, TouchableOpacity, View} from "react-native";
+import {ScrollView} from "react-native-gesture-handler";
+import {useNavigation} from "@react-navigation/core";
 
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslated from "../hooks/useTranslated";
@@ -13,7 +13,7 @@ import TopBox from "../components/general/TopBox";
 import Container from "../components/general/Container";
 import ProfileAvatar from "../components/profile/ProfileAvatar";
 import Input from "../components/form/Input";
-import { useSelector } from "react-redux";
+import {useSelector} from "react-redux";
 import Button from "../components/form/Button";
 import MainWithNavigation from "../components/general/MainWithNavigation";
 
@@ -41,8 +41,9 @@ export default function EditProfileScreen(props) {
 			<Container>
 				<ScrollView>
 					<Input
-						label={ useTranslated( Translations.ChangeYouNick )}
-						defaultValue={ nick_name }
+						style={{marginBottom: 20}}
+						label={useTranslated(Translations.ChangeYouNick)}
+						defaultValue={nick_name}
 					/>
 
 					<View style={{ marginTop: 50 }}>
