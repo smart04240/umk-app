@@ -45,6 +45,7 @@ const InfoCardsStack = props => {
 							key={ index } 
 							{...card }
 							item_index={ index }
+							active_index={ card_index }
 							total_amount={ cards.length }
 							active={ card_index === index } 
 						/> 
@@ -52,9 +53,9 @@ const InfoCardsStack = props => {
 				}
 			</View>
 
-			<TouchableOpacity onPress={ () => setCardIndex(0)}>
+			{/* <TouchableOpacity onPress={ () => setCardIndex(0)}>
 				<Text> RESET </Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 
 			<View style={ styles.bottom }>
 				
@@ -78,7 +79,7 @@ const InfoCardsStack = props => {
 const styles = StyleSheet.create({
 	bottom: {
 		...GeneralStyles.row_ac, 
-		marginTop: 60, 
+		marginTop: 50, 
 		marginBottom: 10
 	},
 

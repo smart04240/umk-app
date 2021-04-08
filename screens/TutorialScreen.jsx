@@ -25,16 +25,16 @@ const cards = [
 		img_source: require("../assets/images/tutorial/1.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	},
-	// {
-	// 	title: "Card 4",
-	// 	img_source: require("../assets/images/tutorial/2.png"),
-	// 	text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-	// },
-	// {
-	// 	title: "Card 5",
-	// 	img_source: require("../assets/images/tutorial/1.png"),
-	// 	text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-	// }
+	{
+		title: "Card 4",
+		img_source: require("../assets/images/tutorial/2.png"),
+		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+	},
+	{
+		title: "Card 5",
+		img_source: require("../assets/images/tutorial/1.png"),
+		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+	}
 ];
 
 export default function TutorialScreen( props ) {
@@ -60,7 +60,7 @@ export default function TutorialScreen( props ) {
 
 	const toStartScreen = () => navigation.navigate( Routes.Start );
 
-	
+
 	return (
 		<Main>
 			<ScrollView>
@@ -69,7 +69,7 @@ export default function TutorialScreen( props ) {
 					<InfoCardsStack 
 						cards={ cards }
 						onSkipPress={ toStartScreen  }
-						onFinishPress={ toStartScreen }
+						onFinishPress={ () => null }
 					/>
 
 				</Container>
