@@ -1,29 +1,91 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
 import Layout from '../../constants/Layout';
+import Translations from '../../constants/Translations';
+import GeneralStyles from '../../constants/GeneralStyles';
+import Colors from '../../constants/Colors';
+import useTranslated from '../../hooks/useTranslated';
 
 import InfoCard from './InfoCard';
 
+
 const InfoCardsStack = props => {
 
-	const { cards } = props;
+	const { cards, onSkipPress, onFinishPress } = props;
+	const [ card_index, setCardIndex ] = useState( 0 );
+
+	const bottom_buttons = [
+		{
+			label: useTranslated( Translations.SkipIt ),
+			onPress: onSkipPress,
+			style: [
+				styles.bottom_button,
+				{ color: Colors.BlueRgba(0.5) }
+			]
+		},
+		{
+			label: useTranslated( Translations.Next ),
+			onPress: card_index + 1 !== cards.length 
+				? () => setCardIndex( card_index + 1 )
+				: onFinishPress,
+			style: [ 
+				styles.bottom_button,
+				{ color: Colors.Blue } 
+			]
+		}
+	];
 
 	return (
-		<View style={{ width: "100%", minHeight: Layout.height * 0.7 }}>
-			{ !!cards && !!cards.length && 
-				cards.map(( card, index ) => 
-					<InfoCard 
-						key={ index } 
-						{...card }
-						item_index={ index }
-						total_amount={ cards.length }
-						active={ props.active_index === index } 
-					/> 
-				)
-			}
+		<View style={{ width: "100%" }}>
+			<View style={{ width: "100%", minHeight: Layout.height * 0.7 }}>
+				{ !!cards && !!cards.length && 
+					cards.map(( card, index ) => 
+						<InfoCard 
+							key={ index } 
+							{...card }
+							item_index={ index }
+							total_amount={ cards.length }
+							active={ card_index === index } 
+						/> 
+					)
+				}
+			</View>
+
+			<TouchableOpacity onPress={ () => setCardIndex(0)}>
+				<Text> RESET </Text>
+			</TouchableOpacity>
+
+			<View style={ styles.bottom }>
+				
+				{ bottom_buttons.map(( button, index ) => (
+					<TouchableOpacity 
+						key={ index }
+						style={ index === 1 ? { marginLeft: "auto" } : null }
+						onPress={ button.onPress }
+					>
+						<Text style={ button.style }> 
+							{ button.label }
+						</Text>
+					</TouchableOpacity>
+				) )}
+
+			</View>
 		</View>
 	)
 }
 
+const styles = StyleSheet.create({
+	bottom: {
+		...GeneralStyles.row_ac, 
+		marginTop: 60, 
+		marginBottom: 10
+	},
+
+	bottom_button: {
+		...GeneralStyles.text_regular,
+		textDecorationLine: "underline"
+	}
+})
 
 export default InfoCardsStack;

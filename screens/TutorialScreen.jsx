@@ -1,12 +1,8 @@
-import React, { useState, useLayoutEffect } from "react";
-import { Text, TouchableOpacity, View, ScrollView, StyleSheet } from "react-native"; 
+import React from "react";
+import { ScrollView } from "react-native"; 
 
-import useTranslated from "../hooks/useTranslated";
 import useThemeStyles from "../hooks/useThemeStyles";
-import GeneralStyles from "../constants/GeneralStyles";
-import Colors from "../constants/Colors";
 import Fonts from "../constants/Fonts";
-import Translations from "../constants/Translations";
 import Routes from "../constants/Routes";
 
 import Container from "../components/general/Container";
@@ -45,9 +41,8 @@ export default function TutorialScreen( props ) {
 
 	const { navigation } = props;
 	const ThemeStyles = useThemeStyles();
-	const [ card_index, setCardIndex ] = useState( 0 );
 
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
         props.navigation.setOptions({ 
 			headerLeft: () => null,
 			headerRight: () => null,
@@ -63,68 +58,23 @@ export default function TutorialScreen( props ) {
 	}, [ navigation, ThemeStyles ]);
 
 
-	const bottom_buttons = [
-		{
-			label: useTranslated( Translations.SkipIt ),
-			onPress: () => navigation.navigate( Routes.Start ),
-			style: [
-				styles.bottom_button,
-				{ color: Colors.BlueRgba(0.5) }
-			]
-		},
-		{
-			label: useTranslated( Translations.Next ),
-			onPress: card_index + 1 !== cards.length 
-				? () => setCardIndex( card_index + 1 )
-				: () => navigation.navigate( Routes.Start ),
-			style: [ 
-				styles.bottom_button,
-				{ color: Colors.Blue } 
-			]
-		}
-	];
+	const toStartScreen = () => navigation.navigate( Routes.Start );
 
-
+	
 	return (
 		<Main>
 			<ScrollView>
 				<Container>
 
-					<InfoCardsStack
-						cards={ cards } 
-						active_index={ card_index }
+					<InfoCardsStack 
+						cards={ cards }
+						onSkipPress={ toStartScreen  }
+						onFinishPress={ toStartScreen }
 					/>
 
-					<View style={ styles.bottom }>
-						
-						{ bottom_buttons.map(( button, index ) => (
-							<TouchableOpacity 
-								key={ index }
-								style={ index === 1 ? { marginLeft: "auto" } : null }
-								onPress={ button.onPress }
-							>
-								<Text style={ button.style }> 
-									{ button.label }
-								</Text>
-							</TouchableOpacity>
-						) )}
-
-					</View>
 				</Container>
 			</ScrollView>
 		</Main>
 	)
 }
 
-const styles = StyleSheet.create({
-	bottom: {
-		...GeneralStyles.row_ac, 
-		marginTop: 60, 
-		marginBottom: 10
-	},
-
-	bottom_button: {
-		...GeneralStyles.text_regular,
-		textDecorationLine: "underline"
-	}
-})
