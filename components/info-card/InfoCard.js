@@ -56,10 +56,10 @@ const InfoCard = props => {
 	const CARD_TYPE = IS_FIRST_CARD ? "FIRST" : IS_LAST_CARD ? "LAST" : "MEDIUM";
 	const [ left0, left1, left2, left3 ] = CARDS_X[ CARD_TYPE ];	
 
-	const animatedValue = useRef( new Animated.Value(0)).current;
+	const animated_value = useRef( new Animated.Value(0)).current;
 
 	const handleAnimation = value => {
-        Animated.timing( animatedValue, {
+        Animated.timing( animated_value, {
             toValue: value,
             duration: 500,
 			useNativeDriver: true,
@@ -90,25 +90,25 @@ const InfoCard = props => {
 			{ 
 				backgroundColor: ThemeStyles.box_bg,
 
-				zIndex: animatedValue.interpolate({
+				zIndex: animated_value.interpolate({
 					inputRange: [ 0, 1, 2, 3, 4 ],
 					outputRange: [ 7, 8, 9, 8, 0 ],
 				}),
 
-				elevation: animatedValue.interpolate({
+				elevation: animated_value.interpolate({
 					inputRange: [ 0, 1, 2, 3, 4 ],
 					outputRange: [ 2, 3, 4, 3, 0 ]
 				}),
 
 			 	transform: [
 					{
-						translateX: animatedValue.interpolate({
+						translateX: animated_value.interpolate({
 							inputRange: [ 0, 1, 2, 3, 4 ],
 							outputRange: [ left0, left1, left2, left3, 0 ]
 						})
 					},
 					{
-						scale: animatedValue.interpolate({
+						scale: animated_value.interpolate({
 							inputRange: [ 0, 1, 2, 3, 4 ],
 							outputRange: [ SMALL_SCALE, MEDIUM_SCALE, 1, MEDIUM_SCALE, 0 ]	
 						}),
@@ -150,7 +150,8 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		justifyContent: "center",
 		width: CARD_WIDTH,
-		minHeight: Layout.height * 0.7,
+		height: Layout.height * 0.65,
+		maxHeight: 505,
 		paddingHorizontal: 25,
 		paddingBottom: 30,
 		paddingTop: 30

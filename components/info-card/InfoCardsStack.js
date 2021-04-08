@@ -8,6 +8,7 @@ import Colors from '../../constants/Colors';
 import useTranslated from '../../hooks/useTranslated';
 
 import InfoCard from './InfoCard';
+import InfoCardsStackDots from './InfoCardsStackDots';
 
 
 const InfoCardsStack = props => {
@@ -38,7 +39,7 @@ const InfoCardsStack = props => {
 
 	return (
 		<View style={{ width: "100%" }}>
-			<View style={{ width: "100%", minHeight: Layout.height * 0.7 }}>
+			<View style={ styles.stack }>
 				{ !!cards && !!cards.length && 
 					cards.map(( card, index ) => 
 						<InfoCard 
@@ -53,9 +54,10 @@ const InfoCardsStack = props => {
 				}
 			</View>
 
-			{/* <TouchableOpacity onPress={ () => setCardIndex(0)}>
-				<Text> RESET </Text>
-			</TouchableOpacity> */}
+			<InfoCardsStackDots 
+				total_amount={ cards.length } 
+				active_index={ card_index } 
+			/>
 
 			<View style={ styles.bottom }>
 				
@@ -77,6 +79,7 @@ const InfoCardsStack = props => {
 }
 
 const styles = StyleSheet.create({
+	stack: { width: "100%", height: Layout.height * 0.65 },
 	bottom: {
 		...GeneralStyles.row_ac, 
 		marginTop: 50, 

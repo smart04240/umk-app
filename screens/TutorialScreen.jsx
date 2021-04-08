@@ -60,7 +60,6 @@ export default function TutorialScreen( props ) {
 
 	const toStartScreen = () => navigation.navigate( Routes.Start );
 
-
 	return (
 		<Main>
 			<ScrollView>
@@ -69,7 +68,7 @@ export default function TutorialScreen( props ) {
 					<InfoCardsStack 
 						cards={ cards }
 						onSkipPress={ toStartScreen  }
-						onFinishPress={ () => null }
+						onFinishPress={ toStartScreen }
 					/>
 
 				</Container>
