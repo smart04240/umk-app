@@ -318,5 +318,10 @@ export default {
 	FilterSelectDirection: {
 		en: "Filter - select the direction",
 		pl: "Filtruj - wybierz kierunek"
+	},
+
+	FilterSelectTasksStatus: {
+		en: "Filter - select the status of tasks",
+		pl: "Filtruj - wybierz status zadań"
 	}
 };

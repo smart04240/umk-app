@@ -41,7 +41,10 @@ const Dropdown = props => {
 	}
 
 	return (
-		<View style={[ { marginBottom: 8 }, props.container_style || {} ]}>
+		<View style={[ 
+			{ marginBottom: 8 }, 
+			props.container_style || {} 
+		]}>
 			
 			{ label && 
 				<Text style={[
@@ -56,7 +59,7 @@ const Dropdown = props => {
 				styles.box, 
 				open ? styles.box_open : {}, 
 				{ borderColor: ThemeStyles.blue_text },
-				props.box_styles || {} 
+				props.box_style || {} 
 			]}>
 
 				<TouchableWithoutFeedback onPress={ () => setOpen( !open )}>

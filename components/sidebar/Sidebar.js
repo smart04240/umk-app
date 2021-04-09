@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
 		paddingVertical: 24,
 		borderTopLeftRadius: 20,
 		borderBottomLeftRadius: 20,
-		zIndex: 99,
-  		elevation: 99, 
+		zIndex: 100,
+  		elevation: 100, 
 	}
 })
 

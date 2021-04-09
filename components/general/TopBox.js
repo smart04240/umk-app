@@ -17,7 +17,7 @@ const TopBox = props => {
 const styles = StyleSheet.create({
 	box: { 
 		paddingHorizontal: Layout.paddingHorizontal,
-		paddingVertical: 25,
+		paddingVertical: 15,
 		elevation: 10,
 		zIndex: 10,
 		borderBottomLeftRadius: 20,

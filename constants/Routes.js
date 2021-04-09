@@ -14,5 +14,9 @@ export default {
 
 	Map: "map",
 
-	Rankings: "rankings"
+	Rankings: "rankings",
+
+	Tasks: "tasks.list",
+	TaskSingle: "tasks.single",
+	TaskEdit: "tasks.edit_task"
 }

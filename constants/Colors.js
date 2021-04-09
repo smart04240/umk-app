@@ -1,33 +1,49 @@
+
+const getRgbaFunc = ( r, g, b ) => {
+	return o => `rgba( ${r}, ${g}, ${b}, ${o})`;
+}
+
+
 export default {
 	White: "#ffffff",
-	WhiteRgba: ( o = "1" ) => `rgba( 255, 255, 255, ${o})`,
+	WhiteRgba: getRgbaFunc( 255, 255, 255 ),
 	
 	AliceBlue: "#FBFCFE",
 	
 	Blue: "#034EA2",
-	BlueRgba: ( o = "1") => `rgba( 3, 78, 162, ${o})`,
+	BlueRgba: getRgbaFunc( 3, 78, 162 ),
+
+	DeepSkyBlue: "#00AEEF",
+	DeepSkyBluRgba: getRgbaFunc( 0, 174, 239 ),
 	
 	Red: "#D82D2D",
-	RedRgba: ( o = "1" ) => `rgba( 237, 29, 36, ${o})`,
+	RedRgba: getRgbaFunc( 237, 29, 36 ),
+
+	Yellow: "#FFCB05",
+	YellowRgba: getRgbaFunc( 255, 203, 5 ),
 	
 	Orange: "#FFD537",
-	OrangeRgba: ( o = "1" ) => `rgba( 255, 213, 55, ${o})`, 
+	OrangeRgba: getRgbaFunc( 255, 213, 55 ), 
+
+	CarrotOrange: "#F58220",
+	CarrotOrangeRgba: getRgbaFunc( 245, 130, 32 ),
 
 	PrussianBlue: "#002753",
-	PrussianBlueRgba: ( o = "1" ) => `rgba( 0, 39, 83, ${o})`,
+	PrussianBlueRgba: getRgbaFunc( 0, 39, 83 ),
 
 	PayneGrey: "#404041",
-	PayneGrayRgba: ( o = "1" ) => `rgba( 64, 64, 65, ${o})`, 
+	PayneGrayRgba: getRgbaFunc( 64, 64, 65 ), 
 
 	Red: "#ED1D24",
-	RedRgba: ( o = "1" ) => `rgba( 237, 29, 36, ${o})`,
+	RedRgba: getRgbaFunc( 237, 29, 36 ),
 
 	Green: "#00A651",
-	GreenRgba: ( o = "1" ) => `rgba( 0, 166, 81, ${o})`,
+	GreenRgba: getRgbaFunc( 0, 166, 81 ),
 
 	Purple: "#A3238F",
-	PurpleRgba: ( o = "1" ) => `rgba( 163, 35, 143, ${o})`,
+	PurpleRgba: getRgbaFunc( 163, 35, 143 ),
 
 	Bunker: "#2C2E30",
-	BunkerRgba: ( o = "1" ) => `rgba( 44, 46, 48, ${o})`
+	BunkerRgba: getRgbaFunc( 44, 46, 48 )
 };
+

@@ -33,7 +33,7 @@ export default [
 	{ 
 		label: Translations.ToDoList, 
 		icon: "format-list-bulleted-type",
-		screen: ""
+		screen: Routes.Tasks
 	},
 	{ 
 		label: Translations.Calendar, 

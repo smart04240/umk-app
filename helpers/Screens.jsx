@@ -30,6 +30,11 @@ import ProfileBadgesScreen from "../screens/profile/ProfileBadgesScreen";
 // RANKINGS
 import RankingsScreen from "../screens/rankings/RankingsScreen";
 
+// TASKS
+import TasksListScreen from "../screens/tasks/TasksListScreen";
+import TaskSingleScreen from "../screens/tasks/TaskSingleScreen";
+import TaskEditScreen from "../screens/tasks/TaskEditScreen";
+
 // MAP
 import MapScreen from "../screens/map/MapScreen";
 
@@ -85,11 +90,11 @@ const RegisteredScreens = {
         },
     ],
     LoggedIn: [
-		{
-			name: Routes.Tutorial,
-			title: Translations.Tutorial,
-			component: TutorialScreen
-		},
+		// {
+		// 	name: Routes.Tutorial,
+		// 	title: Translations.Tutorial,
+		// 	component: TutorialScreen
+		// },
 		{
 			name: Routes.Start,
 			title: "UMK Toruń",
@@ -125,6 +130,21 @@ const RegisteredScreens = {
 			title: Translations.Rankings,
 			component: RankingsScreen
 		},
+		{
+			name: Routes.Tasks,
+			title: Translations.ToDoList,
+			component: TasksListScreen
+		},
+		{
+			name: Routes.TaskSingle,
+			title: Translations.ToDoList,
+			component: TaskSingleScreen
+		},
+		{
+			name: Routes.TaskEdit,
+			title: Translations.ToDoList,
+			component: TaskEditScreen
+		},
         {
             name: Routes.Map,
             title: Translations.Map,
@@ -139,8 +159,8 @@ export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    // const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }
