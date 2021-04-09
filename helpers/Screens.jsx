@@ -20,6 +20,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import BadgeScreen from "../screens/BadgeScreen";
 import ProfileEventsScreen from "../screens/ProfileEventsScreen";
+import ProfileBadgesScreen from "../screens/ProfileBadgesScreen";
+
 import MapScreen from "../screens/MapScreen";
 
 const ScreenOptions = {
@@ -94,6 +96,11 @@ const RegisteredScreens = {
             title: Translations.EditProfile,
             component: EditProfileScreen,
         },
+		{
+			name: Routes.ProfileBadges,
+			title: Translations.Badges,
+			component: ProfileBadgesScreen
+		},
         {
             name: Routes.ProfileBadge,
             title: Translations.Badge,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/core';
 import { View, Text } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -11,6 +12,7 @@ import Range from '../form/Range';
 const ProfileStatistics = props => {
 
 	const ThemeStyles = useThemeStyles();
+	const navigation = useNavigation();
 
 	const statistics = [
 		{
@@ -71,7 +73,7 @@ const ProfileStatistics = props => {
 							<View key={ index }> 
 								<Range {...range } />
 								{ range?.link && 
-									<TouchableOpacity style={{ top: -10 }}>
+									<TouchableOpacity style={{ top: -10 }} onPress={ () => navigation.navigate( range.link.screen )}>
 										<Text style={[ GeneralStyles.text_bold, { color: ThemeStyles.blue_text, textAlign: "right" } ]}>
 											{ range.link.label }
 										</Text>
