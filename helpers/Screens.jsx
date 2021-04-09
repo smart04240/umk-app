@@ -12,17 +12,23 @@ import Translations from "../constants/Translations";
 
 import HeaderRight from "../components/header/HeaderRight";
 
-import StartScreen from "../screens/StartScreen";
-import TutorialScreen from "../screens/TutorialScreen";
-import LoginScreen from "../screens/LoginScreen";
-import RegistrationScreen from "../screens/RegistrationScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import EditProfileScreen from "../screens/EditProfileScreen";
-import BadgeScreen from "../screens/BadgeScreen";
-import ProfileEventsScreen from "../screens/ProfileEventsScreen";
-import ProfileBadgesScreen from "../screens/ProfileBadgesScreen";
+// UNLOGGED
+import LoginScreen from "../screens/unlogged/LoginScreen";
+import RegistrationScreen from "../screens/unlogged/RegistrationScreen";
 
-import MapScreen from "../screens/MapScreen";
+// START
+import StartScreen from "../screens/start/StartScreen";
+import TutorialScreen from "../screens/start/TutorialScreen";
+
+// PROFILE
+import ProfileScreen from "../screens/profile/ProfileScreen";
+import EditProfileScreen from "../screens/profile/EditProfileScreen";
+import ProfileBadgeScreen from "../screens/profile/ProfileBadgeScreen";
+import ProfileEventsScreen from "../screens/profile/ProfileEventsScreen";
+import ProfileBadgesScreen from "../screens/profile/ProfileBadgesScreen";
+
+// MAP
+import MapScreen from "../screens/map/MapScreen";
 
 const ScreenOptions = {
     gestureDirection: 'horizontal',
@@ -104,7 +110,7 @@ const RegisteredScreens = {
         {
             name: Routes.ProfileBadge,
             title: Translations.Badge,
-            component: BadgeScreen,
+            component: ProfileBadgeScreen,
         },
         {
             name: Routes.ProfileEvents,

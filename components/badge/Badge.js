@@ -17,7 +17,7 @@ const Badge = props => {
 	if ( !id || !name ) return null;
 
 	return (
-		<TouchableWithoutFeedback onPress={ () => !not_active ? navigation.navigate( Routes.ProfileBadge, { id }) : null }>
+		<TouchableWithoutFeedback onPress={ () => navigation.navigate( Routes.ProfileBadge, { id }) }>
 			<View style={{ marginBottom: 35, opacity: not_active ? 0.35 : 1 }}>
 
 				<BadgeCircle/>

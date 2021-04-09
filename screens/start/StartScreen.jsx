@@ -2,15 +2,15 @@ import React from "react";
 import { Text, TouchableOpacity, View, ScrollView, StyleSheet } from "react-native";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'; 
 
-import useTranslated from "../hooks/useTranslated";
-import useThemeStyles from "../hooks/useThemeStyles";
-import GeneralStyles from "../constants/GeneralStyles";
-import Colors from "../constants/Colors";
-import Fonts from "../constants/Fonts";
+import useTranslated from "../../hooks/useTranslated";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import GeneralStyles from "../../constants/GeneralStyles";
+import Colors from "../../constants/Colors";
+import Fonts from "../../constants/Fonts";
 
-import Container from "../components/general/Container";
-import Main from "../components/general/Main";
-import Menu from "../constants/Menu";
+import Container from "../../components/general/Container";
+import Main from "../../components/general/Main";
+import Menu from "../../constants/Menu";
 
 export default function StartScreen(props) {
 

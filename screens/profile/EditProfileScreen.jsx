@@ -1,21 +1,22 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
-import {ScrollView} from "react-native-gesture-handler";
-import {useNavigation} from "@react-navigation/core";
+import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
 
-import useThemeStyles from "../hooks/useThemeStyles";
-import useTranslated from "../hooks/useTranslated";
-import GeneralStyles from "../constants/GeneralStyles";
-import Translations from "../constants/Translations";
-import Routes from "../constants/Routes";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslated from "../../hooks/useTranslated";
+import GeneralStyles from "../../constants/GeneralStyles";
+import Translations from "../../constants/Translations";
+import Routes from "../../constants/Routes";
 
-import TopBox from "../components/general/TopBox";
-import Container from "../components/general/Container";
-import ProfileAvatar from "../components/profile/ProfileAvatar";
-import Input from "../components/form/Input";
-import {useSelector} from "react-redux";
-import Button from "../components/form/Button";
-import MainWithNavigation from "../components/general/MainWithNavigation";
+import TopBox from "../../components/general/TopBox";
+import Container from "../../components/general/Container";
+import ProfileAvatar from "../../components/profile/ProfileAvatar";
+import Input from "../../components/form/Input";
+
+import Button from "../../components/form/Button";
+import MainWithNavigation from "../../components/general/MainWithNavigation";
 
 export default function EditProfileScreen(props) {
 

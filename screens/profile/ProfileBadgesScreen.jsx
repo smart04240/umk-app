@@ -2,14 +2,12 @@ import React, { useLayoutEffect } from "react";
 import { View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 
-import GeneralStyles from "../constants/GeneralStyles";
+import GeneralStyles from "../../constants/GeneralStyles";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
-import useThemeStyles from "../hooks/useThemeStyles";
-
-import Container from "../components/general/Container";
-import MainWithNavigation from "../components/general/MainWithNavigation";
-
-import Badge from "../components/badge/Badge";
+import Container from "../../components/general/Container";
+import MainWithNavigation from "../../components/general/MainWithNavigation";
+import Badge from "../../components/badge/Badge";
 
 export default function ProfileBadges(props) {	
 

@@ -1,17 +1,17 @@
 import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 
-import useTranslated from "../hooks/useTranslated";
-import useThemeStyles from "../hooks/useThemeStyles";
-import GeneralStyles from "../constants/GeneralStyles";
-import Colors from "../constants/Colors";
+import useTranslated from "../../hooks/useTranslated";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import GeneralStyles from "../../constants/GeneralStyles";
+import Colors from "../../constants/Colors";
 
-import UniversityLogo from "../components/UniversityLogo";
-import LocaleSwitcherBox from "../components/locale/LocaleSwitcherBox";
-import Container from "../components/general/Container";
-import Translations from "../constants/Translations";
-import Main from "../components/general/Main";
-import Routes from "../constants/Routes";
+import UniversityLogo from "../../components/UniversityLogo";
+import LocaleSwitcherBox from "../../components/locale/LocaleSwitcherBox";
+import Container from "../../components/general/Container";
+import Translations from "../../constants/Translations";
+import Main from "../../components/general/Main";
+import Routes from "../../constants/Routes";
 
 export default function LoginScreen(props) {
 

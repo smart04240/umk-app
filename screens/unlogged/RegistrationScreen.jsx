@@ -1,19 +1,19 @@
 import React from "react";
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
-import useThemeStyles from "../hooks/useThemeStyles";
-import useTranslated from "../hooks/useTranslated";
-import GeneralStyles from "../constants/GeneralStyles";
-import Translations from "../constants/Translations";
-import {ucfirst} from "../helpers/functions";
+import { ucfirst } from "../../helpers/functions";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslated from "../../hooks/useTranslated";
+import GeneralStyles from "../../constants/GeneralStyles";
+import Translations from "../../constants/Translations";
 
-import UniversityLogo from "../components/UniversityLogo";
-import Container from "../components/general/Container";
-import Input from "../components/form/Input";
-import Checkbox from "../components/form/Checkbox";
-import Button from "../components/form/Button";
-import Main from "../components/general/Main";
-import Routes from "../constants/Routes";
+import UniversityLogo from "../../components/UniversityLogo";
+import Container from "../../components/general/Container";
+import Input from "../../components/form/Input";
+import Checkbox from "../../components/form/Checkbox";
+import Button from "../../components/form/Button";
+import Main from "../../components/general/Main";
+import Routes from "../../constants/Routes";
 
 
 export default function LoginScreen(props) {

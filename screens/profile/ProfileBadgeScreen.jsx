@@ -1,19 +1,19 @@
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 
-import GeneralStyles from "../constants/GeneralStyles";
-import Translations from "../constants/Translations";
-import Layout from "../constants/Layout";
-import useThemeStyles from "../hooks/useThemeStyles";
-import useTranslated from "../hooks/useTranslated";
+import GeneralStyles from "../../constants/GeneralStyles";
+import Translations from "../../constants/Translations";
+import Layout from "../../constants/Layout";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslated from "../../hooks/useTranslated";
 
-import BadgeCircle from "../components/badge/BadgeCircle";
-import BadgeMainInfo from "../components/badge/BadgeMainInfo";
-import Container from "../components/general/Container";
-import MainWithNavigation from "../components/general/MainWithNavigation";
-import TopBox from "../components/general/TopBox";
-import Button from "../components/form/Button";
-import Checkbox from "../components/form/Checkbox";
+import BadgeCircle from "../../components/badge/BadgeCircle";
+import BadgeMainInfo from "../../components/badge/BadgeMainInfo";
+import Container from "../../components/general/Container";
+import MainWithNavigation from "../../components/general/MainWithNavigation";
+import TopBox from "../../components/general/TopBox";
+import Button from "../../components/form/Button";
+import Checkbox from "../../components/form/Checkbox";
 
 
 export default function BadgeScreen(props) {	

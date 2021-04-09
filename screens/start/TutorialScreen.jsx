@@ -1,38 +1,38 @@
 import React from "react";
 import { ScrollView } from "react-native"; 
 
-import useThemeStyles from "../hooks/useThemeStyles";
-import Fonts from "../constants/Fonts";
-import Routes from "../constants/Routes";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import Fonts from "../../constants/Fonts";
+import Routes from "../../constants/Routes";
 
-import Container from "../components/general/Container";
-import Main from "../components/general/Main";
-import InfoCardsStack from "../components/info-card/InfoCardsStack";
+import Container from "../../components/general/Container";
+import Main from "../../components/general/Main";
+import InfoCardsStack from "../../components/info-card/InfoCardsStack";
 
 const cards = [
 	{
 		title: "Witaj!",
-		img_source: require("../assets/images/tutorial/1.png"),
+		img_source: require("../../assets/images/tutorial/1.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	},
 	{
 		title: "Zbieraj odznaki!",
-		img_source: require("../assets/images/tutorial/2.png"),
+		img_source: require("../../assets/images/tutorial/2.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	},
 	{
 		title: "Card 3",
-		img_source: require("../assets/images/tutorial/1.png"),
+		img_source: require("../../assets/images/tutorial/1.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	},
 	{
 		title: "Card 4",
-		img_source: require("../assets/images/tutorial/2.png"),
+		img_source: require("../../assets/images/tutorial/2.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	},
 	{
 		title: "Card 5",
-		img_source: require("../assets/images/tutorial/1.png"),
+		img_source: require("../../assets/images/tutorial/1.png"),
 		text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 	}
 ];

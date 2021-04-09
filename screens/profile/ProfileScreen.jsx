@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { ScrollView } from "react-native";
 
-import ProfileMain from "../components/profile/ProfileMain";
-import Container from "../components/general/Container";
-import MainWithNavigation from "../components/general/MainWithNavigation";
+import ProfileMain from "../../components/profile/ProfileMain";
+import Container from "../../components/general/Container";
+import MainWithNavigation from "../../components/general/MainWithNavigation";
 
-import ProfileStatistics from "../components/profile/ProfileStatistics";
-import ProfileBadges from "../components/profile/ProfileBadges";
-import ProfileInformation from "../components/profile/ProfileInformation";
+import ProfileStatistics from "../../components/profile/ProfileStatistics";
+import ProfileBadges from "../../components/profile/ProfileBadges";
+import ProfileInformation from "../../components/profile/ProfileInformation";
 
 export default function ProfileScreen(props) {
 
