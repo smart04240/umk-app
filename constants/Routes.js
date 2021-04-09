@@ -13,4 +13,6 @@ export default {
 	ProfileEvents: "profile.events",
 
 	Map: "map",
+
+	Rankings: "rankings"
 }

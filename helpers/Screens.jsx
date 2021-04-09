@@ -27,6 +27,9 @@ import ProfileBadgeScreen from "../screens/profile/ProfileBadgeScreen";
 import ProfileEventsScreen from "../screens/profile/ProfileEventsScreen";
 import ProfileBadgesScreen from "../screens/profile/ProfileBadgesScreen";
 
+// RANKINGS
+import RankingsScreen from "../screens/rankings/RankingsScreen";
+
 // MAP
 import MapScreen from "../screens/map/MapScreen";
 
@@ -117,6 +120,11 @@ const RegisteredScreens = {
             title: Translations.YourEvents,
             component: ProfileEventsScreen,
         },
+		{
+			name: Routes.Rankings,
+			title: Translations.Rankings,
+			component: RankingsScreen
+		},
         {
             name: Routes.Map,
             title: Translations.Map,

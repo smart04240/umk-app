@@ -9,7 +9,8 @@ export default {
 		main_bg: Colors.AliceBlue,
 		box_bg: Colors.White,
 		icon_color: Colors.Blue,
-		blue_rgba: o => Colors.BlueRgba(o)
+		blue_rgba: o => Colors.BlueRgba(o),
+		dark_blue_rgba: o => Colors.PrussianBlueRgba(o)
 	},
 
 	Dark: {
@@ -19,6 +20,7 @@ export default {
 		main_bg: Colors.Bunker,
 		box_bg: Colors.PayneGrey,
 		icon_color: Colors.White,
-		blue_rgba: o => Colors.WhiteRgba(o)
+		blue_rgba: o => Colors.WhiteRgba(o),
+		dark_blue_rgba: o => Colors.WhiteRgba(o)
 	}
 };

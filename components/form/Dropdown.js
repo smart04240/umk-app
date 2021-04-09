@@ -14,7 +14,7 @@ const Dropdown = props => {
 
 	const ThemeStyles = useThemeStyles();
 
-	const { init_value, name, options, onChange } = props;
+	const { init_value, label, name, options, onChange } = props;
 	const placeholder = props.placeholder || useTranslated( Translations.ChooseOneOption );
 
 	const [ value, setValue ] = useState( init_value || null ); 
@@ -42,7 +42,16 @@ const Dropdown = props => {
 
 	return (
 		<View style={[ { marginBottom: 8 }, props.container_style || {} ]}>
-
+			
+			{ label && 
+				<Text style={[
+					GeneralStyles.text_regular,
+					{ color: ThemeStyles.dark_text, marginBottom: 8 }
+				]}>
+					{ label }
+				</Text>
+			}
+			
 			<View style={[ 
 				styles.box, 
 				open ? styles.box_open : {}, 
@@ -131,6 +140,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 		backgroundColor: "#fff",
 		zIndex: 10,
+		elevation: 1,
 		borderWidth: 1,
 		borderTopWidth: 0.4,
 		borderBottomLeftRadius: 7,

@@ -288,5 +288,35 @@ export default {
 	Next: {
 		en: "Next",
 		pl: "Dalej"
+	},
+
+	ChooseARanking: {
+		en: "Choose a ranking",
+		pl: "Wybierz ranking"
+	},
+
+	Annual: {
+		en: "Annual",
+		pl: "Rocznikowy"
+	},
+
+	Faculty: {
+		en: "Faculty",
+		pl: "Wydziałowy"
+	},
+
+	Num__Points: {
+		en: "points",
+		pl: "punktów"
+	},
+
+	Num__Badges: {
+		en: "badges",
+		pl: "odznak"
+	},
+
+	FilterSelectDirection: {
+		en: "Filter - select the direction",
+		pl: "Filtruj - wybierz kierunek"
 	}
 };

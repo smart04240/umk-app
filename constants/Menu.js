@@ -21,7 +21,7 @@ export default [
 		icon: "medal-outline",
 		icon_active: "medal",
 		bottom: true,
-		screen: "" 
+		screen: Routes.Rankings
 	},
 	{ 
 		label: Translations.Simulations,
