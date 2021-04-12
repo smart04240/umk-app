@@ -90,11 +90,11 @@ const RegisteredScreens = {
         },
     ],
     LoggedIn: [
-		// {
-		// 	name: Routes.Tutorial,
-		// 	title: Translations.Tutorial,
-		// 	component: TutorialScreen
-		// },
+		{
+			name: Routes.Tutorial,
+			title: Translations.Tutorial,
+			component: TutorialScreen
+		},
 		{
 			name: Routes.Start,
 			title: "UMK Toruń",
@@ -159,8 +159,8 @@ export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    // const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }

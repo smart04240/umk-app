@@ -42,29 +42,36 @@ export default function TasksListScreen( props ) {
 		});
 	}
 
+	const filter_options = [
+		{ value: "*", label: useTranslated( Translations.All )},
+		{ value: "completed", label: useTranslated( Translations.Completed )},
+		{ value: "not_completed", label: useTranslated( Translations.NotCompleted )}
+	]
+
 	return (
 		<MainWithNavigation>
 			<TopBox>
 			
 				<Dropdown
+					init_value="*"
 					label={ useTranslated( Translations.FilterSelectTasksStatus )}
 					container_style={{ marginBottom: 0 }}
-					options={[
-						{ value: "*", label: "Wszystkie" },
-						{ value: 1, label: "Option 1" },
-					]}
+					options={ filter_options }
 				/>
+
 			</TopBox>
 
 			<Container>
 				<AddTaskButton />
 				<ScrollView>
 
-					{/* <SortBy/> */}
+					<SortBy/>
 
-					{ tasks && !!tasks.length && 
-						tasks.map( task => <TaskListItem key={ task.id } {...task }/> )
-					}
+					<View style={{ flex: 1, zIndex: 1 }}>
+						{ tasks && !!tasks.length && 
+							tasks.map( task => <TaskListItem key={ task.id } {...task }/> )
+						}
+					</View>
 
 				</ScrollView>
 			</Container>

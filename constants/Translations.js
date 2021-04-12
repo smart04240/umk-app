@@ -323,5 +323,40 @@ export default {
 	FilterSelectTasksStatus: {
 		en: "Filter - select the status of tasks",
 		pl: "Filtruj - wybierz status zadań"
+	},
+
+	DateAsc: {
+		en: "Date ascending",
+		pl: "Data rosnąco"
+	},
+
+	DateDesc: {
+		en: "Date descending",
+		pl: "Data malejąco"
+	},
+
+	NameAZ: {
+		en: "Name A-Z",
+		pl: "Nazwa A-Z"
+	},
+
+	NameZA: {
+		en: "Name Z-A",
+		pl: "Nazwa Z-A"
+	},
+
+	All: {
+		en: "All",
+		pl: "Wszystkie"
+	},
+
+	Completed: {
+		en: "Completed",
+		pl: "Wykonane"
+	},
+
+	NotCompleted: {
+		en: "Not completed",
+		pl: "Niewykonane"
 	}
 };

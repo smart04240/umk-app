@@ -24,7 +24,7 @@ const Dropdown = props => {
 		options && !!options.length && !!value
 			? options.find( item => item.value === value )?.label || placeholder
 			: placeholder
-	), [ value ]);
+	), [ value, options ]);
 
 	const icon_name = useMemo(() => open ? "angle-up" : "angle-down", [ open ]);
 
@@ -39,6 +39,7 @@ const Dropdown = props => {
 		setValue( value );
 		setOpen( false );
 	}
+
 
 	return (
 		<View style={[ 
@@ -63,12 +64,13 @@ const Dropdown = props => {
 			]}>
 
 				<TouchableWithoutFeedback onPress={ () => setOpen( !open )}>
-					<View style={[ GeneralStyles.row_center_between] }>
+					<View style={[ GeneralStyles.row_ac ]}>
 
 						<Text style={[ 
 							GeneralStyles.text_regular, 
 							styles.value_label, 
-							{ color: ThemeStyles.dark_text } 
+							{ color: ThemeStyles.dark_text },
+							props.value_label_style || {}
 						]}>
 							{ value_label }
 						</Text>
@@ -135,15 +137,17 @@ const styles = StyleSheet.create({
 
 	options_box: {
 		maxHeight: 120,
+		
 		position: "absolute",
+		zIndex: 10,
+		elevation: 2,
 		left: 0,
 		top: "100%",
 		width: "100%",
+
 		paddingHorizontal: 15,
 		paddingVertical: 10,
-		backgroundColor: "#fff",
-		zIndex: 10,
-		elevation: 1,
+		
 		borderWidth: 1,
 		borderTopWidth: 0.4,
 		borderBottomLeftRadius: 7,
