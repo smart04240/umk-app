@@ -13,8 +13,8 @@ export default props => {
 	return (
 		<View style={[ GeneralStyles.row_ac, props.style || {} ]}>
 			<Switch 
-				trackColor={{ false: "#D0DCEA", true: "#D0DCEA" }}
-				thumbColor={ Colors.Blue }
+				trackColor={{ false: "#D0DCEA", true: "#9DC4F1" }}
+				thumbColor={  Colors.Blue }
 				{...props }
 			/>
 

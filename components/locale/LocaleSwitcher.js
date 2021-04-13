@@ -15,7 +15,7 @@ const LocaleSwitcher = () => {
 		<Switch 
 			onValueChange={ () => dispatch( Actions.Locale.Toggle()) }
 			value={ locale === "en" }
-			label={  useTranslated( Translations.switchToEnglish )}
+			label={ useTranslated( Translations.switchLanguage )}
 		/>
 	)
 }

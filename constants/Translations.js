@@ -55,12 +55,12 @@ export default {
 	},
 
 	IfYouDontHaveAcc: {
-		en: "If you do not have an account - ",
+		en: "If you don't have an account - ",
 		pl: "Jeśli nie masz konta - "
 	},
 
 	LoginInUsingNCU: {
-		en: "Logging in using the\nNCU Central Login Point",
+		en: "Login with Central Authentication Service",
 		pl: "Logowanie za pomocą\nCentralnego Punktu Logowania UMK"
 	},
 
@@ -110,8 +110,8 @@ export default {
 		pl: "Zgoda na przetwarzanie danych osobowych adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ea commodo consequat."
 	},
 
-	switchToEnglish: {
-		en: 'Zmień język na angielski',
+	switchLanguage: {
+		en: 'Zmień język na polski',
 		pl: 'Switch language to English'
 	},
 
