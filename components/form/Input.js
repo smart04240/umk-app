@@ -4,15 +4,26 @@ import DebouncedInput from "./DebouncedInput";
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import Colors from "../../constants/Colors";
 
 export default function Input(props) {
 
 	const ThemeStyles = useThemeStyles();
-	const text_color = {color: ThemeStyles.dark_text};
+	const text_color = { color: ThemeStyles.dark_text };
 
 	return (
-		<View style={{width: "100%"}}>
-			{props.label && <Text style={[text_color, GeneralStyles.text_regular, styles.label]}> {props.label} </Text>}
+		<View style={{ width: "100%" }}>
+			
+			{ props.label && 
+				<Text style={[ 
+					text_color, 
+					GeneralStyles.text_regular, 
+					styles.label 
+				]}>
+					{ props.label }
+				</Text>
+			}
+
 			<DebouncedInput
 				{...props}
 				style={[
@@ -23,6 +34,15 @@ export default function Input(props) {
 					props.style,
 				]}
 			/>
+
+			{ !!props.error_message && 
+				<Text style={[
+					GeneralStyles.text_regular,
+					{ color: Colors.Red, marginBottom: 7 }
+				]}>
+					{ props.error_message }
+				</Text>
+			}
 		</View>
 	)
 }

@@ -14,7 +14,7 @@ const Dropdown = props => {
 
 	const ThemeStyles = useThemeStyles();
 
-	const { init_value, label, name, options, onChange } = props;
+	const { init_value, label, name, options, error_message, onChange } = props;
 	const placeholder = props.placeholder || useTranslated( Translations.ChooseOneOption );
 
 	const [ value, setValue ] = useState( init_value || null ); 
@@ -30,8 +30,7 @@ const Dropdown = props => {
 
 
 	useEffect(() => {
-		if ( isFunction( onChange )) 
-			onChange({ name, value });
+		isFunction( onChange ) && onChange({ name, value });
 	}, [ value ]);
 
 
@@ -86,6 +85,12 @@ const Dropdown = props => {
 
 			</View>
 
+			{ !!error_message && 
+				<Text style={ styles.error_message }>
+					{ error_message }
+				</Text>
+			}
+
 			{( options && !!options.length && !!open ) &&
 				<View style={[ 
 					styles.options_box, 
@@ -134,6 +139,12 @@ const styles = StyleSheet.create({
 	},
 
 	value_label: { flexWrap: "wrap", flex: 1 },
+
+	error_message: {
+		...GeneralStyles.text_regular,
+		color: Colors.Red,
+		marginTop: 7
+	},
 
 	options_box: {
 		maxHeight: 120,

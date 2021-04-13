@@ -365,6 +365,11 @@ export default {
 		pl: "Edytuj zadanie"
 	},
 
+	AddANewTask: {
+		en: "Add a new task",
+		pl: "Dodaj nowe zadanie"
+	},
+
 	MarkAsDone: {
 		en: "Mark as done",
 		pl: "Oznacz jako wykonane"
@@ -373,5 +378,20 @@ export default {
 	Attachments: {
 		en: "Attachments",
 		pl: "Załączniki"
+	},
+
+	EnteringTitleIsRequired: {
+		en: "Entering a title is required",
+		pl: "Wpisanie tytułu jest obowiązkowe!"
+	},
+
+	SelectingPlaceIsRequired: {
+		en: "Selecting a place is required",
+		pl: "Wybór miejsca jest obowiązkowy!"
+	},
+
+	SelectingCategoryIsRequired: {
+		en: "Selecting a category is required",
+		pl: "Wybór kategorii jest obowiązkowy!"
 	}
 };

@@ -27,7 +27,8 @@ export default function TaskSingleScreen( props ) {
 
 
 	const attachments = [
-		{ name: "Załącznik 1", link: "link" }
+		{ name: "Załącznik 1", link: "link" },
+		{ name: "Załącznik 2", link: "link 2" }
 	];
 
 	const task_info = { id, title, category, address, date_time, status };
