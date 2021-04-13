@@ -17,7 +17,6 @@ const InfoCardsStackDots = props => {
 	), [ active_index ]);
 
 	const dots = useMemo(() => {
-		console.log('calculate dots');
 
 		const dots = [];
 		for ( let i = 0; i < dots_amount; i++ ) dots.push( i );
