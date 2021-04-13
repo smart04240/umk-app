@@ -358,5 +358,20 @@ export default {
 	NotCompleted: {
 		en: "Not completed",
 		pl: "Niewykonane"
+	},
+
+	EditTheTask: {
+		en: "Edit the task",
+		pl: "Edytuj zadanie"
+	},
+
+	MarkAsDone: {
+		en: "Mark as done",
+		pl: "Oznacz jako wykonane"
+	},
+
+	Attachments: {
+		en: "Attachments",
+		pl: "Załączniki"
 	}
 };

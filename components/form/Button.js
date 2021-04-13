@@ -14,10 +14,18 @@ export default props => {
 	const text_style = transparent_bg ? { color: ThemeStyles.blue_text } : styles.text; 
 
 	return (
-		<TouchableOpacity onPress={ props.onPress }>
-			<View style={[ GeneralStyles.row_centered, styles.button, extra_button_style ]}>
-				<Text style={[ GeneralStyles.text_regular, text_style ]}> { props.children } </Text>
-			</View>
+		<TouchableOpacity 
+			style={[ 
+				GeneralStyles.row_centered, 
+				styles.button, 
+				extra_button_style,
+				props.style || {} 
+			]}
+			onPress={ props.onPress }
+		>
+			<Text style={[ GeneralStyles.text_regular, text_style ]}>
+				{ props.children }
+			</Text>
 		</TouchableOpacity>
 	)
 }
@@ -31,7 +39,8 @@ const styles = StyleSheet.create({
 		borderRadius: 7,
 		borderWidth: 1,
 		borderColor: Colors.Blue,
-		padding: 15,
+		paddingVertical: 11,
+		paddingHorizontal: 13,
 		backgroundColor: Colors.Blue
 	}
 })
