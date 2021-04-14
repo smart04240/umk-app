@@ -50,7 +50,7 @@ const Range = props => {
 		break;
 
 		case "red":
-			slider_box_bg = Colors.RedRgba(0.2);
+			slider_box_bg = Colors.AlizarinRgba(0.2);
 			slider_bg = Colors.Red;
 		break;
 	}

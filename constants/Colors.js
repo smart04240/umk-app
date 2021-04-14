@@ -16,7 +16,7 @@ export default {
 	DeepSkyBlue: "#00AEEF",
 	DeepSkyBluRgba: getRgbaFunc( 0, 174, 239 ),
 	
-	Red: "#D82D2D",
+	Red: "#D82D2D", //notific
 	RedRgba: getRgbaFunc( 237, 29, 36 ),
 
 	Yellow: "#FFCB05",
@@ -34,8 +34,8 @@ export default {
 	PayneGrey: "#404041",
 	PayneGrayRgba: getRgbaFunc( 64, 64, 65 ), 
 
-	Red: "#ED1D24",
-	RedRgba: getRgbaFunc( 237, 29, 36 ),
+	Alizarin: "#ED1D24", //range
+	AlizarinRgba: getRgbaFunc( 237, 29, 36 ),
 
 	Green: "#00A651",
 	GreenRgba: getRgbaFunc( 0, 166, 81 ),
