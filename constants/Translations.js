@@ -385,6 +385,16 @@ export default {
 		pl: "Wpisanie tytułu jest obowiązkowe!"
 	},
 
+	EnterDescOfTask: {
+		en: "Enter a description of the task",
+		pl: "Wpisz opis zadania"
+	},
+
+	DescEllipsis : {
+		en: "Description...",
+		pl: "Opis..."
+	},
+
 	SelectingPlaceIsRequired: {
 		en: "Selecting a place is required",
 		pl: "Wybór miejsca jest obowiązkowy!"
@@ -393,5 +403,107 @@ export default {
 	SelectingCategoryIsRequired: {
 		en: "Selecting a category is required",
 		pl: "Wybór kategorii jest obowiązkowy!"
+	},
+
+	Event: {
+		en: "Event",
+		pl: "Wydarzenie"
+	},
+
+	"1_month": {
+		en: "January",
+		pl: "Styczeń"
+	},
+
+	"2_month": {
+		en: "February",
+		pl: "Luty"
+	},
+
+	"3_month": {
+		en: "March",
+		pl: "Marzec"
+	},
+
+	"4_month": {
+		en: "April",
+		pl: "Kwiecień"
+	},
+
+	"5_month": {
+		en: "May",
+		pl: "Maj"
+	},
+
+	"6_month": {
+		en: "June",
+		pl: "Czerwiec"
+	},
+
+	"7_month": {
+		en: "July",
+		pl: "Lipiec"
+	},
+
+	"8_month": {
+		en: "August",
+		pl: "Sierpień"
+	},
+
+	"9_month": {
+		en: "September",
+		pl: "Wrzesień"
+	},
+
+	"10_month": {
+		en: "October",
+		pl: "Październik"
+	},
+	
+	"11_month": {
+		en: "November",
+		pl: "Listopad"
+	},
+
+	"12_month": {
+		en: "December",
+		pl: "Grudzień"
+	},
+
+	"1_day": {
+		en: "Mon",
+		pl: "Pon"
+	},
+
+	"2_day": {
+		en: "Tue",
+		pl: "Wt"
+	},
+
+	"3_day": {
+		en: "Wed",
+		pl: "Śr"
+	},
+
+	"4_day": {
+		en: "Th",
+		pl: "Czw"
+	},
+
+	"5_day": {
+		en: "Fr",
+		pl: "Pt"
+	},
+
+	"6_day": {
+		en: "Sat",
+		pl: "Sob"
+	},
+
+	"7_day": {
+		en: "Sun",
+		pl: "Nd"
 	}
+
+
 };

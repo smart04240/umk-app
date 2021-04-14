@@ -14,12 +14,15 @@ const Checkbox = props => {
 	const [ checked, setChecked ] = useState( init_checked || false );	
 
 	useEffect(() => {
-		if ( isFunction( onChange )) onChange({ name, checked })
+		isFunction( onChange ) && onChange({ name, value: checked })
 	}, [ checked ])
 
 	return (
 		<TouchableWithoutFeedback onPress={ () => setChecked( !checked )}>
-			<View style={ styles.row }>
+			<View style={[ 
+				styles.row,
+				props.row_style || {} 
+			]}>
 				<View style={[ 
 					GeneralStyles.row_centered, 
 					styles.checkbox, 

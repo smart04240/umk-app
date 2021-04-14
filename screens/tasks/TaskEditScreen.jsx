@@ -4,16 +4,39 @@ import { useSelector } from "react-redux";
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
+import Translations from "../../constants/Translations";
+import useTranslator from "../../hooks/useTranslator";
 
 import Input from "../../components/form/Input";
 import Container from "../../components/general/Container";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Dropdown from "../../components/form/Dropdown";
-import Translations from "../../constants/Translations";
-import useTranslator from "../../hooks/useTranslator";
+import Checkbox from "../../components/form/Checkbox";
+import TimePicker from "../../components/form/timepicker/TimePicker";
+import TaskEditEventSection from "../../components/tasks/TaskEditEventSection";
+import DatePicker from "../../components/form/datepicker/DatePicker";
 
-const reducer = ( state, action ) => ({...state, [ action.name ]: action.value });
+const reducer = ( state, action ) => {
+
+	switch ( action.type ) {
+
+		case "update": return {...state, [ action.name ]: action.value }
+
+		case "clear": return {}
+
+		case "remove": 
+
+			const state_copy = {...state };
+			Array.isArray( action.name )
+				? action.name.forEach( k => delete state_copy[ k ])
+				: delete state_copy[ action.name ]
+			
+			return state_copy;
+
+		default: throw new Error();
+	}
+
+};
 
 const opt_sample = [
 	{ value: 1, label: "Opt 1"},
@@ -82,16 +105,25 @@ export default function TaskEditScreen( props ) {
 
 	const getErrorMessage = name => error_field_names.includes( name ) ? errors[ name ] : "";
 	
+	const inputOnChangeText = ( name, text ) =>  dispatch({ type: "update", name, value: text });
+
+	const onChange = o => dispatch({ type: "update", name: o.name, value : o.value });
+
 
 	return (
 		<MainWithNavigation>
 
 			<Container>
+
 				<ScrollView>
 
-					<TouchableOpacity onPress={ () => setErrorFieldNames([ "name", "category", "place" ]) }>
-						<Text style={{ marginBottom: 20 }}> aaa </Text>
+					{/* <TouchableOpacity onPress={ () => dispatch({ type: "clear" }) }>
+						<Text style={{ marginBottom: 20 }}> CLEAR DATA </Text>
 					</TouchableOpacity>
+				
+					<TouchableOpacity onPress={ () => dispatch({ type: "remove", name: [ "name", "description" ] }) }>
+						<Text style={{ marginBottom: 20 }}> REMOVE SOME DATA </Text>
+					</TouchableOpacity> */}
 				
 					<Text style={[
 						GeneralStyles.text_regular,
@@ -100,7 +132,7 @@ export default function TaskEditScreen( props ) {
 						{ main_title }
 					</Text>
 
-					<View>
+					<View style={{ width: "100%", marginBottom: 30 }}>
 
 						<Input
 							name="name"
@@ -108,7 +140,7 @@ export default function TaskEditScreen( props ) {
 							defaultValue={ editing_task_data?.name }
 							style={{ marginBottom: 8 }}
 							error_message={ getErrorMessage( "name" )}
-							onChangeText={ v => dispatch({ name: "name", value: v }) }
+							onChangeText={ v => inputOnChangeText( "name", v )}
 						/>
 
 						{ main_dropdowns.map( dropdown => (
@@ -117,10 +149,43 @@ export default function TaskEditScreen( props ) {
 								{...dropdown }
 								init_value={ editing_task_data?.[ dropdown.name ]}
 								error_message={ getErrorMessage( dropdown.name )}
-								onChange={ o => dispatch({ name: o.name, value : o.value }) }
+								onChange={ o => onChange( o )}
 							/>
 						)) }
 					</View>
+
+						
+					<TaskEditEventSection
+						one_day_event={ data.one_day_event }
+						is_event={ data.is_event }
+						onChange={ o => { 
+							onChange( o );
+							
+							if ( o.name === "is_event" && !o.value ) {
+								dispatch({ 
+									type: "remove", 
+									name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
+								})
+							}
+
+							if ( o.name === "one_day_event" && !!o.value ) {
+								dispatch({
+									type: "remove",
+									name: [ "time_from", "time_to" ]
+								})
+							}
+						}}
+					/>
+
+					<Input
+						name="description"
+						label={ translate( Translations.EnterDescOfTask )}
+						placeholder={ translate( Translations.DescEllipsis )}
+						multiline={ true }
+						numberOfLines={ 4 }
+						onChangeText={ v => inputOnChangeText( "description", v )}
+					/>
+				
 
 				</ScrollView>
 			</Container>
