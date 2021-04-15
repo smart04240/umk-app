@@ -166,7 +166,12 @@ export default function Screens() {
             name={ screen.name }
             options={{
                 title: translate(screen.title),
-                headerStyle: {backgroundColor: ThemeStyles.box_bg, elevation: 0},
+                headerStyle: {
+                    backgroundColor: ThemeStyles.box_bg,
+                    elevation: 0,
+                    shadowOpacity: 0,
+                    borderBottomWidth: 0,
+                },
                 headerTintColor: ThemeStyles.blue_text,
                 headerTitleStyle: {
                     color: ThemeStyles.blue_text,
@@ -178,7 +183,7 @@ export default function Screens() {
         >
             {props => <screen.component {...props} />}
         </Stack.Screen>
-    )), [user, translate]);
+    )), [user, ThemeStyles, translate]);
 
     return (
         <NavigationContainer>

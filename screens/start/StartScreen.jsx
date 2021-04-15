@@ -20,7 +20,12 @@ export default function StartScreen(props) {
         props.navigation.setOptions({ 
 			headerLeft: () => null,
 			headerRight: () => null,
-			headerStyle: { backgroundColor: ThemeStyles.main_bg, elevation: 0 },
+			headerStyle: {
+				backgroundColor: ThemeStyles.main_bg,
+				elevation: 0,
+				shadowOpacity: 0,
+				borderBottomWidth: 0,
+			},
 			headerTitleStyle: { 
 				textAlign: "center",
 				color: ThemeStyles.blue_text,

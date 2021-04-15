@@ -42,18 +42,23 @@ export default function TutorialScreen( props ) {
 	const ThemeStyles = useThemeStyles();
 
 	React.useLayoutEffect(() => {
-        props.navigation.setOptions({ 
+        navigation.setOptions({
 			headerLeft: () => null,
 			headerRight: () => null,
-			headerStyle: { backgroundColor: ThemeStyles.main_bg, elevation: 0 },
-			headerTitleStyle: { 
+			headerStyle: {
+				backgroundColor: ThemeStyles.main_bg,
+				elevation: 0,
+				shadowOpacity: 0,
+				borderBottomWidth: 0,
+			},
+			headerTitleStyle: {
 				textAlign: "center",
 				color: ThemeStyles.blue_text,
 				fontSize: 20,
 				fontFamily: Fonts.ProximaNova.Regular,
 			}
 		});
-    
+
 	}, [ navigation, ThemeStyles ]);
 
 
