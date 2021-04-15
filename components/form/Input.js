@@ -26,6 +26,7 @@ export default function Input(props) {
 
 			<DebouncedInput
 				{...props}
+				placeholderTextColor={ThemeStyles.dark_text}
 				style={[
 					text_color,
 					GeneralStyles.text_regular,
