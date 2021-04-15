@@ -35,8 +35,12 @@ import TasksListScreen from "../screens/tasks/TasksListScreen";
 import TaskSingleScreen from "../screens/tasks/TaskSingleScreen";
 import TaskEditScreen from "../screens/tasks/TaskEditScreen";
 
+// REMINDERS
+import RemindersScreen from "../screens/reminders/RemindersScreen";
+
 // MAP
 import MapScreen from "../screens/map/MapScreen";
+import GeneralStyles from "../constants/GeneralStyles";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -145,6 +149,11 @@ const RegisteredScreens = {
 			title: Translations.ToDoList,
 			component: TaskEditScreen
 		},
+		{
+			name: Routes.Reminders,
+			title: Translations.Reminders,
+			component: RemindersScreen
+		},
         {
             name: Routes.Map,
             title: Translations.Map,
@@ -174,9 +183,8 @@ export default function Screens() {
                 },
                 headerTintColor: ThemeStyles.blue_text,
                 headerTitleStyle: {
-                    color: ThemeStyles.blue_text,
-                    fontSize: 20,
-                    fontFamily: Fonts.ProximaNova.Regular,
+                    ...GeneralStyles.header_title,
+					color: ThemeStyles.blue_text
                 },
                 headerRight: () => <HeaderRight/>
             }}

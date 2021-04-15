@@ -15,6 +15,7 @@ export default {
 	Map: "map",
 
 	Rankings: "rankings",
+	Reminders: "reminders",
 
 	Tasks: "tasks.list",
 	TaskSingle: "tasks.single",
