@@ -14,6 +14,7 @@ import Dropdown from "../../components/form/Dropdown";
 import TaskEditEventSection from "../../components/tasks/TaskEditEventSection";
 import Button from "../../components/form/Button";
 import TaskEditReminderSection from "../../components/tasks/TaskEditReminderSection";
+import DocPicker from "../../components/form/doc-picker/DocPicker";
 
 const reducer = ( state, action ) => {
 
@@ -198,6 +199,8 @@ export default function TaskEditScreen( props ) {
 							onChangeText={ v => inputOnChangeText( "description", v )}
 						/>
 					
+
+						<DocPicker/>
 
 						<TaskEditReminderSection
 							data={ data }

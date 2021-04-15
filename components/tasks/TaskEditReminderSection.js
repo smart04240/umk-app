@@ -4,12 +4,12 @@ import { View } from 'react-native';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useTranslator from '../../hooks/useTranslator';
+import Layout from '../../constants/Layout';
 
 import Checkbox from '../form/Checkbox';
 import Dropdown from "../form/Dropdown";
 import DatePicker from '../form/datepicker/DatePicker';
-import TimePicker from "../form/timepicker/TimePicker";
-import Layout from '../../constants/Layout';
+import TimePicker from "../form/time-picker/TimePicker";
 
 const INPUT_WIDTH = ( Layout.width - 10 - Layout.paddingHorizontal * 2 ) / 2;
 

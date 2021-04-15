@@ -9,7 +9,7 @@ import useTranslator from '../../hooks/useTranslator';
 
 import Checkbox from '../form/Checkbox';
 import DatePicker from '../form/datepicker/DatePicker';
-import TimePicker from "../form/timepicker/TimePicker";
+import TimePicker from "../form/time-picker/TimePicker";
 
 const INPUT_WIDTH = ( Layout.width - 10 - Layout.paddingHorizontal * 2 ) / 2;
 

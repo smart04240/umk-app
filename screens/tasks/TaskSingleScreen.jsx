@@ -64,13 +64,13 @@ export default function TaskSingleScreen( props ) {
 									<View style={ styles.attachment }>
 										<MaterialCommunityIcons
 											name="download-outline"
-											size={ 24 }
+											size={ 20 }
 											color={ ThemeStyles.icon_color }
 										/>
 
 										<Text style={[
-											GeneralStyles.text_regular,
-											{ color: ThemeStyles.blue_text, marginLeft: 25 }
+											styles.attachment_label,
+											{ color: ThemeStyles.blue_text }
 										]}>
 											{ att.name }
 										</Text>
@@ -95,5 +95,12 @@ const styles = StyleSheet.create({
 	attachment: {
 		...GeneralStyles.row_ac,
 		marginBottom: 13
+	},
+
+	attachment_label: {
+		...GeneralStyles.text_regular,
+		...GeneralStyles.row_wrap,
+		flexShrink: 1,
+		marginLeft: 20
 	}
 });

@@ -385,6 +385,16 @@ export default {
 		pl: "Załączniki"
 	},
 
+	AddAttachments: {
+		en: "Add attachments",
+		pl: "Dodaj załączniki"
+	},
+
+	AddNewAttachment: {
+		en: "Add a new attachment",
+		pl: "Dodaj nowy załącznik"
+	},
+
 	EnteringTitleIsRequired: {
 		en: "Entering a title is required",
 		pl: "Wpisanie tytułu jest obowiązkowe!"
