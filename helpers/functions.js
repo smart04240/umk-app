@@ -1,12 +1,17 @@
+
+const getDetectVariableTypeFunc = type => {
+	return v => toString.call( v ) === `[object ${ type }]`
+};
+
 export const ucfirst = str => str.substr(0, 1).toUpperCase() + str.substr(1);
 
-export const isFunction = func => toString.call( func ) === "[object Function]";
+export const isFunction = getDetectVariableTypeFunc( "Function" );
 
-export const isObject = obj => toString.call( obj ) === "[object Object]";
+export const isObject = getDetectVariableTypeFunc( "Object" );
 
-export const isNumber = num => toString.call( num ) === "[object Number]";
+export const isNumber = getDetectVariableTypeFunc( "Number" ); 
 
-export const isString = str => toString.call( str ) === "[object String]";
+export const isString = getDetectVariableTypeFunc( "String" );
 
 export const getTranslated = (field, locale) => isObject( field ) ? ( field[ locale ] || "" ) : field;
 
