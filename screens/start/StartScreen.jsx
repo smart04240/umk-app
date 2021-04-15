@@ -6,73 +6,54 @@ import useTranslated from "../../hooks/useTranslated";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
-import Fonts from "../../constants/Fonts";
+import Menu from "../../constants/Menu";
 
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
-import Menu from "../../constants/Menu";
+import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
 
 export default function StartScreen(props) {
 
     const ThemeStyles = useThemeStyles();
 
-	React.useLayoutEffect(() => {
-        props.navigation.setOptions({ 
-			headerLeft: () => null,
-			headerRight: () => null,
-			headerStyle: {
-				backgroundColor: ThemeStyles.main_bg,
-				elevation: 0,
-				shadowOpacity: 0,
-				borderBottomWidth: 0,
-			},
-			headerTitleStyle: { 
-				textAlign: "center",
-				color: ThemeStyles.blue_text,
-				fontSize: 20,
-				fontFamily: Fonts.ProximaNova.Regular,
-			}
-		});
-    
-	}, [ props.navigation, ThemeStyles ]);
-
-
     return (
-        <Main>
-			<ContainerWithScroll>
-				<View style={[ 
-					GeneralStyles.row_wrap,
-					{ justifyContent: "space-between" } 
-				]}>
-					{ Menu.map(({ screen, label, icon }, index ) => (
-						<TouchableOpacity
-							key={ index }
-							style={ styles.box }
-							onPress={ () => props.navigation.navigate( screen )}
-						>
-							<View style={ styles.circle }>
-								<MaterialCommunityIcons
-									name={ icon } 
-									size={ 30 } 
-									color={ Colors.White }
-								/>
-							</View>
+		<ScreenWithHeaderTitleOnly>
+			<Main>
+				<ContainerWithScroll>
+					<View style={[ 
+						GeneralStyles.row_wrap,
+						{ justifyContent: "space-between" } 
+					]}>
+						{ Menu.map(({ screen, label, icon }, index ) => (
+							<TouchableOpacity
+								key={ index }
+								style={ styles.box }
+								onPress={ () => props.navigation.navigate( screen )}
+							>
+								<View style={ styles.circle }>
+									<MaterialCommunityIcons
+										name={ icon } 
+										size={ 30 } 
+										color={ Colors.White }
+									/>
+								</View>
 
-							<Text style={[
-								GeneralStyles.text_regular,
-								{ 
-									color: ThemeStyles.blue_text,
-									textAlign: "center" 
-								}
-							]}> 
-								{ useTranslated( label )} 
-							</Text>
+								<Text style={[
+									GeneralStyles.text_regular,
+									{ 
+										color: ThemeStyles.blue_text,
+										textAlign: "center" 
+									}
+								]}> 
+									{ useTranslated( label )} 
+								</Text>
 
-						</TouchableOpacity>
-					))}
-				</View>
-			</ContainerWithScroll>
-        </Main>
+							</TouchableOpacity>
+						))}
+					</View>
+				</ContainerWithScroll>
+			</Main>
+		</ScreenWithHeaderTitleOnly>
     );
 };
 

@@ -59,6 +59,11 @@ export default {
 		justifyContent: "space-between"
 	},
 
+	header_title: {
+		fontSize: 20,
+		fontFamily: Fonts.ProximaNova.Regular,
+	},
+
 	bottom_border_radius: {
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20,

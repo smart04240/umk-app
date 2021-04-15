@@ -6,29 +6,20 @@ import useThemeStyles from "../../hooks/useThemeStyles";
 import useTranslated from "../../hooks/useTranslated";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
+import Routes from "../../constants/Routes";
 
 import UniversityLogo from "../../components/UniversityLogo";
 import Input from "../../components/form/Input";
 import Checkbox from "../../components/form/Checkbox";
 import Button from "../../components/form/Button";
 import Main from "../../components/general/Main";
-import Routes from "../../constants/Routes";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
+import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
 
 
 export default function LoginScreen(props) {
 
     const ThemeStyles = useThemeStyles();
-
-	React.useLayoutEffect(() => {
-        props.navigation.setOptions({ 
-			headerLeft: () => null,
-			headerRight: () => null,
-			headerTitle: '',
-			headerStyle: { height: 25, elevation: 0 }
-		});
-    }, [ props.navigation ]);
-
 
 	const checkboxes = [
 		{ 
@@ -49,38 +40,40 @@ export default function LoginScreen(props) {
 	]
 
     return (
-		<Main>
-			<ContainerWithScroll>
-				<UniversityLogo/>
+		<ScreenWithHiddenHeader>
+			<Main style={{ paddingTop: 25 }}>
+				<ContainerWithScroll>
+					<UniversityLogo/>
 
-				<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-					{useTranslated(Translations.RegText1)}
-				</Text>
+					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+						{useTranslated(Translations.RegText1)}
+					</Text>
 
-				<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-					{useTranslated(Translations.RegText2)}
-				</Text>
+					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+						{useTranslated(Translations.RegText2)}
+					</Text>
 
-				<Input
-					style={{marginBottom: 20}}
-					label={useTranslated(Translations.EnterNickname)}
-					placeholder={useTranslated(Translations.UserName)}
-				/>
+					<Input
+						style={{marginBottom: 20}}
+						label={useTranslated(Translations.EnterNickname)}
+						placeholder={useTranslated(Translations.UserName)}
+					/>
 
-				<View style={styles.checkboxes_container}>
-					{checkboxes.map(checkbox => <Checkbox key={checkbox.name} {...checkbox} />)}
-				</View>
+					<View style={styles.checkboxes_container}>
+						{checkboxes.map(checkbox => <Checkbox key={checkbox.name} {...checkbox} />)}
+					</View>
 
 
-				<Button> {ucfirst(useTranslated(Translations.Register))} </Button>
+					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
 
-				<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
-					<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
-						{ useTranslated( Translations.Cancel )}
-					</Text> 
-				</TouchableOpacity>
-			</ContainerWithScroll>
-		</Main>
+					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
+						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
+							{ useTranslated( Translations.Cancel )}
+						</Text> 
+					</TouchableOpacity>
+				</ContainerWithScroll>
+			</Main>
+		</ScreenWithHiddenHeader>
     );
 };
 

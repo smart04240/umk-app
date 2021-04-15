@@ -1,27 +1,13 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { View } from "react-native";
-import { useSelector } from "react-redux";
-
 import GeneralStyles from "../../constants/GeneralStyles";
-import useThemeStyles from "../../hooks/useThemeStyles";
 
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Badge from "../../components/badge/Badge";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
+import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
 
 export default function ProfileBadges(props) {	
-
-	const theme = useSelector( state => state.theme );
-	const ThemeStyles = useThemeStyles();
-
-	useLayoutEffect(() => {
-        props.navigation.setOptions({
-			headerStyle: [ 
-				theme === "light" ? GeneralStyles.header_without_tb : {},
-				{ backgroundColor: ThemeStyles.box_bg } 
-			]
-		});
-    }, [ props.navigation, ThemeStyles ]);
 
 	const badges = [
 		{ id: 1, name: "Podróżnik" },
@@ -32,23 +18,25 @@ export default function ProfileBadges(props) {
 		{ id: 6, name: "Odkrywca" },
 		{ id: 7, name: "Odkrywca" },
 		{ id: 8, name: "Odkrywca" },
-	]
+	];
 
 	return (
-		<MainWithNavigation>
-			<ContainerWithScroll>
+		<ScreenWithRoundedHeader>
+			<MainWithNavigation>
+				<ContainerWithScroll>
 
-				<View style={[ 
-					GeneralStyles.row_wrap,
-					{ justifyContent: "space-around" }
-				]}>
-					{ badges && !!badges.length &&
-						badges.map( badge => <Badge key={ badge.id } {...badge } />)
-					}
+					<View style={[ 
+						GeneralStyles.row_wrap,
+						{ justifyContent: "space-around" }
+					]}>
+						{ badges && !!badges.length &&
+							badges.map( badge => <Badge key={ badge.id } {...badge } />)
+						}
 
-				</View>
+					</View>
 
-			</ContainerWithScroll>
-		</MainWithNavigation>
+				</ContainerWithScroll>
+			</MainWithNavigation>
+		</ScreenWithRoundedHeader>
 	)
 }

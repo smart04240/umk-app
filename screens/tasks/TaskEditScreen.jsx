@@ -15,6 +15,7 @@ import TaskEditEventSection from "../../components/tasks/TaskEditEventSection";
 import Button from "../../components/form/Button";
 import TaskEditReminderSection from "../../components/tasks/TaskEditReminderSection";
 import DocPicker from "../../components/form/doc-picker/DocPicker";
+import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
 
 const reducer = ( state, action ) => {
 
@@ -64,9 +65,8 @@ const task_sample = {
 
 export default function TaskEditScreen( props ) {
 
-	const { navigation, route } = props;
+	const { route } = props;
 	const translate = useTranslator();
-	const theme = useSelector( state => state.theme );
 	const ThemeStyles = useThemeStyles();
 	const task_id = route.params?.id;
 
@@ -76,17 +76,7 @@ export default function TaskEditScreen( props ) {
 
 	const [ data, dispatch ] = useReducer( reducer, editing_task_data );
 	const [ error_field_names, setErrorFieldNames ] = useState([]);
-	console.log( "DATA: ", data );
-
-	useLayoutEffect(() => {
-        navigation.setOptions({
-			headerStyle: [ 
-				theme === "light" ? GeneralStyles.header_without_tb : {},
-				{ backgroundColor: ThemeStyles.box_bg } 
-			]
-		});
-    }, [ navigation, ThemeStyles ]);
-	
+	// console.log( "DATA: ", data );
 
 	const main_title = useMemo(() => !!task_id 
 		? translate( Translations.EditTheTask ) 
@@ -123,108 +113,102 @@ export default function TaskEditScreen( props ) {
 
 
 	return (
-		<MainWithNavigation>
-			<ContainerWithScroll>
-					
-				{/* <TouchableOpacity onPress={ () => dispatch({ type: "clear" }) }>
-					<Text style={{ marginBottom: 20 }}> CLEAR DATA </Text>
-				</TouchableOpacity>
-			
-				<TouchableOpacity onPress={ () => dispatch({ type: "remove", name: [ "name", "description" ] }) }>
-					<Text style={{ marginBottom: 20 }}> REMOVE SOME DATA </Text>
-				</TouchableOpacity> */}
-			
-				<Text style={[
-					GeneralStyles.text_regular,
-					{ color: ThemeStyles.dark_text, marginBottom: 20 }
-				]}>
-					{ main_title }
-				</Text>
+		<ScreenWithRoundedHeader>
+			<MainWithNavigation>
+				<ContainerWithScroll>
+								
+					<Text style={[
+						GeneralStyles.text_regular,
+						{ color: ThemeStyles.dark_text, marginBottom: 20 }
+					]}>
+						{ main_title }
+					</Text>
 
-				<View style={{ width: "100%", marginBottom: 30 }}>
+					<View style={{ width: "100%", marginBottom: 30 }}>
 
-					<Input
-						name="title"
-						placeholder="Tytuł zadania *"
-						defaultValue={ editing_task_data?.title }
-						style={{ marginBottom: 8 }}
-						error_message={ getErrorMessage( "title" )}
-						onChangeText={ v => inputOnChangeText( "title", v )}
+						<Input
+							name="title"
+							placeholder="Tytuł zadania *"
+							defaultValue={ editing_task_data?.title }
+							style={{ marginBottom: 8 }}
+							error_message={ getErrorMessage( "title" )}
+							onChangeText={ v => inputOnChangeText( "title", v )}
+						/>
+
+						{ main_dropdowns.map( dropdown => (
+							<Dropdown
+								key={ dropdown.name }
+								{...dropdown }
+								init_value={ editing_task_data?.[ dropdown.name ]}
+								error_message={ getErrorMessage( dropdown.name )}
+								onChange={ o => onChange( o )}
+							/>
+						)) }
+					</View>
+
+						
+					<TaskEditEventSection
+						data={ data }
+						onChange={ o => { 
+							onChange( o );
+							
+							if ( o.name === "is_event" && !o.value ) {
+								dispatch({ 
+									type: "remove", 
+									name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
+								})
+							}
+
+							if ( o.name === "one_day_event" && !!o.value ) {
+								dispatch({
+									type: "remove",
+									name: [ "time_from", "time_to" ]
+								})
+							}
+						}}
 					/>
 
-					{ main_dropdowns.map( dropdown => (
-						<Dropdown
-							key={ dropdown.name }
-							{...dropdown }
-							init_value={ editing_task_data?.[ dropdown.name ]}
-							error_message={ getErrorMessage( dropdown.name )}
-							onChange={ o => onChange( o )}
-						/>
-					)) }
-				</View>
+					<Input
+						name="description"
+						defaultValue={ editing_task_data?.description }
+						style={{ marginBottom: 15 }}
+						label={ translate( Translations.EnterDescOfTask )}
+						placeholder={ translate( Translations.DescEllipsis )}
+						multiline={ true }
+						numberOfLines={ 6 }
+						onChangeText={ v => inputOnChangeText( "description", v )}
+					/>
+				
 
-					
-				<TaskEditEventSection
-					data={ data }
-					onChange={ o => { 
-						onChange( o );
-						
-						if ( o.name === "is_event" && !o.value ) {
-							dispatch({ 
-								type: "remove", 
-								name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
-							})
-						}
+					<DocPicker onChange={ onChange }/>
 
-						if ( o.name === "one_day_event" && !!o.value ) {
-							dispatch({
-								type: "remove",
-								name: [ "time_from", "time_to" ]
-							})
-						}
-					}}
-				/>
+					<TaskEditReminderSection
+						data={ data }
+						onChange={ o => {
+							onChange( o );
 
-				<Input
-					name="description"
-					defaultValue={ editing_task_data?.description }
-					style={{ marginBottom: 15 }}
-					label={ translate( Translations.EnterDescOfTask )}
-					placeholder={ translate( Translations.DescEllipsis )}
-					multiline={ true }
-					numberOfLines={ 6 }
-					onChangeText={ v => inputOnChangeText( "description", v )}
-				/>
-			
+							if ( o.name === "reminder" && !o.value ) {
+								dispatch({
+									type: "remove",
+									name: [ "reminder_option", "reminder_date", "reminder_time"]
+								})
+							}
 
-				<DocPicker/>
+							if ( o.name === "reminder_option" && o.value !== "custom" ) {
+								dispatch({
+									type: "remove",
+									name: [ "reminder_date", "reminder_time"]
+								})
+							}
+						}}
+					/>
 
-				<TaskEditReminderSection
-					data={ data }
-					onChange={ o => {
-						onChange( o );
+					<Button>
+						{ translate( Translations.Save )}
+					</Button>
 
-						if ( o.name === "reminder" && !o.value ) {
-							dispatch({
-								type: "remove",
-								name: [ "reminder_option", "reminder_date", "reminder_time"]
-							})
-						}
-
-						if ( o.name === "reminder_option" && o.value !== "custom" ) {
-							dispatch({
-								type: "remove",
-								name: [ "reminder_date", "reminder_time"]
-							})
-						}
-					}}
-				/>
-
-				<Button>
-					{ translate( Translations.Save )}
-				</Button>
-
-			</ContainerWithScroll>
-		</MainWithNavigation>
+				</ContainerWithScroll>
+			</MainWithNavigation>
+		</ScreenWithRoundedHeader>
 	)
 } 

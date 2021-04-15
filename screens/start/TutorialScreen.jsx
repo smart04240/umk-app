@@ -1,12 +1,10 @@
 import React from "react";
-
-import useThemeStyles from "../../hooks/useThemeStyles";
-import Fonts from "../../constants/Fonts";
 import Routes from "../../constants/Routes";
 
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import InfoCardsStack from "../../components/info-card/InfoCardsStack";
+import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
 
 const cards = [
 	{
@@ -38,44 +36,22 @@ const cards = [
 
 export default function TutorialScreen( props ) {
 
-	const { navigation } = props;
-	const ThemeStyles = useThemeStyles();
-
-	React.useLayoutEffect(() => {
-        navigation.setOptions({
-			headerLeft: () => null,
-			headerRight: () => null,
-			headerStyle: {
-				backgroundColor: ThemeStyles.main_bg,
-				elevation: 0,
-				shadowOpacity: 0,
-				borderBottomWidth: 0,
-			},
-			headerTitleStyle: {
-				textAlign: "center",
-				color: ThemeStyles.blue_text,
-				fontSize: 20,
-				fontFamily: Fonts.ProximaNova.Regular,
-			}
-		});
-
-	}, [ navigation, ThemeStyles ]);
-
-
-	const toStartScreen = () => navigation.navigate( Routes.Start );
+	const toStartScreen = () => props.navigation.navigate( Routes.Start );
 
 	return (
-		<Main>
-			<ContainerWithScroll>
+		<ScreenWithHeaderTitleOnly>
+			<Main>
+				<ContainerWithScroll>
 
-				<InfoCardsStack 
-					cards={ cards }
-					onSkipPress={ toStartScreen  }
-					onFinishPress={ toStartScreen }
-				/>
+					<InfoCardsStack 
+						cards={ cards }
+						onSkipPress={ toStartScreen  }
+						onFinishPress={ toStartScreen }
+					/>
 
-			</ContainerWithScroll>
-		</Main>
+				</ContainerWithScroll>
+			</Main>
+		</ScreenWithHeaderTitleOnly>
 	)
 }
 

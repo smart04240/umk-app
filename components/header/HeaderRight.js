@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { FontAwesome, FontAwesome5  } from '@expo/vector-icons';
-import { isFunction } from '../../helpers/functions';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { useNavigation, useRoute } from '@react-navigation/core';
 
+import { isFunction } from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Colors from '../../constants/Colors';
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -10,25 +11,31 @@ import Fonts from '../../constants/Fonts';
 
 import Sidebar from '../sidebar/Sidebar';
 import Layout from '../../constants/Layout';
+import Routes from '../../constants/Routes';
 
 const HeaderRight = props => {
 
 	const [ sidebarOpen, setSidebarOpen ] = useState( null );
 	const notification_amount = 10;
-    const ThemeStyles = useThemeStyles();
 
+    const ThemeStyles = useThemeStyles();
+	const navigation = useNavigation();
+	const route = useRoute();
 	
-	const openSidebar = () => {
-		if ( isFunction( sidebarOpen.open )) sidebarOpen.open()
-	};
+	const openSidebar = () => isFunction( sidebarOpen.open ) && sidebarOpen.open();
+
+	const remind_icon = route.name === Routes.Reminders ? "bell" : "bell-outline";
 
 	return (
 		<>
 			<View style={[ GeneralStyles.row_ac ]}>
 
-				<TouchableOpacity style={[ styles.button, { position: "relative" } ]}>
+				<TouchableOpacity 
+					style={[ styles.remind_button ]}
+					onPress={ () => navigation.navigate( Routes.Reminders )}
+				>
 			
-					<FontAwesome5 name="bell" size={ 25 } color={ ThemeStyles.icon_color } />
+					<MaterialCommunityIcons name={ remind_icon } size={ 24 } color={ ThemeStyles.icon_color } />
 					
 					{ notification_amount && 
 						<View style={ styles.notification }> 
@@ -40,8 +47,8 @@ const HeaderRight = props => {
 
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={ openSidebar } style={[ styles.button, { marginLeft: 14, marginRight: Layout.paddingHorizontal - 10 } ]}>
-					<FontAwesome name="navicon" size={ 25 } color={ ThemeStyles.icon_color } />
+				<TouchableOpacity onPress={ openSidebar } style={[ styles.menu_button ]}>
+					<MaterialCommunityIcons name="menu" size={ 28 } color={ ThemeStyles.icon_color } />
 				</TouchableOpacity>
 			</View>
 
@@ -52,6 +59,18 @@ const HeaderRight = props => {
 
 const styles = StyleSheet.create({
 	button: { padding: 10 },
+
+	remind_button: {
+		padding: 10,
+		position: "relative"
+	},
+
+	menu_button: {
+		padding: 10,
+		marginLeft: 14, 
+		marginRight: Layout.paddingHorizontal - 10
+	},
+
 	notification: { 
 		...GeneralStyles.row_centered,
 		backgroundColor: Colors.Red,
