@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import { ucfirst } from "../../helpers/functions";
 import useThemeStyles from "../../hooks/useThemeStyles";
@@ -8,12 +8,12 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 
 import UniversityLogo from "../../components/UniversityLogo";
-import Container from "../../components/general/Container";
 import Input from "../../components/form/Input";
 import Checkbox from "../../components/form/Checkbox";
 import Button from "../../components/form/Button";
 import Main from "../../components/general/Main";
 import Routes from "../../constants/Routes";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 
 
 export default function LoginScreen(props) {
@@ -50,38 +50,36 @@ export default function LoginScreen(props) {
 
     return (
 		<Main>
-			<ScrollView>
-				<Container>
-					<UniversityLogo/>
+			<ContainerWithScroll>
+				<UniversityLogo/>
 
-					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-						{useTranslated(Translations.RegText1)}
-					</Text>
+				<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+					{useTranslated(Translations.RegText1)}
+				</Text>
 
-					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-						{useTranslated(Translations.RegText2)}
-					</Text>
+				<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
+					{useTranslated(Translations.RegText2)}
+				</Text>
 
-					<Input
-						style={{marginBottom: 20}}
-						label={useTranslated(Translations.EnterNickname)}
-						placeholder={useTranslated(Translations.UserName)}
-					/>
+				<Input
+					style={{marginBottom: 20}}
+					label={useTranslated(Translations.EnterNickname)}
+					placeholder={useTranslated(Translations.UserName)}
+				/>
 
-					<View style={styles.checkboxes_container}>
-						{checkboxes.map(checkbox => <Checkbox key={checkbox.name} {...checkbox} />)}
-					</View>
+				<View style={styles.checkboxes_container}>
+					{checkboxes.map(checkbox => <Checkbox key={checkbox.name} {...checkbox} />)}
+				</View>
 
 
-					<Button> {ucfirst(useTranslated(Translations.Register))} </Button>
+				<Button> {ucfirst(useTranslated(Translations.Register))} </Button>
 
-					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
-						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
-							{ useTranslated( Translations.Cancel )}
-						</Text> 
-					</TouchableOpacity>
-				</Container>
-			</ScrollView>
+				<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
+					<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
+						{ useTranslated( Translations.Cancel )}
+					</Text> 
+				</TouchableOpacity>
+			</ContainerWithScroll>
 		</Main>
     );
 };

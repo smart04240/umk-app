@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
 	circle: {
 		...GeneralStyles.row_centered,
 		position: "absolute",
-		bottom: Layout.paddingHorizontal,
-		right: Layout.paddingHorizontal,
+		bottom: 70,
+		left: Layout.paddingHorizontal,
 		zIndex: 5,
 		elevation: 5,
 		width: 51,

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useLayoutEffect } from "react";
-import { View, ScrollView, Text } from "react-native";
+import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 
@@ -18,6 +18,7 @@ import Button from "../../components/form/Button";
 import ProfileEventsTab from "../../components/profile-events/ProfileEventsTab";
 import ProfileCollegeGraduationTab from "../../components/profile-events/ProfileCollegeGraduationTab";
 import ProfileOtherTab from "../../components/profile-events/ProfileOtherTab";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 
 const ProfileEventsScreen = props => {
 
@@ -40,38 +41,36 @@ const ProfileEventsScreen = props => {
 
 	return (
 		<MainWithNavigation>
-			<Container>
-				<ScrollView>
-					
-					<ProfileUsosEvents/>
+			<ContainerWithScroll>
 
-					<Text style={{ ...GeneralStyles.text_regular, marginBottom: 13, color: ThemeStyles.dark_text }}>
-						Dowiedz się więcej o innych zdarzeniach
-					</Text>
+				<ProfileUsosEvents/>
 
-					<Tabs
-						style={{ marginBottom: 25 }}
-						tabs={[ 
-							useTranslated( Translations.Events ),
-							useTranslated( Translations.Other ),
-							useTranslated( Translations.CollegeGraduation )
-						]}
-						onTabChangeCallback={ index => setActiveTab( index )}
-					/>
+				<Text style={{ ...GeneralStyles.text_regular, marginBottom: 13, color: ThemeStyles.dark_text }}>
+					Dowiedz się więcej o innych zdarzeniach
+				</Text>
 
-					<TabContent/>
-					
-					<View style={{ marginTop: 60 }}>
-						<Button 
-							transparent_bg={ true } 
-							onPress={ () => navigation.navigate( Routes.ProfileEdit )}
-						>
-							{ useTranslated( Translations.ReturnToProfileEdit )}
-						</Button>
-					</View>
+				<Tabs
+					style={{ marginBottom: 25 }}
+					tabs={[ 
+						useTranslated( Translations.Events ),
+						useTranslated( Translations.Other ),
+						useTranslated( Translations.CollegeGraduation )
+					]}
+					onTabChangeCallback={ index => setActiveTab( index )}
+				/>
 
-				</ScrollView>
-			</Container>
+				<TabContent/>
+				
+				<View style={{ marginTop: 60 }}>
+					<Button 
+						transparent_bg={ true } 
+						onPress={ () => navigation.navigate( Routes.ProfileEdit )}
+					>
+						{ useTranslated( Translations.ReturnToProfileEdit )}
+					</Button>
+				</View>
+
+			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
 }

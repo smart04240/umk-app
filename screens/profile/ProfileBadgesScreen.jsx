@@ -1,13 +1,13 @@
 import React, { useLayoutEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View } from "react-native";
 import { useSelector } from "react-redux";
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
-import Container from "../../components/general/Container";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Badge from "../../components/badge/Badge";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 
 export default function ProfileBadges(props) {	
 
@@ -36,19 +36,19 @@ export default function ProfileBadges(props) {
 
 	return (
 		<MainWithNavigation>
-			<Container>
-				<ScrollView>
-					<View style={[ 
-						GeneralStyles.row_wrap,
-						{ justifyContent: "space-around" }
-					]}>
-						{ badges && !!badges.length &&
-							badges.map( badge => <Badge key={ badge.id } {...badge } />)
-						}
+			<ContainerWithScroll>
 
-					</View>
-				</ScrollView>
-			</Container>
+				<View style={[ 
+					GeneralStyles.row_wrap,
+					{ justifyContent: "space-around" }
+				]}>
+					{ badges && !!badges.length &&
+						badges.map( badge => <Badge key={ badge.id } {...badge } />)
+					}
+
+				</View>
+
+			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
 }

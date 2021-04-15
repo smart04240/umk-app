@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Text } from "react-native";
+import { View, Text } from "react-native";
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
@@ -10,7 +10,7 @@ import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Tabs from "../../components/general/Tabs";
 import TopBox from "../../components/general/TopBox";
 import Dropdown from "../../components/form/Dropdown";
-import Container from "../../components/general/Container";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Layout from "../../constants/Layout";
 import RankingBox from "../../components/ranking/RankingBox";
 
@@ -33,6 +33,7 @@ export default function RankingsScreen() {
 
 	return (
 		<MainWithNavigation>
+
 			<TopBox>
 				<Text style={[ 
 					GeneralStyles.text_regular,
@@ -47,26 +48,24 @@ export default function RankingsScreen() {
 				/>
 			</TopBox>
 
-			<Container>
-				<ScrollView>
+			<ContainerWithScroll>
 
-					<Dropdown
-						label={ useTranslated( Translations.FilterSelectDirection )}
-						options_box_style={{ maxHeight: Layout.height * 0.5 }}
-						options={[
-							{ value: "*", label: "Wszystkie" },
-							{ value: 1, label: "Option 1" },
-						]}
-					/>
+				<Dropdown
+					label={ useTranslated( Translations.FilterSelectDirection )}
+					options_box_style={{ maxHeight: Layout.height * 0.5 }}
+					options={[
+						{ value: "*", label: "Wszystkie" },
+						{ value: 1, label: "Option 1" },
+					]}
+				/>
 
-					<View style={{ marginTop: 20 }}>
-						{ rankings && !!rankings.length &&
-							rankings.map( ranking => <RankingBox key={ ranking.number } {...ranking } />)
-						}
-					</View>
+				<View style={{ marginTop: 20 }}>
+					{ rankings && !!rankings.length &&
+						rankings.map( ranking => <RankingBox key={ ranking.number } {...ranking } />)
+					}
+				</View>
 
-				</ScrollView>
-			</Container>
+			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
 }

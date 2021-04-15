@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -7,7 +7,7 @@ import useThemeStyles from "../../hooks/useThemeStyles";
 import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 
-import Container from "../../components/general/Container";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import TaskSingleInfo from "../../components/tasks/TaskSingleInfo";
 
@@ -38,50 +38,46 @@ export default function TaskSingleScreen( props ) {
 			
 			<TaskSingleInfo {...task_info } />
 
-			<Container>
-				<ScrollView>
-
-					{ content && 
+			<ContainerWithScroll>
+				{ content && 
+					<Text style={[
+						styles.content, 
+						{ color: ThemeStyles.dark_text },
+					]}>
+						{ content }
+					</Text>
+				}
+				
+				{ attachments && !!attachments.length &&
+					<View>
 						<Text style={[
-							styles.content, 
-							{ color: ThemeStyles.dark_text },
+							GeneralStyles.text_bold,
+							{ color: ThemeStyles.dark_text, marginBottom: 17 }
 						]}>
-							{ content }
+							{ useTranslated( Translations.Attachments )}
 						</Text>
-					}
-					
-					{ attachments && !!attachments.length &&
-						<View>
-							<Text style={[
-								GeneralStyles.text_bold,
-								{ color: ThemeStyles.dark_text, marginBottom: 17 }
-							]}>
-								{ useTranslated( Translations.Attachments )}
-							</Text>
 
-							{ attachments.map(( att, index ) => (
-								<TouchableWithoutFeedback key={ index } onPress={ () => console.log( att.link )}>
-									<View style={ styles.attachment }>
-										<MaterialCommunityIcons
-											name="download-outline"
-											size={ 20 }
-											color={ ThemeStyles.icon_color }
-										/>
+						{ attachments.map(( att, index ) => (
+							<TouchableWithoutFeedback key={ index } onPress={ () => console.log( att.link )}>
+								<View style={ styles.attachment }>
+									<MaterialCommunityIcons
+										name="download-outline"
+										size={ 20 }
+										color={ ThemeStyles.icon_color }
+									/>
 
-										<Text style={[
-											styles.attachment_label,
-											{ color: ThemeStyles.blue_text }
-										]}>
-											{ att.name }
-										</Text>
-									</View>
-								</TouchableWithoutFeedback>
-							))}
-						</View>
-					}
-
-				</ScrollView>
-			</Container>
+									<Text style={[
+										styles.attachment_label,
+										{ color: ThemeStyles.blue_text }
+									]}>
+										{ att.name }
+									</Text>
+								</View>
+							</TouchableWithoutFeedback>
+						))}
+					</View>
+				}
+			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
 } 

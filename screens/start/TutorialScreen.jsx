@@ -1,11 +1,10 @@
 import React from "react";
-import { ScrollView } from "react-native"; 
 
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Fonts from "../../constants/Fonts";
 import Routes from "../../constants/Routes";
 
-import Container from "../../components/general/Container";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import InfoCardsStack from "../../components/info-card/InfoCardsStack";
 
@@ -62,17 +61,15 @@ export default function TutorialScreen( props ) {
 
 	return (
 		<Main>
-			<ScrollView>
-				<Container>
+			<ContainerWithScroll>
 
-					<InfoCardsStack 
-						cards={ cards }
-						onSkipPress={ toStartScreen  }
-						onFinishPress={ toStartScreen }
-					/>
+				<InfoCardsStack 
+					cards={ cards }
+					onSkipPress={ toStartScreen  }
+					onFinishPress={ toStartScreen }
+				/>
 
-				</Container>
-			</ScrollView>
+			</ContainerWithScroll>
 		</Main>
 	)
 }

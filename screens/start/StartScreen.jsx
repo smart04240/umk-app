@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View, ScrollView, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'; 
 
 import useTranslated from "../../hooks/useTranslated";
@@ -8,7 +8,7 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 
-import Container from "../../components/general/Container";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import Menu from "../../constants/Menu";
 
@@ -34,41 +34,39 @@ export default function StartScreen(props) {
 
     return (
         <Main>
-			<ScrollView>
-				<Container>
-					<View style={[ 
-						GeneralStyles.row_wrap,
-						{ justifyContent: "space-between" } 
-					]}>
-						{ Menu.map(({ screen, label, icon }, index ) => (
-							<TouchableOpacity
-								key={ index }
-								style={ styles.box }
-								onPress={ () => props.navigation.navigate( screen )}
-							>
-								<View style={ styles.circle }>
-									<MaterialCommunityIcons
-										name={ icon } 
-										size={ 30 } 
-										color={ Colors.White }
-									/>
-								</View>
+			<ContainerWithScroll>
+				<View style={[ 
+					GeneralStyles.row_wrap,
+					{ justifyContent: "space-between" } 
+				]}>
+					{ Menu.map(({ screen, label, icon }, index ) => (
+						<TouchableOpacity
+							key={ index }
+							style={ styles.box }
+							onPress={ () => props.navigation.navigate( screen )}
+						>
+							<View style={ styles.circle }>
+								<MaterialCommunityIcons
+									name={ icon } 
+									size={ 30 } 
+									color={ Colors.White }
+								/>
+							</View>
 
-								<Text style={[
-									GeneralStyles.text_regular,
-									{ 
-										color: ThemeStyles.blue_text,
-										textAlign: "center" 
-									}
-								]}> 
-									{ useTranslated( label )} 
-								</Text>
+							<Text style={[
+								GeneralStyles.text_regular,
+								{ 
+									color: ThemeStyles.blue_text,
+									textAlign: "center" 
+								}
+							]}> 
+								{ useTranslated( label )} 
+							</Text>
 
-							</TouchableOpacity>
-						))}
-					</View>
-				</Container>
-			</ScrollView>
+						</TouchableOpacity>
+					))}
+				</View>
+			</ContainerWithScroll>
         </Main>
     );
 };

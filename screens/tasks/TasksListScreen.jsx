@@ -14,6 +14,7 @@ import Container from "../../components/general/Container";
 import TaskListItem from "../../components/tasks/TaskListItem";
 import AddTaskButton from "../../components/tasks/AddTaskButton";
 import SortBy from "../../components/form/SortBy";
+import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 
 
 const tasks_sample = {
@@ -50,6 +51,9 @@ export default function TasksListScreen( props ) {
 
 	return (
 		<MainWithNavigation>
+
+			<AddTaskButton />
+
 			<TopBox>
 			
 				<Dropdown
@@ -61,20 +65,17 @@ export default function TasksListScreen( props ) {
 
 			</TopBox>
 
-			<Container>
-				<AddTaskButton />
-				<ScrollView>
+			<ContainerWithScroll>
+				
+				<SortBy/>
 
-					<SortBy/>
+				<View style={{ flex: 1, zIndex: 1 }}>
+					{ tasks && !!tasks.length && 
+						tasks.map( task => <TaskListItem key={ task.id } {...task }/> )
+					}
+				</View>
 
-					<View style={{ flex: 1, zIndex: 1 }}>
-						{ tasks && !!tasks.length && 
-							tasks.map( task => <TaskListItem key={ task.id } {...task }/> )
-						}
-					</View>
-
-				</ScrollView>
-			</Container>
+			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
 }
