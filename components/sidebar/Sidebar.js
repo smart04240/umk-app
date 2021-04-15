@@ -17,22 +17,22 @@ import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
 
+const WINDOW_WIDTH = Layout.width;
+const WINDOW_HEIGHT = Layout.height;
+const SIDEBAR_WIDTH = WINDOW_WIDTH * 0.85;
+const SIDEBAR_HEIGHT = WINDOW_HEIGHT - 28;
+
 const Sidebar = props => {
 	
 	const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
 
-	const window_w = Layout.width;
-	const window_h = Layout.height;
-	const sidebar_with = window_w * 0.85;
-	const sidebar_height = window_h - 28;
-
-	const moveAnim = useRef( new Animated.Value( window_w )).current;
+	const moveAnim = useRef( new Animated.Value( WINDOW_WIDTH )).current;
 	const anim_duration = 1000;
 
 	const toggleSidebar = action => {
 		Animated.timing( moveAnim, {
-			toValue: action === "show" ? 0 : window_w,
+			toValue: action === "show" ? 0 : WINDOW_WIDTH,
 			duration: anim_duration,
 			useNativeDriver: true
 		}).start();
@@ -40,50 +40,52 @@ const Sidebar = props => {
 
 
 	useEffect(() => {
-
-		if ( isFunction( props.getOpenMethod ))
-			props.getOpenMethod({ open: () => toggleSidebar("show") });
-		
+		isFunction( props.getOpenMethod ) && props.getOpenMethod({ open: () => toggleSidebar("show") });
 	}, []);
 
+
 	return (
-		<Animated.View style={[ 
-			{ backgroundColor: ThemeStyles.box_bg },
-			styles.sidebar, 
-			{ width: sidebar_with, height: sidebar_height },
-			{ transform: [{ translateX: moveAnim }] }
-		]}>
-			
-			<ScrollView style={{ flex: 1 }}>
-				
-				<View style={{ flexDirection: "row", marginBottom: 35 }}>
-					<SidebarUserInfo/>
-
-					<CloseButton 
-						style={{ marginLeft: "auto", top: -5 }} 
-						onPress={ () => toggleSidebar("hide")} 
-					/>
-				</View>
-
-
-				<View style={{ flex: 1 }}> 
-
-					<SidebarMenu/>
-					<LocaleSwitcher/>
-					<ThemeSwitcher style={{ marginVertical: 15 }} />
-
-
-					<TouchableOpacity style={{ marginTop: 40 }} onPress={ () => dispatch( Actions.User.Logout())}>
-						<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}> 
-							{ useTranslated( Translations.LogOut )} 
-						</Text>
-					</TouchableOpacity>
-				</View>
-				
-			</ScrollView>
-			
-		</Animated.View>
+		<Animated.View 
+			style={[ 
+				{ backgroundColor: ThemeStyles.box_bg },
+				styles.sidebar, 
+				{ width: SIDEBAR_WIDTH, height: SIDEBAR_HEIGHT },
+				{ transform: [{ translateX: moveAnim }] }
+			]}
+		>
 		
+
+			<View style={ styles.sidebar_content }>
+				
+				<CloseButton 
+					style={ styles.close_button } 
+					onPress={ () => toggleSidebar("hide")} 
+				/>
+
+				<ScrollView style={{ flex: 1 }}>
+					
+					<View style={{ flexDirection: "row", marginBottom: 35 }}>
+						<SidebarUserInfo/>
+					</View>
+
+
+					<View style={{ flex: 1 }}> 
+
+						<SidebarMenu/>
+						<LocaleSwitcher/>
+						<ThemeSwitcher style={{ marginVertical: 15 }} />
+
+
+						<TouchableOpacity style={{ marginTop: 40 }} onPress={ () => dispatch( Actions.User.Logout())}>
+							<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}> 
+								{ useTranslated( Translations.LogOut )} 
+							</Text>
+						</TouchableOpacity>
+					</View>
+					
+				</ScrollView>
+			</View>
+		</Animated.View>
 	)
 }
 
@@ -92,13 +94,22 @@ const styles = StyleSheet.create({
 	sidebar: {
 		position: "absolute",
 		top: 0,
-		paddingLeft: 40,
-		paddingRight: 10,
-		paddingVertical: 24,
 		borderTopLeftRadius: 20,
 		borderBottomLeftRadius: 20,
 		zIndex: 100,
   		elevation: 100, 
+	}, 
+
+	close_button: {
+		marginLeft: "auto",
+		paddingVertical: 5
+	},
+
+	sidebar_content: {
+		flex: 1,
+		paddingLeft: 40,
+		paddingRight: 10,
+		paddingBottom: 24
 	}
 })
 
