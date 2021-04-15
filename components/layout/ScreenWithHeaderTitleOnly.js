@@ -14,7 +14,12 @@ const ScreenWithHeaderTitleOnly = props => {
         navigation.setOptions({ 
 			headerLeft: () => null,
 			headerRight: () => null,
-			headerStyle: { backgroundColor: ThemeStyles.main_bg, elevation: 0 },
+			headerStyle: {
+				backgroundColor: ThemeStyles.main_bg,
+				elevation: 0,
+				shadowOpacity: 0,
+				borderBottomWidth: 0,
+			},
 			headerTitleStyle: { 
 				...GeneralStyles.header_title,
 				color: ThemeStyles.blue_text,
