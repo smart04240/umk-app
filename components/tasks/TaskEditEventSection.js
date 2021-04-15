@@ -13,16 +13,6 @@ import TimePicker from "../form/timepicker/TimePicker";
 
 const INPUT_WIDTH = ( Layout.width - 10 - Layout.paddingHorizontal * 2 ) / 2;
 
-const inputs = [
-	[
-		{ name: "date_from", component: DatePicker },
-		{ name: "time_from", component: TimePicker },
-	],
-	[
-		{ name: "date_to", component: DatePicker },
-		{ name: "time_to", component: TimePicker },
-	]
-]
 
 const TaskEditEventSection = props => {
 
@@ -30,8 +20,19 @@ const TaskEditEventSection = props => {
 	const translate = useTranslator();
 	const { is_event, one_day_event, onChange } = props;
 
+	const inputs = [
+		[
+			{ name: "date_from", placeholder: translate( Translations.StartDate ), component: DatePicker },
+			{ name: "time_from", component: TimePicker },
+		],
+		[
+			{ name: "date_to", placeholder: translate( Translations.EndDate ), component: DatePicker },
+			{ name: "time_to", component: TimePicker },
+		]
+	];
+
 	return (
-		<View style={{ marginBottom: 8 }}>
+		<View style={{ marginBottom: 15 }}>
 			<Checkbox
 				name="is_event"
 				label={ translate( Translations.Event )}
@@ -63,6 +64,8 @@ const TaskEditEventSection = props => {
 									<input.component
 										key={ input.name }
 										name={ input.name }
+										placeholder={ input.placeholder }
+										value_label_style={{ fontSize: 12 }}
 										container_style={{ 
 											width: INPUT_WIDTH, 
 											marginRight: index === 0 ? 10 : 0,

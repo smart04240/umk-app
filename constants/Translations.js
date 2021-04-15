@@ -160,6 +160,11 @@ export default {
 		pl: "Zapisz zmiany"
 	},
 
+	Save: {
+		en: "Save",
+		pl: "Zapisz"
+	},
+
 	DeleteAccount: {
 		en: "Delete account",
 		pl: "Usuń konto"
@@ -408,6 +413,56 @@ export default {
 	Event: {
 		en: "Event",
 		pl: "Wydarzenie"
+	},
+
+	Reminder: {
+		en: "Reminder",
+		pl: "Przypomnienie"
+	},
+
+	TenMinBefore: {
+		en: "10 minutes before",
+		pl: "10 minut przed"
+	},
+
+	HourBefore: {
+		en: "1 hour before",
+		pl: "1 godzinę przed"
+	},
+
+	SixHoursBefore: {
+		en: "6 hours before",
+		pl: "6 godzin przed"
+	},
+
+	DayBefore: {
+		en: "1 day before",
+		pl: "1 dzień przed"
+	},
+
+	TwoDaysBefore: {
+		en: "2 days before",
+		pl: "2 dni przed"
+	},
+
+	WeekBefore: {
+		en: "The week before",
+		pl: "tydzień przed"
+	},
+
+	StartDate: {
+		en: "Start date",
+		pl: "Data rozpoczęcia"
+	},
+
+	EndDate: {
+		en: "End date",
+		pl: "Data zakończenia"
+	},
+
+	Date: {
+		en: "Date",
+		pl: "Data"
 	},
 
 	"1_month": {

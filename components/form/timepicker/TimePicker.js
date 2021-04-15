@@ -50,6 +50,7 @@ const TimePicker = props => {
 
 	}, [ value ]);
 
+
 	return (
 		<View style={[
 			styles.container,
@@ -97,6 +98,7 @@ const TimePicker = props => {
 				styles.time_boxes,
 				open ? styles.time_boxes_visible : {},
 				{ backgroundColor: ThemeStyles.box_bg },
+				props.time_boxes_style || {}
 			]}>
 				
 				{ time_boxes.map(( box, index ) => (

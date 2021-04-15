@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useMemo, useState, useReducer } from "react";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
 
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -11,10 +11,9 @@ import Input from "../../components/form/Input";
 import Container from "../../components/general/Container";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Dropdown from "../../components/form/Dropdown";
-import Checkbox from "../../components/form/Checkbox";
-import TimePicker from "../../components/form/timepicker/TimePicker";
 import TaskEditEventSection from "../../components/tasks/TaskEditEventSection";
-import DatePicker from "../../components/form/datepicker/DatePicker";
+import Button from "../../components/form/Button";
+import TaskEditReminderSection from "../../components/tasks/TaskEditReminderSection";
 
 const reducer = ( state, action ) => {
 
@@ -114,80 +113,108 @@ export default function TaskEditScreen( props ) {
 		<MainWithNavigation>
 
 			<Container>
+				<SafeAreaView>
+					<ScrollView>
+					
+						{/* <TouchableOpacity onPress={ () => dispatch({ type: "clear" }) }>
+							<Text style={{ marginBottom: 20 }}> CLEAR DATA </Text>
+						</TouchableOpacity>
+					
+						<TouchableOpacity onPress={ () => dispatch({ type: "remove", name: [ "name", "description" ] }) }>
+							<Text style={{ marginBottom: 20 }}> REMOVE SOME DATA </Text>
+						</TouchableOpacity> */}
+					
+						<Text style={[
+							GeneralStyles.text_regular,
+							{ color: ThemeStyles.dark_text, marginBottom: 20 }
+						]}>
+							{ main_title }
+						</Text>
 
-				<ScrollView>
+						<View style={{ width: "100%", marginBottom: 30 }}>
 
-					{/* <TouchableOpacity onPress={ () => dispatch({ type: "clear" }) }>
-						<Text style={{ marginBottom: 20 }}> CLEAR DATA </Text>
-					</TouchableOpacity>
-				
-					<TouchableOpacity onPress={ () => dispatch({ type: "remove", name: [ "name", "description" ] }) }>
-						<Text style={{ marginBottom: 20 }}> REMOVE SOME DATA </Text>
-					</TouchableOpacity> */}
-				
-					<Text style={[
-						GeneralStyles.text_regular,
-						{ color: ThemeStyles.dark_text, marginBottom: 20 }
-					]}>
-						{ main_title }
-					</Text>
+							<Input
+								name="name"
+								placeholder="Tytuł zadania *"
+								defaultValue={ editing_task_data?.name }
+								style={{ marginBottom: 8 }}
+								error_message={ getErrorMessage( "name" )}
+								onChangeText={ v => inputOnChangeText( "name", v )}
+							/>
 
-					<View style={{ width: "100%", marginBottom: 30 }}>
+							{ main_dropdowns.map( dropdown => (
+								<Dropdown
+									key={ dropdown.name }
+									{...dropdown }
+									init_value={ editing_task_data?.[ dropdown.name ]}
+									error_message={ getErrorMessage( dropdown.name )}
+									onChange={ o => onChange( o )}
+								/>
+							)) }
+						</View>
 
-						<Input
-							name="name"
-							placeholder="Tytuł zadania *"
-							defaultValue={ editing_task_data?.name }
-							style={{ marginBottom: 8 }}
-							error_message={ getErrorMessage( "name" )}
-							onChangeText={ v => inputOnChangeText( "name", v )}
+							
+						<TaskEditEventSection
+							one_day_event={ data.one_day_event }
+							is_event={ data.is_event }
+							onChange={ o => { 
+								onChange( o );
+								
+								if ( o.name === "is_event" && !o.value ) {
+									dispatch({ 
+										type: "remove", 
+										name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
+									})
+								}
+
+								if ( o.name === "one_day_event" && !!o.value ) {
+									dispatch({
+										type: "remove",
+										name: [ "time_from", "time_to" ]
+									})
+								}
+							}}
 						/>
 
-						{ main_dropdowns.map( dropdown => (
-							<Dropdown
-								key={ dropdown.name }
-								{...dropdown }
-								init_value={ editing_task_data?.[ dropdown.name ]}
-								error_message={ getErrorMessage( dropdown.name )}
-								onChange={ o => onChange( o )}
-							/>
-						)) }
-					</View>
+						<Input
+							name="description"
+							style={{ marginBottom: 15 }}
+							label={ translate( Translations.EnterDescOfTask )}
+							placeholder={ translate( Translations.DescEllipsis )}
+							multiline={ true }
+							numberOfLines={ 6 }
+							onChangeText={ v => inputOnChangeText( "description", v )}
+						/>
+					
 
-						
-					<TaskEditEventSection
-						one_day_event={ data.one_day_event }
-						is_event={ data.is_event }
-						onChange={ o => { 
-							onChange( o );
-							
-							if ( o.name === "is_event" && !o.value ) {
-								dispatch({ 
-									type: "remove", 
-									name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
-								})
-							}
+						<TaskEditReminderSection
+							reminder={ data.reminder }
+							reminder_option={ data.reminder_option }
+							onChange={ o => {
+								onChange( o );
 
-							if ( o.name === "one_day_event" && !!o.value ) {
-								dispatch({
-									type: "remove",
-									name: [ "time_from", "time_to" ]
-								})
-							}
-						}}
-					/>
+								if ( o.name === "reminder" && !o.value ) {
+									dispatch({
+										type: "remove",
+										name: [ "reminder_option", "reminder_date", "reminder_time"]
+									})
+								}
 
-					<Input
-						name="description"
-						label={ translate( Translations.EnterDescOfTask )}
-						placeholder={ translate( Translations.DescEllipsis )}
-						multiline={ true }
-						numberOfLines={ 4 }
-						onChangeText={ v => inputOnChangeText( "description", v )}
-					/>
-				
+								if ( o.name === "reminder_option" && o.value !== "custom" ) {
+									dispatch({
+										type: "remove",
+										name: [ "reminder_date", "reminder_time"]
+									})
+								}
+							}}
+						/>
 
-				</ScrollView>
+						<Button>
+							{ translate( Translations.Save )}
+						</Button>
+
+					</ScrollView>
+				</SafeAreaView>
 			</Container>
 
 		</MainWithNavigation>

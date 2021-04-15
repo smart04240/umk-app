@@ -4,22 +4,26 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import useThemeStyles from '../../../hooks/useThemeStyles';
 import GeneralStyles from "../../../constants/GeneralStyles";
-import { isFunction } from '../../../helpers/functions';
+import { isFunction, isObject } from '../../../helpers/functions';
 import { getLocalDateAndTimeFromISOString } from '../../../helpers/date';
+import Translations from '../../../constants/Translations';
+import useTranslator from '../../../hooks/useTranslator';
 
 import DatePickerCalendar from './DatePickerCalendar';
 
 const DatePicker = props => {
 
 	const ThemeStyles = useThemeStyles();
+	const translate = useTranslator();
 
 	const { name, placeholder, onChange } = props;
+	const calendar_styles = isObject( props.calendar_styles ) ? props.calendar_styles : {};
 	const [ open, setOpen ] = useState( false );
 	const [ value, setValue ] = useState( null );
 
 	const value_label = useMemo(() =>  {
 
-		let result = placeholder || "Data"
+		let result = placeholder || translate( Translations.Date )
 
 		if ( value ) { 
 			const date_time = getLocalDateAndTimeFromISOString( value );
@@ -48,7 +52,8 @@ const DatePicker = props => {
 
 					<Text style={[
 						GeneralStyles.text_regular,
-						{ color: ThemeStyles.dark_text, marginRight: "auto" }
+						{ color: ThemeStyles.dark_text, marginRight: "auto" },
+						props.value_label_style || {}
 					]}>
 						{ value_label }
 					</Text>
@@ -80,6 +85,7 @@ const DatePicker = props => {
 			
 			{ open && 
 				<DatePickerCalendar 
+					{ ...calendar_styles } 
 					init_iso_date={ value }
 					onChange={ v => setValue( v )}
 				/>
