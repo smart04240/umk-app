@@ -39,7 +39,7 @@ import TaskEditScreen from "../screens/tasks/TaskEditScreen";
 import MapScreen from "../screens/map/MapScreen";
 
 const ScreenOptions = {
-    gestureDirection: 'horizontal',
+    gestureEnabled: false,
     transitionSpec: {
         open: TransitionSpecs.TransitionIOSSpec,
         close: TransitionSpecs.TransitionIOSSpec,
@@ -159,8 +159,8 @@ export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    // const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }
@@ -178,7 +178,7 @@ export default function Screens() {
         >
             {props => <screen.component {...props} />}
         </Stack.Screen>
-    )), [user, ThemeStyles, translate]);
+    )), [user, translate]);
 
     return (
         <NavigationContainer>
