@@ -34,7 +34,6 @@ const reducer = ( state, action ) => {
 
 		default: throw new Error();
 	}
-
 };
 
 const opt_sample = [
@@ -44,9 +43,22 @@ const opt_sample = [
 ];
 
 const task_sample = {
-	name: "task of Potap Zolupa",
+	title: "task of Potap Zolupa",
 	place: 2,
-	category: 1
+	category: 1,
+
+	is_event: true,
+	// one_day_event: true,
+	date_from: "2021-04-15",
+	date_to: "2021-04-16",
+	time_from: "10:00",
+	time_to: "20:30",
+
+	description: "DESCRIPTION OF THE AHUITELNI TASK",
+	reminder: true,
+	reminder_option: "custom",
+	reminder_date: "2021-04-20",
+	reminder_time: "09:30"
 }
 
 export default function TaskEditScreen( props ) {
@@ -82,7 +94,7 @@ export default function TaskEditScreen( props ) {
 
 
 	const errors = useMemo(() => ({
-		name: translate( Translations.EnteringTitleIsRequired ),
+		title: translate( Translations.EnteringTitleIsRequired ),
 		place: translate( Translations.SelectingPlaceIsRequired ),
 		category: translate( Translations.SelectingCategoryIsRequired ) 
 	}), [ translate ]);
@@ -134,12 +146,12 @@ export default function TaskEditScreen( props ) {
 						<View style={{ width: "100%", marginBottom: 30 }}>
 
 							<Input
-								name="name"
+								name="title"
 								placeholder="Tytuł zadania *"
-								defaultValue={ editing_task_data?.name }
+								defaultValue={ editing_task_data?.title }
 								style={{ marginBottom: 8 }}
-								error_message={ getErrorMessage( "name" )}
-								onChangeText={ v => inputOnChangeText( "name", v )}
+								error_message={ getErrorMessage( "title" )}
+								onChangeText={ v => inputOnChangeText( "title", v )}
 							/>
 
 							{ main_dropdowns.map( dropdown => (
@@ -155,8 +167,7 @@ export default function TaskEditScreen( props ) {
 
 							
 						<TaskEditEventSection
-							one_day_event={ data.one_day_event }
-							is_event={ data.is_event }
+							data={ data }
 							onChange={ o => { 
 								onChange( o );
 								
@@ -178,6 +189,7 @@ export default function TaskEditScreen( props ) {
 
 						<Input
 							name="description"
+							defaultValue={ editing_task_data?.description }
 							style={{ marginBottom: 15 }}
 							label={ translate( Translations.EnterDescOfTask )}
 							placeholder={ translate( Translations.DescEllipsis )}
@@ -188,8 +200,7 @@ export default function TaskEditScreen( props ) {
 					
 
 						<TaskEditReminderSection
-							reminder={ data.reminder }
-							reminder_option={ data.reminder_option }
+							data={ data }
 							onChange={ o => {
 								onChange( o );
 

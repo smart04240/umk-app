@@ -5,8 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useThemeStyles from '../../../hooks/useThemeStyles';
 import GeneralStyles from "../../../constants/GeneralStyles";
 import TimePickerTimeBox from "./TimePickerTimeBox";
-import { isFunction } from '../../../helpers/functions';
-
+import { isFunction, isString } from '../../../helpers/functions';
 
 const time_boxes = [ "hours", "minutes" ];
 
@@ -29,9 +28,15 @@ const TimePicker = props => {
 
 	const ThemeStyles = useThemeStyles();
 
-	const { name, onChange } = props;
+	const { name, init_value, onChange } = props;
+	const init_arr = isString( init_value ) && init_value.split(":").length === 2 ? init_value.split(":") : null;
+	
+	const start_value = init_arr 
+		? { hours: init_arr[0], minutes: init_arr[1] } 
+		: {};
+
 	const [ open, setOpen ] = useState( false );
-	const [ value, dispatch ] = useReducer( reducer, {} );
+	const [ value, dispatch ] = useReducer( reducer, start_value );
 
 	const value_label = useMemo(() => (
  		!!value.minutes && !!value.hours 

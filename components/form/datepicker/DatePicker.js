@@ -16,10 +16,10 @@ const DatePicker = props => {
 	const ThemeStyles = useThemeStyles();
 	const translate = useTranslator();
 
-	const { name, placeholder, onChange } = props;
+	const { name, init_value, placeholder, onChange } = props;
 	const calendar_styles = isObject( props.calendar_styles ) ? props.calendar_styles : {};
 	const [ open, setOpen ] = useState( false );
-	const [ value, setValue ] = useState( null );
+	const [ value, setValue ] = useState( init_value || null );
 
 	const value_label = useMemo(() =>  {
 

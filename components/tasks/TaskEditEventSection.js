@@ -18,7 +18,8 @@ const TaskEditEventSection = props => {
 
 	const ThemeStyles = useThemeStyles();
 	const translate = useTranslator();
-	const { is_event, one_day_event, onChange } = props;
+	const { data, onChange } = props;
+	const { is_event, one_day_event } = data;
 
 	const inputs = [
 		[
@@ -34,6 +35,7 @@ const TaskEditEventSection = props => {
 	return (
 		<View style={{ marginBottom: 15 }}>
 			<Checkbox
+				init_checked={ is_event }
 				name="is_event"
 				label={ translate( Translations.Event )}
 				row_style={{ alignItems: "center" }}
@@ -64,8 +66,9 @@ const TaskEditEventSection = props => {
 									<input.component
 										key={ input.name }
 										name={ input.name }
+										init_value={ data[ input.name ]}
 										placeholder={ input.placeholder }
-										value_label_style={{ fontSize: 12 }}
+										value_label_style={{ fontSize: 13 }}
 										container_style={{ 
 											width: INPUT_WIDTH, 
 											marginRight: index === 0 ? 10 : 0,
@@ -80,6 +83,7 @@ const TaskEditEventSection = props => {
 
 					<Checkbox 
 						name="one_day_event"
+						init_checked={ one_day_event }
 						label="Wydarzenie jednodniowe"
 						onChange={ o => onChange( o )}
 					/>

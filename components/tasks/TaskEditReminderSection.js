@@ -16,8 +16,9 @@ const INPUT_WIDTH = ( Layout.width - 10 - Layout.paddingHorizontal * 2 ) / 2;
 const TaskEditReminderSection = props => {
 
 	const translate = useTranslator();
-	const { reminder, reminder_option, onChange } = props;
-
+	const { data, onChange } = props;
+	const { reminder, reminder_option, reminder_date, reminder_time } = data;
+	
 	const reminder_opt = [
 		{ value: "10_min", label: translate( Translations.TenMinBefore )},
 		{ value: "1_hour", label: translate( Translations.HourBefore )},
@@ -38,6 +39,7 @@ const TaskEditReminderSection = props => {
 			
 			<Checkbox
 				name="reminder"
+				init_checked={ reminder }
 				label={ translate( Translations.Reminder )}
 				row_style={{ alignItems: "center" }}
 				onChange={ o => onChange( o )}
@@ -46,6 +48,7 @@ const TaskEditReminderSection = props => {
 			{ reminder && 
 				<Dropdown
 					name="reminder_option"
+					init_value={ reminder_option }
 					options={ reminder_opt }
 					options_box_style={{ maxHeight: 75 }}
 					onChange={ o => onChange( o )}
@@ -56,12 +59,14 @@ const TaskEditReminderSection = props => {
 				<View style={[ GeneralStyles.row_ac ]}>
 					<DatePicker
 						name="reminder_date"
+						init_value={ reminder_date }
 						calendar_styles={{ 
 							container: {
 								top: "auto",
 								bottom: "100%"
 							}
 						}}	
+						value_label_style={{ fontSize: 13 }}
 						container_style={[ 
 							custom_input_cont_style,
 							{ marginRight: 10 } 
@@ -71,6 +76,7 @@ const TaskEditReminderSection = props => {
 
 					<TimePicker
 						name="reminder_time"
+						init_value={ reminder_time }
 						container_style={ custom_input_cont_style }
 						time_boxes_style={{ top: "auto", bottom: "100%" }}
 						onChange={ o => onChange( o )}
