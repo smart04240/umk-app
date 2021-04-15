@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, ScrollView, useWindowDimensions, View,} from 'react-native';
+import {Keyboard, ScrollView, useWindowDimensions, View} from 'react-native';
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import ClusteredMapView from "../../components/map/ClusteredMapView";
@@ -17,6 +17,8 @@ import CategoryButton from "../../components/buttons/CategoryButton";
 import Layout from "../../constants/Layout";
 import Main from "../../components/general/Main";
 
+const MapHeight = Layout.height * 0.5;
+
 export default function MapScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -26,6 +28,8 @@ export default function MapScreen() {
     const data = useSelector(state => state.mapData);
     const [locationPermission, setLocationPermission] = React.useState(null);
     const map = React.useRef();
+    const searchPanelHeight = React.useRef(60);
+    const offset = searchPanelHeight.current - GeneralStyles.bottom_border_radius.borderBottomLeftRadius;
 
     React.useEffect(() => {
         /* Request location permissions */
@@ -43,10 +47,10 @@ export default function MapScreen() {
             markers.map(marker => ({latitude: marker.latitude, longitude: marker.longitude})),
             {
                 edgePadding: {
-                    top: 100, // 50 is the baseMapPadding
+                    top: 160, // 50 is the baseMapPadding
                     right: 100,
                     left: 100,
-                    bottom: 100,
+                    bottom: 50,
                 },
                 animated: false,
             }
@@ -69,32 +73,37 @@ export default function MapScreen() {
 
     const searchChange = React.useCallback(text => dispatch(Actions.ChangeMapSearch(text)), []);
 
+    const onLayout = layout => searchPanelHeight.current = layout.nativeEvent.layout.height;
+
     return (
-        <>
-            <View style={{overflow: 'hidden', paddingBottom: 15, zIndex: 10}}>
-                <View style={[styles.search, {backgroundColor: theme.box_bg}]}>
-                    <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
-                </View>
+        <Main>
+            <View onLayout={onLayout} style={[styles.search, {backgroundColor: theme.box_bg}]}>
+                <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
             </View>
 
-            <ScrollView>
-                <ClusteredMapView
-                    ref={map}
-                    style={styles.map}
-                    onPress={Keyboard.dismiss}
-                    width={useWindowDimensions().width}
-                    height={500}
-                    clusteringEnabled={true}
-                    data={markers}
-                    renderMarker={renderMarker}
-                    showsUserLocation={!!locationPermission}
-                    initialRegion={{
-                        latitude: 53.0196473,
-                        longitude: 18.6108992,
-                        latitudeDelta: 0.03,
-                        longitudeDelta: 0.03,
-                    }}
-                />
+            <ScrollView
+                style={{marginTop: offset}}
+                bounces={false}
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.map}>
+                    <ClusteredMapView
+                        ref={map}
+                        onPress={Keyboard.dismiss}
+                        width={useWindowDimensions().width}
+                        height={MapHeight}
+                        clusteringEnabled={true}
+                        data={markers}
+                        renderMarker={renderMarker}
+                        showsUserLocation={!!locationPermission}
+                        initialRegion={{
+                            latitude: 53.0196473,
+                            longitude: 18.6108992,
+                            latitudeDelta: 0.03,
+                            longitudeDelta: 0.03,
+                        }}
+                    />
+                </View>
                 <Main style={styles.categories.container}>
                     {data.categories.map(category => (
                         <CategoryButton
@@ -108,7 +117,7 @@ export default function MapScreen() {
                     ))}
                 </Main>
             </ScrollView>
-        </>
+        </Main>
     );
 };
 
@@ -117,10 +126,23 @@ const styles = {
         zIndex: 10,
         padding: 20,
         paddingTop: 10,
+        paddingBottom: 15,
+        width: '100%',
+        position: 'absolute',
         ...GeneralStyles.bottom_border_radius,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
         elevation: 10,
     },
-    map: {},
+    map: {
+        ...GeneralStyles.bottom_border_radius,
+        overflow: 'hidden',
+    },
     categories: {
         container: {
             flexDirection: 'row',

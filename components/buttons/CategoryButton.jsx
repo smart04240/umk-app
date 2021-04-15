@@ -3,15 +3,18 @@ import {Text, TouchableWithoutFeedback, View} from "react-native";
 import {FontAwesome5} from "@expo/vector-icons";
 import useTranslated from "../../hooks/useTranslated";
 import Fonts from "../../constants/Fonts";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
 export default function CategoryButton({style, buttonStyle, category, onPress, size}) {
+    const theme = useThemeStyles();
+
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={[styles.container, style]}>
                 <View style={[styles.button, {width: size, height: size}, buttonStyle]}>
                     <FontAwesome5 name="map-marker" size={32} color={category.color}/>
                 </View>
-                <Text style={styles.title}>
+                <Text style={[styles.title, {color: theme.dark_blue_text}]}>
                     {useTranslated(category.title)}
                 </Text>
             </View>

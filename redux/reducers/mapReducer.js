@@ -73,12 +73,22 @@ const Markers = [
     {
         id: 1,
         title: {
-            en: '',
-            pl: '',
+            en: 'Marker 1',
+            pl: 'POI 1',
         },
         latitude: 53.0196473,
         longitude: 18.6108992,
         category: Categories.Departments,
+    },
+    {
+        id: 2,
+        title: {
+            en: 'Marker 2',
+            pl: 'POI 2',
+        },
+        latitude: 53.1196473,
+        longitude: 18.6108992,
+        category: Categories.Laboratories,
     },
 ];
 
