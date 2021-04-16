@@ -11,7 +11,7 @@ export default function CategoryButton({style, buttonStyle, category, onPress, s
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={[styles.container, style]}>
-                <View style={[styles.button, {width: size, height: size}, buttonStyle]}>
+                <View style={[styles.button, {backgroundColor: theme.box_bg, width: size, height: size}, buttonStyle]}>
                     <FontAwesome5 name="map-marker" size={32} color={category.color}/>
                 </View>
                 <Text style={[styles.title, {color: theme.dark_blue_text}]}>
