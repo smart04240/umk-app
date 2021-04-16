@@ -12,10 +12,9 @@ import useTranslated from '../../hooks/useTranslated';
 
 import ProfileAvatar from '../profile/ProfileAvatar';
 
-const SidebarUserInfo = props => {
+const SidebarUserInfo = ({navigation}) => {
 
     const ThemeStyles = useThemeStyles();
-	const navigation = useNavigation();
 
     const user = useSelector( state => state.user );
 	const nick_name = "nick_studenta123";

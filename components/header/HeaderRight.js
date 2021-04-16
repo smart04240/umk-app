@@ -22,8 +22,8 @@ const HeaderRight = props => {
     const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
 	const route = useRoute();
-	
-	const openSidebar = () => dispatch( Actions.Sidebar.Open());
+
+	const openSidebar = () => navigation.openDrawer();
 
 	const remind_icon = route.name === Routes.Reminders ? "bell" : "bell-outline";
 
