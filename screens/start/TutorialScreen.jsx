@@ -1,7 +1,7 @@
 import React from "react";
 import Routes from "../../constants/Routes";
 
-import ContainerWithScroll from "../../components/general/ContainerWithScroll";
+import Container from "../../components/general/Container";
 import Main from "../../components/general/Main";
 import InfoCardsStack from "../../components/info-card/InfoCardsStack";
 import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
@@ -41,7 +41,7 @@ export default function TutorialScreen( props ) {
 	return (
 		<ScreenWithHeaderTitleOnly>
 			<Main>
-				<ContainerWithScroll>
+				<Container>
 
 					<InfoCardsStack 
 						cards={ cards }
@@ -49,7 +49,7 @@ export default function TutorialScreen( props ) {
 						onFinishPress={ toStartScreen }
 					/>
 
-				</ContainerWithScroll>
+				</Container>
 			</Main>
 		</ScreenWithHeaderTitleOnly>
 	)

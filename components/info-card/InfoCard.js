@@ -43,7 +43,7 @@ const CARDS_X = {
 const InfoCard = props => {
 
 	const ThemeStyles = useThemeStyles();
-	const { title, text, img_source, active, active_index, item_index, total_amount } = props;
+	const { title, text, img_source, active, active_index, animation_duration, item_index, total_amount } = props;
 
 	const LAST_INDEX = total_amount - 1;
 	const IS_FIRST_CARD = item_index === 0;
@@ -61,7 +61,7 @@ const InfoCard = props => {
 	const handleAnimation = value => {
         Animated.timing( animated_value, {
             toValue: value,
-            duration: 500,
+            duration: animation_duration || 500,
 			useNativeDriver: true,
             easing: Easing.ease
         }).start()
