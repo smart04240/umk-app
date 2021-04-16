@@ -183,9 +183,6 @@ export default function Screens() {
                 title: translate(screen.title),
                 headerStyle: {
                     backgroundColor: ThemeStyles.box_bg,
-                    elevation: 0,
-                    shadowOpacity: 0,
-                    borderBottomWidth: 0,
                 },
                 headerTintColor: ThemeStyles.blue_text,
                 headerTitleStyle: {

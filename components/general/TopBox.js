@@ -2,22 +2,26 @@ import React from 'react';
 import { View, StyleSheet } from "react-native";
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Layout from "../../constants/Layout";
+import WithHeaderConfig from "../layout/WithHeaderConfig";
 
 const TopBox = ({style, children, ...rest}) => {
 
     const ThemeStyles = useThemeStyles();
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, style || {} ]} {...rest}>
-			{ children }
-		</View>
+		<WithHeaderConfig borderless={true}>
+			<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, style || {} ]} {...rest}>
+				{ children }
+			</View>
+		</WithHeaderConfig>
 	)
 }
 
 const styles = StyleSheet.create({
 	box: { 
 		paddingHorizontal: Layout.paddingHorizontal,
-		paddingVertical: 15,
+		paddingTop: 0,
+		paddingBottom: 15,
 		elevation: 10,
 		zIndex: 10,
 		borderBottomLeftRadius: 20,

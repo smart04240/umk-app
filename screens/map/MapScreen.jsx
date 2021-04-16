@@ -20,7 +20,6 @@ import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
 import {MaterialIcons} from '@expo/vector-icons';
 import Routes from "../../constants/Routes";
-import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
 import TopBox from "../../components/general/TopBox";
 
 const MapHeight = Layout.height * 0.5;
@@ -104,64 +103,62 @@ export default function MapScreen() {
     };
 
     return (
-        <WithHeaderConfig borderless={true}>
-            <Main>
-                <TopBox style={{position: 'absolute', width: '100%'}} onLayout={onLayout}>
-                    <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
-                </TopBox>
+        <Main>
+            <TopBox style={{position: 'absolute', width: '100%'}} onLayout={onLayout}>
+                <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
+            </TopBox>
 
-                <ScrollView
-                    style={{marginTop: offset}}
-                    bounces={false}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <View style={styles.map}>
-                        <ClusteredMapView
-                            ref={map}
-                            onPress={Keyboard.dismiss}
-                            width={useWindowDimensions().width}
-                            height={MapHeight}
-                            clusteringEnabled={true}
-                            data={markers}
-                            renderMarker={renderMarker}
-                            showsUserLocation={locationPermission}
-                            showsMyLocationButton={false}
-                            initialRegion={InitialRegion}
-                        />
+            <ScrollView
+                style={{marginTop: offset}}
+                bounces={false}
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.map}>
+                    <ClusteredMapView
+                        ref={map}
+                        onPress={Keyboard.dismiss}
+                        width={useWindowDimensions().width}
+                        height={MapHeight}
+                        clusteringEnabled={true}
+                        data={markers}
+                        renderMarker={renderMarker}
+                        showsUserLocation={locationPermission}
+                        showsMyLocationButton={false}
+                        initialRegion={InitialRegion}
+                    />
 
-                        <TouchableOpacity style={styles.listButton.button} onPress={goToList}>
-                            <Text style={styles.listButton.text}>lista</Text>
+                    <TouchableOpacity style={styles.listButton.button} onPress={goToList}>
+                        <Text style={styles.listButton.text}>lista</Text>
+                    </TouchableOpacity>
+
+                    {locationPermission && (
+                        <TouchableOpacity style={styles.locationButton.button} onPress={locate}>
+                            <LinearGradient
+                                style={styles.locationButton.gradient}
+                                colors={[Colors.PrussianBlue, Colors.Blue]}
+                                start={{x: 0, y: 0.5}}
+                                end={{x: 0.5, y: 0}}
+                            >
+                                {!locating && <MaterialIcons name="my-location" size={24} color={Colors.White}/>}
+                                {locating && <ActivityIndicator color={Colors.White}/>}
+                            </LinearGradient>
                         </TouchableOpacity>
-
-                        {locationPermission && (
-                            <TouchableOpacity style={styles.locationButton.button} onPress={locate}>
-                                <LinearGradient
-                                    style={styles.locationButton.gradient}
-                                    colors={[Colors.PrussianBlue, Colors.Blue]}
-                                    start={{x: 0, y: 0.5}}
-                                    end={{x: 0.5, y: 0}}
-                                >
-                                    {!locating && <MaterialIcons name="my-location" size={24} color={Colors.White}/>}
-                                    {locating && <ActivityIndicator color={Colors.White}/>}
-                                </LinearGradient>
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                    <Main style={styles.categories.container}>
-                        {data.categories.map(category => (
-                            <CategoryButton
-                                key={category.slug}
-                                category={category}
-                                style={{width: '25%', marginBottom: 20}}
-                                size={Layout.width * 0.15}
-                                buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.slug) ? styles.categories.inactive : undefined}
-                                onPress={() => dispatch(Actions.ToggleCategory(category.slug))}
-                            />
-                        ))}
-                    </Main>
-                </ScrollView>
-            </Main>
-        </WithHeaderConfig>
+                    )}
+                </View>
+                <Main style={styles.categories.container}>
+                    {data.categories.map(category => (
+                        <CategoryButton
+                            key={category.slug}
+                            category={category}
+                            style={{width: '25%', marginBottom: 20}}
+                            size={Layout.width * 0.15}
+                            buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.slug) ? styles.categories.inactive : undefined}
+                            onPress={() => dispatch(Actions.ToggleCategory(category.slug))}
+                        />
+                    ))}
+                </Main>
+            </ScrollView>
+        </Main>
     );
 };
 
