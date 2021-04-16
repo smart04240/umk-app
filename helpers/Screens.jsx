@@ -184,6 +184,7 @@ export default function Screens() {
                 headerTintColor: ThemeStyles.blue_text,
                 headerTitleStyle: {
                     ...GeneralStyles.header_title,
+                    textAlign: 'center',
 					color: ThemeStyles.blue_text
                 },
                 headerRight: () => <HeaderRight/>
