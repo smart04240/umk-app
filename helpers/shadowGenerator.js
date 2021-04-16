@@ -93,6 +93,9 @@ function parseShadow(raw) {
 const interpolate = (i, a, b, a2, b2) => (i - a) * (b2 - a2) / (b - a) + a2;
 
 export default function shadowGenerator(elevation) {
+    if (elevation > 20)
+        throw new Error('Elevation must be <= 20');
+
     const shadow = parseShadow(AndroidDepth.penumbra[elevation]);
     return {
         shadowColor: "#000000",
