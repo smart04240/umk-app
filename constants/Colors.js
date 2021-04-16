@@ -19,6 +19,8 @@ export default {
 
 	DeepSkyBlue: "#00AEEF",
 	DeepSkyBluRgba: getRgbaFunc( 0, 174, 239 ),
+
+	PigeonPost: "#A8BFD8",
 	
 	Red: "#D82D2D", //notific
 	RedRgba: getRgbaFunc( 237, 29, 36 ),
