@@ -95,6 +95,7 @@ const interpolate = (i, a, b, a2, b2) => (i - a) * (b2 - a2) / (b - a) + a2;
 export default function shadowGenerator(elevation) {
     const shadow = parseShadow(AndroidDepth.penumbra[elevation]);
     return {
+        shadowColor: "#000000",
         shadowOffset: {
             width: 0,
             height: shadow.y === 1 ? 1 : Math.floor(shadow.y * 0.5),
