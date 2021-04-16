@@ -10,7 +10,8 @@ export default {
 		box_bg: Colors.White,
 		icon_color: Colors.Blue,
 		blue_rgba: o => Colors.BlueRgba(o),
-		dark_blue_rgba: o => Colors.PrussianBlueRgba(o)
+		dark_blue_rgba: o => Colors.PrussianBlueRgba(o),
+		blue_overlay_rgba: o => Colors.BlueRgba(o)
 	},
 
 	Dark: {
@@ -21,6 +22,7 @@ export default {
 		box_bg: Colors.PayneGrey,
 		icon_color: Colors.White,
 		blue_rgba: o => Colors.WhiteRgba(o),
-		dark_blue_rgba: o => Colors.WhiteRgba(o)
+		dark_blue_rgba: o => Colors.WhiteRgba(o),
+		blue_overlay_rgba: o => Colors.BlackRgba(o)
 	}
 };

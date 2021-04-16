@@ -5,6 +5,10 @@ const getRgbaFunc = ( r, g, b ) => {
 
 
 export default {
+
+	Black: "#000000",
+	BlackRgba: getRgbaFunc( 0, 0, 0 ),
+
 	White: "#ffffff",
 	WhiteRgba: getRgbaFunc( 255, 255, 255 ),
 	

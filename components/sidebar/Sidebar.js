@@ -14,9 +14,7 @@ import ThemeSwitcher from "../theme/ThemeSwitcher";
 import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
-import Colors from '../../constants/Colors';
 import { useNavigation, useRoute } from '@react-navigation/core';
-
 
 const WINDOW_WIDTH = Layout.width;
 const WINDOW_HEIGHT = Layout.height;
@@ -76,6 +74,7 @@ const Sidebar = () => {
 			<Animated.View
 				style={[
 					styles.overlay,
+					{ backgroundColor: ThemeStyles.blue_overlay_rgba( 0.7 )},
 					{
 						opacity: animated_value.interpolate({
 							inputRange: [ 0, 1 ],
@@ -149,8 +148,7 @@ const styles = StyleSheet.create({
 		top: -56,
 		left: 0,
 		width: WINDOW_WIDTH,
-		height: WINDOW_HEIGHT,
-		backgroundColor: Colors.BlueRgba(0.7),
+		height: WINDOW_HEIGHT
 	},
 
 	sidebar: {

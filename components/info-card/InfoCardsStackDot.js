@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, Easing } from 'react-native';
-import Colors from '../../constants/Colors';
+import useThemeStyles from '../../hooks/useThemeStyles';
 
 const InfoCardsStackDot = props => {
 
+	const ThemeStyles = useThemeStyles();
 	const { active } = props;
 	const animated_value = useRef( new Animated.Value(0)).current;
 
@@ -22,6 +23,7 @@ const InfoCardsStackDot = props => {
 		<Animated.View 
 			style={[
 				styles.dot,
+				{ backgroundColor: ThemeStyles.blue_rgba(1) },
 				{
 					opacity: animated_value.interpolate({
 						inputRange: [ 0, 1 ],
@@ -45,7 +47,6 @@ const InfoCardsStackDot = props => {
 const styles = StyleSheet.create({
 	dot: {
 		borderRadius: 5,
-		backgroundColor: Colors.Blue,
 		height: 7,
 		width: 18,
 		marginHorizontal: 4,

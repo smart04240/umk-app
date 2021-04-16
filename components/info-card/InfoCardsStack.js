@@ -4,15 +4,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Layout from '../../constants/Layout';
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
-import Colors from '../../constants/Colors';
 import useTranslated from '../../hooks/useTranslated';
 
 import InfoCard from './InfoCard';
 import InfoCardsStackDots from './InfoCardsStackDots';
+import useThemeStyles from '../../hooks/useThemeStyles';
 
 
 const InfoCardsStack = props => {
 
+	const ThemeStyles = useThemeStyles();
 	const { cards, onSkipPress, onFinishPress } = props;
 	const [ card_index, setCardIndex ] = useState( 0 );
 
@@ -22,7 +23,7 @@ const InfoCardsStack = props => {
 			onPress: onSkipPress,
 			style: [
 				styles.bottom_button,
-				{ color: Colors.BlueRgba(0.5) }
+				{ color: ThemeStyles.blue_rgba(0.5) }
 			]
 		},
 		{
@@ -32,7 +33,7 @@ const InfoCardsStack = props => {
 				: onFinishPress,
 			style: [ 
 				styles.bottom_button,
-				{ color: Colors.Blue } 
+				{ color: ThemeStyles.blue_rgba(1) } 
 			]
 		}
 	];
