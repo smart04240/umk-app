@@ -13,6 +13,7 @@ export default {
 	ProfileEvents: "profile.events",
 
 	Map: "map",
+	MarkersList: "markers.list",
 
 	Rankings: "rankings",
 	Reminders: "reminders",

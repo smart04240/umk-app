@@ -41,6 +41,7 @@ import RemindersScreen from "../screens/reminders/RemindersScreen";
 import MapScreen from "../screens/map/MapScreen";
 import GeneralStyles from "../constants/GeneralStyles";
 import Sidebar from "../components/sidebar/Sidebar";
+import MarkersListScreen from "../screens/map/MarkersListScreen";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -158,6 +159,11 @@ const RegisteredScreens = {
             name: Routes.Map,
             title: Translations.Map,
             component: MapScreen,
+        },
+        {
+            name: Routes.MarkersList,
+            title: Translations.Map,
+            component: MarkersListScreen,
         },
     ],
 };

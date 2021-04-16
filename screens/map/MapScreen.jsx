@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Keyboard, ScrollView, useWindowDimensions, View} from 'react-native';
+import {ActivityIndicator, Keyboard, ScrollView, Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import ClusteredMapView from "../../components/map/ClusteredMapView";
@@ -16,8 +16,25 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import CategoryButton from "../../components/buttons/CategoryButton";
 import Layout from "../../constants/Layout";
 import Main from "../../components/general/Main";
+import {LinearGradient} from "expo-linear-gradient";
+import Colors from "../../constants/Colors";
+import Fonts from "../../constants/Fonts";
+import {MaterialIcons} from '@expo/vector-icons';
+import Routes from "../../constants/Routes";
 
 const MapHeight = Layout.height * 0.5;
+const MapPadding = {
+    top: 160, // 50 is the baseMapPadding
+    right: 100,
+    left: 100,
+    bottom: 50,
+};
+const InitialRegion = {
+    latitude: 53.0196473,
+    longitude: 18.6108992,
+    latitudeDelta: 0.03,
+    longitudeDelta: 0.03,
+};
 
 export default function MapScreen() {
     const navigation = useNavigation();
@@ -26,7 +43,8 @@ export default function MapScreen() {
     const theme = useThemeStyles();
     const markers = useSelector(state => selectFilteredMarkers(state));
     const data = useSelector(state => state.mapData);
-    const [locationPermission, setLocationPermission] = React.useState(null);
+    const [locationPermission, setLocationPermission] = React.useState(false);
+    const [locating, setLocating] = React.useState(false);
     const map = React.useRef();
     const searchPanelHeight = React.useRef(60);
     const offset = searchPanelHeight.current - GeneralStyles.bottom_border_radius.borderBottomLeftRadius;
@@ -46,12 +64,7 @@ export default function MapScreen() {
         map.current.getMapRef().fitToCoordinates(
             markers.map(marker => ({latitude: marker.latitude, longitude: marker.longitude})),
             {
-                edgePadding: {
-                    top: 160, // 50 is the baseMapPadding
-                    right: 100,
-                    left: 100,
-                    bottom: 50,
-                },
+                edgePadding: MapPadding,
                 animated: false,
             }
         );
@@ -71,9 +84,24 @@ export default function MapScreen() {
         </MapView.Marker>
     ), [translate, navigation]);
 
-    const searchChange = React.useCallback(text => dispatch(Actions.ChangeMapSearch(text)), []);
+    const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
 
     const onLayout = layout => searchPanelHeight.current = layout.nativeEvent.layout.height;
+
+    const goToList = () => navigation.navigate(Routes.MarkersList);
+
+    const locate = () => {
+        setLocating(true);
+        Location.getCurrentPositionAsync().then(result => {
+            map.current.getMapRef?.().animateToRegion({
+                latitude: result.coords.latitude,
+                longitude: result.coords.longitude,
+                latitudeDelta: 0.03,
+                longitudeDelta: 0.03,
+            });
+            setLocating(false);
+        });
+    };
 
     return (
         <Main>
@@ -95,14 +123,28 @@ export default function MapScreen() {
                         clusteringEnabled={true}
                         data={markers}
                         renderMarker={renderMarker}
-                        showsUserLocation={!!locationPermission}
-                        initialRegion={{
-                            latitude: 53.0196473,
-                            longitude: 18.6108992,
-                            latitudeDelta: 0.03,
-                            longitudeDelta: 0.03,
-                        }}
+                        showsUserLocation={locationPermission}
+                        showsMyLocationButton={false}
+                        initialRegion={InitialRegion}
                     />
+
+                    <TouchableOpacity style={styles.listButton.button} onPress={goToList}>
+                        <Text style={styles.listButton.text}>lista</Text>
+                    </TouchableOpacity>
+
+                    {locationPermission && (
+                        <TouchableOpacity style={styles.locationButton.button} onPress={locate}>
+                            <LinearGradient
+                                style={styles.locationButton.gradient}
+                                colors={[Colors.PrussianBlue, Colors.Blue]}
+                                start={{x: 0, y: 0.5}}
+                                end={{x: 0.5, y: 0}}
+                            >
+                                {!locating && <MaterialIcons name="my-location" size={24} color={Colors.White}/>}
+                                {locating && <ActivityIndicator color={Colors.White}/>}
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    )}
                 </View>
                 <Main style={styles.categories.container}>
                     {data.categories.map(category => (
@@ -153,6 +195,38 @@ const styles = {
         },
         inactive: {
             opacity: 0.5,
+        },
+    },
+    locationButton: {
+        button: {
+            overflow: 'hidden',
+            borderRadius: 50,
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+        },
+        gradient: {
+            width: 50,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+    },
+    listButton: {
+        button: {
+            position: 'absolute',
+            top: 35,
+            right: 20,
+            width: 50,
+            height: 50,
+            borderRadius: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: Colors.PigeonPost,
+        },
+        text: {
+            color: Colors.PrussianBlue,
+            fontFamily: Fonts.ProximaNova.Regular,
         },
     },
 };
