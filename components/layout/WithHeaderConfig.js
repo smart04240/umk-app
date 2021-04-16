@@ -18,7 +18,7 @@ export default function WithHeaderConfig({
     useLayoutEffect(() => {
         const options = {
             headerStyle: {
-                backgroundColor: theme.main_bg,
+                backgroundColor: theme.box_bg,
             },
             headerTitleStyle: {
                 ...GeneralStyles.header_title,
