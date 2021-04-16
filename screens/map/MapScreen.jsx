@@ -11,7 +11,6 @@ import useTranslator from "../../hooks/useTranslator";
 import Input from "../../components/form/Input";
 import Translations from "../../constants/Translations";
 import {selectFilteredMarkers} from "../../redux/reducers/mapReducer";
-import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import CategoryButton from "../../components/buttons/CategoryButton";
 import Layout from "../../constants/Layout";
@@ -22,6 +21,7 @@ import Fonts from "../../constants/Fonts";
 import {MaterialIcons} from '@expo/vector-icons';
 import Routes from "../../constants/Routes";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
+import TopBox from "../../components/general/TopBox";
 
 const MapHeight = Layout.height * 0.5;
 const MapPadding = {
@@ -41,7 +41,6 @@ export default function MapScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const translate = useTranslator();
-    const theme = useThemeStyles();
     const markers = useSelector(state => selectFilteredMarkers(state));
     const data = useSelector(state => state.mapData);
     const [locationPermission, setLocationPermission] = React.useState(false);
@@ -87,7 +86,7 @@ export default function MapScreen() {
 
     const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
 
-    const onLayout = layout => searchPanelHeight.current = layout.nativeEvent.layout.height;
+    const onLayout = e => searchPanelHeight.current = e.nativeEvent.layout.height;
 
     const goToList = () => navigation.navigate(Routes.MarkersList);
 
@@ -107,9 +106,9 @@ export default function MapScreen() {
     return (
         <WithHeaderConfig borderless={true}>
             <Main>
-                <View onLayout={onLayout} style={[styles.search, {backgroundColor: theme.main_bg}]}>
+                <TopBox style={{position: 'absolute', width: '100%'}} onLayout={onLayout}>
                     <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
-                </View>
+                </TopBox>
 
                 <ScrollView
                     style={{marginTop: offset}}
