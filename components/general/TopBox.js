@@ -3,13 +3,13 @@ import { View, StyleSheet } from "react-native";
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Layout from "../../constants/Layout";
 
-const TopBox = props => {
+const TopBox = ({style, children, ...rest}) => {
 
     const ThemeStyles = useThemeStyles();
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, props.style || {} ]}>
-			{ props.children }
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, styles.box, style || {} ]} {...rest}>
+			{ children }
 		</View>
 	)
 }
