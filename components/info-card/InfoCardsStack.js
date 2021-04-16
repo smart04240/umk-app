@@ -25,7 +25,7 @@ const InfoCardsStack = props => {
 	};
 
 	const toPrevCard = () => {
-		setCardIndex( 0 );
+		setCardIndex( card_index - 1 < 0 ? 0 : card_index - 1 );
 	}
 
 	const nextAction = card_index + 1 !== cards.length ? toNextCard : onFinishPress;
@@ -49,13 +49,14 @@ const InfoCardsStack = props => {
 				]
 			}
 		]
-	}, [ translate ]);
+	}, [ translate, ThemeStyles ]);
 
 	return (
 		<View style={{ width: "100%" }}>
 			<SwipeAbleWrap 
 				style={ styles.stack }
 				onSwipeLeft={ nextAction }
+				onSwipeRight={ toPrevCard }
 			>
 				{ !!cards && !!cards.length && 
 					cards.map(( card, index ) => 
