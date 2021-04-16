@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation, useRoute } from '@react-navigation/core';
 
-import { isFunction } from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Colors from '../../constants/Colors';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from '../../constants/Fonts';
+import Actions from "../../redux/Actions";
 
 import Sidebar from '../sidebar/Sidebar';
 import Layout from '../../constants/Layout';
 import Routes from '../../constants/Routes';
+import { useDispatch } from 'react-redux';
 
 const HeaderRight = props => {
 
-	const [ sidebarOpen, setSidebarOpen ] = useState( null );
+	const dispatch = useDispatch();
 	const notification_amount = 10;
 
     const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
 	const route = useRoute();
 	
-	const openSidebar = () => isFunction( sidebarOpen.open ) && sidebarOpen.open();
+	const openSidebar = () => dispatch( Actions.Sidebar.Open());
 
 	const remind_icon = route.name === Routes.Reminders ? "bell" : "bell-outline";
 
@@ -52,7 +53,7 @@ const HeaderRight = props => {
 				</TouchableOpacity>
 			</View>
 
-			<Sidebar getOpenMethod={ m => setSidebarOpen( m )} />
+			{/* <Sidebar getOpenMethod={ m => setSidebarOpen( m )} /> */}
 		</>
 	)
 }

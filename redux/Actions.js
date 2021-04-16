@@ -9,6 +9,10 @@ export default {
     Theme: {
         Toggle: createAction('theme/toggle'),
     },
+	Sidebar: {
+		Open: createAction('sidebar/open'),
+		Close: createAction('sidebar/close')
+	},
     Locale: {
         Toggle: createAction('locale/toggle'),
     },

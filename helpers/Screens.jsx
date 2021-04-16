@@ -6,7 +6,6 @@ import {useSelector} from "react-redux";
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslator from "../hooks/useTranslator";
 
-import Fonts from "../constants/Fonts";
 import Routes from "../constants/Routes";
 import Translations from "../constants/Translations";
 
@@ -41,6 +40,7 @@ import RemindersScreen from "../screens/reminders/RemindersScreen";
 // MAP
 import MapScreen from "../screens/map/MapScreen";
 import GeneralStyles from "../constants/GeneralStyles";
+import Sidebar from "../components/sidebar/Sidebar";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -168,8 +168,8 @@ export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    // const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={ screen.name }
             name={ screen.name }
@@ -189,7 +189,13 @@ export default function Screens() {
                 headerRight: () => <HeaderRight/>
             }}
         >
-            {props => <screen.component {...props} />}
+            { props => (
+				<> 
+					<screen.component {...props} /> 
+					{ user && <Sidebar/> }
+				</>
+			)}
+			
         </Stack.Screen>
     )), [user, ThemeStyles, translate]);
 
