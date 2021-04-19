@@ -52,7 +52,7 @@ export default function WithHeaderConfig({
             ...options,
             ...(rest || {}),
         });
-    }, [theme, left, right, title, hidden, rest]);
+    }, [theme, left, right, title, hidden, borderless, rest]);
 
     return children;
 }

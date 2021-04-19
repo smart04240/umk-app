@@ -199,12 +199,14 @@ const DrawerStyles = {
     ...shadowGenerator(20),
 };
 
+const RenderDrawerContent = props => <CustomDrawer defaultActiveRouteName={RegisteredScreens.LoggedIn[0].name} {...props}/>;
+
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
     return (
         <NavigationContainer>
             <Drawer.Navigator
-                drawerContent={props => <CustomDrawer defaultActiveRouteName={RegisteredScreens.LoggedIn[0].name} {...props}/>}
+                drawerContent={RenderDrawerContent}
                 drawerPosition={'right'}
                 overlayColor={ThemeStyles.blue_overlay_rgba(0.7)}
                 drawerStyle={[DrawerStyles, {backgroundColor: ThemeStyles.box_bg}]}

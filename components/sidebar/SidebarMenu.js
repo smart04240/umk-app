@@ -7,7 +7,6 @@ import Menu from "../../constants/Menu";
 
 const SidebarMenu = ({navigation, route}) => {
     const ThemeStyles = useThemeStyles();
-	console.log(navigation)
 
 	return (
 		<View style={ styles.box }>
