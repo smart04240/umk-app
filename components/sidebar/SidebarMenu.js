@@ -5,6 +5,8 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
 
+const isActive = (item, active) => item.screen === active || (item.subScreens || []).find(screen => screen === active);
+
 const SidebarMenu = ({navigation, route}) => {
     const ThemeStyles = useThemeStyles();
 
@@ -15,7 +17,7 @@ const SidebarMenu = ({navigation, route}) => {
 					<Text style={[
 						styles.menu_item,
 						{ color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text }, 
-						item.screen === route ? GeneralStyles.text_bold : GeneralStyles.text_regular,
+						isActive(item, route) ? GeneralStyles.text_bold : GeneralStyles.text_regular,
 						index + 1 === Menu.length ? { borderBottomWidth: 0 } : {} 
 					]}> { useTranslated( item.label )} </Text>
 				</TouchableOpacity>
