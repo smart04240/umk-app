@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, {useState, useMemo, useEffect, useRef} from 'react';
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableWithoutFeedback, ScrollView } from "react-native-gesture-handler";
 import { FontAwesome } from '@expo/vector-icons';
@@ -10,11 +10,10 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import useTranslated from '../../hooks/useTranslated';
 import Colors from '../../constants/Colors';
 
-const Dropdown = props => {
+const Dropdown = ({ init_value, label, name, options, error_message, onChange, ...props }) => {
 
 	const ThemeStyles = useThemeStyles();
 
-	const { init_value, label, name, options, error_message, onChange } = props;
 	const placeholder = props.placeholder || useTranslated( Translations.ChooseOneOption );
 
 	const [ value, setValue ] = useState( init_value || null ); 
@@ -28,9 +27,13 @@ const Dropdown = props => {
 
 	const icon_name = useMemo(() => open ? "angle-up" : "angle-down", [ open ]);
 
-
+	// dont call onChange on first render
+	const firstUpdate = useRef(true);
 	useEffect(() => {
-		isFunction( onChange ) && onChange({ name, value });
+		if (firstUpdate.current)
+			firstUpdate.current = false;
+		else
+			isFunction( onChange ) && onChange({ name, value });
 	}, [ value ]);
 
 
@@ -43,7 +46,7 @@ const Dropdown = props => {
 	return (
 		<View style={[ 
 			{ marginBottom: 8 }, 
-			props.container_style || {} 
+			props.container_style,
 		]}>
 			
 			{ label && 
@@ -57,9 +60,9 @@ const Dropdown = props => {
 			
 			<View style={[ 
 				styles.box, 
-				open ? styles.box_open : {}, 
+				open ? styles.box_open : null,
 				{ borderColor: ThemeStyles.blue_text },
-				props.box_style || {} 
+				props.box_style,
 			]}>
 
 				<TouchableWithoutFeedback onPress={ () => setOpen( !open )}>
@@ -69,7 +72,7 @@ const Dropdown = props => {
 							GeneralStyles.text_regular, 
 							styles.value_label, 
 							{ color: ThemeStyles.dark_text },
-							props.value_label_style || {}
+							props.value_label_style,
 						]}>
 							{ value_label }
 						</Text>
@@ -98,7 +101,7 @@ const Dropdown = props => {
 						borderColor: ThemeStyles.blue_text,
 						backgroundColor: ThemeStyles.box_bg
 					},
-					props.options_box_style || {}
+					props.options_box_style,
 				]}>	
 					<ScrollView>
 						{ options.map( opt => (
@@ -110,7 +113,7 @@ const Dropdown = props => {
 									GeneralStyles.text_regular, 
 									styles.option_text,
 									{ color: ThemeStyles.blue_text },
-									props.option_text_style || {}
+									props.option_text_style,
 								]}> 
 									{ opt.label } 
 								</Text>
