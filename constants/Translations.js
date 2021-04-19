@@ -235,6 +235,11 @@ export default {
 		pl: 'Mapa',
 	},
 
+	ReturnToMap: {
+    	en: 'Return to map',
+		pl: 'Powrót do mapy',
+	},
+
 	Search: {
 		en: 'Search...',
 		pl: 'Szukaj...',
@@ -418,6 +423,11 @@ export default {
 	SelectingCategoryIsRequired: {
 		en: "Selecting a category is required",
 		pl: "Wybór kategorii jest obowiązkowy!"
+	},
+
+	SelectCategory: {
+		en: 'Select category',
+		pl: 'Wybierz kategorię',
 	},
 
 	Event: {

@@ -28,6 +28,7 @@ import MarkersListScreen from "../screens/map/MarkersListScreen";
 import {default as CustomDrawer} from "../components/sidebar/Drawer";
 import shadowGenerator from "./shadowGenerator";
 import Layout from "../constants/Layout";
+import MarkerScreen from "../screens/map/MarkerScreen";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -151,6 +152,11 @@ const RegisteredScreens = {
             name: Routes.MarkersList,
             title: Translations.Map,
             component: MarkersListScreen,
+        },
+        {
+            name: Routes.Marker,
+            title: Translations.Map,
+            component: MarkerScreen,
         },
     ],
 };

@@ -14,6 +14,7 @@ export default {
 
 	Map: "map",
 	MarkersList: "markers.list",
+	Marker: "marker",
 
 	Rankings: "rankings",
 	Reminders: "reminders",
