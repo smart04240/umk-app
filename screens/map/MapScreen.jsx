@@ -3,7 +3,7 @@ import {ActivityIndicator, Keyboard, ScrollView, Text, TouchableOpacity, useWind
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import ClusteredMapView from "../../components/map/ClusteredMapView";
-import MapView from 'react-native-maps';
+import MapView, {Callout} from 'react-native-maps';
 import Actions from "../../redux/Actions";
 import * as Location from 'expo-location';
 import {FontAwesome5} from '@expo/vector-icons';
@@ -21,6 +21,10 @@ import Fonts from "../../constants/Fonts";
 import {MaterialIcons} from '@expo/vector-icons';
 import Routes from "../../constants/Routes";
 import TopBox from "../../components/general/TopBox";
+import shadowGenerator from "../../helpers/shadowGenerator";
+import useThemeStyles from "../../hooks/useThemeStyles";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Links from "../../helpers/Links";
 
 const MapHeight = Layout.height * 0.5;
 const MapPadding = {
@@ -40,10 +44,12 @@ export default function MapScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const translate = useTranslator();
+    const theme = useThemeStyles();
     const markers = useSelector(state => selectFilteredMarkers(state));
     const data = useSelector(state => state.mapData);
     const [locationPermission, setLocationPermission] = React.useState(false);
     const [locating, setLocating] = React.useState(false);
+    const [callout, setCallout] = React.useState(null);
     const map = React.useRef();
     const searchPanelHeight = React.useRef(60);
     const offset = searchPanelHeight.current - GeneralStyles.bottom_border_radius.borderBottomLeftRadius;
@@ -69,10 +75,10 @@ export default function MapScreen() {
         );
     }, [markers, map]);
 
-    const renderMarker = React.useCallback(marker => (
+    const renderMarker = marker => (
         <MapView.Marker
             key={marker.id}
-            title={translate(marker.title)}
+            onPress={() => setCallout(marker)}
             tracksViewChanges={false}
             coordinate={{
                 latitude: marker.latitude,
@@ -81,7 +87,7 @@ export default function MapScreen() {
         >
             <FontAwesome5 name="map-marker" size={32} color={marker.category.color}/>
         </MapView.Marker>
-    ), [translate, navigation]);
+    );
 
     const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
 
@@ -102,6 +108,14 @@ export default function MapScreen() {
         });
     };
 
+    const onMapPress = () => {
+        setCallout(null);
+        Keyboard.dismiss();
+    };
+
+    const navigateToMarkerDetails = () => navigation.navigate(Routes.Marker, callout);
+    const openMarker = () => Links.openMap(translate(callout.title), callout.latitude, callout.longitude);
+
     return (
         <Main>
             <TopBox style={{position: 'absolute', width: '100%'}} onLayout={onLayout}>
@@ -114,9 +128,29 @@ export default function MapScreen() {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.map}>
+                    {!!callout && (
+                        <View style={[styles.callout.card, {backgroundColor: theme.box_bg}]}>
+                            <Text style={[styles.callout.title, {color: theme.dark_text}]}>
+                                {translate(callout.title)}
+                            </Text>
+                            <TouchableOpacity style={styles.callout.button} onPress={navigateToMarkerDetails}>
+                                <MaterialCommunityIcons name="information-variant" size={24} color={theme.blue_text} />
+                                <Text style={[styles.callout.buttonText, {color: theme.blue_text}]}>
+                                    {translate(Translations.Details)}
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.callout.button} onPress={openMarker}>
+                                <MaterialCommunityIcons name="google-maps" size={24} color={theme.blue_text} />
+                                <Text style={[styles.callout.buttonText, {color: theme.blue_text}]}>
+                                    {translate(Translations.Route)}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+
                     <ClusteredMapView
                         ref={map}
-                        onPress={Keyboard.dismiss}
+                        onPress={onMapPress}
                         width={useWindowDimensions().width}
                         height={MapHeight}
                         clusteringEnabled={true}
@@ -163,6 +197,28 @@ export default function MapScreen() {
 };
 
 const styles = {
+    callout: {
+        card: {
+            ...shadowGenerator(10),
+            borderRadius: 20,
+            width: Layout.width * 0.5,
+            padding: 15,
+            top: 35,
+            position: 'absolute',
+            alignSelf: 'center',
+        },
+        title: {
+            ...GeneralStyles.text_bold,
+        },
+        button: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        buttonText: {
+            ...GeneralStyles.text_regular,
+            textTransform: 'uppercase',
+        },
+    },
     search: {
         zIndex: 10,
         padding: 20,

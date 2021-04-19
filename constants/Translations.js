@@ -155,6 +155,16 @@ export default {
 		pl: "Twoje zdarzenia"
 	},
 
+	Details: {
+		en: 'Details',
+		pl: 'Szczegóły',
+	},
+
+	Route: {
+		en: 'Route',
+		pl: 'Trasa',
+	},
+
 	SaveChanges: {
 		en: "Save changes",
 		pl: "Zapisz zmiany"
