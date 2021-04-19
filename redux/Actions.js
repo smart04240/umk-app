@@ -1,6 +1,10 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import API from "../helpers/API";
 
+const categoryPreparer = data => ({
+    payload: typeof data === 'string' ? data : data.slug,
+});
+
 export default {
     API: {
         Fetch: createAsyncThunk('API/fetch', async () => (await API.get('/get/all/data')).data),
@@ -17,8 +21,9 @@ export default {
         Logout: createAction('user/logout'),
         Update: createAction('user/update'),
     },
-    ToggleCategory: createAction('categories/set', data => ({
-        payload: typeof data === 'string' ? data : data.slug,
-    })),
+    Categories: {
+        Toggle: createAction('categories/toggle', categoryPreparer),
+        Select: createAction('categories/select', categoryPreparer),
+    },
     ChangeMapSearch: createAction('changeMapSearch'),
 };

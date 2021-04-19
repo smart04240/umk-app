@@ -153,7 +153,7 @@ export default function MapScreen() {
                             style={{width: '25%', marginBottom: 20}}
                             size={Layout.width * 0.15}
                             buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.slug) ? styles.categories.inactive : undefined}
-                            onPress={() => dispatch(Actions.ToggleCategory(category.slug))}
+                            onPress={() => dispatch(Actions.Categories.Toggle(category.slug))}
                         />
                     ))}
                 </Main>

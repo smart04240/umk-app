@@ -76,6 +76,7 @@ const Markers = [
             en: 'Marker 1',
             pl: 'POI 1',
         },
+        address: "Test Address 1, 111 City, Poland",
         latitude: 53.0196473,
         longitude: 18.6108992,
         category: Categories.Departments,
@@ -86,6 +87,7 @@ const Markers = [
             en: 'Marker 2',
             pl: 'POI 2',
         },
+        address: "Test Address 2, 222 City, Poland",
         latitude: 53.1196473,
         longitude: 18.6108992,
         category: Categories.Laboratories,
@@ -107,10 +109,13 @@ export default createReducer(InitialState, builder => {
             selectedCategories: InitialState.selectedCategories,
             searchText: InitialState.searchText,
         }))
-        .addCase(Actions.ToggleCategory, (state, action) => {
+        .addCase(Actions.Categories.Toggle, (state, action) => {
             state.selectedCategories = state.selectedCategories.includes(action.payload)
                 ? state.selectedCategories.filter(item => item !== action.payload)
                 : [...state.selectedCategories, action.payload];
+        })
+        .addCase(Actions.Categories.Select, (state, action) => {
+            state.selectedCategories = [action.payload];
         })
         .addCase(Actions.ChangeMapSearch, (state, action) => {
             state.searchText = action.payload;
