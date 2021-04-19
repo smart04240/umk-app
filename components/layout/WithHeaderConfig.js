@@ -103,7 +103,7 @@ export default function WithHeaderConfig({
             ...options,
             ...(rest || {}),
         });
-    }, [theme, headerHeight, left, right, title, hidden, borderless, withBorderRadius, elevation, transparent, rest]);
+    }, [theme, left, right, title, hidden, borderless, withBorderRadius, elevation, transparent, rest]);
 
     return children;
 }
