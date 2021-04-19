@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from "react-native";
 import Animated from "react-native-reanimated";
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,11 +13,10 @@ import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Layout from "../../constants/Layout";
-import Routes from "../../constants/Routes";
 
 const DrawerWidth = Layout.width * 0.85;
 
-export default function Drawer({state, navigation, descriptors, defaultActiveRouteName, progress}) {
+export default function Drawer({state, navigation, defaultActiveRouteName, progress}) {
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
@@ -25,12 +24,10 @@ export default function Drawer({state, navigation, descriptors, defaultActiveRou
     if (!user)
         return null;
 
-    const nestedNavigation = Object.values(descriptors)[0].navigation;
-
     let currentRouteName = defaultActiveRouteName;
     const route = state.routes[0].state;
     if (route)
-        currentRouteName = route.routeNames[route.index];
+        currentRouteName = route.routes[route.index].name;
 
     return (
         <>
@@ -48,11 +45,11 @@ export default function Drawer({state, navigation, descriptors, defaultActiveRou
                     <CloseButton style={styles.close_button} onPress={() => navigation.closeDrawer()}/>
                     <ScrollView style={{flex: 1}}>
                         <View style={{flexDirection: "row", marginBottom: 35}}>
-                            <SidebarUserInfo navigation={nestedNavigation}/>
+                            <SidebarUserInfo navigation={navigation}/>
                         </View>
 
                         <View style={{flex: 1}}>
-                            <SidebarMenu navigation={nestedNavigation} route={currentRouteName}/>
+                            <SidebarMenu navigation={navigation} route={currentRouteName}/>
                             <LocaleSwitcher/>
                             <ThemeSwitcher style={{marginVertical: 15}}/>
 
