@@ -3,7 +3,7 @@ import {ActivityIndicator, Keyboard, ScrollView, Text, TouchableOpacity, useWind
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import ClusteredMapView from "../../components/map/ClusteredMapView";
-import MapView, {Callout} from 'react-native-maps';
+import MapView from 'react-native-maps';
 import Actions from "../../redux/Actions";
 import * as Location from 'expo-location';
 import {FontAwesome5} from '@expo/vector-icons';
@@ -206,6 +206,7 @@ const styles = {
             top: 35,
             position: 'absolute',
             alignSelf: 'center',
+            zIndex: 99,
         },
         title: {
             ...GeneralStyles.text_bold,
