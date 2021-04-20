@@ -165,6 +165,11 @@ export default {
 		pl: 'Trasa',
 	},
 
+	ShowRoute: {
+		en: 'Show route',
+		pl: 'Pokaż trasę',
+	},
+
 	SaveChanges: {
 		en: "Save changes",
 		pl: "Zapisz zmiany"
