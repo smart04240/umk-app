@@ -27,18 +27,9 @@ const Dropdown = ({ init_value, label, name, options, error_message, onChange, .
 
 	const icon_name = useMemo(() => open ? "angle-up" : "angle-down", [ open ]);
 
-	// dont call onChange on first render
-	const firstUpdate = useRef(true);
-	useEffect(() => {
-		if (firstUpdate.current)
-			firstUpdate.current = false;
-		else
-			isFunction( onChange ) && onChange({ name, value });
-	}, [ value ]);
-
-
 	const onOptionPress = value => {
 		setValue( value );
+		isFunction( onChange ) && onChange({ name, value });
 		setOpen( false );
 	}
 
