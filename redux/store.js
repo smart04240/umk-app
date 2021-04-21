@@ -6,10 +6,12 @@ import localeReducer from "./reducers/localeReducer";
 import userReducer from "./reducers/userReducer";
 import internetReducer from "./reducers/internetReducer";
 import mapReducer from "./reducers/mapReducer";
+import remindersReducer from "./reducers/remindersReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
     locale: localeReducer,
+	reminders: remindersReducer,
     user: userReducer,
     online: internetReducer,
     mapData: mapReducer,
@@ -33,3 +35,4 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+// persistor.purge();

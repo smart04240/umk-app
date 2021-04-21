@@ -13,6 +13,10 @@ export default {
     Theme: {
         Toggle: createAction('theme/toggle'),
     },
+	Reminders: {
+		MarkAsRead: createAction('reminders/mark-as-read'),
+		MarkAsReadAll: createAction('reminders/mark-as-read-all')
+	},
     Locale: {
         Toggle: createAction('locale/toggle'),
     },

@@ -40,6 +40,9 @@ export default {
 	PayneGrey: "#404041",
 	PayneGrayRgba: getRgbaFunc( 64, 64, 65 ), 
 
+	Manatee: "#939496",
+	ManateeRgba: getRgbaFunc( 147, 148, 150 ),
+
 	Alizarin: "#ED1D24", //range
 	AlizarinRgba: getRgbaFunc( 237, 29, 36 ),
 

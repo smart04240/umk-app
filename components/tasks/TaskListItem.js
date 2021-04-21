@@ -54,7 +54,7 @@ const TaskListItem = props => {
 					<TouchableOpacity 
 						key={ index } 
 						style={[
-							styles.circle,
+							GeneralStyles.circle_with_icon,
 							{ borderColor: ThemeStyles.blue_text }
 						]}
 						onPress={ action.onPress }
@@ -92,14 +92,6 @@ const styles = StyleSheet.create({
 	actions: {
 		marginLeft: 20,
 		justifyContent: "space-between"
-	},
-
-	circle: {
-		...GeneralStyles.row_centered,
-		width: 32,
-		height: 32,
-		borderRadius: 16,
-		borderWidth: 1
 	}
 })
 

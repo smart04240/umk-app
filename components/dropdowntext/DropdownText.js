@@ -40,7 +40,8 @@ const DropdownText = props => {
 
 				{ eye && 
 					<View style={[
-						styles.eye_box,
+						GeneralStyles.circle_with_icon,
+						{ marginLeft: "auto" },
 						{ borderColor: open ? Colors.White : ThemeStyles.blue_text },
 						 
 					]}>
@@ -75,15 +76,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 14,
 		paddingVertical: 10
 	},
-
-	eye_box: {
-		...GeneralStyles.row_centered,
-		marginLeft: "auto",
-		width: 32,
-		height: 32,
-		borderRadius: 32,
-		borderWidth: 1
-	}
 });
 
 export default DropdownText;

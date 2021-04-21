@@ -64,6 +64,17 @@ export default {
 		fontFamily: Fonts.ProximaNova.Regular,
 	},
 
+	circle_with_icon: {
+		flexDirection: "row", 
+		alignItems: "center", 
+		justifyContent: "center",
+		width: 32,
+		height: 32,
+		borderRadius: 16,
+		borderWidth: 1,
+		borderStyle: "solid"
+	},
+
 	bottom_border_radius: {
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20,

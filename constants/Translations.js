@@ -500,6 +500,16 @@ export default {
 		pl: "Data"
 	},
 
+	UnreadNotifications: {
+		en: "Unread notifications",
+		pl: "Nieprzeczytanych powiadomień"
+	},
+
+	MarkAllRead: {
+		en: "Mark all as read",
+		pl: "Oznacz wszystkie jako przeczytane"
+	},
+
 	"1_month": {
 		en: "January",
 		pl: "Styczeń"
