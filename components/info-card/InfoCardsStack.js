@@ -11,16 +11,18 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import SwipeAbleWrap from '../general/SwipeAbleWrap';
 import useTranslator from '../../hooks/useTranslator';
 
-const animation_duration = 500;
+const animation_duration = 600;
 
 const InfoCardsStack = props => {
 
 	const ThemeStyles = useThemeStyles();
 	const translate = useTranslator();
 	const { cards, onSkipPress, onFinishPress } = props;
+	const last_card_index = cards.length - 1;
 	const [ card_index, setCardIndex ] = useState( 0 );
 
 	const toNextCard = () => {
+		console.log( card_index );
 		setCardIndex( card_index + 1 )		
 	};
 
@@ -34,7 +36,7 @@ const InfoCardsStack = props => {
 		return [
 			{
 				label: translate( Translations.SkipIt ),
-				onPress: onSkipPress,
+				action: "skip",
 				style: [
 					styles.bottom_button,
 					{ color: ThemeStyles.blue_rgba(0.5) }
@@ -42,7 +44,7 @@ const InfoCardsStack = props => {
 			},
 			{
 				label: translate( Translations.Next ),
-				onPress: nextAction,
+				action: "next",
 				style: [ 
 					styles.bottom_button,
 					{ color: ThemeStyles.blue_rgba(1) } 
@@ -63,10 +65,11 @@ const InfoCardsStack = props => {
 						<InfoCard 
 							key={ index } 
 							{...card }
+							
 							animation_duration={ animation_duration }
 							item_index={ index }
 							active_index={ card_index }
-							total_amount={ cards.length }
+							last_card_index={ last_card_index }
 							active={ card_index === index } 
 						/> 
 					)
@@ -84,7 +87,7 @@ const InfoCardsStack = props => {
 					<TouchableOpacity 
 						key={ index }
 						style={ index === 1 ? { marginLeft: "auto" } : null }
-						onPress={ button.onPress }
+						onPress={ button.action === "next" ? nextAction : onSkipPress }
 					>
 						<Text style={ button.style }> 
 							{ button.label }
