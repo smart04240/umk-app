@@ -22,7 +22,6 @@ const InfoCardsStack = props => {
 	const [ card_index, setCardIndex ] = useState( 0 );
 
 	const toNextCard = () => {
-		console.log( card_index );
 		setCardIndex( card_index + 1 )		
 	};
 
