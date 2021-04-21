@@ -7,16 +7,11 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import Colors from '../../constants/Colors';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from '../../constants/Fonts';
-import Actions from "../../redux/Actions";
-
-import Sidebar from '../sidebar/Sidebar';
 import Layout from '../../constants/Layout';
 import Routes from '../../constants/Routes';
-import { useDispatch } from 'react-redux';
 
 const HeaderRight = props => {
 
-	const dispatch = useDispatch();
 	const notification_amount = 10;
 
     const ThemeStyles = useThemeStyles();
@@ -52,8 +47,6 @@ const HeaderRight = props => {
 					<MaterialCommunityIcons name="menu" size={ 28 } color={ ThemeStyles.icon_color } />
 				</TouchableOpacity>
 			</View>
-
-			{/* <Sidebar getOpenMethod={ m => setSidebarOpen( m )} /> */}
 		</>
 	)
 }
