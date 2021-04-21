@@ -31,7 +31,7 @@ export default function WithHeaderConfig({
     // adds shadow, max 20
     elevation = 0,
 
-    // same as 'transparent' but preserves styled background
+    // same as 'transparent' but preserves styled background with default elevation of 5 and border radius
     semitransparent = false,
 
     // object with additional options
@@ -96,6 +96,11 @@ export default function WithHeaderConfig({
         if (semitransparent) {
             options.headerTransparent = true;
             options.headerStyle.height = headerHeight;
+            options.headerStyle = {
+                ...options.headerStyle,
+                ...shadowGenerator(elevation || 5),
+                ...GeneralStyles.bottom_border_radius,
+            };
             options.headerBackground = () => <View style={options.headerStyle}/>;
         }
 

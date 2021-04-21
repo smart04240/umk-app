@@ -28,7 +28,7 @@ export default function MarkerScreen({route}) {
     const marker = route.params;
 
     return (
-        <WithHeaderConfig semitransparent={true} elevation={5} withBorderRadius={true}>
+        <WithHeaderConfig semitransparent={true}>
             <Main>
                 <ScrollView
                     style={{marginTop: headerHeight - GeneralStyles.bottom_border_radius.borderBottomLeftRadius}}>
