@@ -12,18 +12,16 @@ export default function ErrorView({text}) {
     const theme = useThemeStyles();
 
     return (
-        <WithHeaderConfig semitransparent={true}>
-            <Main style={main}>
-                <AntDesign name="warning" size={Layout.width / 3} color={Colors.Red}/>
-                <Text style={{
-                    fontSize: 24,
-                    fontFamily: Fonts.ProximaNova.Bold,
-                    color: theme.dark_text,
-                }}>
-                    {text}
-                </Text>
-            </Main>
-        </WithHeaderConfig>
+        <Main style={main}>
+            <AntDesign name="warning" size={Layout.width / 3} color={Colors.Red}/>
+            <Text style={{
+                fontSize: 24,
+                fontFamily: Fonts.ProximaNova.Bold,
+                color: theme.dark_text,
+            }}>
+                {text}
+            </Text>
+        </Main>
     );
 };
 
