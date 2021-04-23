@@ -1,7 +1,6 @@
 import React from "react";
 import {Text} from "react-native";
 import Main from "./Main";
-import WithHeaderConfig from "../layout/WithHeaderConfig";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {AntDesign} from '@expo/vector-icons';
 import Colors from "../../constants/Colors";
