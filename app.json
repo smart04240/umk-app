@@ -6,7 +6,7 @@
       "android",
       "ios"
     ],
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -23,7 +23,7 @@
     ],
     "ios": {
       "bundleIdentifier": "pl.nfinity.umk",
-      "buildNumber": "1.0.0",
+      "buildNumber": "0.0.1",
       "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
