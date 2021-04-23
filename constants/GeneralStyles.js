@@ -1,7 +1,7 @@
 import Fonts from "./Fonts";
 import Layout from "./Layout";
 
-const main_font_size = Layout.width < 420 ? 14 : 16;
+const main_font_size = Layout.width < 375 ? 14 : 16;
 
 export default {
 
