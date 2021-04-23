@@ -4,16 +4,25 @@ import useTranslated from "../../hooks/useTranslated";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
+import Routes from "../../constants/Routes";
 
 const isActive = (item, active) => item.screen === active || (item.subScreens || []).find(screen => screen === active);
 
 const SidebarMenu = ({navigation, route}) => {
     const ThemeStyles = useThemeStyles();
 
+    const navigate = screen => {
+    	navigation.reset({
+			index: 1,
+			routes: [{name: Routes.Start}, {name: screen}],
+		});
+    	navigation.closeDrawer();
+	};
+
 	return (
 		<View style={ styles.box }>
 			{ Menu.map(( item, index ) => (
-				<TouchableOpacity key={ index } onPress={ () => item.screen ? navigation.navigate( item.screen ) : null }>
+				<TouchableOpacity key={ index } onPress={ () => item.screen && navigate( item.screen ) }>
 					<Text style={[
 						styles.menu_item,
 						{ color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text }, 
