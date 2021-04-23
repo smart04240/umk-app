@@ -14,11 +14,7 @@ export default [
         icon: "map-outline",
         icon_active: "map",
         bottom: true,
-        screen: Routes.Map,
-		subScreens: [
-			Routes.MarkersList,
-			Routes.Marker,
-		],
+        screen: "",
     },
     {
         label: Translations.Rankings,
@@ -54,7 +50,11 @@ export default [
     {
         label: Translations.LocatingNCUFacilities,
         icon: "map-marker",
-        screen: "",
+        screen: Routes.Map,
+        subScreens: [
+            Routes.MarkersList,
+            Routes.Marker,
+        ],
     },
     {
         label: "UOWiRO",
