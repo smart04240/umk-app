@@ -45,7 +45,7 @@ export default [
     {
         label: Translations.Reminders,
         icon: "bell-outline",
-        screen: "",
+        screen: Routes.Reminders,
     },
     {
         label: Translations.LocatingNCUFacilities,
