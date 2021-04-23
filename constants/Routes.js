@@ -21,5 +21,7 @@ export default {
 
 	Tasks: "tasks.list",
 	TaskSingle: "tasks.single",
-	TaskEdit: "tasks.edit_task"
+	TaskEdit: "tasks.edit_task",
+
+	Calendar: "calendar",
 }

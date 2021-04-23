@@ -44,7 +44,7 @@ export default [
         icon: "calendar-blank-outline",
         icon_active: "calendar-blank",
         bottom: true,
-        screen: "",
+        screen: Routes.Calendar,
     },
     {
         label: Translations.Reminders,

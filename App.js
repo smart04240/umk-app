@@ -8,6 +8,7 @@ import * as Font from "expo-font";
 import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
 import ReduxAwareInterceptors from "./helpers/ReduxAwareInterceptors";
+import "moment/locale/pl";
 
 ReduxAwareInterceptors(store);
 

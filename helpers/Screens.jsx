@@ -29,6 +29,7 @@ import {default as CustomDrawer} from "../components/sidebar/Drawer";
 import shadowGenerator from "./shadowGenerator";
 import Layout from "../constants/Layout";
 import MarkerScreen from "../screens/map/MarkerScreen";
+import CalendarScreen from "../screens/calendar/CalendarScreen";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -157,6 +158,11 @@ const RegisteredScreens = {
             name: Routes.Marker,
             title: Translations.Map,
             component: MarkerScreen,
+        },
+        {
+            name: Routes.Calendar,
+            title: Translations.Calendar,
+            component: CalendarScreen,
         },
     ],
 };

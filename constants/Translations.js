@@ -41,7 +41,32 @@ export default {
 
 	Calendar: {
 		en: "Calendar",
-		pl: "Kalendarz"
+		pl: "Kalendarz",
+	},
+
+	Day: {
+		en: "Day",
+		pl: "Dzień",
+	},
+
+	Week: {
+		en: "Week",
+		pl: "Tydzień",
+	},
+
+	Month: {
+		en: "Month",
+		pl: "Miesiąc",
+	},
+
+	CalendarPermissionsError: {
+		en: 'Calendar and notification permissions are required for this module to function. Please grant this application these permissions.',
+		pl: 'Aby moduł działał, wymagane są uprawnienia do kalendarza i powiadomień. Udziel tej aplikacji tych uprawnień.',
+	},
+
+	CalendarRetrievalError: {
+		en: 'There was an error while trying to retrieve calendar from your phone.',
+		pl: 'Wystąpił błąd podczas próby pobrania kalendarza z telefonu.',
 	},
 
 	LocatingNCUFacilities: {
