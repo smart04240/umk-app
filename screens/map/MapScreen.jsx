@@ -56,7 +56,7 @@ export default function MapScreen() {
 
     React.useEffect(() => {
         /* Request location permissions */
-        Location.requestPermissionsAsync().then(({status}) => {
+        Location.requestForegroundPermissionsAsync().then(({status}) => {
             if (status === 'granted')
                 setLocationPermission(true);
         });
