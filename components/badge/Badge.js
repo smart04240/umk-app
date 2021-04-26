@@ -9,7 +9,6 @@ import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
 
 const Badge = props => {
-
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
@@ -17,20 +16,21 @@ const Badge = props => {
 	if ( !id || !name ) return null;
 
 	return (
-		<TouchableWithoutFeedback onPress={ () => navigation.navigate( Routes.ProfileBadge, { id }) }>
-			<View style={{ marginBottom: 35, opacity: not_active ? 0.35 : 1 }}>
-
+		<TouchableWithoutFeedback
+			onPress={ () => navigation.navigate( Routes.ProfileBadge, { id }) }
+		>
+			<View
+				style={{ marginBottom: 35, opacity: not_active ? 0.35 : 1, justifyContent: 'center', alignItems: 'center'}}
+			>
 				<BadgeCircle/>
-
 				<Text style={[ GeneralStyles.text_regular, { textAlign: "center", color: ThemeStyles.dark_text } ]}>
 					{ name }
 				</Text>
-
-				<Text style={[ 
-					GeneralStyles.text_regular, 
-					{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" } 
+				<Text style={[
+					GeneralStyles.text_regular,
+					{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" }
 				]}>
-					{ useTranslated( Translations.FindOutMore )}
+					{useTranslated( Translations.FindOutMore )}
 				</Text>
 			</View>
 		</TouchableWithoutFeedback>
