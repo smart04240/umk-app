@@ -103,8 +103,8 @@ export default function shadowGenerator(elevation) {
             width: 0,
             height: shadow.y === 1 ? 1 : Math.floor(shadow.y * 0.5),
         },
-        shadowOpacity: interpolate(elevation, 1, 24, 0.2, 0.6).toFixed(2),
-        shadowRadius: interpolate(shadow.blur, 1, 38, 1, 16).toFixed(2),
+        shadowOpacity: parseFloat(interpolate(elevation, 1, 24, 0.2, 0.6).toFixed(2)),
+        shadowRadius: parseFloat(interpolate(shadow.blur, 1, 38, 1, 16).toFixed(2)),
         elevation: elevation + 1,
     };
 };
