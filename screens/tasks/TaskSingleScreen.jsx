@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
@@ -35,19 +35,18 @@ export default function TaskSingleScreen( props ) {
 
 	return (
 		<MainWithNavigation>
-			
-			<TaskSingleInfo {...task_info } />
-
-			<ContainerWithScroll>
-				{ content && 
+			<ContainerWithScroll
+				header={<TaskSingleInfo {...task_info } />}
+			>
+				{ content &&
 					<Text style={[
-						styles.content, 
+						styles.content,
 						{ color: ThemeStyles.dark_text },
 					]}>
 						{ content }
 					</Text>
 				}
-				
+
 				{ attachments && !!attachments.length &&
 					<View>
 						<Text style={[
@@ -80,7 +79,7 @@ export default function TaskSingleScreen( props ) {
 			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
-} 
+}
 
 const styles = StyleSheet.create({
 	content: {

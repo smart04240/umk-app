@@ -8,6 +8,7 @@ const ContainerWithScroll = props => {
 			<ScrollView
 				{...props.rest}
 			>
+				{props.header}
 				<Container style={ props.container_style || {}}>
 					{ props.children }
 				</Container>
