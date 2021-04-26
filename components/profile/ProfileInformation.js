@@ -12,22 +12,52 @@ import BadgeWithRange from '../badge/BadgeWithRange';
 const ProfileInformation = props => {
 
 	const ThemeStyles = useThemeStyles();
-	
+
 	const index_number = 22222;
 
 	const started_badges = [
-		{ 
-			id: 114, 
+		{
+			id: 114,
 			name: "Odznaka srebrna",
 			range_props: {
 				label: "zaliczone 3 z 6 przedmiotów!",
 				color: "purple",
 				hide_value_label: true,
 				data: { type: "range", value: 3, total: 6 }
-			} 
+			}
 		},
-		{ 
-			id: 245, 
+		{
+			id: 245,
+			name: "Odznaka złota",
+			range_props: {
+				label: "zaliczone 5 z 6 przedmiotów!",
+				color: "purple",
+				hide_value_label: true,
+				data: { type: "range", value: 5, total: 6 }
+			}
+		},
+		{
+			id: 241,
+			name: "Odznaka złota",
+			range_props: {
+				label: "zaliczone 5 z 6 przedmiotów!",
+				color: "purple",
+				hide_value_label: true,
+				data: { type: "range", value: 5, total: 6 }
+			}
+		},
+		{
+			id: 221,
+			name: "Odznaka złota",
+			range_props: {
+				label: "zaliczone 5 z 6 przedmiotów!",
+				color: "purple",
+				hide_value_label: true,
+				data: { type: "range", value: 5, total: 6 }
+			}
+		},
+		{
+			id: 212,
 			name: "Odznaka złota",
 			range_props: {
 				label: "zaliczone 5 z 6 przedmiotów!",
@@ -54,7 +84,7 @@ const ProfileInformation = props => {
 			</View>
 
 
-			{ started_badges && !!started_badges.length && 
+			{ started_badges && !!started_badges.length &&
 				<View>
 					<Text style={[ ...title_styles, { marginBottom: 28 } ]}>
 						{ useTranslated( Translations.StartedBudges )}
@@ -63,7 +93,7 @@ const ProfileInformation = props => {
 					{ started_badges.map( badge => <BadgeWithRange key={ badge.id} {...badge } />)}
 				</View>
 			}
-			
+
 
 			{ other_badges && !!other_badges.length &&
 				<View>

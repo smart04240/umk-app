@@ -3,10 +3,11 @@ import { View, ScrollView } from 'react-native';
 import Container from './Container';
 
 const ContainerWithScroll = props => {
-
 	return (
 		<View style={{ flex: 1 }}>
-			<ScrollView>
+			<ScrollView
+				{...props.rest}
+			>
 				<Container style={ props.container_style || {}}>
 					{ props.children }
 				</Container>

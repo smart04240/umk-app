@@ -6,8 +6,7 @@ import BottomNavigation from '../navigation/BottomNavigation';
 
 
 const MainWithNavigation = props => {
-
-    const ThemeStyles = useThemeStyles();
+	const ThemeStyles = useThemeStyles();
 
 	return (
 		<View style={[ { backgroundColor: ThemeStyles.main_bg, flex: 1, paddingBottom: 50 }, props.style || {} ]} >

@@ -15,22 +15,14 @@ import Tabs from '../general/Tabs';
 const ProfileMain = props => {
 
 	const navigation = useNavigation();
-	
-	const { onTabChangeCallback } = props;
 	const avatar_size = Math.floor( Layout.width * 0.308 );
-
-	const tabs = [ 
-		useTranslated( Translations.Information ), 
-		useTranslated( Translations.Statistics ), 
-		useTranslated( Translations.Badges ) 
-	];
 
 
 	return (
-		<TopBox>
-			
+		<View style={{padding: 15}}>
+
 			<View style={{ flexDirection: "row", marginBottom: 18 }}>
-				
+
 				<View style={{ marinRight: 10 }}>
 					<ProfileAvatar size={ avatar_size > 132 ? 132 : avatar_size }/>
 				</View>
@@ -41,14 +33,7 @@ const ProfileMain = props => {
 			<Button onPress={ () => navigation.navigate( Routes.ProfileEdit )} transparent_bg={ true }>
 				{ useTranslated( Translations.EditProfile )}
 			</Button>
-			
-
-			<Tabs
-				style={{ marginTop: 15 }}
-				tabs={ tabs }
-				onTabChangeCallback={ onTabChangeCallback }
-			/>
-		</TopBox>
+		</View>
 	)
 }
 
