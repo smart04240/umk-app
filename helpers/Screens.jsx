@@ -180,9 +180,6 @@ const StackScreens = () => {
             options={{
                 title: translate(screen.title),
                 headerStyle: {
-                    elevation: 0,
-                    shadowOpacity: 0,
-                    borderBottomWidth: 0,
                     backgroundColor: ThemeStyles.box_bg,
                 },
                 headerTintColor: ThemeStyles.blue_text,
