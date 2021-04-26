@@ -7,6 +7,7 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
 import Routes from '../../constants/Routes';
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 const AddTaskButton = props => {
 
@@ -14,17 +15,17 @@ const AddTaskButton = props => {
 	const navigate = () => navigation.navigate( Routes.TaskEdit );
 
 	return (
-		<TouchableOpacity 
-			style={[ 
+		<TouchableOpacity
+			style={[
 				styles.circle,
-				props.circle_style || {} 
+				props.circle_style || {}
 			]}
 			onPress={ navigate }
 		>
-			<MaterialCommunityIcons 
-				name="playlist-plus" 
-				size={ 22 } 
-				color={ Colors.White } 
+			<MaterialCommunityIcons
+				name="playlist-plus"
+				size={ 22 }
+				color={ Colors.White }
 			/>
 		</TouchableOpacity>
 	)
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
 		bottom: 70,
 		left: Layout.paddingHorizontal,
 		zIndex: 5,
-		elevation: 5,
+		...shadowGenerator(5),
 		width: 51,
 		height: 51,
 		borderRadius: 51/2,

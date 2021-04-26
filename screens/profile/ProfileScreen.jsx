@@ -9,6 +9,7 @@ import useThemeStyles from "../../hooks/useThemeStyles";
 import Tabs from "../../components/general/Tabs";
 import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 
 export default function ProfileScreen(props) {
@@ -35,20 +36,13 @@ export default function ProfileScreen(props) {
 					<View
 						style={{
 							height: 50,
-							backgroundColor: theme.main_bg,
+							backgroundColor: theme.box_bg,
 							paddingHorizontal: 10,
 							borderBottomRightRadius: 15,
 							borderBottomLeftRadius: 15,
-							shadowColor: "#000",
-							shadowOffset: {
-								width: 0,
-								height: 2,
-							},
 							marginBottom: 20,
-							shadowOpacity: 0.25,
-							shadowRadius: 3.84,
 
-							elevation: 5,
+							...shadowGenerator(5),
 						}}
 					>
 						<Tabs

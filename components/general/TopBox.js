@@ -3,10 +3,10 @@ import { View, StyleSheet } from "react-native";
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Layout from "../../constants/Layout";
 import WithHeaderConfig from "../layout/WithHeaderConfig";
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 const TopBox = ({style, children, ...rest}) => {
-
-    const ThemeStyles = useThemeStyles();
+	const ThemeStyles = useThemeStyles();
 
 	return (
 		<WithHeaderConfig borderless={true}>
@@ -18,14 +18,14 @@ const TopBox = ({style, children, ...rest}) => {
 }
 
 const styles = StyleSheet.create({
-	box: { 
+	box: {
 		paddingHorizontal: Layout.paddingHorizontal,
 		paddingTop: 0,
 		paddingBottom: 15,
-		elevation: 10,
 		zIndex: 10,
 		borderBottomLeftRadius: 20,
-		borderBottomRightRadius: 20
+		borderBottomRightRadius: 20,
+		...shadowGenerator(5)
 	}
 })
 

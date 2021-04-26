@@ -11,8 +11,7 @@ import useTranslated from '../../hooks/useTranslated';
 import Dropdown from "../form/Dropdown";
 
 const ProfileMainInfo = props => {
-
-    const ThemeStyles = useThemeStyles();
+	const ThemeStyles = useThemeStyles();
 	const user = useSelector( state => state.user );
 
 	const nick_name = "nick_studenta123";
@@ -27,9 +26,9 @@ const ProfileMainInfo = props => {
 
 	const options = [
 		{ value: 1, label: "Filozofia" },
-		{ value: 2, label: "Filozofia Filo" }, 
-		{ value: 3, label: "Filozofia Filozofia Filozofia" }, 
-		{ value: 4, label: "Filoz" }, 
+		{ value: 2, label: "Filozofia Filo" },
+		{ value: 3, label: "Filozofia Filozofia Filozofia" },
+		{ value: 4, label: "Filoz" },
 	]
 
 	return (

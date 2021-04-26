@@ -6,9 +6,9 @@ import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import useTranslated from '../../hooks/useTranslated';
 import RoundedImage from '../general/RoundedImage';
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 const RankingBox = props => {
-
 	const ThemeStyles = useThemeStyles();
 	const { number, avatar_source, user_nickname, badges, points } = props;
 
@@ -23,19 +23,19 @@ const RankingBox = props => {
 	};
 
 	return (
-		<View style={[ 
-			GeneralStyles.row_ac, 
+		<View style={[
+			GeneralStyles.row_ac,
 			{ backgroundColor: ThemeStyles.box_bg },
 			styles.box,
 			props.box_style || {}
 		]}>
-			
-			<Text style={[ 
+
+			<Text style={[
 				num_style,
-				{ marginRight: 12 } 
+				{ marginRight: 12 }
 			]}>{ number }</Text>
-			
-			{ avatar_source && 
+
+			{ avatar_source &&
 				<RoundedImage
 					size={ 55 }
 					box_style={{ marginLeft: 5 }}
@@ -46,9 +46,9 @@ const RankingBox = props => {
 			<View>
 				<Text style={ dark_blue_regular }>{ user_nickname }</Text>
 
-				{ badges && 
+				{ badges &&
 					<Text style={[
-						GeneralStyles.text_regular, 
+						GeneralStyles.text_regular,
 						{ color: ThemeStyles.dark_blue_rgba(0.5), fontSize: 14 }
 					]}>
 						{ badges } { useTranslated( Translations.Num__Badges )}
@@ -57,7 +57,7 @@ const RankingBox = props => {
 			</View>
 
 
-			{ points && 
+			{ points &&
 				<View style={{ marginLeft: "auto", justifyContent: "center" }}>
 					<Text style={ num_style }>{ points }</Text>
 					<Text style={[
@@ -73,11 +73,11 @@ const RankingBox = props => {
 const styles = StyleSheet.create({
 	box: {
 		width: "100%",
-		elevation: 0.5,
+		...shadowGenerator(1),
 		borderRadius: 15,
 		marginBottom: 8,
 		paddingVertical: 10,
-		paddingHorizontal: 20
+		paddingHorizontal: 20,
 	}
 })
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../../constants/Colors';
 
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Routes from '../../constants/Routes';
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 const TaskListItem = props => {
 
@@ -25,7 +26,7 @@ const TaskListItem = props => {
 	]
 
 	return (
-		<View style={[ 
+		<View style={[
 			styles.box,
 			{ backgroundColor: ThemeStyles.box_bg },
 			{ borderLeftColor: color || Colors.Purple },
@@ -51,18 +52,18 @@ const TaskListItem = props => {
 
 			<View style={ styles.actions }>
 				{ actions.map(( action, index ) => (
-					<TouchableOpacity 
-						key={ index } 
+					<TouchableOpacity
+						key={ index }
 						style={[
 							GeneralStyles.circle_with_icon,
 							{ borderColor: ThemeStyles.blue_text }
 						]}
 						onPress={ action.onPress }
 					>
-						<MaterialCommunityIcons 
-							name={ action.icon } 
-							size={ 22 } 
-							color={ ThemeStyles.icon_color } 
+						<MaterialCommunityIcons
+							name={ action.icon }
+							size={ 22 }
+							color={ ThemeStyles.icon_color }
 						/>
 					</TouchableOpacity>
 				))}
@@ -74,14 +75,14 @@ const TaskListItem = props => {
 const styles = StyleSheet.create({
 	box: {
 		width: "100%",
-		elevation: 1,
 		flexDirection: "row",
 		marginBottom: 14,
 		borderRadius: 15,
 		paddingTop: 14,
 		paddingBottom: 10,
 		paddingHorizontal: 12,
-		borderLeftWidth: 14
+		borderLeftWidth: 14,
+		...shadowGenerator(1)
 	},
 
 	content: {

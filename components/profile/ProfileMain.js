@@ -9,14 +9,16 @@ import Button from '../form/Button';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileMainInfo from './ProfileMainInfo';
 import WithHeaderConfig from "../layout/WithHeaderConfig";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
 const ProfileMain = props => {
+	const theme = useThemeStyles();
 	const navigation = useNavigation();
 	const avatar_size = Math.floor( Layout.width * 0.308 );
 
 	return (
 		<WithHeaderConfig borderless={true}>
-			<View style={{padding: 15}}>
+			<View style={{padding: 15, backgroundColor: theme.box_bg}}>
 
 				<View style={{ flexDirection: "row", marginBottom: 18 }}>
 
