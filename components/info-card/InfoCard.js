@@ -18,8 +18,8 @@ const CENTERED_CARD_LEFT = ( CONTAINER_WIDTH - CARD_WIDTH ) / 2;
 const CARD_OPTIONS = {
 	"FIRST": {
 		inputRange: [
-			0, // hidden on left 
-			1, // medium on left 
+			0, // hidden on left
+			1, // medium on left
 			2  // big first
 		],
 
@@ -34,7 +34,7 @@ const CARD_OPTIONS = {
 		]
 	},
 
-	"MEDIUM": {	
+	"MEDIUM": {
 		inputRange: [
 			0, // hidden on left
 			1, // medium on left
@@ -72,7 +72,7 @@ const CARD_OPTIONS = {
 			CONTAINER_WIDTH - CARD_WIDTH + MEDIUM_CARD_X,
 			CENTERED_CARD_LEFT
 		]
-	} 
+	}
 }
 
 const InfoCard = props => {
@@ -81,7 +81,7 @@ const InfoCard = props => {
 	const { title, text, img_source, active, active_index, animation_duration, item_index, last_card_index } = props;
 
 	const card_type = useMemo(() => (
-		item_index === 0 
+		item_index === 0
 			? "FIRST"
 			: item_index === last_card_index ? "LAST": "MEDIUM"
 	), []);
@@ -109,7 +109,7 @@ const InfoCard = props => {
 
 		switch ( card_type ) {
 			case "FIRST":
-				value = FIRST_CARD_ACTIVE 
+				value = FIRST_CARD_ACTIVE
 					? 2
 					: 2 - active_index <= 0 ? 0 : 2 - active_index
 			break;
@@ -124,17 +124,17 @@ const InfoCard = props => {
 					if ( active_index > item_index ) {
 						value = 2 - difference <= 0 ? 0 : 2 - difference;
 					} else {
-						value = 2 + difference >= 4 ? 4 : 2 + difference 
+						value = 2 + difference >= 4 ? 4 : 2 + difference
 					}
 				}
 
-			break;	
-			
+			break;
+
 			case "LAST":
 				value = LAST_CARD_ACTIVE
 					? 2
 					: active_index + 1 === last_card_index ? 1 : 0
-			break;	
+			break;
 		}
 
 		handleAnimation( value );
@@ -145,9 +145,9 @@ const InfoCard = props => {
 	if ( !card_type ) return null;
 
 	return (
-		<Animated.View style={[ 
+		<Animated.View style={[
 			styles.card,
-			{ 
+			{
 				backgroundColor: ThemeStyles.box_bg,
 
 				zIndex: animated_value.interpolate({
@@ -170,18 +170,18 @@ const InfoCard = props => {
 					{
 						scale: animated_value.interpolate({
 							inputRange,
-							outputRange: scale_output	
+							outputRange: scale_output
 						}),
 					}
 				]
 			}
 		]}>
-			
-			{ img_source && 
+
+			{ img_source &&
 				<View style={ styles.img_wrap }>
-					<Image 
-						style={ styles.img } 
-						source={ img_source } 
+					<Image
+						style={ styles.img }
+						source={ img_source }
 					/>
 				</View>
 			}
@@ -214,7 +214,14 @@ const styles = StyleSheet.create({
 		maxHeight: 505,
 		paddingHorizontal: 25,
 		paddingBottom: 30,
-		paddingTop: 30
+		paddingTop: 30,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
 	},
 
 	img_wrap: {
@@ -225,12 +232,12 @@ const styles = StyleSheet.create({
 	},
 
 	img: {
-		maxWidth: "100%", 
+		maxWidth: "100%",
 		resizeMode: "contain"
 	},
 
 	title: {
-		fontSize: 20, 
+		fontSize: 20,
 		marginBottom: 20
 	}
 })
