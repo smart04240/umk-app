@@ -41,6 +41,7 @@ export default React.memo(function MonthScreen({calendar}) {
 
     const buttonWidth = (width - Layout.paddingHorizontal * 2) / 7;
 
+    const arrowStyle = {width: buttonWidth, alignItems: 'center', justifyContent: 'center'};
     const weekDaysTextStyle = {color: theme.blue_text, textAlign: 'center', marginTop: 20, marginBottom: 10};
     const buttonStyle = {width: buttonWidth};
     const buttonTextStyle = {color: theme.blue_text};
@@ -51,7 +52,7 @@ export default React.memo(function MonthScreen({calendar}) {
     return (
         <ScrollView contentContainerStyle={styles.main}>
             <View style={styles.controls}>
-                <TouchableOpacity style={styles.controlLeft} onPress={prevMonth}>
+                <TouchableOpacity style={arrowStyle} onPress={prevMonth}>
                     <Feather name="arrow-left" size={22} color={theme.icon_color}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.controlCenter}>
@@ -67,7 +68,7 @@ export default React.memo(function MonthScreen({calendar}) {
                     </Text>
                     <MaterialCommunityIcons name="chevron-down" size={24} color={theme.icon_color}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.controlRight} onPress={nextMonth}>
+                <TouchableOpacity style={arrowStyle} onPress={nextMonth}>
                     <Feather name="arrow-right" size={22} color={theme.icon_color}/>
                 </TouchableOpacity>
             </View>
@@ -119,21 +120,11 @@ const styles = {
     controls: {
         flexDirection: 'row',
     },
-    controlLeft: {
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingRight: 10,
-    },
     controlCenter: {
         flexGrow: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    controlRight: {
-        paddingTop: 5,
-        paddingBottom: 5,
-        paddingLeft: 10,
     },
     day_names: {
         flexDirection: 'row',
