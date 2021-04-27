@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useMemo, useState, useReducer } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Modal } from "react-native";
 import { useSelector } from "react-redux";
 
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -25,13 +25,13 @@ const reducer = ( state, action ) => {
 
 		case "clear": return {}
 
-		case "remove": 
+		case "remove":
 
 			const state_copy = {...state };
 			Array.isArray( action.name )
 				? action.name.forEach( k => delete state_copy[ k ])
 				: delete state_copy[ action.name ]
-			
+
 			return state_copy;
 
 		default: throw new Error();
@@ -64,13 +64,12 @@ const task_sample = {
 }
 
 export default function TaskEditScreen( props ) {
-
 	const { route } = props;
 	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const task_id = route.params?.id;
 
-	const editing_task_data = !!task_id 
+	const editing_task_data = !!task_id
 		? task_sample
 		: {};
 
@@ -78,8 +77,8 @@ export default function TaskEditScreen( props ) {
 	const [ error_field_names, setErrorFieldNames ] = useState([]);
 	// console.log( "DATA: ", data );
 
-	const main_title = useMemo(() => !!task_id 
-		? translate( Translations.EditTheTask ) 
+	const main_title = useMemo(() => !!task_id
+		? translate( Translations.EditTheTask )
 		: translate( Translations.AddANewTask )
 	, [ task_id ]);
 
@@ -87,7 +86,7 @@ export default function TaskEditScreen( props ) {
 	const errors = useMemo(() => ({
 		title: translate( Translations.EnteringTitleIsRequired ),
 		place: translate( Translations.SelectingPlaceIsRequired ),
-		category: translate( Translations.SelectingCategoryIsRequired ) 
+		category: translate( Translations.SelectingCategoryIsRequired )
 	}), [ translate ]);
 
 
@@ -106,7 +105,7 @@ export default function TaskEditScreen( props ) {
 
 
 	const getErrorMessage = name => error_field_names.includes( name ) ? errors[ name ] : "";
-	
+
 	const inputOnChangeText = ( name, text ) =>  dispatch({ type: "update", name, value: text });
 
 	const onChange = o => dispatch({ type: "update", name: o.name, value : o.value });
@@ -116,7 +115,7 @@ export default function TaskEditScreen( props ) {
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>
 				<ContainerWithScroll>
-								
+
 					<Text style={[
 						GeneralStyles.text_regular,
 						{ color: ThemeStyles.dark_text, marginBottom: 20 }
@@ -146,16 +145,16 @@ export default function TaskEditScreen( props ) {
 						)) }
 					</View>
 
-						
+
 					<TaskEditEventSection
 						data={ data }
-						onChange={ o => { 
+						onChange={ o => {
 							onChange( o );
-							
+
 							if ( o.name === "is_event" && !o.value ) {
-								dispatch({ 
-									type: "remove", 
-									name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ] 
+								dispatch({
+									type: "remove",
+									name: [ "one_day_event", "date_from", "date_to", "time_from", "time_to" ]
 								})
 							}
 
@@ -178,7 +177,7 @@ export default function TaskEditScreen( props ) {
 						numberOfLines={ 6 }
 						onChangeText={ v => inputOnChangeText( "description", v )}
 					/>
-				
+
 
 					<DocPicker onChange={ onChange }/>
 
@@ -211,4 +210,4 @@ export default function TaskEditScreen( props ) {
 			</MainWithNavigation>
 		</ScreenWithRoundedHeader>
 	)
-} 
+}

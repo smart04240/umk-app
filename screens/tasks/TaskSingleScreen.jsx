@@ -1,19 +1,14 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import {Text, StyleSheet } from "react-native";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
-import Translations from "../../constants/Translations";
-
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
-import TaskSingleInfo from "../../components/tasks/TaskSingleInfo";
+import {Attachments} from "../../components/buttons/Attachments";
+import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 
 
 export default function TaskSingleScreen( props ) {
-
 	const ThemeStyles = useThemeStyles();
 
 	const id = 1;
@@ -36,7 +31,7 @@ export default function TaskSingleScreen( props ) {
 	return (
 		<MainWithNavigation>
 			<ContainerWithScroll
-				header={<TaskSingleInfo {...task_info } />}
+				header={<TopBoxWithContent {...task_info} isTask={true}/>}
 			>
 				{ content &&
 					<Text style={[
@@ -46,36 +41,7 @@ export default function TaskSingleScreen( props ) {
 						{ content }
 					</Text>
 				}
-
-				{ attachments && !!attachments.length &&
-					<View>
-						<Text style={[
-							GeneralStyles.text_bold,
-							{ color: ThemeStyles.dark_text, marginBottom: 17 }
-						]}>
-							{ useTranslated( Translations.Attachments )}
-						</Text>
-
-						{ attachments.map(( att, index ) => (
-							<TouchableWithoutFeedback key={ index } onPress={ () => console.log( att.link )}>
-								<View style={ styles.attachment }>
-									<MaterialCommunityIcons
-										name="download-outline"
-										size={ 20 }
-										color={ ThemeStyles.icon_color }
-									/>
-
-									<Text style={[
-										styles.attachment_label,
-										{ color: ThemeStyles.blue_text }
-									]}>
-										{ att.name }
-									</Text>
-								</View>
-							</TouchableWithoutFeedback>
-						))}
-					</View>
-				}
+				<Attachments attachments={attachments}/>
 			</ContainerWithScroll>
 		</MainWithNavigation>
 	)
@@ -86,12 +52,10 @@ const styles = StyleSheet.create({
 		...GeneralStyles.text_regular,
 		marginBottom: 20
 	},
-
 	attachment: {
 		...GeneralStyles.row_ac,
 		marginBottom: 13
 	},
-
 	attachment_label: {
 		...GeneralStyles.text_regular,
 		...GeneralStyles.row_wrap,
