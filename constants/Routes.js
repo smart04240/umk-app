@@ -24,5 +24,6 @@ export default {
 	TaskEdit: "tasks.edit_task",
 
 	Calendar: "calendar",
-	CalendarEvent: "calendar.event"
+	CalendarEvent: "calendar.event",
+	CalendarCreateEvent: "calendar.create"
 }

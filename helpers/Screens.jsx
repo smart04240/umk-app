@@ -30,6 +30,7 @@ import shadowGenerator from "./shadowGenerator";
 import Layout from "../constants/Layout";
 import MarkerScreen from "../screens/map/MarkerScreen";
 import CalendarScreen from "../screens/calendar/CalendarScreen";
+import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 
 const ScreenOptions = {
@@ -169,6 +170,11 @@ const RegisteredScreens = {
             name: Routes.CalendarEvent,
             title: Translations.Calendar,
             component: CalendarEvent,
+        },
+        {
+            name: Routes.CalendarCreateEvent,
+            title: Translations.Calendar,
+            component: CreateEvent
         }
     ],
 };

@@ -11,8 +11,9 @@ import {useSelector} from "react-redux";
 import range from 'lodash.range';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Day from "../../components/calendar/Day";
-import {usePrevious} from "react-native-screens-swiper/helpers/usePrevious";
 import ErrorView from "../../components/general/ErrorView";
+import {useNavigation} from "@react-navigation/core";
+import Routes from "../../constants/Routes";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -22,6 +23,7 @@ const Days = {
 export default React.memo(function MonthScreen({calendar}) {
     const translate = useTranslator();
     const theme = useThemeStyles();
+    const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const locale = useSelector(state => state.locale);
     const [selectedDate, setSelectedDate] = React.useState(moment());
@@ -69,6 +71,14 @@ export default React.memo(function MonthScreen({calendar}) {
                     <Feather name="arrow-right" size={22} color={theme.icon_color}/>
                 </TouchableOpacity>
             </View>
+
+            <TouchableOpacity
+                onPress={() => navigation.navigate(Routes.CalendarCreateEvent)}
+            >
+                <Text>
+                    LOL
+                </Text>
+            </TouchableOpacity>
 
             <View style={styles.day_names}>
                 {translate(Days).map(day => (
