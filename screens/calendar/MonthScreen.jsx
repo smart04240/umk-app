@@ -10,8 +10,9 @@ import {Feather} from '@expo/vector-icons';
 import {useSelector} from "react-redux";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Day from "../../components/calendar/Day";
-import ErrorView from "../../components/general/ErrorView";
 import {useNavigation} from "@react-navigation/core";
+import * as Calendar from "expo-calendar";
+import Translations from "../../constants/Translations";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -26,6 +27,7 @@ export default React.memo(function MonthScreen({calendar}) {
     const locale = useSelector(state => state.locale);
     const [selectedDate, setSelectedDate] = React.useState(moment());
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
+    const [events, setEvents] = React.useState(null);
 
     const calendarWeeks = React.useMemo(() => calendar && weeks(selectedMonth), [calendar, selectedMonth]);
 
@@ -33,6 +35,29 @@ export default React.memo(function MonthScreen({calendar}) {
         if (selectedMonth.month() !== selectedDate.month())
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
+
+    // load events of current month
+    React.useEffect(() => {
+        if (!calendar)
+            return;
+
+        // events loading
+        setEvents(null);
+
+        const now = moment();
+
+        Calendar.getEventsAsync([calendar.id], now.startOf('month').toDate(), now.endOf('month').toDate())
+            .then(events => events.reduce((accumulator, event) => {
+                const date = moment(event.startDate).date();
+
+                if (!accumulator[date])
+                    accumulator[date] = [];
+
+                accumulator[date].push(event);
+                return accumulator;
+            }, {}))
+            .then(setEvents);
+    }, [calendar]);
 
     if (!calendar)
         return <Loader text={'Loading calendar'}/>;
@@ -97,14 +122,18 @@ export default React.memo(function MonthScreen({calendar}) {
                 </View>
             ))}
 
-            <ErrorView text={'work in progress'}/>
+            {events === null && <Loader text={translate(Translations.LoadingEvents)}/>}
+            {!!events && (
+                <View>
+
+                </View>
+            )}
         </ScrollView>
     );
 });
 
 const styles = {
     main: {
-        flex: 1,
         padding: Layout.paddingHorizontal,
     },
     controls: {

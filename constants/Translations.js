@@ -475,6 +475,11 @@ export default {
 		pl: "Wydarzenie"
 	},
 
+	LoadingEvents: {
+    	en: "Loading events",
+		pl: "Ładowanie wydarzeń",
+	},
+
 	Reminder: {
 		en: "Reminder",
 		pl: "Przypomnienie"

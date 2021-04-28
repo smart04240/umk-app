@@ -5,7 +5,6 @@ import useTranslator from "../../hooks/useTranslator";
 import * as Calendar from "expo-calendar";
 import {Platform} from "react-native";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
-import Main from "../../components/general/Main";
 import DayScreen from "./DayScreen";
 import WeekScreen from "./WeekScreen";
 import MonthScreen from "./MonthScreen";
