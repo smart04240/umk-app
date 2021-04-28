@@ -8,12 +8,10 @@ import useThemeStyles from "../../hooks/useThemeStyles";
 import Fonts from "../../constants/Fonts";
 import {Feather} from '@expo/vector-icons';
 import {useSelector} from "react-redux";
-import range from 'lodash.range';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Day from "../../components/calendar/Day";
 import ErrorView from "../../components/general/ErrorView";
 import {useNavigation} from "@react-navigation/core";
-import Routes from "../../constants/Routes";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -73,14 +71,6 @@ export default React.memo(function MonthScreen({calendar}) {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate(Routes.CalendarCreateEvent)}
-            >
-                <Text>
-                    LOL
-                </Text>
-            </TouchableOpacity>
-
             <View style={styles.day_names}>
                 {translate(Days).map(day => (
                     <View key={day} style={buttonStyle}>
@@ -132,7 +122,8 @@ const styles = {
 };
 
 const weeks = date => {
-    const dates = calendarDates(date);
+    const momentDate = moment(date);
+    const dates = calendarDates(momentDate);
     const weeks = [];
     while (dates.length > 0) {
         const week = dates.splice(0, 7);
@@ -140,7 +131,7 @@ const weeks = date => {
         /* Skip week if all its days are from another month */
         let shouldSkip = true;
         week.forEach(day => {
-            if (moment(date).isSame(moment(day.date), 'month'))
+            if (momentDate.isSame(day.date, 'month'))
                 shouldSkip = false;
         });
 
@@ -155,24 +146,23 @@ const calendarDates = selectedDate => {
     const firstOfMonth = moment(selectedDate).startOf('month').day() - 1;
     const lastOfMonth = moment(selectedDate).endOf('month').day() - 1;
 
-    const firstDayOfGrid = moment(selectedDate).startOf('month').subtract(firstOfMonth, 'days');
-    const lastDayOfGrid = moment(selectedDate).endOf('month').subtract(lastOfMonth, 'days').add(7, 'days');
-    const startCalendar = firstDayOfGrid.date();
+    const firstDayOfGrid = moment(selectedDate).startOf('month').subtract(firstOfMonth + 7, 'days');
+    const lastDayOfGrid = moment(selectedDate).endOf('month').subtract(lastOfMonth - 7, 'days');
 
     const now = moment();
+    const dates = [];
 
-    return range(
-        startCalendar,
-        startCalendar + lastDayOfGrid.diff(firstDayOfGrid, 'days'),
-    ).map(day => {
-        const date = moment(firstDayOfGrid).date(day);
+    for (let i = firstDayOfGrid.date(); i < firstDayOfGrid.date() + lastDayOfGrid.diff(firstDayOfGrid, 'days'); i++) {
+        const date = moment(firstDayOfGrid).date(i);
         const isSelectedMonth = moment(selectedDate).isSame(date, 'month');
-        return {
+        dates.push({
             isToday: now.isSame(date, 'day'),
             isSelectedMonth,
             date,
             day: date.date(),
             key: date.toISOString() + (isSelectedMonth ? ' Current' : ''),
-        };
-    });
+        });
+    }
+
+    return dates;
 };
