@@ -8,40 +8,24 @@ import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 
 
-export default function TaskSingleScreen( props ) {
+export default function TaskSingleScreen(props) {
 	const ThemeStyles = useThemeStyles();
-
-	const id = 1;
-	const title = "Tytuł zadania na dwie linijki tekstu";
-	const category = "Egzamin";
-	const address = "Aula 12";
-	const date_time = "12.03.2021, 14:00";
-	const status = "Niewykonane";
-
-	const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
-
-	const attachments = [
-		{ name: "Załącznik 1", link: "link" },
-		{ name: "Załącznik 2", link: "link 2" }
-	];
-
-	const task_info = { id, title, category, address, date_time, status };
+	const dataFromParams = props?.route?.params;
 
 	return (
 		<MainWithNavigation>
 			<ContainerWithScroll
-				header={<TopBoxWithContent {...task_info} isTask={true}/>}
+				header={<TopBoxWithContent id={dataFromParams.id} isTask={true}/>}
 			>
-				{ content &&
+				{dataFromParams?.description && (
 					<Text style={[
 						styles.content,
-						{ color: ThemeStyles.dark_text },
+						{color: ThemeStyles.dark_text},
 					]}>
-						{ content }
+						{dataFromParams?.description}
 					</Text>
-				}
-				<Attachments attachments={attachments}/>
+				)}
+				<Attachments attachments={dataFromParams?.files}/>
 			</ContainerWithScroll>
 		</MainWithNavigation>
 	)

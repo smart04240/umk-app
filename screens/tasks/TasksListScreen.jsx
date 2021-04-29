@@ -1,80 +1,55 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { ScrollView, View, Text } from "react-native";
-
-import GeneralStyles from "../../constants/GeneralStyles";
-import Colors from "../../constants/Colors";
 import Translations from "../../constants/Translations";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import useTranslated from "../../hooks/useTranslated";
-
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import TopBox from "../../components/general/TopBox";
 import Dropdown from "../../components/form/Dropdown";
-import Container from "../../components/general/Container";
 import TaskListItem from "../../components/tasks/TaskListItem";
 import AddTaskButton from "../../components/tasks/AddTaskButton";
-import SortBy from "../../components/form/SortBy";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
+import {useSelector} from "react-redux";
+import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 
-
-const tasks_sample = {
-	title: "Lorem ipsum dolor sit amet",
-	text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
-}
-
-const task_colors = [
-	Colors.Purple,
-	Colors.Yellow,
-	Colors.Green,
-	Colors.CarrotOrange,
-	Colors.DeepSkyBlue
-]
-
-export default function TasksListScreen( props ) {
-
-	const ThemeStyles = useThemeStyles();
-
-	const tasks = [];
-	for ( let i = 0; i < 10; i++ ) {
-		tasks.push({
-			...tasks_sample, 
-			id : i + 1, 
-			color: task_colors[ i % 5 ] 
-		});
-	}
+export default function TasksListScreen(props) {
+	const todos = useSelector(state => ToDosSelectors.All(state));
+	const [filterOption, setFilterOption] = React.useState('');
 
 	const filter_options = [
 		{ value: "*", label: useTranslated( Translations.All )},
 		{ value: "completed", label: useTranslated( Translations.Completed )},
 		{ value: "not_completed", label: useTranslated( Translations.NotCompleted )}
-	]
+	];
+
+	const filterItems = useMemo(() => {
+		if (filterOption === filter_options[1].value) {
+			return todos.filter(todo => todo?.completed);
+		} else if (filterOption === filter_options[2].value){
+			return todos.filter(todo => !todo?.completed);
+		}
+
+		return todos;
+	},[filterOption, todos]);
 
 	return (
 		<MainWithNavigation>
-
-			<AddTaskButton />
-
+			<AddTaskButton/>
 			<TopBox>
-			
 				<Dropdown
 					init_value="*"
-					label={ useTranslated( Translations.FilterSelectTasksStatus )}
-					container_style={{ marginBottom: 0 }}
-					options={ filter_options }
+					onChange={option => setFilterOption(option.value)}
+					label={useTranslated(Translations.FilterSelectTasksStatus)}
+					container_style={{marginBottom: 0}}
+					options={filter_options}
 				/>
-
 			</TopBox>
-
 			<ContainerWithScroll>
-				
-				<SortBy/>
-
-				<View style={{ flex: 1, zIndex: 1 }}>
-					{ tasks && !!tasks.length && 
-						tasks.map( task => <TaskListItem key={ task.id } {...task }/> )
-					}
+				<View style={{flex: 1, zIndex: 1}}>
+					{filterItems && !!filterItems.length && filterItems.map((task, index) => (
+						<TaskListItem key={index} {...task}/>
+					))}
 				</View>
-
 			</ContainerWithScroll>
 		</MainWithNavigation>
 	)

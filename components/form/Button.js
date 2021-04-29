@@ -6,25 +6,24 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
 export default props => {
-
 	const ThemeStyles = useThemeStyles();
-	
 	const { transparent_bg } = props;
-	const extra_button_style = transparent_bg ? { backgroundColor: Colors.BlueRgba("0"), borderColor: ThemeStyles.blue_text } : {}; 
-	const text_style = transparent_bg ? { color: ThemeStyles.blue_text } : styles.text; 
+	const extra_button_style = transparent_bg ? { backgroundColor: Colors.BlueRgba("0"), borderColor: ThemeStyles.blue_text } : {};
+	const text_style = transparent_bg ? { color: ThemeStyles.blue_text } : styles.text;
 
 	return (
-		<TouchableOpacity 
-			style={[ 
-				GeneralStyles.row_centered, 
-				styles.button, 
+		<TouchableOpacity
+			style={[
+				GeneralStyles.row_centered,
+				styles.button,
 				extra_button_style,
-				props.style || {} 
+				props?.disabled ? {backgroundColor: Colors.Manatee} : {},
+				props.style || {}
 			]}
-			onPress={ props.onPress }
+			onPress={props.onPress}
 		>
 			<Text style={[ GeneralStyles.text_regular, text_style ]}>
-				{ props.children }
+				{props.children}
 			</Text>
 		</TouchableOpacity>
 	)

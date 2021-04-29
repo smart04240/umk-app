@@ -420,6 +420,16 @@ export default {
 		pl: "Dodaj nowe zadanie"
 	},
 
+	TaskCompleted: {
+    en: 'Completed',
+		pl: 'Wykonane'
+	},
+
+	TaskNotCompleted: {
+		en: 'Not completed',
+		pl: 'Niewykonane'
+	},
+
 	MarkAsDone: {
 		en: "Mark as done",
 		pl: "Oznacz jako wykonane"
@@ -584,7 +594,7 @@ export default {
 		en: "October",
 		pl: "Październik"
 	},
-	
+
 	"11_month": {
 		en: "November",
 		pl: "Listopad"

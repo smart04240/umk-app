@@ -7,19 +7,22 @@ import userReducer from "./reducers/userReducer";
 import internetReducer from "./reducers/internetReducer";
 import mapReducer from "./reducers/mapReducer";
 import remindersReducer from "./reducers/remindersReducer";
+import todosReducer from "./reducers/todosReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
     locale: localeReducer,
-	reminders: remindersReducer,
+    reminders: remindersReducer,
     user: userReducer,
     online: internetReducer,
     mapData: mapReducer,
+    todos: todosReducer
 });
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
+
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

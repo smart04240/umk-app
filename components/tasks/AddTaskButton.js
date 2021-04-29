@@ -10,9 +10,8 @@ import Routes from '../../constants/Routes';
 import shadowGenerator from "../../helpers/shadowGenerator";
 
 const AddTaskButton = props => {
-
 	const navigation = useNavigation();
-	const navigate = () => navigation.navigate( Routes.TaskEdit );
+	const navigate = () => navigation.navigate(Routes.TaskEdit);
 
 	return (
 		<TouchableOpacity
@@ -20,12 +19,12 @@ const AddTaskButton = props => {
 				styles.circle,
 				props.circle_style || {}
 			]}
-			onPress={ navigate }
+			onPress={navigate}
 		>
 			<MaterialCommunityIcons
 				name="playlist-plus"
-				size={ 22 }
-				color={ Colors.White }
+				size={22}
+				color={Colors.White}
 			/>
 		</TouchableOpacity>
 	)

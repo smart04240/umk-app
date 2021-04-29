@@ -6,37 +6,50 @@ import Button from "../form/Button";
 import TopBox from "./TopBox";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {useNavigation} from "@react-navigation/core";
-import Colors from "../../constants/Colors";
 import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
+import {useDispatch, useSelector} from "react-redux";
+import {categories} from "../tasks/TaskListItem";
+import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
+import Actions from "../../redux/Actions";
 
-export const TopBoxWithContent = props => {
+export const TopBoxWithContent = ({id, isTask}) => {
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
-    const {id, title, category, address, date_time, status} = props;
+    const dispatch = useDispatch();
+    const todo = useSelector(state => ToDosSelectors.byId(state, id));
+    const category = categories.find(category => category.value === parseInt(todo.category));
+    let taskStatus = todo?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
 
     const info = [
-        {circle_color: Colors.Yellow, value: category},
-        {icon: "map-marker-outline", value: address},
-        {icon: "calendar-range", value: date_time},
-        {icon: "playlist-check", value: status},
+        {circle_color: category?.color, value: todo?.category},
+        {icon: "map-marker-outline", value: todo?.place},
+        {icon: "playlist-check", value: taskStatus},
     ];
 
+    const completeTask = () => {
+        dispatch(Actions.ToDos.upsertOne({
+            id,
+            ...todo,
+            completed: true
+        }));
+    };
+
     const buttons = [
-        {label: useTranslated(Translations.MarkAsDone), onPress: null},
+        {label: useTranslated(Translations.MarkAsDone), onPress: () => completeTask()},
         {label: useTranslated(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})}
     ];
 
     return (
         <TopBox>
-            {title && (
+            {todo?.title && (
                 <Text style={[
                     GeneralStyles.text_bold,
                     {color: ThemeStyles.dark_blue_text},
                     {marginBottom: 20}
                 ]}>
-                    {title}
+                    {todo?.title}
                 </Text>
             )}
             <View>
@@ -74,8 +87,7 @@ export const TopBoxWithContent = props => {
                         ) : null
                 ))}
             </View>
-
-            {props.isTask && (
+            {isTask && (
                 <View style={[
                     GeneralStyles.row_ac,
                     {marginHorizontal: -5}
