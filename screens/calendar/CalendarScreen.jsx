@@ -5,7 +5,6 @@ import useTranslator from "../../hooks/useTranslator";
 import * as Calendar from "expo-calendar";
 import {Platform} from "react-native";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
-import Main from "../../components/general/Main";
 import DayScreen from "./DayScreen";
 import WeekScreen from "./WeekScreen";
 import MonthScreen from "./MonthScreen";
@@ -15,6 +14,7 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
 import Colors from "../../constants/Colors";
+import MainWithNavigation from "../../components/general/MainWithNavigation";
 
 const CalendarTitle = 'UMK Calendar';
 
@@ -49,8 +49,6 @@ export default function CalendarScreen() {
     const [permission, setPermission] = React.useState(null);
     const [calendar, setCalendar] = React.useState(null);
 
-    const onCalendarError = () => setCalendar(false);
-
     React.useEffect(() => {
         Calendar.requestCalendarPermissionsAsync().then(({status}) => {
             if (status !== 'granted') {
@@ -69,7 +67,7 @@ export default function CalendarScreen() {
     }, []);
 
     React.useEffect(() => {
-        permission && getCalendar().then(setCalendar).catch(onCalendarError);
+        permission && getCalendar().then(setCalendar).catch(() => setCalendar(false));
     }, [permission]);
 
     const style = useMemo(() => ({
@@ -101,7 +99,9 @@ export default function CalendarScreen() {
     if (!permission) {
         return (
             <WithHeaderConfig semitransparent={true}>
-                <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                <MainWithNavigation>
+                    <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                </MainWithNavigation>
             </WithHeaderConfig>
         );
     }
@@ -110,7 +110,9 @@ export default function CalendarScreen() {
     if (calendar === false) {
         return (
             <WithHeaderConfig semitransparent={true}>
-                <ErrorView text={translate(Translations.CalendarRetrievalError)}/>
+                <MainWithNavigation>
+                    <ErrorView text={translate(Translations.CalendarRetrievalError)}/>
+                </MainWithNavigation>
             </WithHeaderConfig>
         );
     }
@@ -139,9 +141,9 @@ export default function CalendarScreen() {
 
     return (
         <WithHeaderConfig borderless={true}>
-            <Main>
+            <MainWithNavigation>
                 <Swiper style={style} data={screens} isStaticPills={true}/>
-            </Main>
+            </MainWithNavigation>
         </WithHeaderConfig>
     );
 }
