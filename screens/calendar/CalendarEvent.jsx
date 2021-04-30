@@ -12,7 +12,7 @@ export const CalendarEvent = () => {
 
     const id = 1;
     const title = "Tytuł zadania na dwie linijki tekstu";
-    const category = "Egzamin";
+    const category = 2;
     const address = "Aula 12";
     const date_time = "12.03.2021, 14:00";
 

@@ -16,7 +16,7 @@ const CircleButton = ({style, theme, icon, onPress}) => (
     </TouchableOpacity>
 );
 
-export default function ColorCard({title, text, color, time, style, onPress, onRead, onEdit}) {
+export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit}) {
     const theme = useThemeStyles();
 
     const Component = onPress ? TouchableOpacity : View;
@@ -34,9 +34,14 @@ export default function ColorCard({title, text, color, time, style, onPress, onR
             ]}
             onPress={onPress}
         >
-            <View>
-                {typeof time === 'string' && <Text style={regularTextStyles}>{time}</Text>}
-                {typeof time !== 'string' && time}
+            <View
+                style={{
+                    flexDirection: 'column',
+                    flex: 0.2
+                }}
+            >
+                {!!from && <Text style={regularTextStyles}>{from}</Text>}
+                {!!to !== 'string' && <Text style={regularTextStyles}>{to}</Text>}
             </View>
 
             <View style={styles.content}>
@@ -91,6 +96,7 @@ const styles = {
     },
     content: {
         flexGrow: 1,
+        flex: 0.8
     },
     actions: {
         marginLeft: 20,

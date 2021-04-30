@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Layout from "../../../constants/Layout";
 import Translations from "../../../constants/Translations";
@@ -35,7 +34,7 @@ const DatePickerCalendar = props => {
 	const init_year = isDate( init_date ) ? init_date.getFullYear() : null;
 
 	const [ month, setMonth ] = useState( +init_month || +now_month );
-	const [ year, setYear ] = useState( +init_year || +now_year ); 
+	const [ year, setYear ] = useState( +init_year || +now_year );
 	const [ selected_date, setSelectedDate ] = useState( init_iso_date || null );
 
 	useEffect(() => isFunction( onChange ) && onChange( selected_date ), [ selected_date ]);
@@ -43,8 +42,8 @@ const DatePickerCalendar = props => {
 	const days_amount = useMemo(() => ( getDaysAmountInMonth( year, month )), [ month, year ]);
 
 	const shift = useMemo(() => {
-	
-		const first_day = new Date(`${year}/${month}/01`).getDay(); 
+
+		const first_day = new Date(`${year}/${month}/01`).getDay();
 		return first_day === 0 ? 6 : first_day - 1;
 
 	}, [ month, year ]);
@@ -52,25 +51,25 @@ const DatePickerCalendar = props => {
 
 	const getShiftValue = () => DAY_WITH * shift + DAY_MARGIN * 2 * shift + DAY_MARGIN;
 
-	
+
 	const numbers = useMemo(() => {
 
 		const days = [];
 		for ( let i = 1; i <= days_amount; i++ ) {
-			
+
 			const date_iso = getFullDateISO( year, month, i );
 			const date = i;
 
-			days.push({ date_iso, date }); 
+			days.push({ date_iso, date });
 		};
 
 		return days;
 
 	}, [ days_amount ])
-	
+
 
 	const changeDate = action => {
-	
+
 		let new_month, new_year;
 
 		switch ( action ) {
@@ -83,7 +82,7 @@ const DatePickerCalendar = props => {
 				new_month = month === 12 ? 1 : month + 1;
 				new_year = new_month === 1 ? year + 1: year;
 			break;
-			
+
 			default: return
 		}
 
@@ -125,11 +124,11 @@ const DatePickerCalendar = props => {
 				<View style={ styles.days }>
 					{ days_keys && !!days_keys.length &&
 						days_keys.map( day => (
-							<Text 
-								key={ day } 
+							<Text
+								key={ day }
 								style={[
 									styles.day,
-									{ color: ThemeStyles.blue_text } 
+									{ color: ThemeStyles.blue_text }
 								]}
 							>
 								{ useTranslated( Translations[ day ])}
@@ -142,9 +141,9 @@ const DatePickerCalendar = props => {
 				<View style={ styles.numbers }>
 					{ numbers && !!numbers.length &&
 						numbers.map(({ date_iso, date }, index ) => (
-							<TouchableOpacity 
-								key={ date_iso } 
-								style={[ 
+							<TouchableOpacity
+								key={ date_iso }
+								style={[
 									styles.number_wrap,
 									index === 0 ? { marginLeft: getShiftValue()} : {},
 									selected_date === date_iso ? { backgroundColor: ThemeStyles.blue_rgba(0.5)} : {}

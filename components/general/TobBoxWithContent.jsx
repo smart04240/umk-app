@@ -19,7 +19,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const todo = useSelector(state => ToDosSelectors.byId(state, id));
-    const category = categories.find(category => category.value === parseInt(todo.category));
+    const category = categories.find(category => category.value === parseInt(todo?.category));
     let taskStatus = todo?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
 
     const info = [

@@ -643,7 +643,7 @@ export default {
 	"7_day": {
 		en: "Sun",
 		pl: "Nd"
-	}
+	},
 
 
 };
