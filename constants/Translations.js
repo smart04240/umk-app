@@ -1,5 +1,15 @@
 export default {
-    YourProfile: {
+	FirstLoading: {
+		en: 'Downloading data...',
+		pl: 'Pobieranie danych...',
+	},
+
+	FirstLoadingRequired: {
+		en: 'Application has to download configuration before it can work offline. Please connect to internet and try again.',
+		pl: 'Aplikacja musi pobrać konfigurację, zanim będzie mogła działać w trybie offline. Połącz się z internetem i spróbuj ponownie.',
+	},
+
+	YourProfile: {
         en: 'Your profile',
         pl: 'Twój profil',
     },
