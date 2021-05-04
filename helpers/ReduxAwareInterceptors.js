@@ -1,9 +1,15 @@
 import Actions from "../redux/Actions";
 import API from "./API";
 
+export const Interceptors = {
+    Scheduler: null,
+    Logout: null,
+    Locale: null,
+};
+
 export default function (store) {
     // automatically schedule failed POST requests
-    API.interceptors.response.use(null, error => {
+    Interceptors.Scheduler = API.interceptors.response.use(null, error => {
         if (error.config?.method === 'post' && !error.status) {
             // network error, schedule request for later
             API.Scheduler.schedule(error.config);
@@ -13,7 +19,7 @@ export default function (store) {
     });
 
     // logout if server returns 401
-    API.interceptors.response.use(null, error => {
+    Interceptors.Logout = API.interceptors.response.use(null, error => {
         if (error.request?.status === 401) {
             store.dispatch(Actions.User.Logout());
         }
@@ -22,7 +28,7 @@ export default function (store) {
     });
 
     // add current locale to request
-    API.interceptors.request.use(config => {
+    Interceptors.Locale = API.interceptors.request.use(config => {
         config.params = config.params || {};
         config.params.locale = store.getState().locale;
         return config;
