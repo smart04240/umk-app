@@ -8,6 +8,7 @@ import Routes from "../../constants/Routes";
 import useThemeStyles from '../../hooks/useThemeStyles';
 
 import Range from '../form/Range';
+import Container from "../general/Container";
 
 const ProfileStatistics = props => {
 
@@ -58,21 +59,20 @@ const ProfileStatistics = props => {
 	]
 
 	return (
-		<View>
-			
+		<Container>
 			{ statistics.map(({ heading, items }, index ) => (
 				<View key={ index } style={{ marginBottom: 7 }}>
-					{ heading && 
+					{ heading &&
 						<Text style={[ GeneralStyles.text_bold, { color: ThemeStyles.dark_text, marginBottom: 22 } ]}>
 							{ heading }
 						</Text>
 					}
 
-					{ items && !!items.length && 
+					{ items && !!items.length &&
 						items.map(( range, index ) => (
-							<View key={ index }> 
+							<View key={ index }>
 								<Range {...range } />
-								{ range?.link && 
+								{ range?.link &&
 									<TouchableOpacity style={{ top: -10 }} onPress={ () => navigation.navigate( range.link.screen )}>
 										<Text style={[ GeneralStyles.text_bold, { color: ThemeStyles.blue_text, textAlign: "right" } ]}>
 											{ range.link.label }
@@ -85,7 +85,7 @@ const ProfileStatistics = props => {
 				</View>
 			)) }
 
-		</View>
+		</Container>
 	)
 }
 

@@ -1,66 +1,72 @@
 import React, { useState, useMemo } from "react";
-import {ScrollView, View} from 'react-native';
 import ProfileMain from "../../components/profile/ProfileMain";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ProfileStatistics from "../../components/profile/ProfileStatistics";
 import ProfileBadges from "../../components/profile/ProfileBadges";
 import ProfileInformation from "../../components/profile/ProfileInformation";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import Tabs from "../../components/general/Tabs";
 import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 import shadowGenerator from "../../helpers/shadowGenerator";
+import Swiper from "react-native-screens-swiper/components/Swiper";
+import GeneralStyles from "../../constants/GeneralStyles";
 
 
 export default function ProfileScreen(props) {
 	const theme = useThemeStyles();
-	const [active_tab, setActiveTab] = useState(null);
-	const TabComponent = useMemo(() => [ ProfileInformation, ProfileStatistics, ProfileBadges ][ active_tab ], [ active_tab ]);
 
-	const tabs = [
-		useTranslated( Translations.Information ),
-		useTranslated( Translations.Statistics ),
-		useTranslated( Translations.Badges )
+	const screens = [
+		{
+			tabLabel: useTranslated(Translations.Information),
+			component: ProfileInformation
+		},
+		{
+			tabLabel: useTranslated(Translations.Statistics),
+			component: ProfileStatistics
+		},
+		{
+			tabLabel: useTranslated(Translations.Badges),
+			component: ProfileBadges
+		},
 	];
+
+	const styles = useMemo(() => {
+		return (
+			{
+				pillContainer: {
+					backgroundColor: theme.box_bg,
+					borderBottomRightRadius: 15,
+					borderBottomLeftRadius: 15,
+					...shadowGenerator(5),
+				},
+				borderActive: {
+					borderColor: theme.blue_text
+				},
+				pillLabel: {
+					...GeneralStyles.text_regular,
+					textTransform: "uppercase",
+					color: theme.blue_text
+				},
+				activeLabel: {
+					...GeneralStyles.text_bold,
+					textTransform: "uppercase",
+					color: theme.blue_text
+				}
+			}
+		)
+	},[theme]);
 
 	return (
 		<MainWithNavigation>
-			<ScrollView
-				stickyHeaderIndices={[1]}
-				style={{
-					flex: 1,
-				}}
+			<Swiper
+				data={screens}
+				style={styles}
+				scrollableContainer={true}
+				stickyHeaderEnabled={true}
+				isStaticPills={true}
 			>
 				<ProfileMain/>
-				<View style={{overflow: 'hidden'}}>
-					<View
-						style={{
-							height: 50,
-							backgroundColor: theme.box_bg,
-							paddingHorizontal: 10,
-							borderBottomRightRadius: 15,
-							borderBottomLeftRadius: 15,
-							marginBottom: 20,
-
-							...shadowGenerator(5),
-						}}
-					>
-						<Tabs
-							style={{ marginTop: 15 }}
-							tabs={ tabs }
-							onTabChangeCallback={index => setActiveTab(index)}
-						/>
-					</View>
-				</View>
-
-				<View
-					style={{
-						paddingHorizontal: 10,
-					}}
-				>
-					{ TabComponent && <TabComponent/> }
-				</View>
-			</ScrollView>
+			</Swiper>
 		</MainWithNavigation>
 	);
 };

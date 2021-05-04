@@ -8,6 +8,7 @@ import useTranslated from "../../hooks/useTranslated";
 
 import Badge from '../badge/Badge';
 import BadgeWithRange from '../badge/BadgeWithRange';
+import Container from "../general/Container";
 
 const ProfileInformation = props => {
 
@@ -24,26 +25,6 @@ const ProfileInformation = props => {
 				color: "purple",
 				hide_value_label: true,
 				data: { type: "range", value: 3, total: 6 }
-			}
-		},
-		{
-			id: 245,
-			name: "Odznaka złota",
-			range_props: {
-				label: "zaliczone 5 z 6 przedmiotów!",
-				color: "purple",
-				hide_value_label: true,
-				data: { type: "range", value: 5, total: 6 }
-			}
-		},
-		{
-			id: 241,
-			name: "Odznaka złota",
-			range_props: {
-				label: "zaliczone 5 z 6 przedmiotów!",
-				color: "purple",
-				hide_value_label: true,
-				data: { type: "range", value: 5, total: 6 }
 			}
 		},
 		{
@@ -75,7 +56,7 @@ const ProfileInformation = props => {
 	const title_styles = [ GeneralStyles.text_bold, { color: ThemeStyles.dark_text }];
 
 	return (
-		<View>
+		<Container>
 			<View style={[ GeneralStyles.row_ac, { marginBottom: 28 } ]}>
 				<Text style={ title_styles }> { useTranslated( Translations.IndexNumber )} </Text>
 				<Text style={[ GeneralStyles.text_regular, { marginLeft: 65, color: ThemeStyles.dark_text } ]}>
@@ -106,7 +87,7 @@ const ProfileInformation = props => {
 					</View>
 				</View>
 			}
-		</View>
+		</Container>
 	)
 }
 
