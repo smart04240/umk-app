@@ -13,4 +13,7 @@ export default {
     set: async function (key, value) {
         return await AsyncStorage.setItem(key, JSON.stringify(value));
     },
+    remove: async function (key, callback) {
+        return await AsyncStorage.removeItem(key, callback);
+    },
 };

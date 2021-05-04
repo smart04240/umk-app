@@ -5,9 +5,8 @@ export default function (store) {
     // automatically schedule failed POST requests
     API.interceptors.response.use(null, error => {
         if (error.config?.method === 'post' && !error.status) {
-            // console.log(Object.keys(error))
-            // console.log(error.config)
-            // todo - a network error, schedule request for later
+            // network error, schedule request for later
+            API.Scheduler.schedule(error.config);
         }
 
         return Promise.reject(error);
