@@ -15,6 +15,7 @@ import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
 import Colors from "../../constants/Colors";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
+import FloatAddButton from "../../components/tasks/FloatAddButton";
 
 const CalendarTitle = 'UMK Calendar';
 
@@ -144,6 +145,7 @@ export default function CalendarScreen() {
             <MainWithNavigation>
                 <Swiper style={style} data={screens} isStaticPills={true}/>
             </MainWithNavigation>
+            <FloatAddButton/>
         </WithHeaderConfig>
     );
 }

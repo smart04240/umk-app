@@ -1,34 +1,26 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
-
 import GeneralStyles from '../../constants/GeneralStyles';
 import Colors from '../../constants/Colors';
 import Layout from '../../constants/Layout';
-import Routes from '../../constants/Routes';
 import shadowGenerator from "../../helpers/shadowGenerator";
 
-const AddTaskButton = props => {
-	const navigation = useNavigation();
-	const navigate = () => navigation.navigate(Routes.TaskEdit);
-
-	return (
-		<TouchableOpacity
-			style={[
-				styles.circle,
-				props.circle_style || {}
-			]}
-			onPress={navigate}
-		>
-			<MaterialCommunityIcons
-				name="playlist-plus"
-				size={22}
-				color={Colors.White}
-			/>
-		</TouchableOpacity>
-	)
-}
+const FloatAddButton = props => (
+	<TouchableOpacity
+		style={[
+			styles.circle,
+			props.circle_style || {}
+		]}
+		onPress={props.onPress}
+	>
+		<MaterialCommunityIcons
+			name="playlist-plus"
+			size={22}
+			color={Colors.White}
+		/>
+	</TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
 	circle: {
@@ -45,4 +37,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default AddTaskButton;
+export default FloatAddButton;

@@ -7,13 +7,16 @@ import MainWithNavigation from "../../components/general/MainWithNavigation";
 import TopBox from "../../components/general/TopBox";
 import Dropdown from "../../components/form/Dropdown";
 import TaskListItem from "../../components/tasks/TaskListItem";
-import AddTaskButton from "../../components/tasks/AddTaskButton";
+import FloatAddButton from "../../components/tasks/FloatAddButton";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import {useSelector} from "react-redux";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
+import Routes from "../../constants/Routes";
+import {useNavigation} from "@react-navigation/core";
 
 export default function TasksListScreen(props) {
 	const todos = useSelector(state => ToDosSelectors.All(state));
+	const navigation = useNavigation();
 	const [filterOption, setFilterOption] = React.useState('');
 
 	const filter_options = [
@@ -34,7 +37,7 @@ export default function TasksListScreen(props) {
 
 	return (
 		<MainWithNavigation>
-			<AddTaskButton/>
+			<FloatAddButton onPress={() => navigation.navigate(Routes.TaskEdit)}/>
 			<TopBox>
 				<Dropdown
 					init_value="*"
