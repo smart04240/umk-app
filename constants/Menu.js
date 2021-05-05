@@ -8,6 +8,12 @@ export default [
         icon_active: "account",
         bottom: true,
         screen: Routes.Profile,
+		subScreens: [
+			Routes.ProfileEdit,
+			Routes.ProfileBadges,
+			Routes.ProfileBadge,
+			Routes.ProfileEvents,
+		]
     },
     {
         label: Translations.MapOfStudies,
