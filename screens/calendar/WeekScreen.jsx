@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {View, TouchableOpacity, Text, SectionList} from "react-native";
+import {View, TouchableOpacity, Text, SectionList, ScrollView} from "react-native";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {FontAwesome} from "@expo/vector-icons";
 import ColorCard from "../../components/general/ColorCard";
@@ -12,6 +12,7 @@ import {categories} from "../../components/tasks/TaskListItem";
 import {useSelector} from "react-redux";
 import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
+import {RangeSelector} from "../../components/calendar/RangeSelector";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -19,18 +20,6 @@ export default React.memo(function WeekScreen() {
     const locale = useSelector(state => state.locale);
     const [show, setShow] = React.useState(false);
     const [date, setDate] = React.useState(new Date());
-
-    const getWeekDateRange = useMemo(() => {
-        let startDate = moment(date).startOf('week');
-        let endDate = moment(date).endOf('week');
-
-        return {
-            startDate,
-            endDate,
-            formattedStartDate: startDate.locale(locale).format('D MMM').toUpperCase(),
-            formattedEndDate: endDate.locale(locale).format('D MMM').toUpperCase()
-        };
-    },[date, locale]);
 
     const DATA = [
         {
@@ -317,36 +306,6 @@ export default React.memo(function WeekScreen() {
         },
     ];
 
-    const ListHeader = () => (
-        <TouchableOpacity
-            style={[
-                styles.weeksSelector,
-                {borderColor: theme.blue_text}
-            ]}
-            onPress={() => setShow(true)}
-        >
-            <View
-                style={styles.weeksSelectorInner}
-            >
-                <Text
-                    style={[
-                        GeneralStyles.text_bold,
-                        styles.selectorText,
-                        {color: theme.blue_text}
-                    ]}
-                >
-                    {getWeekDateRange.formattedStartDate} - {getWeekDateRange.formattedEndDate}
-                </Text>
-            </View>
-            <FontAwesome
-                styles={{flex: 0.1}}
-                name={'angle-down'}
-                size={20}
-                color={theme.icon_color}
-            />
-        </TouchableOpacity>
-    );
-
     const SectionHeader = ({day}) => (
         <View
             style={{
@@ -368,59 +327,35 @@ export default React.memo(function WeekScreen() {
     );
 
     return (
-        <>
-            <SectionList
-                sections={DATA}
-                initialNumToRender={6}
-                stickySectionHeadersEnabled={true}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => index}
-                ListHeaderComponent={<ListHeader/>}
-                ListFooterComponent={<View style={{height: 20}}/>}
-                renderItem={({item}) => (
-                    <ColorCard
-                        title={item.title}
-                        text={item.description}
-                        color={categories.find(category => category.value === item.category).color}
-                        from={item.from}
-                        to={item.to}
-                        onPress={() => navigation.navigate(Routes.CalendarEvent)}
-                    />
-                )}
-                renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}
-            />
-            <ModalCalendar
-                modalTitle={useTranslated(Translations.Calendar)}
-                show={show}
-                setClose={() => setShow(false)}
-                calendarOnChange={date => setDate(date)}
-                initialCalendarDate={date}
-            />
-        </>
+        <SectionList
+            sections={DATA}
+            initialNumToRender={6}
+            stickySectionHeadersEnabled={true}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index}
+            ListHeaderComponent={
+                <RangeSelector
+                    isDay={false}
+                    onPress={() => setShow(true)}
+                    date={date}
+                    show={show}
+                    setClose={() => setShow(false)}
+                    calendarOnChange={date => setDate(date)}
+                    rangeSelectorStyles={{marginHorizontal: 20, marginVertical: 20}}
+                />
+            }
+            ListFooterComponent={<View style={{height: 20}}/>}
+            renderItem={({item}) => (
+                <ColorCard
+                    title={item.title}
+                    text={item.description}
+                    color={categories.find(category => category.value === item.category).color}
+                    from={item.from}
+                    to={item.to}
+                    onPress={() => navigation.navigate(Routes.CalendarEvent)}
+                />
+            )}
+            renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}
+        />
     );
 });
-
-const styles = {
-    container: {
-        paddingTop: 20,
-        paddingHorizontal: 20,
-    },
-    weeksSelector: {
-        height: 50,
-        borderWidth: 1,
-        borderRadius: 5,
-        margin: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-    },
-    selectorText: {
-        fontSize: 15,
-        left: 10
-    },
-    weeksSelectorInner: {
-        flex: 0.9,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-};
