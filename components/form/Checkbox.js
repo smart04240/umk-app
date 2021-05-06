@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
 import useThemeStyles from '../../hooks/useThemeStyles';
 
 import Colors from '../../constants/Colors';
@@ -9,41 +9,41 @@ import { isFunction } from '../../helpers/functions';
 
 const Checkbox = props => {
 
-    const ThemeStyles = useThemeStyles();
-	const { name, init_checked, label, warning, required, onChange } = props;
-	const [ checked, setChecked ] = useState( init_checked || false );	
+	const ThemeStyles = useThemeStyles();
+	const {name, init_checked, label, warning, required, onChange} = props;
+	const [checked, setChecked] = useState(init_checked || false);
 
 	useEffect(() => {
-		isFunction( onChange ) && onChange({ name, value: checked })
-	}, [ checked ])
+		isFunction(onChange) && onChange({name, value: checked})
+	}, [checked])
 
 	return (
-		<TouchableWithoutFeedback onPress={ () => setChecked( !checked )}>
-			<View style={[ 
+		<TouchableWithoutFeedback onPress={() => setChecked(!checked)}>
+			<View style={[
 				styles.row,
-				props.row_style || {} 
+				props.row_style || {}
 			]}>
-				<View style={[ 
-					GeneralStyles.row_centered, 
-					styles.checkbox, 
-					{ borderColor: ThemeStyles.blue_text }, 
-					!!checked ? styles.checked : {} 
+				<View style={[
+					GeneralStyles.row_centered,
+					styles.checkbox,
+					{borderColor: ThemeStyles.blue_text},
+					!!checked ? styles.checked : {}
 				]}>
-					{ !!checked && <Ionicons name="checkmark" size={ 14 } color="#fff" /> }
-				</View> 
+					{!!checked && <Ionicons name="checkmark" size={14} color="#fff"/>}
+				</View>
 
-				<View style={{ flexShrink: 1 }}>
-					{ label && 
-						<Text style={[ { color: ThemeStyles.dark_text }, GeneralStyles.text_regular ]}> 
-							{ label } 
-							{ !!required && <Text style={[ GeneralStyles.text_regular, styles.red ]}> * </Text> }
-						</Text> 
+				<View style={{flexShrink: 1}}>
+					{label &&
+					<Text style={[{color: ThemeStyles.dark_text}, GeneralStyles.text_regular]}>
+						{label}
+						{!!required && <Text style={[GeneralStyles.text_regular, styles.red]}> * </Text>}
+					</Text>
 					}
 
-					{ warning && 
-						<Text style={[ GeneralStyles.text_regular, styles.red ]}> 
-							{ warning } 
-						</Text>
+					{warning &&
+					<Text style={[GeneralStyles.text_regular, styles.red]}>
+						{warning}
+					</Text>
 					}
 				</View>
 			</View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		maxWidth: "100%",
 	},
 
-	red: { color: Colors.Red },
+	red: {color: Colors.Red},
 
 	checkbox: {
 		width: 20,

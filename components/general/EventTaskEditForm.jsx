@@ -97,7 +97,7 @@ export const EventTaskEditForm = props => {
                    />
                 ))}
             </View>
-            {props.isEvent && <TaskEditEventSection/>}
+            {props.isEvent && props.eventData && <TaskEditEventSection data={props.eventData} onChange={props.editEventOnChange}/>}
             <Input
                 name="description"
                 defaultValue={props?.description}
@@ -109,7 +109,7 @@ export const EventTaskEditForm = props => {
                 onChangeText={props?.descriptionOnChange}
             />
             <DocPicker files={props?.files} onChange={props?.docPickerOnChange}/>
-            {props.isEvent && <TaskEditReminderSection/>}
+            {props.isEvent && props.reminderData && <TaskEditReminderSection data={props.reminderData} onChange={props.reminderOnChange}/>}
             <Button
                 disabled={props?.canSave}
                 onPress={props?.saveData}
