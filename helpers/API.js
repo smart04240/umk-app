@@ -94,7 +94,11 @@ API.Scheduler = {
 
         // run tasks one by one, failed gets scheduled again automatically
         for (const task of scheduledTasks) {
-            await TypeMethods[task.type](task.data);
+            try {
+                await TypeMethods[task.type](task.data);
+            } catch (e) {
+                // do nothing, continue to next task, this one will be scheduled automatically
+            }
         }
     },
 
