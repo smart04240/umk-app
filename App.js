@@ -10,6 +10,7 @@ import Fonts from './constants/Fonts';
 import ReduxAwareInterceptors from "./helpers/ReduxAwareInterceptors";
 import "moment/locale/pl";
 import DataManager from "./helpers/DataManager";
+import FirstLaunchGate from "./helpers/FirstLaunchGate";
 
 ReduxAwareInterceptors(store);
 
@@ -20,9 +21,10 @@ const Main = React.memo(props => {
             <InternetMonitor/>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'}/>
             {!props.loading && (
-                <DataManager>
+                <FirstLaunchGate>
+                    <DataManager/>
                     <Screens/>
-                </DataManager>
+                </FirstLaunchGate>
             )}
         </>
     );
