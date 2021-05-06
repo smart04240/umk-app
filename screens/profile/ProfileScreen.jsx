@@ -51,6 +51,10 @@ export default function ProfileScreen(props) {
 					...GeneralStyles.text_bold,
 					textTransform: "uppercase",
 					color: theme.blue_text
+				},
+				pillsOverflow: {
+					overflow: 'hidden',
+					height: 60
 				}
 			}
 		)
