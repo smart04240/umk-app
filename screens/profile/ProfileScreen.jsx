@@ -54,7 +54,7 @@ export default function ProfileScreen(props) {
 				},
 				pillsOverflow: {
 					overflow: 'hidden',
-					height: 60
+					height: 70
 				}
 			}
 		)
