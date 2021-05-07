@@ -20,7 +20,7 @@ export default [
         icon: "map-outline",
         icon_active: "map",
         bottom: true,
-        screen: "",
+        screen: Routes.MapOfStudies,
     },
     {
         label: Translations.Rankings,
