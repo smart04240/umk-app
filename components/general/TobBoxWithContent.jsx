@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Alert} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Button from "../form/Button";
@@ -13,43 +13,82 @@ import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../tasks/TaskListItem";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
+import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
+import useTranslator from "../../hooks/useTranslator";
 
 export const TopBoxWithContent = ({id, isTask}) => {
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const todo = useSelector(state => ToDosSelectors.byId(state, id));
-    const category = categories.find(category => category.value === parseInt(todo?.category));
-    let taskStatus = todo?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
+    const data = useSelector(state => (isTask ? ToDosSelectors.byId : EventsSelectors.byId)(state, id));
+    const category = categories.find(category => category.value === parseInt(data?.category));
+    let status = data?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
 
     const info = [
-        {circle_color: category?.color, value: todo?.category},
-        {icon: "map-marker-outline", value: todo?.place},
-        {icon: "playlist-check", value: taskStatus},
+        {circle_color: category?.color, value: data?.category},
+        {icon: "map-marker-outline", value: data?.place},
+        {icon: "playlist-check", value: status},
     ];
+
+    const message = {
+        title: useTranslated(Translations.DeleteConfirmTitle),
+        description: useTranslated(Translations.DeleteConfirmDescription) + data?.title + '?'
+    };
 
     const completeTask = () => {
         dispatch(Actions.ToDos.upsertOne({
             id,
-            ...todo,
+            ...data,
             completed: true
         }));
     };
 
-    const buttons = [
+    const askBeforeDelete = () => {
+        Alert.alert(
+            message.title,
+            message.description,
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        dispatch(Actions.Calendar.removeOne(id))
+                        navigation.goBack()
+                    }
+                }
+            ]
+        );
+    }
+
+    const toDoButtons = [
         {label: useTranslated(Translations.MarkAsDone), onPress: () => completeTask()},
         {label: useTranslated(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})}
     ];
 
+    const eventButtons = [
+        {
+            label: useTranslated(Translations.EditEvent),
+            onPress: () => navigation.navigate(Routes.CalendarCreateEvent, {id})
+        },
+        {
+            label: useTranslated(Translations.Delete),
+            isDangerButton: true,
+            onPress: () => askBeforeDelete()
+        },
+    ];
+
     return (
         <TopBox>
-            {todo?.title && (
+            {data?.title && (
                 <Text style={[
                     GeneralStyles.text_bold,
                     {color: ThemeStyles.dark_blue_text},
                     {marginBottom: 20}
                 ]}>
-                    {todo?.title}
+                    {data?.title}
                 </Text>
             )}
             <View>
@@ -87,23 +126,22 @@ export const TopBoxWithContent = ({id, isTask}) => {
                         ) : null
                 ))}
             </View>
-            {isTask && (
-                <View style={[
-                    GeneralStyles.row_ac,
-                    {marginHorizontal: -5}
-                ]}>
-                    {buttons.map((b, index) => (
-                        <Button
-                            key={index}
-                            style={styles.bottom_button}
-                            transparent_bg={true}
-                            onPress={b.onPress}
-                        >
-                            {b.label}
-                        </Button>
-                    ))}
-                </View>
-            )}
+            <View style={[
+                GeneralStyles.row_ac,
+                {marginHorizontal: -5}
+            ]}>
+                {(isTask ? toDoButtons : eventButtons).map((b, index) => (
+                    <Button
+                        key={index}
+                        style={b?.style || styles.bottom_button}
+                        isDangerButton={b?.isDangerButton}
+                        transparent_bg={true}
+                        onPress={b.onPress}
+                    >
+                        {b.label}
+                    </Button>
+                ))}
+            </View>
         </TopBox>
     )
 }

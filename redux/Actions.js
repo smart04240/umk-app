@@ -20,6 +20,10 @@ export default {
     ToDos: {
         upsertOne: createAction('todos/create'),
     },
+    Calendar: {
+        upsertOne: createAction('calendar/upsertOne'),
+        removeOne: createAction('calendar/removeOne')
+    },
     Locale: {
         Toggle: createAction('locale/toggle'),
     },

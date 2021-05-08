@@ -45,7 +45,7 @@ export default function TaskEditScreen(props) {
 	};
 
 	const title = useMemo(() => {
-		!!id ? translate(Translations.EditTheTask) : translate(Translations.AddANewTask)
+		return !!id ? translate(Translations.EditTheTask) : translate(Translations.AddANewTask)
 	}, [id]);
 
 	const save = () => {

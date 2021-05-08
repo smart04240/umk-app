@@ -6,8 +6,10 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {isFunction} from "../../helpers/functions";
 import moment from "moment";
+import Fonts from "../../constants/Fonts";
+import Colors from "../../constants/Colors";
 
-export const CustomDateTimePicker = ({buttonStyle, label, onChange, name}) => {
+export const CustomDateTimePicker = ({buttonStyle, label, onChange, validateData, dateFormat, name, mode, initialValue}) => {
     const ThemeStyles = useThemeStyles();
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedDate, setSelectedDate] = React.useState(null);
@@ -20,20 +22,30 @@ export const CustomDateTimePicker = ({buttonStyle, label, onChange, name}) => {
         setDatePickerVisibility(false);
     };
 
-    const formatDate = useMemo(() => {
-        if (!selectedDate)
+    const formattedDate = useMemo(() => {
+        const format = date => moment(date).format(dateFormat);
+
+        if (!!initialValue)
+            return format(initialValue);
+
+        if (!initialValue && !selectedDate)
             return label;
 
-        return moment(selectedDate).format('HH:mm DD.MM.YY');
+        return format(selectedDate);
     },[selectedDate]);
 
     return (
         <>
             <TouchableOpacity
-                style={[styles.input, {borderColor: ThemeStyles.blue_text}, buttonStyle || {}]}
+                style={[
+                    styles.input,
+                    validateData && {borderColor: Colors.Red},
+                    {borderColor: ThemeStyles.blue_text}, buttonStyle || {}
+
+                ]}
                 onPress={showDatePicker}>
-                <Text>
-                    {formatDate}
+                <Text style={{fontFamily: Fonts.ProximaNova.Regular, color: ThemeStyles.dark_text}}>
+                    {formattedDate}
                 </Text>
                 <MaterialCommunityIcons
                     name="clock-time-four-outline"
@@ -43,7 +55,7 @@ export const CustomDateTimePicker = ({buttonStyle, label, onChange, name}) => {
             </TouchableOpacity>
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
-                mode="datetime"
+                mode={mode}
                 onConfirm={value => {
                     setSelectedDate(value);
                     isFunction(onChange) && onChange({name, value});

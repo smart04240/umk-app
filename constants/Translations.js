@@ -19,6 +19,16 @@ export default {
 		pl: "Edytuj profil"
 	},
 
+	DeleteConfirmTitle: {
+		en: "Delete",
+		pl: "Usuń"
+	},
+
+	DeleteConfirmDescription: {
+		en: "Are you sure do you want to delete",
+		pl: "Czy na pewno chcesz usunąć"
+	},
+
 	TurnOnDarkTheme: {
 		en: "Turn on the dark theme",
 		pl: "Włącz ciemny motyw"
@@ -218,6 +228,11 @@ export default {
 	DeleteAccount: {
 		en: "Delete account",
 		pl: "Usuń konto"
+	},
+
+	Delete: {
+		en: "Delete",
+		pl: "Usuń"
 	},
 
 	Information: {
@@ -493,6 +508,16 @@ export default {
 	Event: {
 		en: "Event",
 		pl: "Wydarzenie"
+	},
+
+	CreateEvent: {
+		en: "Create event",
+		pl: "Edytuj wydarzenie"
+	},
+
+	EditEvent: {
+		en: "Edit event",
+		pl: "Dodaj wydarzenie"
 	},
 
 	LoadingEvents: {

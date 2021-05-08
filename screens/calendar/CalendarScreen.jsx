@@ -16,6 +16,10 @@ import Swiper from "react-native-screens-swiper";
 import Colors from "../../constants/Colors";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import FloatAddButton from "../../components/tasks/FloatAddButton";
+import {useNavigation} from "@react-navigation/core";
+import Routes from "../../constants/Routes";
+import {useSelector} from "react-redux";
+import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
 
 const CalendarTitle = 'UMK Calendar';
 
@@ -47,6 +51,9 @@ const getCalendar = async () => {
 export default function CalendarScreen() {
     const translate = useTranslator();
     const theme = useThemeStyles();
+    const navigation = useNavigation();
+    const isOnline = useSelector(state => state.online);
+    const events = useSelector(state => EventsSelectors.All(state));
     const [permission, setPermission] = React.useState(null);
     const [calendar, setCalendar] = React.useState(null);
 
@@ -145,7 +152,7 @@ export default function CalendarScreen() {
             <MainWithNavigation>
                 <Swiper style={style} data={screens} isStaticPills={true}/>
             </MainWithNavigation>
-            <FloatAddButton/>
+            <FloatAddButton onPress={() => navigation.navigate(Routes.CalendarCreateEvent, {is_event: true})}/>
         </WithHeaderConfig>
     );
 }

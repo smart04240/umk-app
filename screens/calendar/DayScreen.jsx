@@ -1,16 +1,22 @@
 import React from "react";
-import {ScrollView, useWindowDimensions, View, Text, TouchableOpacity} from 'react-native';
+import {ScrollView, useWindowDimensions, View, Text, TouchableHighlight, Alert} from 'react-native';
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {RangeSelector} from "../../components/calendar/RangeSelector";
 import GeneralStyles from "../../constants/GeneralStyles";
 import moment from "moment";
 import shadowGenerator from "../../helpers/shadowGenerator";
 import populateEvents from "../../components/calendar/Packer";
-import Colors from "../../constants/Colors";
 import Layout from "../../constants/Layout";
 import Fonts from "../../constants/Fonts";
 import {useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
+import {useDispatch, useSelector} from "react-redux";
+import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
+import {categories} from "../../components/tasks/TaskListItem";
+import Actions from "../../redux/Actions";
+import useTranslated from "../../hooks/useTranslated";
+import Translations from "../../constants/Translations";
+import Colors from "../../constants/Colors";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -19,44 +25,28 @@ function range(from, to) {
 const rowHeight = 60;
 const minuteHeight = rowHeight / 60;
 const hours = range(0, 24);
-
-const eventsArray = [
-    {
-        start: moment().subtract(1, 'hours').toDate(),
-        end: moment().add(1, 'hour').toDate(),
-        title: 'One',
-        color: Colors.Yellow
-    },
-    {
-        start: moment().subtract(1, 'hours').toDate(),
-        end: moment().add(1, 'hour').toDate(),
-        title: 'Two',
-        color: Colors.Blue
-    },
-    {
-        start: moment().subtract(5, 'hours').toDate(),
-        end: moment().add(-4, 'hour').toDate(),
-        title: 'Three',
-        color: Colors.CarrotOrange
-    },
-    {
-        start: moment().subtract(3, 'hours').toDate(),
-        end: moment().add(5, 'hour').toDate(),
-        title: 'Three',
-        color: Colors.Yellow
-    },
-];
-
 const timeHeight = date => (date.getHours() * 60 + date.getMinutes()) * minuteHeight;
-const getCardHeight = event => ((event.end.getHours() * 60) + event.end.getMinutes()) - ((event.start.getHours() * 60) + event.start.getMinutes());
+const getCardHeight = event => {
+    let start = new Date(event?.start);
+    let end = new Date(event?.end);
+
+    return ((end?.getHours() * 60) + end?.getMinutes()) - ((start?.getHours() * 60) + start?.getMinutes());
+};
 
 export default React.memo(function DayScreen() {
     const theme = useThemeStyles();
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
     const [day, setDay] = React.useState(new Date());
     const [now, setNow] = React.useState(new Date());
+    const events = useSelector(state => EventsSelectors.All(state));
+
+    const message = {
+        title: useTranslated(Translations.DeleteConfirmTitle),
+        description: useTranslated(Translations.DeleteConfirmDescription) + '?'
+    };
 
     React.useEffect(() => {
         let timeout = null;
@@ -72,6 +62,23 @@ export default React.memo(function DayScreen() {
         return () => clearTimeout(timeout);
     }, []);
 
+    const deleteEvent = event => {
+        Alert.alert(
+            message.title,
+            message.description,
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: () => dispatch(Actions.Calendar.removeOne(event.id))
+                }
+            ]
+        );
+    }
+
     const renderHours = () => (
         hours.map((hour, index) => (
             <View key={index} style={styles.row}>
@@ -80,43 +87,49 @@ export default React.memo(function DayScreen() {
                         {(hour > 9 ? '' : '0') + (hour === 24 ? '00' : hour) + ':00'}
                     </Text>
                 </View>
-                <View style={[styles.lines, {width: '90%',},]}/>
+                <View style={[styles.lines, {width: '90%'}]}/>
             </View>
         ))
     );
 
     const renderEvents = () => (
-        populateEvents(eventsArray, (width - 100), 0).map((event, index) => (
-            <TouchableOpacity key={index} style={[styles.eventContainer,
+        populateEvents(events, (width - 100), 0).map((event, index) => (
+            <TouchableHighlight
+                key={index}
+                onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
+                onLongPress={() => deleteEvent(event)}
+                activeOpacity={0.85}
+                underlayColor={Colors.Blue}
+                style={[styles.eventContainer,
                 {
-                    backgroundColor: event.color,
+                    backgroundColor: categories?.find(category => category.value === event.category).color,
                     height: getCardHeight(event),
                     width: event.width,
                     left: event.left + 50,
-                    top: timeHeight(event.start) + 18,
+                    top: timeHeight(new Date(event.start)) + 18,
                 }]}
-                onPress={() => navigation.navigate(Routes.CalendarEvent)}
             >
                 <View>
                     <Text style={styles.eventTitle}>{event.title}</Text>
                     <View style={styles.timeBox}>
                         <Text style={styles.timeRange}>
-                            {event.start.getHours() + ':' + event.start.getMinutes() + ' - ' + event.end.getHours() + ':' + event.end.getMinutes()}
+                            {moment(event.start).format('HH:mm') + ' - ' + moment(event.end).format('HH:mm')}
                         </Text>
                     </View>
                     {getCardHeight(event) > 100 && (
                         <Text numberOfLines={2} style={styles.eventDescription}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                            {event.description}
                         </Text>
                     )}
                 </View>
-            </TouchableOpacity>
+            </TouchableHighlight>
     )));
 
     const renderLine = () => (
-        <View style={[{top: timeHeight(now) + 18, width: '91%',}, styles.lineNowContainer]}>
-            <View style={styles.lineDot}/>
-            <View key={`timeNow`} style={styles.lineNow}/>
+        <View style={[{top: timeHeight(now) + 18,
+             width: '91%',}, styles.lineNowContainer]}>
+            <View style={[{backgroundColor: theme.timelineNowLine}, styles.lineDot]}/>
+            <View key={`timeNow`} style={[{backgroundColor: theme.timelineNowLine}, styles.lineNow]}/>
         </View>
     );
 
@@ -153,6 +166,7 @@ const styles = {
         width: 43,
     },
     time: {
+        fontFamily: Fonts.ProximaNova.Regular,
         color: 'gray',
     },
     lines: {
@@ -174,13 +188,11 @@ const styles = {
     lineDot: {
         height: 7,
         width: 7,
-        backgroundColor: 'black',
         borderRadius: 10,
     },
     lineNow: {
         height: 1,
         width: '100%',
-        backgroundColor: 'black',
     },
     eventContainer: {
         position: 'absolute',

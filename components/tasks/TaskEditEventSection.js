@@ -13,6 +13,8 @@ const TaskEditEventSection = props => {
 	const {data, onChange} = props;
 	const {one_day_event} = data;
 
+	console.log(props?.validateEndDate, props?.validateStartDate)
+
 	return (
 		<View style={{marginBottom: 15}}>
 			<View>
@@ -22,18 +24,37 @@ const TaskEditEventSection = props => {
 				]}>
 					Określ datę wydarzenia
 				</Text>
-				<View style={[GeneralStyles.row_ac, {marginVertical: 10, justifyContent: 'space-between', flex: 1}]}>
+				<View style={[GeneralStyles.row_ac, {marginVertical: 10}]}>
 					<CustomDateTimePicker
-						label={'Start date'}
-						buttonStyle={{flex: 0.48}}
-						name='start'
+						label={'Date'}
+						buttonStyle={{flex: 1}}
+						initialValue={data?.date}
+						name='date'
+						mode={'date'}
+						dateFormat={'DD.MM.YYYY'}
 						onChange={onChange}
 					/>
+				</View>
+				<View style={[GeneralStyles.row_ac, {marginVertical: 10, justifyContent: 'space-between', flex: 1}]}>
 					<CustomDateTimePicker
-						label={'End date'}
+						label={'Start time'}
+						buttonStyle={{flex: 0.48}}
+						initialValue={data?.start}
+						name='start'
+						mode={'time'}
+						dateFormat={'HH:mm'}
+						onChange={onChange}
+						validateData={props?.validateEndDate}
+					/>
+					<CustomDateTimePicker
+						label={'End time'}
+						initialValue={data?.end}
 						buttonStyle={{flex: 0.48}}
 						name='end'
+						mode={'time'}
+						dateFormat={'HH:mm'}
 						onChange={onChange}
+						validateData={props?.validateEndDate}
 					/>
 				</View>
 				<Checkbox

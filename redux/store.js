@@ -8,6 +8,7 @@ import internetReducer from "./reducers/internetReducer";
 import mapReducer from "./reducers/mapReducer";
 import remindersReducer from "./reducers/remindersReducer";
 import todosReducer from "./reducers/todosReducer";
+import eventsReducer from "./reducers/eventsReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
     user: userReducer,
     online: internetReducer,
     mapData: mapReducer,
-    todos: todosReducer
+    todos: todosReducer,
+    events: eventsReducer,
 });
 
 const persistConfig = {

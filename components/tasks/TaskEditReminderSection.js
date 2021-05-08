@@ -49,8 +49,11 @@ const TaskEditReminderSection = props => {
 					/>
 					<CustomDateTimePicker
 						label={'Reminder date'}
+						initialValue={reminder_date}
 						buttonStyle={{flex: 0.40, marginBottom: 8}}
 						name='reminder_date'
+						mode={'datetime'}
+						dateFormat={'HH:mm DD.MM.YY'}
 						onChange={props.onChange}
 					/>
 				</View>

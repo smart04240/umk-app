@@ -97,7 +97,14 @@ export const EventTaskEditForm = props => {
                    />
                 ))}
             </View>
-            {props.isEvent && props.eventData && <TaskEditEventSection data={props.eventData} onChange={props.editEventOnChange}/>}
+            {props.isEvent && props.eventData && (
+                <TaskEditEventSection
+                    data={props.eventData}
+                    onChange={props.editEventOnChange}
+                    validateStartDate={props?.validateStartDate}
+                    validateEndDate={props?.validateEndDate}
+                />
+            )}
             <Input
                 name="description"
                 defaultValue={props?.description}

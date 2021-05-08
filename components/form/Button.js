@@ -9,15 +9,17 @@ export default props => {
 	const ThemeStyles = useThemeStyles();
 	const { transparent_bg } = props;
 	const extra_button_style = transparent_bg ? { backgroundColor: Colors.BlueRgba("0"), borderColor: ThemeStyles.blue_text } : {};
-	const text_style = transparent_bg ? { color: ThemeStyles.blue_text } : styles.text;
+	const text_style = props.isDangerButton ? {color: Colors.Red}  : transparent_bg ? { color: ThemeStyles.blue_text } : styles.text;
 
 	return (
 		<TouchableOpacity
+			disabled={props.disabled}
 			style={[
 				GeneralStyles.row_centered,
 				styles.button,
 				extra_button_style,
-				props?.disabled ? {backgroundColor: Colors.Manatee} : {},
+				props?.disabled ? {borderColor: Colors.Manatee} : {},
+				props?.isDangerButton && {borderColor: Colors.Red},
 				props.style || {}
 			]}
 			onPress={props.onPress}
@@ -31,8 +33,9 @@ export default props => {
 
 
 const styles = StyleSheet.create({
-	text: { color: Colors.White },
-
+	text: {
+		color: Colors.White
+	},
 	button: {
 		marginBottom: 12,
 		borderRadius: 7,
