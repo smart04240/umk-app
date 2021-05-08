@@ -12,6 +12,8 @@ export default {
 	ProfileBadge: "profile.badge",
 	ProfileEvents: "profile.events",
 
+	MapOfStudies: "map_of_studies",
+
 	Map: "map",
 	MarkersList: "markers.list",
 	Marker: "marker",

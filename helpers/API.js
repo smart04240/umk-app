@@ -33,12 +33,8 @@ const TypeMethods = {
 
 API.Scheduler = {
     storageKey: type => 'scheduled:' + type,
-    set: function (type, data) {
-        return Storage.set(this.storageKey(type), data);
-    },
-    get: async function (type) {
-        return (await Storage.get(this.storageKey(type))) || [];
-    },
+    set: (type, data) => Storage.set(API.Scheduler.storageKey(type), data),
+    get: async type => (await Storage.get(API.Scheduler.storageKey(type))) || [],
 
     /**
      * Schedule payload for delivering
@@ -70,27 +66,36 @@ API.Scheduler = {
      *   }
      * @returns {Promise<void>}
      */
-    schedule: async function (config) {
-        await this.set(config.type, [
-            ...(await this.get(config.type)),
+    schedule: async function(config) {
+        await API.Scheduler.set(config.type, [
+            ...(await API.Scheduler.get(config.type)),
             config,
         ]);
     },
 
-    hasTasks: async function () {
+    /**
+     * Check if there are any scheduled tasks
+     * @returns {Promise<boolean>}
+     */
+    hasTasks: async function() {
         for (const type of Object.values(Types)) {
-            if ((await this.get(type))?.length)
+            if ((await API.Scheduler.get(type))?.length)
                 return true;
         }
 
         return false;
     },
 
-    runType: async function (type) {
+    /**
+     * Run scheduled tasks of a certain entity type, one at a time
+     * @param type
+     * @returns {Promise<void>}
+     */
+    runType: async function(type) {
         // get scheduled tasks from storage
-        const scheduledTasks = await this.get(type);
+        const scheduledTasks = await API.Scheduler.get(type);
         // clear storage to prevent task duplication
-        await Storage.remove(this.storageKey(type));
+        await Storage.remove(API.Scheduler.storageKey(type));
 
         // run tasks one by one, failed gets scheduled again automatically
         for (const task of scheduledTasks) {
@@ -102,8 +107,12 @@ API.Scheduler = {
         }
     },
 
-    runAll: function () {
-        return Promise.all(Object.values(Types).map(this.runType));
+    /**
+     * Run all scheduled tasks, each entity type in separate thread
+     * @returns {Promise<void[]>}
+     */
+    runAll: function() {
+        return Promise.all(Object.values(Types).map(API.Scheduler.runType));
     },
 };
 

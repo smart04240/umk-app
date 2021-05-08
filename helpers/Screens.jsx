@@ -32,6 +32,7 @@ import MarkerScreen from "../screens/map/MarkerScreen";
 import CalendarScreen from "../screens/calendar/CalendarScreen";
 import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
+import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -146,6 +147,11 @@ const RegisteredScreens = {
             title: Translations.Reminders,
             component: RemindersScreen
         },
+		{
+			name: Routes.MapOfStudies,
+			title: Translations.MapOfStudies,
+			component: MapOfStudiesScreen
+		},
         {
             name: Routes.Map,
             title: Translations.Map,

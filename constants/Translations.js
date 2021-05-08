@@ -585,6 +585,11 @@ export default {
 		pl: "Oznacz wszystkie jako przeczytane"
 	},
 
+	BeginningOfStudies: {
+		en: "Beginning of studies",
+		pl: "Początek studiów"
+	},
+
 	"1_month": {
 		en: "January",
 		pl: "Styczeń"

@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { LinearGradient } from "expo-linear-gradient";
 import Colors from '../../constants/Colors';
 
 const BadgeCircle = props => {
@@ -10,8 +11,14 @@ const BadgeCircle = props => {
 	const sizes = { width, height };
 
 	return (
-		<View style={[ styles.circle, sizes ]}>
-		</View>
+		<LinearGradient 
+			start={{ x: 0, y: 1 }}
+			end={{ x: 1, y: 0 }}
+			colors={[ "#034EA2", "#226EC5" ]}
+			style={[ styles.circle, sizes ]}
+		>
+
+		</LinearGradient>
 	)
 }
 
