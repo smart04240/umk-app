@@ -11,24 +11,25 @@ import Line from './Line';
 const Point = props => {
 
     const ThemeStyles = useThemeStyles();
-	const { label, passed, label_position } = props;
+	const { label, passed } = props;
 
-	const to_next_bottom_point = props.to_next_bottom_point || 0;
-	const extra_vertical_line_height = props.extra_vertical_line_height || 0;
+	const label_position = props.label_position || "bottom";
+	const line_height = props.line_height || 0;
+	const absolute_extra_line_height = props.absolute_extra_line_height || 0;
 
-	const horizontal_line_height = 
-		to_next_bottom_point || extra_vertical_line_height 
-			? MOSConstants.Point.Circle.Size + to_next_bottom_point + extra_vertical_line_height
+	const total_line_height = 
+		line_height || absolute_extra_line_height 
+			? MOSConstants.Point.Circle.Size + line_height + absolute_extra_line_height
 			: MOSConstants.Point.Circle.Radius;
 
 	return (
 		<View style={{
-			marginBottom: to_next_bottom_point || 0,
+			marginBottom: line_height,
 			left: props.left || 0
 		}}>
 
 			<Line
-				height={ horizontal_line_height }
+				height={ total_line_height }
 				left={ ( MOSConstants.Point.Circle.Size - MOSConstants.Point.InnerCircle.Size ) / 2 }
 			/>
 			
@@ -44,7 +45,7 @@ const Point = props => {
 
 			<View style={[ 
 				GeneralStyles.row_ac,
-				MOSConstants.PointLabel.PositionsStyles[ label_position || "bottom" ],
+				MOSConstants.PointLabel.PositionsStyles[ label_position ],
 				{ 
 					position: "absolute",
 					paddingHorizontal: 2,
@@ -56,7 +57,7 @@ const Point = props => {
 				<Text style={[
 					GeneralStyles.text_regular,
 					GeneralStyles.row_ac,
-					MOSConstants.PointLabel.PositionsTextStyles[ label_position || "bottom" ],
+					MOSConstants.PointLabel.PositionsTextStyles[ label_position ],
 					{ color: ThemeStyles.dark_blue_text },
 				]}>
 					{ label }
