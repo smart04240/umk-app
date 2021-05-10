@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: '', // todo add API URL
+    baseURL: 'https://api.umk.nfinity.pl/',
 });
 
 const Types = {
