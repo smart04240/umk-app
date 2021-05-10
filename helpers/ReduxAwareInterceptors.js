@@ -27,8 +27,13 @@ export default function ReduxAwareInterceptors(store) {
         return Promise.reject(error);
     });
 
-    // add current locale to request
+    // add token to requests
     Interceptors.Token = API.interceptors.request.use(config => {
+        const token = store.getState()?.user?.token;
+
+        if (!token)
+            return config;
+
         config.headers = config.headers || {};
         config.headers.Authorization = 'Bearer ' + store.getState().user.token;
         return config;
