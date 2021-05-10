@@ -221,7 +221,8 @@ const StackScreens = () => {
 };
 
 const DrawerStyles = {
-    borderRadius: 20,
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
     overflow: 'hidden',
     elevation: 50,
     paddingTop: 40,
