@@ -13,8 +13,6 @@ const TaskEditEventSection = props => {
 	const {data, onChange} = props;
 	const {one_day_event} = data;
 
-	console.log(props?.validateEndDate, props?.validateStartDate)
-
 	return (
 		<View style={{marginBottom: 15}}>
 			<View>
