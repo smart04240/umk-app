@@ -13,11 +13,16 @@ import Translations from "../../constants/Translations";
 import Main from "../../components/general/Main";
 import Routes from "../../constants/Routes";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
+import API from "../../helpers/API";
+import {useDispatch} from "react-redux";
+import Actions from "../../redux/Actions";
 
 export default function LoginScreen(props) {
-
     const ThemeStyles = useThemeStyles();
+    const dispatch = useDispatch();
 	const blue_text = { color: ThemeStyles.blue_text };
+
+	const login = () => API.post('/auth/login').then(result => dispatch(Actions.User.Login(result.data.data)));
 
     return (
 		<ScreenWithHiddenHeader>
@@ -27,13 +32,13 @@ export default function LoginScreen(props) {
 				<Container>
 					<UniversityLogo/>
 
-					<TouchableOpacity style={{ width: "100%" }}> 
+					<TouchableOpacity style={{ width: "100%" }} onPress={login}>
 						<Text style={[ blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> 
 							{ useTranslated( Translations.SignIn )} 
 						</Text> 
 					</TouchableOpacity>
 
-					<TouchableOpacity style={[ styles.button ]}> 
+					<TouchableOpacity style={[ styles.button ]} onPress={login}>
 						<Text style={[ blue_text, GeneralStyles.text_semibold, { textAlign: "center" } ]}>
 							{ useTranslated( Translations.LoginInUsingNCU )}
 						</Text>

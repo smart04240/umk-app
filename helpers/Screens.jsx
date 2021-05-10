@@ -190,8 +190,7 @@ const StackScreens = () => {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    // const screens = React.useMemo(() => RegisteredScreens['LoggedIn'].map(screen => (
-    const screens = React.useMemo(() => RegisteredScreens[user ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens[user.token ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={screen.name}
             name={screen.name}
