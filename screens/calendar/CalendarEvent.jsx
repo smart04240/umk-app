@@ -6,13 +6,11 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
-import {useSelector} from "react-redux";
-import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
 
 export const CalendarEvent = props => {
     const id = props?.route?.params?.id;
-    const event = useSelector(state => EventsSelectors.byId(state, id));
     const ThemeStyles = useThemeStyles();
+    const [data, setData] = React.useState({});
 
     return (
         <MainWithNavigation>
@@ -37,15 +35,15 @@ export const CalendarEvent = props => {
                     </>
                 }
             >
-                {!!event?.description && (
+                {!!data?.description && (
                     <Text style={[
                         styles.content,
                         {color: ThemeStyles.dark_text},
                     ]}>
-                        {event.description}
+                        {data.description}
                     </Text>
                 )}
-                {!!event?.files && <Attachments attachments={event.files}/>}
+                {!!data?.files && <Attachments attachments={data.files}/>}
             </ContainerWithScroll>
         </MainWithNavigation>
     )

@@ -13,14 +13,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../tasks/TaskListItem";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
-import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
-import useTranslator from "../../hooks/useTranslator";
 
 export const TopBoxWithContent = ({id, isTask}) => {
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const data = useSelector(state => (isTask ? ToDosSelectors.byId : EventsSelectors.byId)(state, id));
+    const todos = useSelector(state => ToDosSelectors.byId(state, id));
+    // todo get data for events from api
+    const [data, setData] = React.useState(isTask ? todos : {});
     const category = categories.find(category => category.value === parseInt(data?.category));
     let status = data?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
 
@@ -55,7 +55,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
                 {
                     text: "OK",
                     onPress: () => {
-                        dispatch(Actions.Calendar.removeOne(id))
+                        // todo add delete event method
                         navigation.goBack()
                     }
                 }

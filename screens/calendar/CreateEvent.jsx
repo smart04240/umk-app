@@ -5,7 +5,6 @@ import {EventTaskEditForm} from "../../components/general/EventTaskEditForm";
 import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
 import {v4 as uuidv4} from "uuid";
 import {useNavigation} from "@react-navigation/core";
-import {EventsSelectors} from "../../redux/selectors/eventsSelectors";
 import {useDispatch, useSelector} from "react-redux";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
@@ -35,9 +34,8 @@ export const CreateEvent = props => {
     const id = props?.route?.params?.id;
     const navigation = useNavigation();
     const translate = useTranslator();
-    const dispatch = useDispatch();
-    const event = useSelector(state => EventsSelectors.byId(state, id));
-    const [data, setData] = React.useState(!!event ? event : generateEvent());
+
+    const [data, setData] = React.useState(generateEvent());
 
     const canSave = useMemo(() => {
         return !!data?.description?.length && !!data?.title?.length && !!data?.category && !!data?.place
@@ -57,9 +55,7 @@ export const CreateEvent = props => {
     };
 
     const save = () => {
-        dispatch(Actions.Calendar.upsertOne({
-            ...data
-        }));
+
         navigation.goBack();
     };
 
