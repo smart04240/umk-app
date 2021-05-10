@@ -25,6 +25,8 @@ const hours = range(0, 24);
 const linesTopOffset = 18;
 const linesLeftOffset = 35;
 const nowCircleSize = 7;
+const timeContainerWidth = 43;
+const leftMargin = 50;
 const nowLeftOffset = linesLeftOffset - nowCircleSize / 2;
 
 const timeHeight = date => (date.getHours() * 60 + date.getMinutes()) * minuteHeight + linesTopOffset;
@@ -121,7 +123,7 @@ export default React.memo(function DayScreen() {
 
     // memoize events JSX asynchronously
     React.useEffect(() => {
-        setEventsJSX(populateEvents(events || [], width - 100, 0).map((event, index) => (
+        setEventsJSX(populateEvents(events || [], width - timeContainerWidth - leftMargin, 0).map((event, index) => (
             <TouchableOpacity
                 key={index}
                 style={[
@@ -130,7 +132,7 @@ export default React.memo(function DayScreen() {
                         backgroundColor: categories?.find(category => category.value === event.category).color,
                         height: getCardHeight(event),
                         width: event.width,
-                        left: event.left + 50,
+                        left: event.left + leftMargin,
                         top: timeHeight(new Date(event.start)),
                     },
                 ]}
@@ -231,7 +233,7 @@ const styles = {
         position: 'absolute',
         zIndex: 2,
         top: 10,
-        width: 43,
+        width: timeContainerWidth,
     },
     time: {
         fontFamily: Fonts.ProximaNova.Regular,
