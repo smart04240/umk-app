@@ -68,6 +68,7 @@ export default function ProfileScreen(props) {
 				scrollableContainer={true}
 				stickyHeaderEnabled={true}
 				isStaticPills={true}
+				stickyHeaderIndex={1}
 			>
 				<ProfileMain/>
 			</Swiper>
