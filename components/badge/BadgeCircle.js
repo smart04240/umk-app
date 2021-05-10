@@ -5,17 +5,15 @@ import Colors from '../../constants/Colors';
 
 const BadgeCircle = props => {
 
-	const width = props.size || 125;
-	const height = props.size || 125;
-
-	const sizes = { width, height };
+	const size = props.size || 125;
+	const sizes_style = { width: size , height: size , borderRadius: size / 2 };
 
 	return (
 		<LinearGradient 
 			start={{ x: 0, y: 1 }}
 			end={{ x: 1, y: 0 }}
 			colors={[ "#034EA2", "#226EC5" ]}
-			style={[ styles.circle, sizes ]}
+			style={[ styles.circle, sizes_style ]}
 		>
 
 		</LinearGradient>
@@ -24,9 +22,6 @@ const BadgeCircle = props => {
 
 const styles = StyleSheet.create({
 	circle: {
-		width: 125,
-		height: 125,
-		borderRadius: 125,
 		marginBottom: 24,
 		backgroundColor: Colors.Blue
 	}
