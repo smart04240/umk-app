@@ -4,10 +4,10 @@ import API from "./API";
 export const Interceptors = {
     Scheduler: null,
     Logout: null,
-    Locale: null,
+    Token: null,
 };
 
-export default function (store) {
+export default function ReduxAwareInterceptors(store) {
     // automatically schedule failed POST requests
     Interceptors.Scheduler = API.interceptors.response.use(null, error => {
         if (error.config?.method === 'post' && !error.status) {
@@ -28,9 +28,9 @@ export default function (store) {
     });
 
     // add current locale to request
-    Interceptors.Locale = API.interceptors.request.use(config => {
-        config.params = config.params || {};
-        config.params.locale = store.getState().locale;
+    Interceptors.Token = API.interceptors.request.use(config => {
+        config.headers = config.headers || {};
+        config.headers.Authorization = 'Bearer ' + store.getState().user.token;
         return config;
     });
 };
