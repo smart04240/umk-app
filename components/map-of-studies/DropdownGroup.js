@@ -28,6 +28,7 @@ const DropdownGroup = props => {
 
 					<TouchableOpacity 
 						activeOpacity={ 0.8 }
+						style={{ paddingHorizontal: 5, justifyContent: "center" }}
 						onPress={ () => {
 							LayoutAnimation.configureNext( LayoutAnimation.Presets.easeInEaseOut );
 							setOpen( !open )
@@ -55,8 +56,8 @@ const DropdownGroup = props => {
 					</TouchableOpacity>
 
 					<Line
-						height={ MOSConstants.DropdownCircle.Size + 22 }
-						left={ MOSConstants.DropdownCircle.Radius - MOSConstants.Line.Size / 2  }
+						height={ MOSConstants.DropdownCircle.Size + 22}
+						left={ MOSConstants.DropdownCircle.Radius - MOSConstants.Line.Size / 2 + 5  }
 					/>
 
 				</View>
