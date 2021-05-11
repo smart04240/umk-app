@@ -236,12 +236,12 @@ const RenderDrawerContent = props => <CustomDrawer defaultActiveRouteName={Regis
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const toastRef = useRef(null);
-    const [toastData, setToastData] = React.useState(null);
     const notification = useSelector(state => state.notifications);
 
+    console.log('notification',notification)
+
     React.useEffect(() => {
-        if (!!toastData) {
-            setToastData(notification)
+        if (!!notification) {
             toastRef?.current?.showToast()
         }
     },[notification]);
@@ -258,9 +258,8 @@ export default function Screens() {
             </Drawer.Navigator>
             <Toast
                 ref={toastRef}
-                id={toastData?.id}
-                message={toastData?.code + ' ' + toastData?.message}
-                toastColor={toastData?.color}
+                message={notification?.message}
+                toastColor={notification?.color}
             />
         </NavigationContainer>
     );

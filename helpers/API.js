@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://api.umk.nfinity.pl/`,
+    baseURL: `https://api.umk.nfinity.pl`,
 });
 
 const Types = {
@@ -25,13 +25,14 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
  */
 
 API.events = {
-    all: API.getAllEvents = () => API.post(`/mobile/calendar/getListByOption`, {sort_column: 0}),
-    create: API.createEvent = data => API.post('/mobile/calendar/', data),
+    all: API.getAllEvents = () => API.post(`/mobile/calendar/getListByOption`),
+    create: API.createEvent = data => API.post('/mobile/calendar/create', data),
     edit: API.editEvent = data => API.put('/mobile/calendar/update', data),
     delete: API.deleteEvent = id => API.delete(`/mobile/calendar/?id=${id}`),
 
     getWithParams: API.getEventByOption = params => API.post(`/mobile/calendar/getListByOption`),
     deleteFile: API.deleteFile = ({fileId, calendarId}) => API.delete(`/mobile/calendar/file?file_id=${fileId}&calendar_id=${calendarId}`),
+    getInfo: API.getInfo = () => API.get('/mobile/calendar/info'),
 };
 
 /**

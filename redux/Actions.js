@@ -1,5 +1,6 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import API from "../helpers/API";
+import Colors from "../constants/Colors";
 
 const categoryPreparer = data => ({
     payload: typeof data === 'string' ? data : data.slug,
@@ -37,8 +38,8 @@ export default {
         Select: createAction('categories/select', categoryPreparer),
     },
     Notifications: {
-        upsertOne: createAction('notifications/upsertOne'),
-        removeOne: createAction('notifications/removeOne')
+        Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Yellow, message}})),
+        Warning: createAction('toasts/warning', message => ({payload: {color: Colors.Yellow, message}})),
     },
     ChangeMapSearch: createAction('changeMapSearch'),
 };
