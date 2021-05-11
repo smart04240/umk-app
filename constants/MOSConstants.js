@@ -36,6 +36,8 @@ export default {
 			Radius: POINT_INNER_CIRCLE_SIZE / 2
 		},
 
+		spaceBetweenCircleAndInnerCircle: ( POINT_CIRCLE_SIZE - POINT_INNER_CIRCLE_SIZE ) / 2,
+
 		// Point center absolute left value
 		PositionsLeftValue: {
 			"left": 0,
@@ -54,23 +56,24 @@ export default {
 			"left": { textAlign: "right" },
 			"right": { textAlign: "left" }
 		},
-		PositionsStyles: {
-			"bottom": {
+		
+		getPositionsStyles: {
+			"bottom": label_width => ({
 				top: POINT_CIRCLE_SIZE,
-				left: POINT_CIRCLE_SIZE / 2 - POINT_LABEL_WIDTH / 2,
+				left: POINT_CIRCLE_SIZE / 2 - label_width / 2,
 				justifyContent: "center"
-			},
+			}),
 		
-			"left": {
+			"left": label_width => ({
 				top: 0,
-				left: -POINT_LABEL_WIDTH,
+				left: -label_width,
 				justifyContent: "flex-end"
-			},
+			}),
 		
-			"right": {
+			"right": () => ({
 				top: 0,
 				left: POINT_CIRCLE_SIZE
-			}
+			})
 		}
 	},
 }

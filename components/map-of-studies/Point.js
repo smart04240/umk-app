@@ -11,8 +11,9 @@ import Line from './Line';
 const Point = props => {
 
     const ThemeStyles = useThemeStyles();
-	const { label, passed } = props;
+	const { label, extra_label, passed } = props;
 
+	const label_width = props.label_width || MOSConstants.PointLabel.Width;
 	const label_position = props.label_position || "bottom";
 	const line_height = props.line_height || 0;
 	const absolute_extra_line_height = props.absolute_extra_line_height || 0;
@@ -25,12 +26,12 @@ const Point = props => {
 	return (
 		<View style={{
 			marginBottom: line_height,
-			left: props.left || 0
+			left: props.left || 0,
 		}}>
 
 			<Line
 				height={ total_line_height }
-				left={ ( MOSConstants.Point.Circle.Size - MOSConstants.Point.InnerCircle.Size ) / 2 }
+				left={ MOSConstants.Point.spaceBetweenCircleAndInnerCircle }
 			/>
 			
 
@@ -45,13 +46,11 @@ const Point = props => {
 
 			<View style={[ 
 				GeneralStyles.row_ac,
-				MOSConstants.PointLabel.PositionsStyles[ label_position ],
+				MOSConstants.PointLabel.getPositionsStyles[ label_position ]( label_width ),
+				styles.label_box,
 				{ 
-					position: "absolute",
-					paddingHorizontal: 2,
 					backgroundColor: ThemeStyles.main_bg,
-					width: MOSConstants.PointLabel.Width, 
-					minHeight: MOSConstants.PointLabel.MinHeight,
+					width: label_width, 
 				}
 			]}>
 				<Text style={[
@@ -63,8 +62,29 @@ const Point = props => {
 					{ label }
 				</Text>
 			</View>
+
+			{ extra_label && 
+				<View style={[
+					GeneralStyles.row_ac,
+					MOSConstants.PointLabel.getPositionsStyles[ label_position ]( label_width ),
+					styles.label_box,
+					{ 
+						backgroundColor: ThemeStyles.main_bg,
+						width: label_width,
+						top: line_height + MOSConstants.Point.Circle.Size
+					}
+				]}>
+					<Text style={[
+						GeneralStyles.text_regular,
+						GeneralStyles.row_ac,
+						MOSConstants.PointLabel.PositionsTextStyles[ label_position ],
+						{ color: ThemeStyles.dark_blue_text },
+					]}>
+						{ extra_label }
+					</Text>
+				</View>
+			}
 		</View>
-		
 	)
 }
 
@@ -86,6 +106,13 @@ const styles = StyleSheet.create({
 		borderRadius: MOSConstants.Point.InnerCircle.Radius,
 		borderColor: Colors.Yellow,
 		borderWidth: 1
+	},
+
+	label_box: {
+		position: "absolute",
+		paddingHorizontal: 2,
+		paddingVertical: 3,
+		minHeight: MOSConstants.PointLabel.MinHeight
 	}
 })
 
