@@ -1,5 +1,7 @@
 import Actions from "../redux/Actions";
 import API from "./API";
+import {v4 as uuidv4} from "uuid";
+import Colors from "../constants/Colors";
 
 export const Interceptors = {
     Scheduler: null,
@@ -26,6 +28,33 @@ export default function ReduxAwareInterceptors(store) {
 
         return Promise.reject(error);
     });
+
+    // handling errors and put them to store
+    Interceptors.Error = API.interceptors.response.use(
+        (res) => {
+            let dataObj = {
+                color: '',
+                code: res?.data?.code,
+                message: res?.data?.message
+            };
+
+            if (res?.data?.code >= 301) {
+                dataObj.color = Colors.Yellow;
+            }
+
+            if (res?.data?.code >= 400) {
+                dataObj.color = Colors.Red;
+            }
+
+            store.dispatch(Actions.Notifications.upsertOne(dataObj))
+
+            return Promise.resolve(res);
+        },
+        (error) => {
+            // ToDo handling other errors
+            return Promise.reject(error);
+        }
+    );
 
     // add token to requests
     Interceptors.Token = API.interceptors.request.use(config => {

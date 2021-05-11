@@ -36,5 +36,9 @@ export default {
         Toggle: createAction('categories/toggle', categoryPreparer),
         Select: createAction('categories/select', categoryPreparer),
     },
+    Notifications: {
+        upsertOne: createAction('notifications/upsertOne'),
+        removeOne: createAction('notifications/removeOne')
+    },
     ChangeMapSearch: createAction('changeMapSearch'),
 };

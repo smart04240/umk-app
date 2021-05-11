@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
@@ -33,6 +33,8 @@ import CalendarScreen from "../screens/calendar/CalendarScreen";
 import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
+import {Toast} from "../components/general/Toast";
+import Colors from "../constants/Colors";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -190,7 +192,7 @@ const StackScreens = () => {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => RegisteredScreens[user.token ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const screens = React.useMemo(() => RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'].map(screen => (
         <Stack.Screen
             key={screen.name}
             name={screen.name}
@@ -233,6 +235,17 @@ const RenderDrawerContent = props => <CustomDrawer defaultActiveRouteName={Regis
 
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
+    const toastRef = useRef(null);
+    const [toastData, setToastData] = React.useState(null);
+    const notification = useSelector(state => state.notifications);
+
+    React.useEffect(() => {
+        if (!!toastData) {
+            setToastData(notification)
+            toastRef?.current?.showToast()
+        }
+    },[notification]);
+
     return (
         <NavigationContainer>
             <Drawer.Navigator
@@ -243,6 +256,12 @@ export default function Screens() {
             >
                 <Drawer.Screen name={'index'} component={StackScreens}/>
             </Drawer.Navigator>
+            <Toast
+                ref={toastRef}
+                id={toastData?.id}
+                message={toastData?.code + ' ' + toastData?.message}
+                toastColor={toastData?.color}
+            />
         </NavigationContainer>
     );
 }
