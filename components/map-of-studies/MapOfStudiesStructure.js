@@ -19,15 +19,17 @@ const getStartCircleComponentObj = lh => ({
 
 const getFinishCircleComponentObj = () => ({ component: FinishCircle })
 
-const getPointComponentObj = ({ lh, l, lp, p, aelh, left }) => ({
+const getPointComponentObj = ({ lh, l, el, lw, lp, p, aelh, left }) => ({
 	component: Point,
 	props: {
 		line_height: lh || 0,
 		label: l,
+		label_width: lw,
 		label_position: lp, 
 		passed: p,
 		absolute_extra_line_height: aelh || 0,
-		left: left
+		left: left,
+		extra_label: el
 	}
 });
 
@@ -56,14 +58,14 @@ const getComponentFunc = cf => {
 }
 
 
-const rowWithSameComponents = ( component_type, components, jc ) => {
+const rowWithSameComponents = ( component_type, components, jc, ai ) => {
 
 	let componentFunc = getComponentFunc( component_type );
 	if ( !componentFunc ) return null;
 
 	return {
 		component: Row,
-		props: { style: { justifyContent: jc || "flex-start" }},
+		props: { style: { justifyContent: jc || "flex-start", alignItems: "flex-start" || ai }},
 		children: Array.isArray( components )
 			? components.map( c => componentFunc( c ))
 			: componentFunc( components )
@@ -145,12 +147,12 @@ const sample_structure = [
 		children: [
 			rowWithLines({
 				w: MOSConstants.PointLabel.Width + MOSConstants.Point.Circle.Size + MOSConstants.Point.InnerCircle.Size,
-				l: ( MOSConstants.Point.Circle.Size - MOSConstants.Point.InnerCircle.Size ) / 2,
+				l: MOSConstants.Point.spaceBetweenCircleAndInnerCircle,
 				p: "relative"
 			}),
 
 			rowWithLines([
-				{ h: 20, l: ( MOSConstants.Point.Circle.Size - MOSConstants.Point.InnerCircle.Size ) / 2, p: "relative" },
+				{ h: 20, l: MOSConstants.Point.spaceBetweenCircleAndInnerCircle, p: "relative" },
 				{ h: 20, l: Layout.container_width / 2 - MOSConstants.Line.Size * 1.5, p: "relative" }
 			]),
 
@@ -180,7 +182,7 @@ const sample_structure = [
 
 			rowWithLines({
 				w: MOSConstants.Point.PositionsLeftValue.center_left + MOSConstants.Point.InnerCircle.Size,
-				l: ( MOSConstants.Point.Circle.Size - MOSConstants.Point.InnerCircle.Size ) / 2,
+				l: MOSConstants.Point.spaceBetweenCircleAndInnerCircle,
 				p: "relative"
 			}),
 
@@ -198,7 +200,71 @@ const sample_structure = [
 
 	{
 		component: DropdownGroup,
-		children: [] 
+		children: [
+			centeredRowWithLines({
+				w: Layout.container_width - 40 - MOSConstants.Point.spaceBetweenCircleAndInnerCircle * 2,
+				p: "relative"
+			}),
+
+			rowWithLines([
+				{ h: 20, l: 20 + MOSConstants.Point.spaceBetweenCircleAndInnerCircle, p: "relative"},
+				{ h: 20, p: "relative"},
+				{ h: 20, l: -20 - MOSConstants.Point.spaceBetweenCircleAndInnerCircle, p: "relative"},
+
+				{ 
+					h: 100 + 20 + MOSConstants.Point.Circle.Size, 
+					l: 90				},
+				{
+					w: 90 + MOSConstants.Line.Size - 20 - MOSConstants.Point.spaceBetweenCircleAndInnerCircle,
+					l: 20 + MOSConstants.Point.spaceBetweenCircleAndInnerCircle,
+					t: 100 + 20 + MOSConstants.Point.Circle.Size
+				}
+			], "space-between"),
+
+			rowWithPoints([
+				{
+					lh: 100,
+					lw: 96,
+					l: "Przedłużenie terminu obrony do 3 miesięcy",
+					left: 20
+				},
+				{
+					lh: 400,
+					lw: 96,
+					l: "DOKUMENTY\n\n" +
+						"Podanie o wszczęcie postępowania\n\n" +
+						"Oświadczenie o samodzielności wykonanej pracy\n\n" +
+						"Zgoda na archiwizację\n\n" +
+						"Pisemna informacja o składzie komisji",
+				},
+				{
+					lh: 110,
+					lw: 96,
+					l: "Niezłożenie wymaganych dokumentów w terminie",
+					el: "skreślenie z listy studentów",
+					left: -20
+				}
+			], "space-between"),
+
+			centeredRowWithPoints({
+				lh: 220,
+				lw: Layout.container_width,
+				l: "Wgranie pracy do APD\n\n" + 
+					"Zatwierdzenie przez promotora\n\n" +
+					
+					"Dostarczenie dokumentów do dziekanatu\n" +
+					"(w ciągu dwóch dni):\n" +
+					"- wydrukowana praca z APD\n" +
+					"- 4 zdjęcia w formacie 3,5 x 4,5 cm\n" +
+					"- dowód wpłaty 60 zł za dyplom\n" +
+					"- informacje o dodatkowych osiągnieciach"
+			}),
+
+			centeredRowWithPoints({
+				lh: 50,
+				l: "OBRONA"
+			})
+		] 
 	},
 
 	rowWithFinishCircle() 
