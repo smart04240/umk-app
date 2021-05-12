@@ -14,7 +14,7 @@ import FirstLaunchGate from "./helpers/FirstLaunchGate";
 
 ReduxAwareInterceptors(store);
 
-const Main = React.memo(props => {
+function Main(props) {
     const theme = useSelector(state => state.theme);
     return (
         <>
@@ -28,26 +28,30 @@ const Main = React.memo(props => {
             )}
         </>
     );
-});
+}
 
 export default function App() {
+	const [loading, setLoading] = React.useState(true);
 
-	const [ loading, setLoading ] = React.useState( true );
+	const setLoaded = () => setLoading(false);
 
 	React.useEffect(() => {
         Font.loadAsync({
             [Fonts.ProximaNova.Regular]: require('./assets/fonts/ProximaNova-Regular.ttf'),
             [Fonts.ProximaNova.Bold]: require('./assets/fonts/ProximaNova-Bold.ttf'),
-            [Fonts.ProximaNova.SemiBold]: require('./assets/fonts/ProximaNova-Semibold.ttf')
-        }).then(() => setLoading( false ));
+            [Fonts.ProximaNova.SemiBold]: require('./assets/fonts/ProximaNova-Semibold.ttf'),
+        }).then(setLoaded);
     }, []);
 
-	if ( loading ) return null;
+	if (loading)
+	    return null;
+
+	const render = bootstrapped => <Main loading={!bootstrapped}/>;
 
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                {bootstrapped => <Main loading={!bootstrapped}/>}
+                {render}
             </PersistGate>
         </Provider>
     );
