@@ -34,7 +34,6 @@ import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 import {Toast} from "../components/general/Toast";
-import Colors from "../constants/Colors";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -237,8 +236,6 @@ export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const toastRef = useRef(null);
     const notification = useSelector(state => state.notifications);
-
-    console.log('notification',notification)
 
     React.useEffect(() => {
         if (!!notification) {

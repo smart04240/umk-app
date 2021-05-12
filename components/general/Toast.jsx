@@ -1,11 +1,11 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
-import {Animated, Text, TouchableOpacity, View, StatusBar} from "react-native";
+import React, {forwardRef, useImperativeHandle, useRef} from "react";
+import {Animated, Text, TouchableOpacity, View} from "react-native";
 import shadowGenerator from "../../helpers/shadowGenerator";
-import {getStatusBarHeight} from "../../hooks/getStatusBarHeight";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import Constants from "expo-constants";
 
 export const Toast = forwardRef((props, ref) => {
-    const statusBarHeight = getStatusBarHeight();
+    const statusBarHeight = Constants.statusBarHeight;
     const theme = useThemeStyles();
 
     const toastContainerHeight = 150;

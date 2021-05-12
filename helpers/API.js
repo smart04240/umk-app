@@ -25,14 +25,14 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
  */
 
 API.events = {
-    all: API.getAllEvents = () => API.post(`/mobile/calendar/getListByOption`),
-    create: API.createEvent = data => API.post('/mobile/calendar/create', data),
-    edit: API.editEvent = data => API.put('/mobile/calendar/update', data),
-    delete: API.deleteEvent = id => API.delete(`/mobile/calendar/?id=${id}`),
+    all: API.getAllEvents = () => API.get(`/calendar/all`),
+    create: API.createEvent = data => API.post('/calendar/create', data),
+    edit: API.editEvent = data => API.put('/calendar/update', data),
+    delete: API.deleteEvent = id => API.delete(`/calendar/?id=${id}`),
 
-    getWithParams: API.getEventByOption = params => API.post(`/mobile/calendar/getListByOption`),
-    deleteFile: API.deleteFile = ({fileId, calendarId}) => API.delete(`/mobile/calendar/file?file_id=${fileId}&calendar_id=${calendarId}`),
-    getInfo: API.getInfo = () => API.get('/mobile/calendar/info'),
+    getWithParams: API.getEventByOption = params => API.post(`/calendar/getListByOption`),
+    deleteFile: API.deleteFile = ({fileId, calendarId}) => API.delete(`/calendar/file?file_id=${fileId}&calendar_id=${calendarId}`),
+    getInfo: API.getInfo = () => API.get('/calendar/info'),
 };
 
 /**
