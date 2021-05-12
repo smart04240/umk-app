@@ -5,7 +5,6 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import Layout from "../../constants/Layout";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 
 import BadgeCircle from "../../components/badge/BadgeCircle";
 import BadgeMainInfo from "../../components/badge/BadgeMainInfo";
@@ -14,10 +13,11 @@ import MainWithNavigation from "../../components/general/MainWithNavigation";
 import TopBox from "../../components/general/TopBox";
 import Button from "../../components/form/Button";
 import Checkbox from "../../components/form/Checkbox";
+import useTranslator from "../../hooks/useTranslator";
 
 
-export default function BadgeScreen(props) {	
-
+export default function BadgeScreen(props) {
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const badge_size = Math.floor( Layout.width * 0.362 );
 
@@ -35,7 +35,7 @@ export default function BadgeScreen(props) {
 			<ContainerWithScroll>
 				
 				<Text style={[ GeneralStyles.text_bold, { color: ThemeStyles.dark_text, marginBottom: 28 } ]}>
-					{ useTranslated( Translations.HowToGetIt )}
+					{ translate( Translations.HowToGetIt )}
 				</Text>
 
 				<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.dark_text } ]}>
@@ -45,9 +45,9 @@ export default function BadgeScreen(props) {
 
 				{ active &&
 					<View style={{ marginTop: 60 }}>
-						<Button>{ useTranslated( Translations.ExportToPdf )}</Button>
+						<Button>{ translate( Translations.ExportToPdf )}</Button>
 						<Checkbox
-							label={ useTranslated( Translations.ExportToPdfAgree )}
+							label={ translate( Translations.ExportToPdfAgree )}
 							required={ true }
 						/>
 					</View>

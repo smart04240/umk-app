@@ -8,12 +8,12 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import Routes from "../../constants/Routes";
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 
 import ProfileAvatar from '../profile/ProfileAvatar';
+import useTranslator from "../../hooks/useTranslator";
 
 const SidebarUserInfo = ({navigation}) => {
-
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
     const user = useSelector( state => state.user );
@@ -27,7 +27,7 @@ const SidebarUserInfo = ({navigation}) => {
 			<View>	
 				<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.dark_blue_text }, { fontSize: 18 } ]}> { nick_name } </Text>
 				<TouchableOpacity onPress={ () => navigation.navigate( Routes.ProfileEdit )}>
-					<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}> { useTranslated( Translations.EditProfile )} </Text>
+					<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}> { translate( Translations.EditProfile )} </Text>
 				</TouchableOpacity>
 			</View>
 		</View>

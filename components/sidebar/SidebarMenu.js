@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
-import useTranslated from "../../hooks/useTranslated";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
 import Routes from "../../constants/Routes";
+import useTranslator from "../../hooks/useTranslator";
 
 const isActive = (item, active) => item.screen === active || (item.subScreens || []).find(screen => screen === active);
 
 const SidebarMenu = ({navigation, route}) => {
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
     const navigate = screen => {
@@ -28,7 +29,7 @@ const SidebarMenu = ({navigation, route}) => {
 						{ color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text }, 
 						isActive(item, route) ? GeneralStyles.text_bold : GeneralStyles.text_regular,
 						index + 1 === Menu.length ? { borderBottomWidth: 0 } : {} 
-					]}> { useTranslated( item.label )} </Text>
+					]}> { translate( item.label )} </Text>
 				</TouchableOpacity>
 			))}
 		</View>

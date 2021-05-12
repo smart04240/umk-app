@@ -6,7 +6,6 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
 
-import useTranslated from "../../hooks/useTranslated";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
 import Container from "../../components/general/Container";
@@ -19,9 +18,10 @@ import ProfileCollegeGraduationTab from "../../components/profile-events/Profile
 import ProfileOtherTab from "../../components/profile-events/ProfileOtherTab";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileEventsScreen = props => {
-
+	const translate = useTranslator();translate()
 	const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
 
@@ -42,9 +42,9 @@ const ProfileEventsScreen = props => {
 					<Tabs
 						style={{ marginBottom: 25 }}
 						tabs={[ 
-							useTranslated( Translations.Events ),
-							useTranslated( Translations.Other ),
-							useTranslated( Translations.CollegeGraduation )
+							translate( Translations.Events ),
+							translate( Translations.Other ),
+							translate( Translations.CollegeGraduation )
 						]}
 						onTabChangeCallback={ index => setActiveTab( index )}
 					/>
@@ -56,7 +56,7 @@ const ProfileEventsScreen = props => {
 							transparent_bg={ true } 
 							onPress={ () => navigation.navigate( Routes.ProfileEdit )}
 						>
-							{ useTranslated( Translations.ReturnToProfileEdit )}
+							{ translate( Translations.ReturnToProfileEdit )}
 						</Button>
 					</View>
 

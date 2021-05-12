@@ -8,12 +8,13 @@ import SidebarUserInfo from './SidebarUserInfo';
 import CloseButton from '../buttons/CloseButton';
 import LocaleSwitcher from '../locale/LocaleSwitcher';
 import ThemeSwitcher from "../theme/ThemeSwitcher";
-import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
+import useTranslator from "../../hooks/useTranslator";
 
 export default function Drawer({state, navigation, defaultActiveRouteName}) {
     const user = useSelector(state => state.user);
+    const translate = useTranslator();
     const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
 
@@ -40,7 +41,7 @@ export default function Drawer({state, navigation, defaultActiveRouteName}) {
 
                     <TouchableOpacity style={{marginTop: 40}} onPress={() => dispatch(Actions.User.Logout())}>
                         <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text}]}>
-                            {useTranslated(Translations.LogOut)}
+                            {translate(Translations.LogOut)}
                         </Text>
                     </TouchableOpacity>
                 </View>

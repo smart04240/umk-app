@@ -6,10 +6,11 @@ import * as DocumentPicker from 'expo-document-picker';
 import GeneralStyles from '../../../constants/GeneralStyles';
 import useThemeStyles from '../../../hooks/useThemeStyles';
 import { isFunction } from '../../../helpers/functions';
-import useTranslated from '../../../hooks/useTranslated';
 import Translations from '../../../constants/Translations';
+import useTranslator from "../../../hooks/useTranslator";
 
 const DocPicker = props => {
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const {label, onChange} = props;
 	const document_opt = props.document_opt || {};
@@ -46,7 +47,7 @@ const DocPicker = props => {
 				{marginBottom: 15},
 				{color: ThemeStyles.dark_text}
 			]}>
-				{label || useTranslated(Translations.AddAttachments)}
+				{label || translate(Translations.AddAttachments)}
 			</Text>
 			<View>
 				{files && !!files.length && files.map((file, index) => (
@@ -92,7 +93,7 @@ const DocPicker = props => {
 					{marginLeft: 12},
 					{color: ThemeStyles.blue_text}
 				]}>
-					{useTranslated(Translations.AddNewAttachment)}
+					{translate(Translations.AddNewAttachment)}
 				</Text>
 			</TouchableOpacity>
 		</View>

@@ -6,13 +6,13 @@ import Routes from '../../constants/Routes';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 
 import BadgeCircle from './BadgeCircle';
 import Range from "../form/Range";
+import useTranslator from "../../hooks/useTranslator";
 
 const BadgeWithRange = props => {
-
+	const translate = useTranslator();
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
@@ -35,7 +35,7 @@ const BadgeWithRange = props => {
 						GeneralStyles.text_regular, 
 						{ fontSize: 12, marginBottom: 20, color: ThemeStyles.blue_text, textTransform: "lowercase" } 
 					]}>
-						{ useTranslated( Translations.FindOutMore )}
+						{ translate( Translations.FindOutMore )}
 					</Text>
 
 					<Range {...range_props }/>

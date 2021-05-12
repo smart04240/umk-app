@@ -5,10 +5,11 @@ import Routes from '../../constants/Routes';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import BadgeCircle from './BadgeCircle';
-import useTranslated from '../../hooks/useTranslated';
 import Translations from '../../constants/Translations';
+import useTranslator from "../../hooks/useTranslator";
 
 const Badge = props => {
+	const translate = useTranslator();
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
@@ -30,7 +31,7 @@ const Badge = props => {
 					GeneralStyles.text_regular,
 					{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" }
 				]}>
-					{useTranslated( Translations.FindOutMore )}
+					{translate( Translations.FindOutMore )}
 				</Text>
 			</View>
 		</TouchableWithoutFeedback>

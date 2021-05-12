@@ -6,11 +6,12 @@ import Fonts from '../../constants/Fonts';
 import Translations from '../../constants/Translations';
 
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 
 import Dropdown from "../form/Dropdown";
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileMainInfo = props => {
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const user = useSelector( state => state.user );
 
@@ -19,8 +20,8 @@ const ProfileMainInfo = props => {
 	const to_end = "13 miesięcy";
 
 	const info = [
-		{ label: useTranslated( Translations.ECTSEarned ), value: ECTS },
-		{ label: useTranslated( Translations.EndOfStudies ), value: to_end }
+		{ label: translate( Translations.ECTSEarned ), value: ECTS },
+		{ label: translate( Translations.EndOfStudies ), value: to_end }
 	];
 
 

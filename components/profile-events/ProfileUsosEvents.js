@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import Translations from '../../constants/Translations';
-import useTranslated from '../../hooks/useTranslated';
 
 import DropDownTextGroup from '../dropdowntext/DropDownTextGroup';
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileUsosEvents = props => {
-
+	const translate = useTranslator();
 	const usos_events = [
 		{ 
 			label: "Urlop (2020/2021)",
@@ -25,7 +25,7 @@ const ProfileUsosEvents = props => {
 	return (
 		<View style={{ flex: 1 }}>
 			<DropDownTextGroup 
-				label={ useTranslated( Translations.EventsImportedFromUsos ) }
+				label={ translate( Translations.EventsImportedFromUsos ) }
 				items={ usos_events }
 			/>
 		</View>

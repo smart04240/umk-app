@@ -4,11 +4,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 import RoundedImage from '../general/RoundedImage';
 import shadowGenerator from "../../helpers/shadowGenerator";
+import useTranslator from "../../hooks/useTranslator";
 
 const RankingBox = props => {
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const { number, avatar_source, user_nickname, badges, points } = props;
 
@@ -51,7 +52,7 @@ const RankingBox = props => {
 						GeneralStyles.text_regular,
 						{ color: ThemeStyles.dark_blue_rgba(0.5), fontSize: 14 }
 					]}>
-						{ badges } { useTranslated( Translations.Num__Badges )}
+						{ badges } { translate( Translations.Num__Badges )}
 					</Text>
 				}
 			</View>
@@ -63,7 +64,7 @@ const RankingBox = props => {
 					<Text style={[
 						dark_blue_regular,
 						{ fontSize: 11 }
-					]}>{ useTranslated( Translations.Num__Points )}</Text>
+					]}>{ translate( Translations.Num__Points )}</Text>
 				</View>
 			}
 		</View>

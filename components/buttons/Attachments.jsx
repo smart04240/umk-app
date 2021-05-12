@@ -1,12 +1,13 @@
 import React from 'react';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
-import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslator from "../../hooks/useTranslator";
 
 export const Attachments = ({attachments}) => {
+    const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
     return (
@@ -16,7 +17,7 @@ export const Attachments = ({attachments}) => {
                     GeneralStyles.text_bold,
                     {color: ThemeStyles.dark_text, marginBottom: 17}
                 ]}>
-                    {useTranslated(Translations.Attachments)}
+                    {translate(Translations.Attachments)}
                 </Text>
                 {attachments.map((att, index) => (
                     <TouchableWithoutFeedback key={index} onPress={() => console.log(att.uri)}>

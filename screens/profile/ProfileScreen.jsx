@@ -5,27 +5,28 @@ import ProfileStatistics from "../../components/profile/ProfileStatistics";
 import ProfileBadges from "../../components/profile/ProfileBadges";
 import ProfileInformation from "../../components/profile/ProfileInformation";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 import shadowGenerator from "../../helpers/shadowGenerator";
 import Swiper from "react-native-screens-swiper/components/Swiper";
 import GeneralStyles from "../../constants/GeneralStyles";
+import useTranslator from "../../hooks/useTranslator";
 
 
 export default function ProfileScreen(props) {
+	const translate = useTranslator();
 	const theme = useThemeStyles();
 
 	const screens = [
 		{
-			tabLabel: useTranslated(Translations.Information),
+			tabLabel: translate(Translations.Information),
 			component: ProfileInformation
 		},
 		{
-			tabLabel: useTranslated(Translations.Statistics),
+			tabLabel: translate(Translations.Statistics),
 			component: ProfileStatistics
 		},
 		{
-			tabLabel: useTranslated(Translations.Badges),
+			tabLabel: translate(Translations.Badges),
 			component: ProfileBadges
 		},
 	];

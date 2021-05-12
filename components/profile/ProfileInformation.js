@@ -4,14 +4,14 @@ import { View, Text } from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from '../../constants/Translations';
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 
 import Badge from '../badge/Badge';
 import BadgeWithRange from '../badge/BadgeWithRange';
 import Container from "../general/Container";
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileInformation = props => {
-
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 
 	const index_number = 22222;
@@ -58,7 +58,7 @@ const ProfileInformation = props => {
 	return (
 		<Container>
 			<View style={[ GeneralStyles.row_ac, { marginBottom: 28 } ]}>
-				<Text style={ title_styles }> { useTranslated( Translations.IndexNumber )} </Text>
+				<Text style={ title_styles }> { translate( Translations.IndexNumber )} </Text>
 				<Text style={[ GeneralStyles.text_regular, { marginLeft: 65, color: ThemeStyles.dark_text } ]}>
 					{ index_number }
 				</Text>
@@ -68,7 +68,7 @@ const ProfileInformation = props => {
 			{ started_badges && !!started_badges.length &&
 				<View>
 					<Text style={[ ...title_styles, { marginBottom: 28 } ]}>
-						{ useTranslated( Translations.StartedBudges )}
+						{ translate( Translations.StartedBudges )}
 					</Text>
 
 					{ started_badges.map( badge => <BadgeWithRange key={ badge.id} {...badge } />)}
@@ -79,7 +79,7 @@ const ProfileInformation = props => {
 			{ other_badges && !!other_badges.length &&
 				<View>
 					<Text style={[ ...title_styles, { marginBottom: 28 } ]}>
-						{ useTranslated( Translations.OtherBudgesToEarn )}
+						{ translate( Translations.OtherBudgesToEarn )}
 					</Text>
 
 					<View style={[ GeneralStyles.row_wrap, { justifyContent: "space-around" } ]}>

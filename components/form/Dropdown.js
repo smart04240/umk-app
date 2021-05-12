@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect, useRef} from 'react';
+import React, {useState, useMemo} from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import {TouchableWithoutFeedback, ScrollView} from "react-native-gesture-handler";
 import {FontAwesome} from '@expo/vector-icons';
@@ -6,12 +6,13 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import {isFunction} from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 import Colors from '../../constants/Colors';
+import useTranslator from "../../hooks/useTranslator";
 
 const Dropdown = ({init_value, label, name, options, error_message, onChange, ...props}) => {
 	const ThemeStyles = useThemeStyles();
-	const placeholder = props.placeholder || useTranslated(Translations.ChooseOneOption);
+	const translate = useTranslator();
+	const placeholder = props.placeholder || translate(Translations.ChooseOneOption);
 	const [value, setValue] = useState(init_value || null);
 	const [open, setOpen] = useState(false);
 

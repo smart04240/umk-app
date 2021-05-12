@@ -2,7 +2,6 @@ import React from "react";
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons  } from '@expo/vector-icons'; 
 
-import useTranslated from "../../hooks/useTranslated";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
@@ -11,9 +10,10 @@ import Menu from "../../constants/Menu";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
+import useTranslator from "../../hooks/useTranslator";
 
 export default function StartScreen(props) {
-
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
     return (
@@ -45,7 +45,7 @@ export default function StartScreen(props) {
 										textAlign: "center" 
 									}
 								]}> 
-									{ useTranslated( label )} 
+									{ translate( label )}
 								</Text>
 
 							</TouchableOpacity>

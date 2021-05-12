@@ -10,8 +10,6 @@ import {useNavigation} from "@react-navigation/core";
 import moment from "moment";
 import {categories} from "../../components/tasks/TaskListItem";
 import {useSelector} from "react-redux";
-import useTranslated from "../../hooks/useTranslated";
-import Translations from "../../constants/Translations";
 import {RangeSelector} from "../../components/calendar/RangeSelector";
 
 export default React.memo(function WeekScreen() {

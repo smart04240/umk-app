@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
@@ -15,9 +14,10 @@ import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
+import useTranslator from "../../hooks/useTranslator";
 
 export default function EditProfileScreen(props) {
-
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
 	const user = useSelector( state => state );
@@ -32,7 +32,7 @@ export default function EditProfileScreen(props) {
 				
 				<TouchableOpacity>
 					<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text, marginTop: 20 } ]}> 
-						{ useTranslated( Translations.EditAvatar )} 
+						{ translate( Translations.EditAvatar )}
 					</Text>
 				</TouchableOpacity>	
 			</TopBox> 
@@ -40,22 +40,22 @@ export default function EditProfileScreen(props) {
 			<ContainerWithScroll>
 				<Input
 					style={{marginBottom: 20}}
-					label={useTranslated(Translations.ChangeYouNick)}
+					label={translate(Translations.ChangeYouNick)}
 					defaultValue={nick_name}
 				/>
 
 				<View style={{ marginTop: 50 }}>
 					<Button onPress={ () => navigation.navigate( Routes.ProfileEvents )} transparent_bg={ true }>
-						{ useTranslated( Translations.YourEvents )}
+						{ translate( Translations.YourEvents )}
 					</Button>
 
 					<Button>
-						{ useTranslated( Translations.SaveChanges )}
+						{ translate( Translations.SaveChanges )}
 					</Button>
 
 					<TouchableOpacity>
 						<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.blue_text } ]}>
-							{ useTranslated( Translations.DeleteAccount )}
+							{ translate( Translations.DeleteAccount )}
 						</Text>
 					</TouchableOpacity>
 				</View>

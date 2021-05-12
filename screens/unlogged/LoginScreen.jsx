@@ -1,7 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
-import useTranslated from "../../hooks/useTranslated";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
@@ -16,10 +15,12 @@ import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHead
 import API from "../../helpers/API";
 import {useDispatch} from "react-redux";
 import Actions from "../../redux/Actions";
+import useTranslator from "../../hooks/useTranslator";
 
 export default function LoginScreen(props) {
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
+    const translate = useTranslator();
 	const blue_text = { color: ThemeStyles.blue_text };
 
 	const login = () => API.post('/auth/login').then(result => dispatch(Actions.User.Login(result.data.data)));
@@ -34,22 +35,22 @@ export default function LoginScreen(props) {
 
 					<TouchableOpacity style={{ width: "100%" }} onPress={login}>
 						<Text style={[ blue_text,  GeneralStyles.text_regular, { fontSize: 20, textAlign: "center" }]}> 
-							{ useTranslated( Translations.SignIn )} 
+							{ translate( Translations.SignIn )}
 						</Text> 
 					</TouchableOpacity>
 
 					<TouchableOpacity style={[ styles.button ]} onPress={login}>
 						<Text style={[ blue_text, GeneralStyles.text_semibold, { textAlign: "center" } ]}>
-							{ useTranslated( Translations.LoginInUsingNCU )}
+							{ translate( Translations.LoginInUsingNCU )}
 						</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Registration )} style={[ GeneralStyles.row_centered ]}>
 						<Text style={[ { color: ThemeStyles.dark_text }, GeneralStyles.text_regular ]}> 
-							{ useTranslated( Translations.IfYouDontHaveAcc )}
+							{ translate( Translations.IfYouDontHaveAcc )}
 						</Text>
 						<Text style={[ blue_text, GeneralStyles.text_regular, { textDecorationLine: "underline" } ]}> 
-							{ useTranslated( Translations.Register )} 
+							{ translate( Translations.Register )}
 						</Text>
 					</TouchableOpacity>
 				</Container>

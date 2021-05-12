@@ -4,19 +4,19 @@ import { View, Text, StyleSheet } from 'react-native';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 
 import Dropdown from './Dropdown';
+import useTranslator from "../../hooks/useTranslator";
 
 const SortBy = props => {
-
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 
 	const options = [
-		{ value: "date_asc", label: useTranslated( Translations.DateAsc )},
-		{ value: "date_desc", label: useTranslated( Translations.DateDesc )},
-		{ value: "A-Z", label: useTranslated( Translations.NameAZ )},
-		{ value: "Z-A", label: useTranslated( Translations.NameZA )}
+		{ value: "date_asc", label: translate( Translations.DateAsc )},
+		{ value: "date_desc", label: translate( Translations.DateDesc )},
+		{ value: "A-Z", label: translate( Translations.NameAZ )},
+		{ value: "Z-A", label: translate( Translations.NameZA )}
 	]
 
 	return (

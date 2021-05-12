@@ -2,10 +2,11 @@ import React from 'react';
 import { View } from 'react-native';
 
 import Translations from '../../constants/Translations';
-import useTranslated from '../../hooks/useTranslated';
 import DropDownTextGroup from '../dropdowntext/DropDownTextGroup';
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileEventsTab = props => {
+	const translate = useTranslator();
 
 	const events1 = [
 		{
@@ -64,12 +65,12 @@ const ProfileEventsTab = props => {
 	return (
 		<View>
 			<DropDownTextGroup
-				label={ useTranslated( Translations.ListOfEventsAffectLengthStudy ) + ":" }
+				label={ translate( Translations.ListOfEventsAffectLengthStudy ) + ":" }
 				items={ events1 }
 			/>
 
 			<DropDownTextGroup
-				label={ useTranslated( Translations.ListOfEventsNotAffectLengthStudy ) + ":" }
+				label={ translate( Translations.ListOfEventsNotAffectLengthStudy ) + ":" }
 				items={ events2 }
 			/>
 		</View>

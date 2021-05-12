@@ -8,10 +8,10 @@ import GeneralStyles from "../../../constants/GeneralStyles";
 import Colors from '../../../constants/Colors';
 
 import useThemeStyles from '../../../hooks/useThemeStyles';
-import useTranslated from '../../../hooks/useTranslated';
 
 import { now_month, now_year, getFullDateISO, getDaysAmountInMonth, isDate } from "../../../helpers/date";
 import { isFunction } from '../../../helpers/functions';
+import useTranslator from "../../../hooks/useTranslator";
 
 const month_keys = [ "1_month", "2_month", "3_month", "4_month", "5_month", "6_month", "7_month", "8_month", "9_month", "10_month", "11_month", "12_month" ];
 const days_keys = [ "1_day", "2_day", "3_day", "4_day", "5_day", "6_day", "7_day" ];
@@ -25,7 +25,7 @@ const DAY_MARGIN = 4;
 const DAY_WITH = ( BODY_WIDTH / 7 ) - ( DAY_MARGIN * 2 );
 
 const DatePickerCalendar = props => {
-
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 	const { init_iso_date, onChange } = props;
 
@@ -107,7 +107,7 @@ const DatePickerCalendar = props => {
 				<Text style={[
 					GeneralStyles.text_regular,
 					styles.month_year
-				]}> { useTranslated( Translations[ month_keys[ month - 1 ]] )} { year } </Text>
+				]}> { translate( Translations[ month_keys[ month - 1 ]] )} { year } </Text>
 
 				<TouchableOpacity onPress={ () => changeDate( "next" )}>
 					<MaterialCommunityIcons name="arrow-right" size={ 20 } color={ Colors.White } />
@@ -131,7 +131,7 @@ const DatePickerCalendar = props => {
 									{ color: ThemeStyles.blue_text }
 								]}
 							>
-								{ useTranslated( Translations[ day ])}
+								{ translate( Translations[ day ])}
 							</Text>
 						))
 					}

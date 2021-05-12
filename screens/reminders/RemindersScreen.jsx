@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 import useTranslator from "../../hooks/useTranslator";
 import Actions from "../../redux/Actions";
 import { getUnreadRemindersAmount } from "../../redux/reducers/remindersReducer";
@@ -39,7 +38,7 @@ export default function RemindersScreen( props ) {
 								marginBottom: 8 
 							}
 						]}>
-							{ useTranslated( Translations.UnreadNotifications )}: { reminders_unread_amount }
+							{ translate( Translations.UnreadNotifications )}: { reminders_unread_amount }
 						</Text>
 
 						{ !!reminders_unread_amount && 

@@ -4,7 +4,6 @@ import { View, Text } from "react-native";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import Tabs from "../../components/general/Tabs";
@@ -13,6 +12,7 @@ import Dropdown from "../../components/form/Dropdown";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Layout from "../../constants/Layout";
 import RankingBox from "../../components/ranking/RankingBox";
+import useTranslator from "../../hooks/useTranslator";
 
 const ranking_sample = {
 	number: 1,
@@ -23,7 +23,7 @@ const ranking_sample = {
 }
 
 export default function RankingsScreen() {
-
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
 
 	const rankings = [];
@@ -39,19 +39,19 @@ export default function RankingsScreen() {
 					GeneralStyles.text_regular,
 					{ color: ThemeStyles.dark_blue_text, marginBottom: 25 } 
 				]}>
-					{ useTranslated( Translations.ChooseARanking )}
+					{ translate( Translations.ChooseARanking )}
 				</Text>
 
 				<Tabs
 					style={{ justifyContent: "space-around" }}
-					tabs={[ useTranslated( Translations.Faculty ), useTranslated( Translations.Annual ) ]}
+					tabs={[ translate( Translations.Faculty ), translate( Translations.Annual ) ]}
 				/>
 			</TopBox>
 
 			<ContainerWithScroll>
 
 				<Dropdown
-					label={ useTranslated( Translations.FilterSelectDirection )}
+					label={ translate( Translations.FilterSelectDirection )}
 					options_box_style={{ maxHeight: Layout.height * 0.5 }}
 					options={[
 						{ value: "*", label: "Wszystkie" },

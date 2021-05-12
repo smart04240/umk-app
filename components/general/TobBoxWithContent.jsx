@@ -6,15 +6,16 @@ import Button from "../form/Button";
 import TopBox from "./TopBox";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {useNavigation} from "@react-navigation/core";
-import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import {categories} from "../tasks/TaskListItem";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
+import useTranslator from "../../hooks/useTranslator";
 
 export const TopBoxWithContent = ({id, isTask}) => {
+    const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
     // todo get data for events from api
     const [data, setData] = React.useState(isTask ? todos : {});
     const category = categories.find(category => category.value === parseInt(data?.category));
-    let status = data?.completed ? useTranslated(Translations.TaskCompleted) : useTranslated(Translations.TaskNotCompleted);
+    let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
     const info = [
         {circle_color: category?.color, value: data?.category},
@@ -31,8 +32,8 @@ export const TopBoxWithContent = ({id, isTask}) => {
     ];
 
     const message = {
-        title: useTranslated(Translations.DeleteConfirmTitle),
-        description: useTranslated(Translations.DeleteConfirmDescription) + data?.title + '?'
+        title: translate(Translations.DeleteConfirmTitle),
+        description: translate(Translations.DeleteConfirmDescription) + data?.title + '?'
     };
 
     const completeTask = () => {
@@ -64,17 +65,17 @@ export const TopBoxWithContent = ({id, isTask}) => {
     }
 
     const toDoButtons = [
-        {label: useTranslated(Translations.MarkAsDone), onPress: () => completeTask()},
-        {label: useTranslated(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})}
+        {label: translate(Translations.MarkAsDone), onPress: () => completeTask()},
+        {label: translate(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})}
     ];
 
     const eventButtons = [
         {
-            label: useTranslated(Translations.EditEvent),
+            label: translate(Translations.EditEvent),
             onPress: () => navigation.navigate(Routes.CalendarCreateEvent, {id})
         },
         {
-            label: useTranslated(Translations.Delete),
+            label: translate(Translations.Delete),
             isDangerButton: true,
             onPress: () => askBeforeDelete()
         },

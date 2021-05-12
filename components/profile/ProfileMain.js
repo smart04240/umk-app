@@ -4,14 +4,15 @@ import { View } from "react-native";
 import Translations from '../../constants/Translations';
 import Layout from "../../constants/Layout";
 import Routes from "../../constants/Routes";
-import useTranslated from '../../hooks/useTranslated';
 import Button from '../form/Button';
 import ProfileAvatar from './ProfileAvatar';
 import ProfileMainInfo from './ProfileMainInfo';
 import WithHeaderConfig from "../layout/WithHeaderConfig";
 import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslator from "../../hooks/useTranslator";
 
 const ProfileMain = props => {
+	const translate = useTranslator();
 	const theme = useThemeStyles();
 	const navigation = useNavigation();
 	const avatar_size = Math.floor( Layout.width * 0.308 );
@@ -30,7 +31,7 @@ const ProfileMain = props => {
 				</View>
 
 				<Button onPress={ () => navigation.navigate( Routes.ProfileEdit )} transparent_bg={ true }>
-					{ useTranslated( Translations.EditProfile )}
+					{ translate( Translations.EditProfile )}
 				</Button>
 			</View>
 		</WithHeaderConfig>

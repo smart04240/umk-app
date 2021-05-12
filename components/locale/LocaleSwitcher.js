@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Actions from "../../redux/Actions";
-import useTranslated from "../../hooks/useTranslated";
 import Translations from '../../constants/Translations';
 import Switch from '../form/Switch';
+import useTranslator from "../../hooks/useTranslator";
 
 const LocaleSwitcher = () => {
-
+	const translate = useTranslator();
 	const dispatch = useDispatch();
 	const locale = useSelector( state => state.locale );
 
@@ -15,7 +15,7 @@ const LocaleSwitcher = () => {
 		<Switch 
 			onValueChange={ () => dispatch( Actions.Locale.Toggle()) }
 			value={ locale === "en" }
-			label={ useTranslated( Translations.switchLanguage )}
+			label={ translate( Translations.switchLanguage )}
 		/>
 	)
 }

@@ -6,10 +6,11 @@ import useThemeStyles from "../../hooks/useThemeStyles";
 import moment from "moment";
 import {useSelector} from "react-redux";
 import {ModalCalendar} from "../form/datepicker/ModalCalendar";
-import useTranslated from "../../hooks/useTranslated";
 import Translations from "../../constants/Translations";
+import useTranslator from "../../hooks/useTranslator";
 
 export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnChange, rangeSelectorStyles}) => {
+    const translate = useTranslator();
     const theme = useThemeStyles();
     const locale = useSelector(state => state.locale);
 
@@ -64,7 +65,7 @@ export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnCha
                 />
             </TouchableOpacity>
             <ModalCalendar
-                modalTitle={useTranslated(Translations.Calendar)}
+                modalTitle={translate(Translations.Calendar)}
                 show={show}
                 setClose={setClose}
                 calendarOnChange={calendarOnChange}

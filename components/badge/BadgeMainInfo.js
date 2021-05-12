@@ -3,9 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import Fonts from '../../constants/Fonts';
 import GeneralStyles from '../../constants/GeneralStyles';
-import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslated from '../../hooks/useTranslated';
 
 const BadgeMainInfo = props => {
 

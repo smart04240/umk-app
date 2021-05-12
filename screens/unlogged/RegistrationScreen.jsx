@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import { ucfirst } from "../../helpers/functions";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
@@ -15,22 +14,23 @@ import Button from "../../components/form/Button";
 import Main from "../../components/general/Main";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
+import useTranslator from "../../hooks/useTranslator";
 
 
 export default function LoginScreen(props) {
-
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
 	const checkboxes = [
 		{ 
 			name: "regulations",
-			label: useTranslated( Translations.RegCheckboxLabel1 ),
-			warning: useTranslated( Translations.RegCheckboxWarning1 ),
+			label: translate( Translations.RegCheckboxLabel1 ),
+			warning: translate( Translations.RegCheckboxWarning1 ),
 			required: true
 		},
 		{ 
 			name: "personal_data",
-			label: useTranslated( Translations.RegCheckboxLabel2 ),
+			label: translate( Translations.RegCheckboxLabel2 ),
 			required: true
 		},
 		{ 
@@ -46,17 +46,17 @@ export default function LoginScreen(props) {
 					<UniversityLogo/>
 
 					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-						{useTranslated(Translations.RegText1)}
+						{translate(Translations.RegText1)}
 					</Text>
 
 					<Text style={[styles.text, {color: ThemeStyles.dark_text}]}>
-						{useTranslated(Translations.RegText2)}
+						{translate(Translations.RegText2)}
 					</Text>
 
 					<Input
 						style={{marginBottom: 20}}
-						label={useTranslated(Translations.EnterNickname)}
-						placeholder={useTranslated(Translations.UserName)}
+						label={translate(Translations.EnterNickname)}
+						placeholder={translate(Translations.UserName)}
 					/>
 
 					<View style={styles.checkboxes_container}>
@@ -64,11 +64,11 @@ export default function LoginScreen(props) {
 					</View>
 
 
-					<Button> { ucfirst( useTranslated( Translations.Register ))} </Button>
+					<Button> { ucfirst( translate( Translations.Register ))} </Button>
 
 					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
 						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
-							{ useTranslated( Translations.Cancel )}
+							{ translate( Translations.Cancel )}
 						</Text> 
 					</TouchableOpacity>
 				</ContainerWithScroll>

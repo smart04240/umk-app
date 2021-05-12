@@ -1,8 +1,6 @@
 import React, {useMemo} from "react";
 import { ScrollView, View, Text } from "react-native";
 import Translations from "../../constants/Translations";
-import useThemeStyles from "../../hooks/useThemeStyles";
-import useTranslated from "../../hooks/useTranslated";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import TopBox from "../../components/general/TopBox";
 import Dropdown from "../../components/form/Dropdown";
@@ -13,16 +11,18 @@ import {useSelector} from "react-redux";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Routes from "../../constants/Routes";
 import {useNavigation} from "@react-navigation/core";
+import useTranslator from "../../hooks/useTranslator";
 
 export default function TasksListScreen(props) {
 	const todos = useSelector(state => ToDosSelectors.All(state));
+	const translate = useTranslator();
 	const navigation = useNavigation();
 	const [filterOption, setFilterOption] = React.useState('');
 
 	const filter_options = [
-		{ value: "*", label: useTranslated( Translations.All )},
-		{ value: "completed", label: useTranslated( Translations.Completed )},
-		{ value: "not_completed", label: useTranslated( Translations.NotCompleted )}
+		{ value: "*", label: translate( Translations.All )},
+		{ value: "completed", label: translate( Translations.Completed )},
+		{ value: "not_completed", label: translate( Translations.NotCompleted )}
 	];
 
 	const filterItems = useMemo(() => {
@@ -42,7 +42,7 @@ export default function TasksListScreen(props) {
 				<Dropdown
 					init_value="*"
 					onChange={option => setFilterOption(option.value)}
-					label={useTranslated(Translations.FilterSelectTasksStatus)}
+					label={translate(Translations.FilterSelectTasksStatus)}
 					container_style={{marginBottom: 0}}
 					options={filter_options}
 				/>
