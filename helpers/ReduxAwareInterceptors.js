@@ -1,7 +1,5 @@
 import Actions from "../redux/Actions";
 import API from "./API";
-import {v4 as uuidv4} from "uuid";
-import Colors from "../constants/Colors";
 
 export const Interceptors = {
     Scheduler: null,
