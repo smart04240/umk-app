@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import shadowGenerator from "../../helpers/shadowGenerator";
+import {Vibrator} from "../../helpers/Vibrator";
 
 const CircleButton = ({style, theme, icon, onPress}) => (
     <TouchableOpacity style={[styles.circle, {borderColor: theme.blue_text}, style]} onPress={onPress}>
@@ -16,7 +17,7 @@ const CircleButton = ({style, theme, icon, onPress}) => (
     </TouchableOpacity>
 );
 
-export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit}) {
+export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress}) {
     const theme = useThemeStyles();
 
     const Component = onPress ? TouchableOpacity : View;
@@ -33,6 +34,10 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 style,
             ]}
             onPress={onPress}
+            onLongPress={() => {
+                Vibrator();
+                onLongPress()
+            }}
         >
             <View
                 style={{

@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollView, useWindowDimensions, View, Text, Alert, TouchableOpacity} from 'react-native';
+import {Alert, ScrollView, Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {RangeSelector} from "../../components/calendar/RangeSelector";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -13,6 +13,8 @@ import Routes from "../../constants/Routes";
 import {categories} from "../../components/tasks/TaskListItem";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
+import API from "../../helpers/API";
+import {Vibration, Vibrator} from "../../helpers/Vibrator";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -139,6 +141,7 @@ export default React.memo(function DayScreen() {
                 // todo update navigation
                 onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
                 onLongPress={() => {
+                    Vibrator();
                     Alert.alert(
                         translate(Translations.DeleteConfirmTitle),
                         translate(Translations.DeleteConfirmDescription) + '?',
