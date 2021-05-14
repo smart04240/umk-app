@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {RangeSelector} from "../../components/calendar/RangeSelector";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
+import {Vibrator} from "../../helpers/Vibrator";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -355,6 +356,7 @@ export default React.memo(function WeekScreen() {
                     color={categories.find(category => category.value === item.category).color}
                     from={item.from}
                     to={item.to}
+                    onPressIn={() => Vibrator()}
                     onPress={() => navigation.navigate(Routes.CalendarEvent)}
                     onLongPress={() => {
                         Alert.alert(

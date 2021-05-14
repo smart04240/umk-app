@@ -17,7 +17,7 @@ const CircleButton = ({style, theme, icon, onPress}) => (
     </TouchableOpacity>
 );
 
-export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress}) {
+export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress, onPressIn}) {
     const theme = useThemeStyles();
 
     const Component = onPress ? TouchableOpacity : View;
@@ -34,9 +34,11 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 style,
             ]}
             onPress={onPress}
+            delayLongPress={200}
+            onPressIn={onPressIn}
             onLongPress={() => {
                 Vibrator();
-                onLongPress()
+                onLongPress();
             }}
         >
             <View

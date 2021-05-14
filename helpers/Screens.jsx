@@ -147,11 +147,11 @@ const RegisteredScreens = {
             title: Translations.Reminders,
             component: RemindersScreen
         },
-		{
-			name: Routes.MapOfStudies,
-			title: Translations.MapOfStudies,
-			component: MapOfStudiesScreen
-		},
+        {
+          name: Routes.MapOfStudies,
+          title: Translations.MapOfStudies,
+          component: MapOfStudiesScreen
+        },
         {
             name: Routes.Map,
             title: Translations.Map,
