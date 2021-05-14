@@ -33,6 +33,18 @@ API.events = {
     getWithParams: API.getEventByOption = params => API.post(`/calendar/getListByOption`),
     deleteFile: API.deleteFile = ({fileId, calendarId}) => API.delete(`/calendar/file?file_id=${fileId}&calendar_id=${calendarId}`),
     getInfo: API.getInfo = () => API.get('/calendar/info'),
+    getStudentGroupInfo: API.getStudentGroupInfo = () => API.get('/mobile/calendar/student_group?student_group_type=2')
+};
+
+/**
+ * Map
+ */
+
+API.map = {
+    all: API.getAll = () => API.get(`/mobile/map/all`),
+    create: API.create = data => API.post('/mobile/map', data),
+    edit: API.edit = data => API.put('/mobile/map/update', data),
+    delete: API.delete = id => API.delete(`/mobile/map?id=${id}`),
 };
 
 /**
