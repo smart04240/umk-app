@@ -1,15 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useTranslator from '../../hooks/useTranslator';
-import Layout from '../../constants/Layout';
 
 import Checkbox from '../form/Checkbox';
-import Dropdown from "../form/Dropdown";
-import DatePicker from '../form/datepicker/DatePicker';
-import TimePicker from "../form/time-picker/TimePicker";
 import {CustomDateTimePicker} from "../form/CustomDateTimePicker";
 
 
@@ -39,18 +35,18 @@ const TaskEditReminderSection = props => {
 			/>
 			{reminder && (
 				<View style={[GeneralStyles.row_ac, {marginVertical: 10, justifyContent: 'space-between', flex: 1}]}>
-					<Dropdown
-						name="reminder_option"
-						init_value={reminder_option}
-						options={reminder_opt}
-						options_box_style={{flex: 0.5}}
-						onChange={o => onChange(o)}
-						container_style={{flex: 0.55}}
-					/>
+					{/*<Dropdown*/}
+					{/*	name="reminder_option"*/}
+					{/*	init_value={reminder_option}*/}
+					{/*	options={reminder_opt}*/}
+					{/*	options_box_style={{flex: 0.5}}*/}
+					{/*	onChange={o => onChange(o)}*/}
+					{/*	container_style={{flex: 0.55}}*/}
+					{/*/>*/}
 					<CustomDateTimePicker
 						label={'Reminder date'}
 						initialValue={reminder_date}
-						buttonStyle={{flex: 0.40, marginBottom: 8}}
+						buttonStyle={{flex: 1, marginBottom: 8}}
 						name='reminder_date'
 						mode={'datetime'}
 						dateFormat={'HH:mm DD.MM.YY'}

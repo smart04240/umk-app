@@ -9,6 +9,7 @@ import mapReducer from "./reducers/mapReducer";
 import remindersReducer from "./reducers/remindersReducer";
 import todosReducer from "./reducers/todosReducer";
 import notificationsReducer from "./reducers/notificationsReducer";
+import toastsReducer from "./reducers/toastsReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
     online: internetReducer,
     mapData: mapReducer,
     todos: todosReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    toasts: toastsReducer
 });
 
 const persistConfig = {

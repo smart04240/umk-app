@@ -31,19 +31,19 @@ export default function ReduxAwareInterceptors(store) {
     Interceptors.Error = API.interceptors.response.use(
         (res) => {
             if (res?.data?.code >= 301)
-                store.dispatch(Actions.Notifications.Warning(res?.data?.message));
+                store.dispatch(Actions.Toasts.Warning(res?.data?.message));
 
             if (res?.data?.code >= 400)
-                store.dispatch(Actions.Notifications.Danger(res?.data?.message));
+                store.dispatch(Actions.Toasts.Danger(res?.data?.message));
 
             return Promise.resolve(res);
         },
         (error) => {
             if (error.response.status >= 301)
-                store.dispatch(Actions.Notifications.Warning(error?.message));
+                store.dispatch(Actions.Toasts.Warning(error?.message));
 
             if (error.response.status >= 400)
-                store.dispatch(Actions.Notifications.Danger(error?.message));
+                store.dispatch(Actions.Toasts.Danger(error?.message));
 
             return Promise.reject(error);
         }

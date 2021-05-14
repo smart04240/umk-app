@@ -37,9 +37,13 @@ export default {
         Toggle: createAction('categories/toggle', categoryPreparer),
         Select: createAction('categories/select', categoryPreparer),
     },
-    Notifications: {
+    Toasts: {
         Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Yellow, message}})),
         Warning: createAction('toasts/warning', message => ({payload: {color: Colors.Yellow, message}})),
+    },
+    Notifications: {
+        upsertOne: createAction('notification/upsertOne'),
+        removeOne: createAction('notifications/removeOne')
     },
     ChangeMapSearch: createAction('changeMapSearch'),
 };
