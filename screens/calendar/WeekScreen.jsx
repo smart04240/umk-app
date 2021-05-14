@@ -1,20 +1,21 @@
-import React, {useMemo} from "react";
-import {View, TouchableOpacity, Text, SectionList, ScrollView} from "react-native";
+import React from "react";
+import {Alert, SectionList, Text, View} from "react-native";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import {FontAwesome} from "@expo/vector-icons";
 import ColorCard from "../../components/general/ColorCard";
 import GeneralStyles from "../../constants/GeneralStyles";
-import {ModalCalendar} from "../../components/form/datepicker/ModalCalendar";
 import Routes from "../../constants/Routes";
 import {useNavigation} from "@react-navigation/core";
 import moment from "moment";
 import {categories} from "../../components/tasks/TaskListItem";
 import {useSelector} from "react-redux";
 import {RangeSelector} from "../../components/calendar/RangeSelector";
+import Translations from "../../constants/Translations";
+import useTranslator from "../../hooks/useTranslator";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
     const navigation = useNavigation();
+    const translate = useTranslator();
     const locale = useSelector(state => state.locale);
     const [show, setShow] = React.useState(false);
     const [date, setDate] = React.useState(new Date());
@@ -324,6 +325,10 @@ export default React.memo(function WeekScreen() {
         </View>
     );
 
+    const deleteEvent = () => {
+        // ToDo delete event
+    }
+
     return (
         <SectionList
             sections={DATA}
@@ -351,6 +356,22 @@ export default React.memo(function WeekScreen() {
                     from={item.from}
                     to={item.to}
                     onPress={() => navigation.navigate(Routes.CalendarEvent)}
+                    onLongPress={() => {
+                        Alert.alert(
+                            translate(Translations.DeleteConfirmTitle),
+                            translate(Translations.DeleteConfirmDescription) + '?',
+                            [
+                                {
+                                    text: translate(Translations.Cancel),
+                                    style: "cancel"
+                                },
+                                {
+                                    text: "OK",
+                                    onPress: () => deleteEvent(),
+                                },
+                            ]
+                        );
+                    }}
                 />
             )}
             renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}

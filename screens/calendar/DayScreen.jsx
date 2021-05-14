@@ -96,6 +96,10 @@ export default React.memo(function DayScreen() {
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
 
+    React.useEffect(() => {
+        API.events.all().then(console.log)
+    },[]);
+
     // move current time line every minute
     React.useEffect(() => {
         let timeout = null;

@@ -29,6 +29,26 @@ export default {
 		pl: "Czy na pewno chcesz usunąć"
 	},
 
+	ReminderDisable: {
+		en: "Are you sure do you want to disable reminder ?",
+		pl: "Czy na pewno chcesz wyłączyć przypomnienie ?"
+	},
+
+	ReminderDateWarning: {
+		en: "Please provide the reminder date.",
+		pl: "Podaj datę przypomnienia."
+	},
+
+	Yes: {
+		en: "Yes",
+		pl: "Tak"
+	},
+
+	No: {
+		en: "No",
+		pl: "Nie"
+	},
+
 	TurnOnDarkTheme: {
 		en: "Turn on the dark theme",
 		pl: "Włącz ciemny motyw"

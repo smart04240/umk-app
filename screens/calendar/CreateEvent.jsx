@@ -26,7 +26,7 @@ export const CreateEvent = props => {
         start: '',
         end: '',
         date: '',
-        reminder: false,
+        reminder: true,
         reminder_date: '',
     });
     const [notifications, setNotifications] = React.useState([]);
@@ -47,6 +47,30 @@ export const CreateEvent = props => {
     const onChange = (name, value) => {
         const checkIfDate = (name === 'start' || name === 'end' || name === 'reminder_date' || name === 'date') ? moment(value).toISOString() : value;
 
+        if (name === 'reminder' && !value && !!data?.reminder_date) {
+            Alert.alert(
+                translate(Translations.Calendar),
+                translate(Translations.ReminderDisable),
+                [
+                    {
+                        text: translate(Translations.Yes),
+                        style: "danger",
+                        onPress: () => setData({
+                            ...data,
+                            reminder: false,
+                            reminder_date: '',
+                        }),
+                    },
+                    {
+                        text: translate(Translations.No),
+                        style: "cancel",
+                    },
+                ]
+            );
+
+            return;
+        }
+
         setData({
             ...data,
             [name] : checkIfDate
@@ -56,11 +80,11 @@ export const CreateEvent = props => {
     const save = async () => {
         if (data?.reminder && !data?.reminder_date) {
             Alert.alert(
-                'Calendar',
-                'Please add the reminder date.',
+                translate(Translations.Calendar),
+                translate(Translations.ReminderDateWarning),
                 [
                     {
-                        text: 'Okay',
+                        text: translate(Translations.Yes),
                         style: "cancel"
                     },
                 ]
