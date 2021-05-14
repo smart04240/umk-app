@@ -11,6 +11,7 @@ import ReduxAwareInterceptors from "./helpers/ReduxAwareInterceptors";
 import "moment/locale/pl";
 import DataManager from "./helpers/DataManager";
 import FirstLaunchGate from "./helpers/FirstLaunchGate";
+import {Toast} from "./components/general/Toast";
 
 ReduxAwareInterceptors(store);
 
@@ -26,6 +27,7 @@ function Main(props) {
                     <Screens/>
                 </FirstLaunchGate>
             )}
+            <Toast/>
         </>
     );
 }

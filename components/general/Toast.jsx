@@ -1,23 +1,22 @@
-import React, {forwardRef, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, useEffect, useRef} from "react";
 import {Animated, Text, TouchableOpacity, View} from "react-native";
 import shadowGenerator from "../../helpers/shadowGenerator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Constants from "expo-constants";
+import {useSelector} from "react-redux";
 
 export const Toast = forwardRef((props, ref) => {
     const statusBarHeight = Constants.statusBarHeight;
     const theme = useThemeStyles();
-
     const toastContainerHeight = 150;
-
     const animationValue = toastContainerHeight + statusBarHeight;
-
     const animatedValue = useRef(new Animated.Value(-animationValue)).current;
-    // for showing toast you need put toast ref like props
-    // and call showToast where you need
-    useImperativeHandle(ref, () => ({
-        showToast,
-    }));
+    const toast = useSelector(state => state.toasts);
+
+    useEffect(() => {
+        if (!!toast)
+            showToast()
+    },[toast]);
 
     const showToast = () => {
         Animated.timing(animatedValue, {
@@ -55,7 +54,7 @@ export const Toast = forwardRef((props, ref) => {
                     {
                         backgroundColor: theme.main_bg,
                         borderWidth: 5,
-                        borderColor: props?.toastColor || theme.main_bg
+                        borderColor: !!toast ? toast?.color : props?.toastColor || theme.main_bg
                     }
                 ]}
             >
@@ -64,7 +63,7 @@ export const Toast = forwardRef((props, ref) => {
                         textAlign: 'center',
                         color: theme.dark_text
                     }}>
-                        {props.message}
+                        {toast?.message || props.message}
                     </Text>
                 </View>
             </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
@@ -33,7 +33,6 @@ import CalendarScreen from "../screens/calendar/CalendarScreen";
 import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
-import {Toast} from "../components/general/Toast";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -234,14 +233,6 @@ const RenderDrawerContent = props => <CustomDrawer defaultActiveRouteName={Regis
 
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
-    const toastRef = useRef(null);
-    const toasts = useSelector(state => state.toasts);
-
-    React.useEffect(() => {
-        if (!!toasts) {
-            toastRef?.current?.showToast()
-        }
-    },[toasts]);
 
     return (
         <NavigationContainer>
@@ -253,11 +244,6 @@ export default function Screens() {
             >
                 <Drawer.Screen name={'index'} component={StackScreens}/>
             </Drawer.Navigator>
-            <Toast
-                ref={toastRef}
-                message={toasts?.message}
-                toastColor={toasts?.color}
-            />
         </NavigationContainer>
     );
 }

@@ -10,4 +10,7 @@ export default createReducer(null, builder => {
         .addCase(Actions.Toasts.Warning, (state, action) => {
             return action.payload;
         })
+        .addCase(Actions.Toasts.Message, (state, action) => {
+            return action.payload;
+        })
 });
