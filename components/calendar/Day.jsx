@@ -20,15 +20,21 @@ export default function Day({style, textStyle, date: {isSelectedMonth, isToday, 
             ]}
             onPress={press}
         >
-            <Text style={[
-                styles.text,
+            <TouchableOpacity style={[
                 {borderRadius: style.width / 2},
                 isToday && styles.today,
-                textStyle,
                 selectedDate.isSame(date, 'day') && styles.selected,
             ]}>
-                {day}
-            </Text>
+                <Text
+                    style={[
+                        styles.text,
+                        textStyle,
+                        selectedDate.isSame(date, 'day') && styles.selectedText,
+                    ]}
+                >
+                    {day}
+                </Text>
+            </TouchableOpacity>
             <View style={styles.events}>
                 <Circle color={'red'}/>
                 <Circle color={'orange'}/>
@@ -50,15 +56,17 @@ const styles = {
         backgroundColor: Colors.BlueRgba(0.25),
     },
     text: {
+        padding: 2,
+        margin: 2,
         aspectRatio: 1,
         textAlign: 'center',
         fontFamily: Fonts.ProximaNova.Regular,
-        padding: 5,
-        margin: 5,
     },
     selected: {
-        color: Colors.White,
         backgroundColor: Colors.Blue,
+    },
+    selectedText: {
+        color: Colors.White,
     },
     events: {
         flexDirection: 'row',
