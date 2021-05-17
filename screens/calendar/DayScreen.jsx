@@ -27,7 +27,7 @@ const hours = range(0, 24);
 const linesTopOffset = 18;
 const linesLeftOffset = 35;
 const nowCircleSize = 7;
-const timeContainerWidth = 43;
+const timeContainerWidth = 45;
 const leftMargin = 50;
 const nowLeftOffset = linesLeftOffset - nowCircleSize / 2;
 
@@ -242,6 +242,7 @@ const styles = {
         position: 'absolute',
         zIndex: 2,
         top: 10,
+        backgroundColor: 'white',
         width: timeContainerWidth,
     },
     time: {
