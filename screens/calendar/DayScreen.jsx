@@ -27,7 +27,7 @@ const hours = range(0, 24);
 const linesTopOffset = 18;
 const linesLeftOffset = 35;
 const nowCircleSize = 7;
-const timeContainerWidth = 45;
+const timeContainerWidth = 50;
 const leftMargin = 50;
 const nowLeftOffset = linesLeftOffset - nowCircleSize / 2;
 
@@ -242,6 +242,9 @@ const styles = {
         zIndex: 2,
         top: 10,
         backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 1,
         width: timeContainerWidth,
     },
     time: {
@@ -260,7 +263,7 @@ const styles = {
         position: 'absolute',
         flexDirection: 'row',
         alignItems: 'center',
-        zIndex: 3,
+        zIndex: 6,
         left: nowLeftOffset,
         ...shadowGenerator(2),
     },
