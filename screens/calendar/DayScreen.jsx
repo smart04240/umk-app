@@ -145,7 +145,6 @@ export default React.memo(function DayScreen() {
                 // todo update navigation
                 onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
                 onPressIn={() => Vibrator()}
-                delayLongPress={200}
                 onLongPress={() => {
                     Vibrator();
                     Alert.alert(

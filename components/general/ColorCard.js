@@ -34,7 +34,6 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 style,
             ]}
             onPress={onPress}
-            delayLongPress={200}
             onPressIn={onPressIn}
             onLongPress={() => {
                 Vibrator();
