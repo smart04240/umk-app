@@ -1,4 +1,4 @@
-import React, {useMemo, useReducer, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Text, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Input from "../form/Input";
@@ -108,7 +108,7 @@ export const EventTaskEditForm = props => {
             <Input
                 name="description"
                 defaultValue={props?.description}
-                style={{marginBottom: 15}}
+                style={{marginBottom: 15, textAlignVertical: 'top'}}
                 label={translate(Translations.EnterDescOfTask)}
                 placeholder={translate(Translations.DescEllipsis)}
                 multiline={true}
