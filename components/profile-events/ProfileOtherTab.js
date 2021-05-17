@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {Text} from 'react-native';
+import Container from "../general/Container";
 
 const ProfileOtherTab = props => {
 
 	return (
-		<View>
+		<Container>
 			<Text> Other </Text>
-		</View>
+		</Container>
 	)
 }
 
