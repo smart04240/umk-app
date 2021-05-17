@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
@@ -21,15 +21,23 @@ const SidebarMenu = ({navigation, route}) => {
 	};
 
 	return (
-		<View style={ styles.box }>
-			{ Menu.map(( item, index ) => (
-				<TouchableOpacity key={ index } onPress={ () => item.screen && navigate( item.screen ) }>
-					<Text style={[
+		<View style={styles.box}>
+			{Menu.map((item, index) => (
+				<TouchableOpacity
+					key={index}
+					onPress={() => item.screen && navigate(item.screen)}
+					style={[
 						styles.menu_item,
-						{ color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text }, 
+						index + 1 === Menu.length ? {borderBottomWidth: 0} : {}
+					]}
+				>
+					<Text style={[
+						{color: ThemeStyles.dark_blue_text, borderColor: ThemeStyles.dark_blue_text},
 						isActive(item, route) ? GeneralStyles.text_bold : GeneralStyles.text_regular,
-						index + 1 === Menu.length ? { borderBottomWidth: 0 } : {} 
-					]}> { translate( item.label )} </Text>
+
+					]}>
+						{translate(item.label)}
+					</Text>
 				</TouchableOpacity>
 			))}
 		</View>
