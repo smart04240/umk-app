@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/core';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import {useNavigation} from '@react-navigation/core';
+import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import Routes from '../../constants/Routes';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -13,25 +13,28 @@ const Badge = props => {
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
-	const { id, name, not_active } = props;
-	if ( !id || !name ) return null;
+	const {id, name, not_active} = props;
+	if (!id || !name) return null;
 
 	return (
 		<TouchableWithoutFeedback
-			onPress={ () => navigation.navigate( Routes.ProfileBadge, { id }) }
+			onPress={() => navigation.navigate(Routes.ProfileBadge, {id})}
 		>
 			<View
-				style={{ marginBottom: 35, opacity: not_active ? 0.35 : 1, justifyContent: 'center', alignItems: 'center'}}
+				style={[
+					{marginBottom: 35, opacity: not_active ? 0.35 : 1, justifyContent: 'center', alignItems: 'center'},
+					props.badgeContainerStyle
+				]}
 			>
 				<BadgeCircle/>
-				<Text style={[ GeneralStyles.text_regular, { textAlign: "center", color: ThemeStyles.dark_text } ]}>
-					{ name }
+				<Text style={[GeneralStyles.text_regular, {textAlign: "center", color: ThemeStyles.dark_text}]}>
+					{name}
 				</Text>
 				<Text style={[
 					GeneralStyles.text_regular,
-					{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" }
+					{textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase"}
 				]}>
-					{translate( Translations.FindOutMore )}
+					{translate(Translations.FindOutMore)}
 				</Text>
 			</View>
 		</TouchableWithoutFeedback>
