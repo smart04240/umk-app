@@ -34,21 +34,18 @@ const cards = [
 	}
 ];
 
-export default function TutorialScreen( props ) {
-
-	const toStartScreen = () => props.navigation.navigate( Routes.Start );
+export default function TutorialScreen(props) {
+	const toStartScreen = () => props.navigation.navigate(Routes.Start);
 
 	return (
 		<ScreenWithHeaderTitleOnly>
 			<Main>
 				<Container>
-
-					<InfoCardsStack 
-						cards={ cards }
-						onSkipPress={ toStartScreen  }
-						onFinishPress={ toStartScreen }
+					<InfoCardsStack
+						cards={cards}
+						onSkipPress={toStartScreen}
+						onFinishPress={toStartScreen}
 					/>
-
 				</Container>
 			</Main>
 		</ScreenWithHeaderTitleOnly>

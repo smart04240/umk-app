@@ -148,9 +148,9 @@ const RegisteredScreens = {
             component: RemindersScreen
         },
         {
-          name: Routes.MapOfStudies,
-          title: Translations.MapOfStudies,
-          component: MapOfStudiesScreen
+            name: Routes.MapOfStudies,
+            title: Translations.MapOfStudies,
+            component: MapOfStudiesScreen
         },
         {
             name: Routes.Map,
@@ -190,7 +190,14 @@ const StackScreens = () => {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'].map(screen => (
+    const authConstructor = React.useMemo(() => {
+        if (!!user?.token && !user.isFirstLogin)
+            return RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial);
+
+        return RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'];
+    },[user]);
+
+    const screens = React.useMemo(() => authConstructor.map(screen => (
         <Stack.Screen
             key={screen.name}
             name={screen.name}

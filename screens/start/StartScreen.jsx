@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { MaterialCommunityIcons  } from '@expo/vector-icons'; 
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -11,41 +11,52 @@ import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
 import useTranslator from "../../hooks/useTranslator";
+import Actions from "../../redux/Actions";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function StartScreen(props) {
+	const dispatch = useDispatch();
 	const translate = useTranslator();
-    const ThemeStyles = useThemeStyles();
+	const ThemeStyles = useThemeStyles();
+	const user = useSelector(state => state.user);
 
-    return (
+	React.useEffect(() => {
+		dispatch(Actions.User.Update({
+			...user,
+			isFirstLogin: false,
+		}));
+	}, []);
+
+	return (
 		<ScreenWithHeaderTitleOnly>
 			<Main>
 				<ContainerWithScroll>
-					<View style={[ 
+					<View style={[
 						GeneralStyles.row_wrap,
-						{ justifyContent: "space-between" } 
+						{justifyContent: "space-between"}
 					]}>
-						{ Menu.map(({ screen, label, icon }, index ) => (
+						{Menu.map(({screen, label, icon}, index) => (
 							<TouchableOpacity
-								key={ index }
-								style={ styles.box }
-								onPress={ () => props.navigation.navigate( screen )}
+								key={index}
+								style={styles.box}
+								onPress={() => props.navigation.navigate(screen)}
 							>
-								<View style={ styles.circle }>
+								<View style={styles.circle}>
 									<MaterialCommunityIcons
-										name={ icon } 
-										size={ 30 } 
-										color={ Colors.White }
+										name={icon}
+										size={30}
+										color={Colors.White}
 									/>
 								</View>
 
 								<Text style={[
 									GeneralStyles.text_regular,
-									{ 
+									{
 										color: ThemeStyles.blue_text,
-										textAlign: "center" 
+										textAlign: "center"
 									}
-								]}> 
-									{ translate( label )}
+								]}>
+									{translate(label)}
 								</Text>
 
 							</TouchableOpacity>
@@ -54,7 +65,7 @@ export default function StartScreen(props) {
 				</ContainerWithScroll>
 			</Main>
 		</ScreenWithHeaderTitleOnly>
-    );
+	);
 };
 
 const styles = StyleSheet.create({
@@ -68,7 +79,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.Blue,
 		width: 81,
 		height: 81,
-		borderRadius: 81/2,
+		borderRadius: 81 / 2,
 		marginBottom: 14
 	}
 })
