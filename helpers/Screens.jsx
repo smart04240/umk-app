@@ -190,34 +190,34 @@ const StackScreens = () => {
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const authConstructor = React.useMemo(() => {
+    const screens = React.useMemo(() => {
+        let calculatedScreens = RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'];
+
         if (!!user?.token && !user.isFirstLogin)
-            return RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial);
+            calculatedScreens = RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial);
 
-        return RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'];
-    },[user]);
-
-    const screens = React.useMemo(() => authConstructor.map(screen => (
-        <Stack.Screen
-            key={screen.name}
-            name={screen.name}
-            options={{
-                title: translate(screen.title),
-                headerStyle: {
-                    backgroundColor: ThemeStyles.box_bg,
-                },
-                headerTintColor: ThemeStyles.blue_text,
-                headerTitleStyle: {
-                    ...GeneralStyles.header_title,
-                    textAlign: 'center',
-                    color: ThemeStyles.blue_text
-                },
-                headerRight: () => <HeaderRight/>
-            }}
-        >
-            {props => <screen.component {...props} />}
-        </Stack.Screen>
-    )), [user, ThemeStyles, translate]);
+        return calculatedScreens.map(screen => (
+            <Stack.Screen
+                key={screen.name}
+                name={screen.name}
+                options={{
+                    title: translate(screen.title),
+                    headerStyle: {
+                        backgroundColor: ThemeStyles.box_bg,
+                    },
+                    headerTintColor: ThemeStyles.blue_text,
+                    headerTitleStyle: {
+                        ...GeneralStyles.header_title,
+                        textAlign: 'center',
+                        color: ThemeStyles.blue_text
+                    },
+                    headerRight: () => <HeaderRight/>
+                }}
+            >
+                {props => <screen.component {...props} />}
+            </Stack.Screen>
+        ));
+    }, [user, ThemeStyles, translate]);
 
     return (
         <Stack.Navigator screenOptions={ScreenOptions}>
