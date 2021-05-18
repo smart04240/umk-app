@@ -39,6 +39,11 @@ export default {
 		pl: "Podaj datę przypomnienia."
 	},
 
+	CalendarEventsTitle: {
+		en: "Upcoming events",
+		pl: "Najbliższe wydarzenia"
+	},
+
 	Yes: {
 		en: "Yes",
 		pl: "Tak"

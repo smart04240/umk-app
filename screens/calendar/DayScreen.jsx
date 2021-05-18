@@ -192,6 +192,7 @@ export default React.memo(function DayScreen() {
         <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollViewContent}
+            delayPressIn={200}
         >
             <RangeSelector
                 day={day}
