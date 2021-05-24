@@ -1,14 +1,9 @@
-import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
-import API from "../helpers/API";
+import {createAction} from "@reduxjs/toolkit";
 import Colors from "../constants/Colors";
-
-const categoryPreparer = data => ({
-    payload: typeof data === 'string' ? data : data.slug,
-});
 
 export default {
     API: {
-        Fetch: createAsyncThunk('API/fetch', async () => (await API.get('/get/all/data')).data),
+        DataLoaded: createAction('API/fetch'),
     },
     InternetChange: createAction('internetChange'),
     Theme: {
@@ -34,8 +29,8 @@ export default {
         Update: createAction('user/update'),
     },
     Categories: {
-        Toggle: createAction('categories/toggle', categoryPreparer),
-        Select: createAction('categories/select', categoryPreparer),
+        Toggle: createAction('categories/toggle'),
+        Select: createAction('categories/select'),
     },
     Toasts: {
         Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Yellow, message}})),

@@ -182,12 +182,12 @@ export default function MapScreen() {
                 <Main style={styles.categories.container}>
                     {data.categories.map(category => (
                         <CategoryButton
-                            key={category.slug}
+                            key={category.id}
                             category={category}
                             style={{width: '25%', marginBottom: 20}}
                             size={Layout.width * 0.15}
-                            buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.slug) ? styles.categories.inactive : undefined}
-                            onPress={() => dispatch(Actions.Categories.Toggle(category.slug))}
+                            buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.id) ? styles.categories.inactive : undefined}
+                            onPress={() => dispatch(Actions.Categories.Toggle(category.id))}
                         />
                     ))}
                 </Main>

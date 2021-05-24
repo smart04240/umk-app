@@ -30,7 +30,7 @@ export default function MarkersListScreen() {
     const selectCategory = ({value}) => dispatch(Actions.Categories.Select(value));
 
     const options = useMemo(() => categories.map(category => ({
-        value: category.slug,
+        value: category.id,
         label: translate(category.title),
     })), [translate, categories]);
 

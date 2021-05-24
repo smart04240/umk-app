@@ -3,10 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/general/Loader";
 import useTranslator from "../hooks/useTranslator";
 import Translations from "../constants/Translations";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ErrorView from "../components/general/ErrorView";
+import API from "./API";
+import Actions from "../redux/Actions";
 
 export default function FirstLaunchGate({children}) {
+    const dispatch = useDispatch();
     const translate = useTranslator();
     const isOnline = useSelector(state => state.online);
     const [firstLaunch, setFirstLaunch] = React.useState(null);
@@ -21,10 +24,10 @@ export default function FirstLaunchGate({children}) {
         if (!firstLaunch)
             return;
 
-        setTimeout(() => {
-            // simulate data loading
+        API.fetch().then(response => {
+            dispatch(Actions.API.DataLoaded(response.data));
             setFirstLaunch(false);
-        }, 1000);
+        });
     }, [firstLaunch]);
 
     // checking if it is first launch in background
