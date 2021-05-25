@@ -2,8 +2,10 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://api.umk.nfinity.pl`,
+    baseURL: `https://51e2b8379006.ngrok.io`,
 });
+
+const mobilePrefix = '/mobile';
 
 const Types = {
     UpdateProfile: 'updateProfile',
@@ -21,30 +23,33 @@ const Types = {
 API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfile});
 
 /**
+ * User
+ */
+
+API.user = {
+    login: API.post('/auth/login'),
+    logOut: () => {},
+};
+
+/**
  * Events
  */
 
 API.events = {
-    all: API.getAllEvents = () => API.get(`/calendar/all`),
-    create: API.createEvent = data => API.post('/calendar/create', data),
-    edit: API.editEvent = data => API.put('/calendar/update', data),
-    delete: API.deleteEvent = id => API.delete(`/calendar/?id=${id}`),
-
-    getWithParams: API.getEventByOption = params => API.post(`/calendar/getListByOption`),
-    deleteFile: API.deleteFile = ({fileId, calendarId}) => API.delete(`/calendar/file?file_id=${fileId}&calendar_id=${calendarId}`),
-    getInfo: API.getInfo = () => API.get('/calendar/info'),
-    getStudentGroupInfo: API.getStudentGroupInfo = () => API.get('/mobile/calendar/student_group?student_group_type=2')
+    byRange: API.getAllEvents = (startDate, endDate) => API.get(`${mobilePrefix}/events/?from=${startDate}&till=${endDate}`),
+    create: API.createEvent = data => API.post(`${mobilePrefix}/events/create`, data),
+    edit: API.editEvent = data => API.put(`${mobilePrefix}/events/update`, data),
+    delete: API.deleteEvent = id => API.delete(`${mobilePrefix}/events/?id=${id}`),
+    categories: API.categories = () => API.get(`${mobilePrefix}/events/categories`),
 };
 
 /**
- * Map
+ * Markers
  */
 
-API.map = {
-    all: API.getAll = () => API.get(`/mobile/map/all`),
-    create: API.create = data => API.post('/mobile/map', data),
-    edit: API.edit = data => API.put('/mobile/map/update', data),
-    delete: API.delete = id => API.delete(`/mobile/map?id=${id}`),
+API.markers = {
+    all: API.getAll = () => API.get(`${mobilePrefix}/markers/`),
+    categories: API.categories = () => API.get(`${mobilePrefix}/markers/categories`),
 };
 
 /**
