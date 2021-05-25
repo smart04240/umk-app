@@ -6,7 +6,7 @@ import ClusteredMapView from "../../components/map/ClusteredMapView";
 import MapView from 'react-native-maps';
 import Actions from "../../redux/Actions";
 import * as Location from 'expo-location';
-import {FontAwesome5} from '@expo/vector-icons';
+import {FontAwesome5, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import useTranslator from "../../hooks/useTranslator";
 import Input from "../../components/form/Input";
 import Translations from "../../constants/Translations";
@@ -18,12 +18,10 @@ import Main from "../../components/general/Main";
 import {LinearGradient} from "expo-linear-gradient";
 import Colors from "../../constants/Colors";
 import Fonts from "../../constants/Fonts";
-import {MaterialIcons} from '@expo/vector-icons';
 import Routes from "../../constants/Routes";
 import TopBox from "../../components/general/TopBox";
 import shadowGenerator from "../../helpers/shadowGenerator";
 import useThemeStyles from "../../hooks/useThemeStyles";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Links from "../../helpers/Links";
 
 const MapHeight = Layout.height * 0.5;
@@ -182,12 +180,12 @@ export default function MapScreen() {
                 <Main style={styles.categories.container}>
                     {data.categories.map(category => (
                         <CategoryButton
-                            key={category.slug}
+                            key={category.id}
                             category={category}
                             style={{width: '25%', marginBottom: 20}}
                             size={Layout.width * 0.15}
-                            buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.slug) ? styles.categories.inactive : undefined}
-                            onPress={() => dispatch(Actions.Categories.Toggle(category.slug))}
+                            buttonStyle={data.selectedCategories.length && !data.selectedCategories.includes(category.id) ? styles.categories.inactive : undefined}
+                            onPress={() => dispatch(Actions.Categories.Toggle(category.id))}
                         />
                     ))}
                 </Main>

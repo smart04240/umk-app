@@ -7,13 +7,12 @@ import useTranslator from "../../hooks/useTranslator";
 import Actions from "../../redux/Actions";
 import {useDispatch, useSelector} from "react-redux";
 import {selectFilteredMarkers} from "../../redux/reducers/mapReducer";
-import {FlatList, Text, TouchableOpacity, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import ColorCard from "../../components/general/ColorCard";
 import Dropdown from "../../components/form/Dropdown";
 import {useNavigation} from "@react-navigation/core";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 import useThemeStyles from "../../hooks/useThemeStyles";
-import Fonts from "../../constants/Fonts";
 import ColorCardList from "../../components/general/ColorCardList";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Routes from "../../constants/Routes";
@@ -30,7 +29,7 @@ export default function MarkersListScreen() {
     const selectCategory = ({value}) => dispatch(Actions.Categories.Select(value));
 
     const options = useMemo(() => categories.map(category => ({
-        value: category.slug,
+        value: category.id,
         label: translate(category.title),
     })), [translate, categories]);
 

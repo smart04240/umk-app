@@ -1,8 +1,10 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import API from "./API";
+import Actions from "../redux/Actions";
 
 export default function DataManager() {
+    const dispatch = useDispatch();
     const isOnline = useSelector(state => state.online);
 
     // when becoming online, run scheduled tasks (if any), then fetch new data
@@ -11,14 +13,11 @@ export default function DataManager() {
             return;
 
         API.Scheduler.hasTasks().then(async hasTasks => {
-            if (!hasTasks)
-                return;
+            if (hasTasks) {
+                await API.Scheduler.runAll();
+            }
 
-            // todo await scheduled tasks
-
-            await API.Scheduler.runAll();
-        }).then(() => {
-            // todo fetch new data and dispatch it into redux
+            API.fetch().then(response => dispatch(Actions.API.DataLoaded(response.data)));
         });
     }, [isOnline]);
 

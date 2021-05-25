@@ -20,6 +20,12 @@ const Types = {
  * POST requests' configs must have "type" set to one of Types for the Scheduler to work
  */
 
+/**
+ * Fetches all data for the application
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+API.fetch = () => API.get('fetch');
+
 API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfile});
 
 /**
