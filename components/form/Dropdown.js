@@ -1,6 +1,6 @@
-import React, {useState, useMemo} from 'react';
-import {View, Text, StyleSheet} from "react-native";
-import {TouchableWithoutFeedback, ScrollView} from "react-native-gesture-handler";
+import React, {useMemo, useState} from 'react';
+import {StyleSheet, Text, View} from "react-native";
+import {ScrollView, TouchableWithoutFeedback} from "react-native-gesture-handler";
 import {FontAwesome} from '@expo/vector-icons';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
@@ -79,9 +79,9 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
 					props.options_box_style,
 				]}>
 					<ScrollView>
-						{options.map(opt => (
+						{options.map((opt, index) => (
 							<TouchableWithoutFeedback
-								key={opt.value}
+								key={index}
 								onPress={() => onOptionPress(opt.value)}
 							>
 								<Text style={[

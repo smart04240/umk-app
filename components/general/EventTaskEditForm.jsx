@@ -10,29 +10,7 @@ import TaskEditReminderSection from "../tasks/TaskEditReminderSection";
 import Button from "../form/Button";
 import useTranslator from "../../hooks/useTranslator";
 import useThemeStyles from "../../hooks/useThemeStyles";
-
-const categories = [
-    {
-        value: 1,
-        label: 'Egzamin',
-    },
-    {
-        value: 2,
-        label: 'Egzamin',
-    },
-    {
-        value: 3,
-        label: 'Egzamin',
-    },
-    {
-        value: 4,
-        label: 'Egzamin',
-    },
-    {
-        value: 5,
-        label: 'Egzamin',
-    },
-];
+import {useCategoryPreparer} from "../../hooks/useCategoryPreparer";
 
 const opt_sample = [
     { value: 1, label: "Opt 1"},
@@ -43,6 +21,7 @@ const opt_sample = [
 export const EventTaskEditForm = props => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
+    const eventsOptions = useCategoryPreparer();
 
     const [error_field_names, setErrorFieldNames] = useState([]);
 
@@ -62,8 +41,8 @@ export const EventTaskEditForm = props => {
         {
             name: "category",
             placeholder: "Kategoria *",
-            options: categories,
-            init_value: categories.find(option => option.value === props?.categoryValue)?.value,
+            options: eventsOptions,
+            init_value: eventsOptions.find(option => option.value === props?.categoryValue)?.value,
         }
     ];
 
