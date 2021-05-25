@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://51e2b8379006.ngrok.io`,
+    baseURL: `https://api.umk.nfinity.pl`,
 });
 
 const mobilePrefix = '/mobile';
