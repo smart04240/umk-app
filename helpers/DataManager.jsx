@@ -19,6 +19,8 @@ export default function DataManager() {
 
             API.fetch().then(response => dispatch(Actions.API.DataLoaded(response.data)));
         });
+
+        API.events.categories().then(res => dispatch(Actions.EventCategories.collect(res?.data)));
     }, [isOnline]);
 
     return null;

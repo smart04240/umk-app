@@ -21,7 +21,7 @@ export default function LoginScreen(props) {
 	const translate = useTranslator();
 	const blue_text = {color: ThemeStyles.blue_text};
 
-	const login = () => API.user.login.then(result => dispatch(Actions.User.Login({
+	const login = () => API.user.login().then(result => dispatch(Actions.User.Login({
 		nick_name: 'Petro Vedro',
 		avatar: '',
 		isFirstLogin: true,

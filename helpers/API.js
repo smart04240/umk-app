@@ -2,10 +2,8 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://api.umk.nfinity.pl`,
+    baseURL: `https://60e82151ffac.ngrok.io/mobile`,
 });
-
-const mobilePrefix = '/mobile';
 
 const Types = {
     UpdateProfile: 'updateProfile',
@@ -33,7 +31,7 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
  */
 
 API.user = {
-    login: API.post('/login'),
+    login: () => API.post('/login'),
     logOut: () => {},
 };
 
@@ -42,11 +40,11 @@ API.user = {
  */
 
 API.events = {
-    byRange: API.getAllEvents = (startDate, endDate) => API.get(`${mobilePrefix}/events/?from=${startDate}&till=${endDate}`),
-    create: API.createEvent = data => API.post(`${mobilePrefix}/events/create`, data),
-    edit: API.editEvent = data => API.put(`${mobilePrefix}/events/update`, data),
-    delete: API.deleteEvent = id => API.delete(`${mobilePrefix}/events/?id=${id}`),
-    categories: API.categories = () => API.get(`${mobilePrefix}/events/categories`),
+    byRange: (startDate, endDate) => API.get(`/events/?from=${startDate}&till=${endDate}`),
+    create: data => API.post(`/events/create`, data),
+    edit: data => API.put(`/events/update`, data),
+    delete: id => API.delete(`/events/?id=${id}`),
+    categories: () => API.get(`/events/categories`),
 };
 
 /**
