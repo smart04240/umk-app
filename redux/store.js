@@ -10,6 +10,7 @@ import remindersReducer from "./reducers/remindersReducer";
 import todosReducer from "./reducers/todosReducer";
 import notificationsReducer from "./reducers/notificationsReducer";
 import toastsReducer from "./reducers/toastsReducer";
+import eventCategoriesReducer from "./reducers/eventCategoriesReducer";
 
 const reducer = combineReducers({
     theme: themeReducer,
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     mapData: mapReducer,
     todos: todosReducer,
     notifications: notificationsReducer,
-    toasts: toastsReducer
+    toasts: toastsReducer,
+    eventCategories: eventCategoriesReducer,
 });
 
 const persistConfig = {

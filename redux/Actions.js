@@ -46,5 +46,8 @@ export default {
         upsertOne: createAction('notification/upsertOne'),
         removeOne: createAction('notifications/removeOne')
     },
+    EventCategories: {
+        getCategories: createAction('eventCategories/get')
+    },
     ChangeMapSearch: createAction('changeMapSearch'),
 };
