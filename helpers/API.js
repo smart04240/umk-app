@@ -33,7 +33,7 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
  */
 
 API.user = {
-    login: API.post('/auth/login'),
+    login: API.post('/login'),
     logOut: () => {},
 };
 

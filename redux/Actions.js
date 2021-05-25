@@ -42,7 +42,7 @@ export default {
         removeOne: createAction('notifications/removeOne')
     },
     EventCategories: {
-        getCategories: createAction('eventCategories/get')
+        collect: createAction('eventCategories/collect')
     },
     ChangeMapSearch: createAction('changeMapSearch'),
 };
