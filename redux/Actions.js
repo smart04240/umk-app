@@ -33,7 +33,7 @@ export default {
         Select: createAction('categories/select'),
     },
     Toasts: {
-        Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Yellow, message}})),
+        Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Red, message}})),
         Warning: createAction('toasts/warning', message => ({payload: {color: Colors.Yellow, message}})),
         Message: createAction('toasts/message', message => ({payload: {message}})),
     },

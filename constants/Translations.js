@@ -79,6 +79,16 @@ export default {
 		pl: "Symulacje"
 	},
 
+	SessionExpired: {
+		en: 'Your session has expired.',
+		pl: 'Twoja sesja wygasła.',
+	},
+
+	InternalServerError: {
+		en: 'Server encountered an unexpected condition that prevented it from fulfilling the request.',
+		pl: 'Serwer napotkał nieoczekiwany stan, który uniemożliwił mu realizację żądania.',
+	},
+
 	ToDoList: {
 		en: "To do list",
 		pl: "Lista zadań"
