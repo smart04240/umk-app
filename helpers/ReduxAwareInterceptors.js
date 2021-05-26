@@ -1,9 +1,12 @@
 import Actions from "../redux/Actions";
 import API from "./API";
+import Translations from "../constants/Translations";
+import {getTranslated} from "./functions";
 
 export const Interceptors = {
     Scheduler: null,
     Logout: null,
+    Alert: null,
     Token: null,
 };
 
@@ -27,27 +30,17 @@ export default function ReduxAwareInterceptors(store) {
         return Promise.reject(error);
     });
 
-    // handling errors and put them to store
-    Interceptors.Error = API.interceptors.response.use(
-        (res) => {
-            if (res?.data?.code >= 301)
-                store.dispatch(Actions.Toasts.Warning(res?.data?.message));
+    Interceptors.Alerts = API.interceptors.response.use(null, error => {
+        const locale = store.getState().locale;
 
-            if (res?.data?.code >= 400)
-                store.dispatch(Actions.Toasts.Danger(res?.data?.message));
-
-            return Promise.resolve(res);
-        },
-        (error) => {
-            if (error.response.status >= 301)
-                store.dispatch(Actions.Toasts.Warning(error?.message));
-
-            if (error.response.status >= 400)
-                store.dispatch(Actions.Toasts.Danger(error?.message));
-
-            return Promise.reject(error);
+        switch (error.request?.status) {
+            case 401: store.dispatch(Actions.Toasts.Warning(getTranslated(Translations.SessionExpired, locale))); break;
+            case 500: store.dispatch(Actions.Toasts.Danger(getTranslated(Translations.InternalServerError, locale))); break;
+            default:
         }
-    );
+
+        return Promise.reject(error);
+    });
 
     // add token to requests
     Interceptors.Token = API.interceptors.request.use(config => {
