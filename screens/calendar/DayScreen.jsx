@@ -10,11 +10,11 @@ import Layout from "../../constants/Layout";
 import Fonts from "../../constants/Fonts";
 import {useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
-import {categories} from "../../components/tasks/TaskListItem";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
+import {Vibrator} from "../../helpers/Vibrator";
+import {useSelector} from "react-redux";
 import API from "../../helpers/API";
-import {Vibration, Vibrator} from "../../helpers/Vibrator";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -87,18 +87,18 @@ export default React.memo(function DayScreen() {
     const navigation = useNavigation();
     const translate = useTranslator();
     const width = useWindowDimensions().width;
+    const user = useSelector(state => state.user);
     const [show, setShow] = React.useState(false);
     const [day, setDay] = React.useState(new Date());
     const [now, setNow] = React.useState(new Date());
     const [events, setEvents] = React.useState(null);
     const [eventsJSX, setEventsJSX] = React.useState(null);
+    const categories = useSelector(state => state.eventCategories);
+    const startOfDay = '';
+    const endOfDay = '';
 
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
-
-    React.useEffect(() => {
-        API.events.all().then(console.log)
-    },[]);
 
     // move current time line every minute
     React.useEffect(() => {
@@ -115,17 +115,26 @@ export default React.memo(function DayScreen() {
         return () => clearTimeout(timeout);
     }, []);
 
+    const countDay = React.useMemo(() => {
+        if (!!day) {
+            return {
+                startOfDay: moment(day).startOf('day').toISOString(),
+                endOfDay: moment(day).endOf('day').toISOString()
+            }
+        }
+    },[day]);
+
+    console.log(countDay)
+
+
     // load new events on day change
     React.useEffect(() => {
-        setEvents(null);
 
-        // todo replace with loading events from API
-        (new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(eventsArray);
-            }, 1000);
-        })).then(setEvents);
     }, [day]);
+
+    const loadDay = () => {
+        API.events.byRange(countDay.startOfDay, countDay.endOfDay).then(console.log)
+    }
 
     // memoize events JSX asynchronously
     React.useEffect(() => {
@@ -135,7 +144,7 @@ export default React.memo(function DayScreen() {
                 style={[
                     styles.eventContainer,
                     {
-                        backgroundColor: categories?.find(category => category.value === event.category).color,
+                        backgroundColor: categories?.find(category => category.id === event.category).color,
                         height: getCardHeight(event),
                         width: event.width,
                         left: event.left + leftMargin,
@@ -202,6 +211,11 @@ export default React.memo(function DayScreen() {
                 calendarOnChange={setDay}
                 rangeSelectorStyles={styles.picker}
             />
+            <TouchableOpacity onPress={() => loadDay()}>
+                <Text>
+                    LOL
+                </Text>
+            </TouchableOpacity>
             <View>
                 {/* hours */}
                 {hours.map((hour, index) => (
