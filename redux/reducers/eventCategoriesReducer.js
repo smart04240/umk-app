@@ -5,7 +5,7 @@ export const eventCategories = [];
 
 export default createReducer(eventCategories, builder => {
     builder
-        .addCase(Actions.EventCategories.collect, (state, action) => {
-            return action.payload
+        .addCase(Actions.API.DataLoaded, (state, action) => {
+            return action.payload.event_categories;
         });
 });
