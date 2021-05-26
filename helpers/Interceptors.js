@@ -5,7 +5,7 @@ import {getTranslated} from "./functions";
 import {store} from "../redux/store";
 
 const Interceptors = {
-    register: () => Object.keys(Interceptors).forEach(method => method.use?.()),
+    register: () => Object.values(Interceptors).forEach(method => method.use?.()),
 
     References: {
         Scheduler: null,
