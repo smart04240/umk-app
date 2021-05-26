@@ -10,7 +10,7 @@ const Interceptors = {
     References: {
         Scheduler: null,
         Logout: null,
-        Alert: null,
+        Toasts: null,
         Token: null,
     },
 
@@ -42,9 +42,9 @@ const Interceptors = {
         eject: () => API.interceptors.response.eject(Interceptors.References.Logout),
     },
     // throw toasts on errors
-    Alert: {
+    Toasts: {
         use: () => {
-            Interceptors.References.Alert = API.interceptors.response.use(null, error => {
+            Interceptors.References.Toasts = API.interceptors.response.use(null, error => {
                 const locale = store.getState().app.locale;
 
                 switch (error.request?.status) {
@@ -60,7 +60,7 @@ const Interceptors = {
                 return Promise.reject(error);
             });
         },
-        eject: () => API.interceptors.response.eject(Interceptors.References.Alert),
+        eject: () => API.interceptors.response.eject(Interceptors.References.Toasts),
     },
     // add token to requests
     Token: {
