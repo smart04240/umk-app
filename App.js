@@ -7,13 +7,13 @@ import Screens from "./helpers/Screens";
 import * as Font from "expo-font";
 import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
-import ReduxAwareInterceptors from "./helpers/ReduxAwareInterceptors";
+import Interceptors from "./helpers/Interceptors";
 import "moment/locale/pl";
 import DataManager from "./helpers/DataManager";
 import FirstLaunchGate from "./helpers/FirstLaunchGate";
 import {Toast} from "./components/general/Toast";
 
-ReduxAwareInterceptors(store);
+Interceptors.register();
 
 function Main(props) {
     const theme = useSelector(state => state.app.theme);
