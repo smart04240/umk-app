@@ -9,7 +9,7 @@ import useTranslator from "../../hooks/useTranslator";
 const ThemeSwitcher = props => {
 	const translate = useTranslator();
 	const dispatch = useDispatch();
-	const theme = useSelector( state => state.theme );
+	const theme = useSelector( state => state.app.theme );
 
 	return (
 		<Switch 

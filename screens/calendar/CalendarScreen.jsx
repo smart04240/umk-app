@@ -51,7 +51,7 @@ export default function CalendarScreen() {
     const translate = useTranslator();
     const theme = useThemeStyles();
     const navigation = useNavigation();
-    const isOnline = useSelector(state => state.online);
+    const isOnline = useSelector(state => state.app.online);
     const [permission, setPermission] = React.useState(null);
     const [calendar, setCalendar] = React.useState(null);
 

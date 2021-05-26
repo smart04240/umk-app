@@ -11,7 +11,7 @@ const sources = {
 
 export default props => {
 	
-	const locale = useSelector( state => state.locale );
+	const locale = useSelector( state => state.app.locale );
 	const img_source = React.useMemo(() => sources[ locale ], [ locale ]);
 
 	return (

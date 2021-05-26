@@ -31,7 +31,7 @@ export default function ReduxAwareInterceptors(store) {
     });
 
     Interceptors.Alerts = API.interceptors.response.use(null, error => {
-        const locale = store.getState().locale;
+        const locale = store.getState().app.locale;
 
         switch (error.request?.status) {
             case 401: store.dispatch(Actions.Toasts.Warning(getTranslated(Translations.SessionExpired, locale))); break;

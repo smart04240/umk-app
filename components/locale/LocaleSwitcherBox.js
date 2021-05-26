@@ -15,7 +15,7 @@ const flags = {
 
 const LocaleSwitcherBox = () => {
 
-	const locale = useSelector( state => state.locale );
+	const locale = useSelector( state => state.app.locale );
     const ThemeStyles = useThemeStyles();
 
 	return (

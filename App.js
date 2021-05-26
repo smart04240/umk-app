@@ -16,7 +16,7 @@ import {Toast} from "./components/general/Toast";
 ReduxAwareInterceptors(store);
 
 function Main(props) {
-    const theme = useSelector(state => state.theme);
+    const theme = useSelector(state => state.app.theme);
     return (
         <>
             <InternetMonitor/>

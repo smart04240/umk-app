@@ -5,7 +5,7 @@ import Actions from "../redux/Actions";
 
 export default function DataManager() {
     const dispatch = useDispatch();
-    const isOnline = useSelector(state => state.online);
+    const isOnline = useSelector(state => state.app.online);
 
     // when becoming online, run scheduled tasks (if any), then fetch new data
     React.useEffect(() => {

@@ -1,10 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {combineReducers, configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from "redux-persist";
-import themeReducer from "./reducers/themeReducer";
-import localeReducer from "./reducers/localeReducer";
+import appReducer from "./reducers/appReducer";
 import userReducer from "./reducers/userReducer";
-import internetReducer from "./reducers/internetReducer";
 import mapReducer from "./reducers/mapReducer";
 import remindersReducer from "./reducers/remindersReducer";
 import todosReducer from "./reducers/todosReducer";
@@ -13,11 +11,9 @@ import toastsReducer from "./reducers/toastsReducer";
 import eventCategoriesReducer from "./reducers/eventCategoriesReducer";
 
 const reducer = combineReducers({
-    theme: themeReducer,
-    locale: localeReducer,
+    app: appReducer,
     reminders: remindersReducer,
     user: userReducer,
-    online: internetReducer,
     mapData: mapReducer,
     todos: todosReducer,
     notifications: notificationsReducer,
@@ -28,7 +24,6 @@ const reducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

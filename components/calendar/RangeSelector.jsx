@@ -12,7 +12,7 @@ import useTranslator from "../../hooks/useTranslator";
 export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnChange, rangeSelectorStyles}) => {
     const translate = useTranslator();
     const theme = useThemeStyles();
-    const locale = useSelector(state => state.locale);
+    const locale = useSelector(state => state.app.locale);
 
     const getWeekDateRange = useMemo(() => {
         let startDate = moment(date).startOf('week');

@@ -17,7 +17,7 @@ export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
     const navigation = useNavigation();
     const translate = useTranslator();
-    const locale = useSelector(state => state.locale);
+    const locale = useSelector(state => state.app.locale);
     const [show, setShow] = React.useState(false);
     const [date, setDate] = React.useState(new Date());
 
