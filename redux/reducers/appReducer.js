@@ -26,6 +26,9 @@ const InitialState = {
 
 export default createReducer(InitialState, builder => {
     builder
+        .addCase(Actions.API.DataLoaded, state => {
+            state.cached = true;
+        })
         .addCase(Actions.InternetChange, (state, action) => {
             state.online = !!action.payload;
         })
