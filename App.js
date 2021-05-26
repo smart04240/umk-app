@@ -9,8 +9,6 @@ import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
 import Interceptors from "./helpers/Interceptors";
 import "moment/locale/pl";
-import DataManager from "./helpers/DataManager";
-import FirstLaunchGate from "./helpers/FirstLaunchGate";
 import {Toast} from "./components/general/Toast";
 
 Interceptors.register();
@@ -22,10 +20,7 @@ function Main(props) {
             <InternetMonitor/>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'}/>
             {!props.loading && (
-                <FirstLaunchGate>
-                    <DataManager/>
-                    <Screens/>
-                </FirstLaunchGate>
+                <Screens/>
             )}
             <Toast/>
         </>

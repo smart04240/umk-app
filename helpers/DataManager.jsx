@@ -3,6 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "./API";
 import Actions from "../redux/Actions";
 
+/**
+ * Background service that runs scheduled tasks and refreshes application data
+ * @returns {null}
+ */
 export default function DataManager() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
