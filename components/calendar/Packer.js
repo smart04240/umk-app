@@ -3,9 +3,9 @@ import moment from 'moment';
 const offset = 100;
 
 function buildEvent(column, left, width, dayStart) {
-    const startTime = moment(column.start);
-    const endTime = column.end
-        ? moment(column.end)
+    const startTime = moment(column.start_date);
+    const endTime = column.end_date
+        ? moment(column.end_date)
         : startTime.clone().add(1, 'hour');
     const dayStartTime = startTime
         .clone()
@@ -21,7 +21,7 @@ function buildEvent(column, left, width, dayStart) {
 }
 
 function collision(a, b) {
-    return a.end > b.start && a.start < b.end;
+    return a.end_date > b.start_date && a.start_date < b.end_date;
 }
 
 function expand(ev, column, columns) {
@@ -65,10 +65,10 @@ function populateEvents(events, screenWidth, dayStart) {
     events = events
         .map((ev, index) => ({...ev, index: index}))
         .sort(function (a, b) {
-            if (a.start < b.start) return -1;
-            if (a.start > b.start) return 1;
-            if (a.end < b.end) return -1;
-            if (a.end > b.end) return 1;
+            if (a.start_date < b.start_date) return -1;
+            if (a.start_date > b.start_date) return 1;
+            if (a.end_date < b.end_date) return -1;
+            if (a.end_date > b.end_date) return 1;
             return 0;
         });
 
@@ -76,7 +76,7 @@ function populateEvents(events, screenWidth, dayStart) {
     lastEnd = null;
 
     events.forEach(function (ev, index) {
-        if (lastEnd !== null && ev.start >= lastEnd) {
+        if (lastEnd !== null && ev.start_date >= lastEnd) {
             pack(columns, screenWidth, calculatedEvents, dayStart);
             columns = [];
             lastEnd = null;
@@ -96,8 +96,8 @@ function populateEvents(events, screenWidth, dayStart) {
             columns.push([ev]);
         }
 
-        if (lastEnd === null || ev.end > lastEnd) {
-            lastEnd = ev.end;
+        if (lastEnd === null || ev.end_date > lastEnd) {
+            lastEnd = ev.end_date;
         }
     });
 

@@ -33,69 +33,23 @@ const nowLeftOffset = linesLeftOffset - nowCircleSize / 2;
 
 const timeHeight = date => (date.getHours() * 60 + date.getMinutes()) * minuteHeight + linesTopOffset;
 const getCardHeight = event => {
-    let start = new Date(event?.start);
-    let end = new Date(event?.end);
+    let start = moment(event.start_date).toDate();
+    let end = moment(event.end_date).toDate();
 
     return ((end?.getHours() * 60) + end?.getMinutes()) - ((start?.getHours() * 60) + start?.getMinutes());
 };
-
-const eventsArray = [
-    {
-        start: moment().subtract(1, 'hours').set({minutes: 0}).toDate(),
-        end: moment().add(1, 'hour').set({minutes: 0}).toDate(),
-        title: {
-            en: 'One',
-            pl: 'Jeden',
-        },
-        category: 1,
-        id: 1,
-    },
-    {
-        start: moment().subtract(1, 'hours').toDate(),
-        end: moment().add(1, 'hour').toDate(),
-        title: {
-            en: 'Two',
-            pl: 'Dwa',
-        },
-        category: 2,
-        id: 2,
-    },
-    {
-        start: moment().subtract(5, 'hours').toDate(),
-        end: moment().add(-4, 'hour').toDate(),
-        title: {
-            en: 'Three',
-            pl: 'Trzy',
-        },
-        category: 3,
-        id: 3,
-    },
-    {
-        start: moment().subtract(3, 'hours').toDate(),
-        end: moment().add(5, 'hour').toDate(),
-        title: {
-            en: 'Four',
-            pl: 'Cztery',
-        },
-        category: 4,
-        id: 4,
-    },
-];
 
 export default React.memo(function DayScreen() {
     const theme = useThemeStyles();
     const navigation = useNavigation();
     const translate = useTranslator();
     const width = useWindowDimensions().width;
-    const user = useSelector(state => state.user);
     const [show, setShow] = React.useState(false);
     const [day, setDay] = React.useState(new Date());
     const [now, setNow] = React.useState(new Date());
     const [events, setEvents] = React.useState(null);
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
-    const startOfDay = '';
-    const endOfDay = '';
 
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
@@ -115,78 +69,81 @@ export default React.memo(function DayScreen() {
         return () => clearTimeout(timeout);
     }, []);
 
-    const countDay = React.useMemo(() => {
-        if (!!day) {
-            return {
-                startOfDay: moment(day).startOf('day').toISOString(),
-                endOfDay: moment(day).endOf('day').toISOString()
-            }
-        }
-    },[day]);
-
-    console.log(countDay)
-
-
     // load new events on day change
     React.useEffect(() => {
+        if (!!day) {
+            let startOfDay = moment(day).startOf('day').toISOString(),
+                endOfDay = moment(day).endOf('day').toISOString();
 
+            API.events.byRange(startOfDay, endOfDay)
+                .then(res => setEvents(res?.data))
+        }
     }, [day]);
-
-    const loadDay = () => {
-        API.events.byRange(countDay.startOfDay, countDay.endOfDay).then(console.log)
-    }
 
     // memoize events JSX asynchronously
     React.useEffect(() => {
-        setEventsJSX(populateEvents(events || [], width - timeContainerWidth - leftMargin, 0).map((event, index) => (
-            <TouchableOpacity
-                key={index}
-                style={[
-                    styles.eventContainer,
-                    {
-                        backgroundColor: categories?.find(category => category.id === event.category).color,
-                        height: getCardHeight(event),
-                        width: event.width,
-                        left: event.left + leftMargin,
-                        top: timeHeight(new Date(event.start)),
-                    },
-                ]}
-                // todo update navigation
-                onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
-                onPressIn={() => Vibrator()}
-                onLongPress={() => {
-                    Vibrator();
-                    Alert.alert(
-                        translate(Translations.DeleteConfirmTitle),
-                        translate(Translations.DeleteConfirmDescription) + '?',
-                        [
-                            {
-                                text: translate(Translations.Cancel),
-                                style: "cancel"
-                            },
-                            {
-                                text: "OK",
-                                onPress: () => deleteEvent(event),
-                            },
-                        ]
-                    );
-                }}
-            >
-                <View>
-                    <Text style={styles.eventTitle}>{translate(event.title)}</Text>
-                    <View style={styles.timeBox}>
-                        <Text style={styles.timeRange}>
-                            {moment(event.start).format('HH:mm') + ' - ' + moment(event.end).format('HH:mm')}
+        setEventsJSX(populateEvents(events || [], width - timeContainerWidth - leftMargin, 0).map((event, index) => {
+            let cardHeight = getCardHeight(event);
+
+            return(
+                <TouchableOpacity
+                    key={index}
+                    style={[
+                        styles.eventContainer,
+                        {
+                            backgroundColor: categories?.find(category => category.id === event.category).color,
+                            height: cardHeight,
+                            width: Math.round(event?.width),
+                            left: event.left + leftMargin,
+                            top: timeHeight(moment(event.start_date).toDate()),
+                        },
+                    ]}
+                    // todo update navigation
+                    onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
+                    onPressIn={() => Vibrator()}
+                    onLongPress={() => {
+                        Vibrator();
+                        Alert.alert(
+                            translate(Translations.DeleteConfirmTitle),
+                            translate(Translations.DeleteConfirmDescription) + '?',
+                            [
+                                {
+                                    text: translate(Translations.Cancel),
+                                    style: "cancel"
+                                },
+                                {
+                                    text: "OK",
+                                    onPress: () => deleteEvent(event),
+                                },
+                            ]
+                        );
+                    }}
+                >
+                    <View style={cardHeight < 100 ? {
+                        flexDirection: 'row',
+                    } : null}>
+                        <Text style={[
+                            cardHeight < 100 ? {
+                                flex: 1,
+                            } : null,
+                            styles.eventTitle,
+                        ]}>
+                            {translate(event.title)}
                         </Text>
+                        <View style={styles.timeBox}>
+                            <Text style={styles.timeRange}>
+                                {moment(event.start_date).format('HH:mm') + ' - ' + moment(event.end_date).format('HH:mm')}
+                            </Text>
+                        </View>
+                        {cardHeight > 100 && (
+                            <Text numberOfLines={2} style={styles.eventDescription}>
+                                {event.description}
+                            </Text>
+                        )}
                     </View>
-                    {getCardHeight(event) > 100 && (
-                        <Text numberOfLines={2} style={styles.eventDescription}>
-                            {event.description}
-                        </Text>
-                    )}
-                </View>
-            </TouchableOpacity>
-        )));
+                </TouchableOpacity>
+            )
+        }));
     }, [events, width, translate]);
 
     const showPicker = () => setShow(true);
@@ -194,7 +151,7 @@ export default React.memo(function DayScreen() {
 
     const deleteEvent = event => {
         // todo delete from API
-        setEvents(eventsArray.filter(e => e.id !== event.id));
+        // setEvents(eventsArray.filter(e => e.id !== event.id));
     };
 
     return (
@@ -211,11 +168,6 @@ export default React.memo(function DayScreen() {
                 calendarOnChange={setDay}
                 rangeSelectorStyles={styles.picker}
             />
-            <TouchableOpacity onPress={() => loadDay()}>
-                <Text>
-                    LOL
-                </Text>
-            </TouchableOpacity>
             <View>
                 {/* hours */}
                 {hours.map((hour, index) => (
