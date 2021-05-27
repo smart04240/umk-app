@@ -15,9 +15,6 @@ export const Toast = forwardRef((props, ref) => {
     const toast = useSelector(state => state.toasts);
     const locale = useSelector(state => state.app.locale);
 
-
-    console.log(toast)
-
     useEffect(() => {
         if (!!toast)
             showToast()
