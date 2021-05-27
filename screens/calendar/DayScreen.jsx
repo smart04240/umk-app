@@ -53,7 +53,7 @@ export default React.memo(function DayScreen() {
     const [events, setEvents] = React.useState(null);
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
-    const locale = useSelector(state => state.locale);
+    const locale = useSelector(state => state.app.locale);
 
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
