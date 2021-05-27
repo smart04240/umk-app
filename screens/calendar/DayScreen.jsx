@@ -13,8 +13,10 @@ import Routes from "../../constants/Routes";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import {Vibrator} from "../../helpers/Vibrator";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import API from "../../helpers/API";
+import Actions from "../../redux/Actions";
+import {getTranslated} from "../../helpers/functions";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -43,6 +45,7 @@ export default React.memo(function DayScreen() {
     const theme = useThemeStyles();
     const navigation = useNavigation();
     const translate = useTranslator();
+    const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
     const [day, setDay] = React.useState(new Date());
@@ -50,6 +53,7 @@ export default React.memo(function DayScreen() {
     const [events, setEvents] = React.useState(null);
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
+    const locale = useSelector(state => state.locale);
 
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
@@ -76,7 +80,11 @@ export default React.memo(function DayScreen() {
                 endOfDay = moment(day).endOf('day').toISOString();
 
             API.events.byRange(startOfDay, endOfDay)
-                .then(res => setEvents(res?.data))
+                .then(res => {
+                    setEvents(res?.data);
+                    if (!res?.data?.length)
+                        dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
+                })
         }
     }, [day]);
 
@@ -150,9 +158,11 @@ export default React.memo(function DayScreen() {
     const hidePicker = () => setShow(false);
 
     const deleteEvent = event => {
-        // todo delete from API
-        // setEvents(eventsArray.filter(e => e.id !== event.id));
-    };
+        API.events.delete(event.id).then(res => {
+            if (res?.status === '200')
+                setEvents(events.filter(e => e.id !== event.id));
+        });
+    }
 
     return (
         <ScrollView
@@ -165,7 +175,12 @@ export default React.memo(function DayScreen() {
                 show={show}
                 onPress={showPicker}
                 setClose={hidePicker}
-                calendarOnChange={setDay}
+                calendarOnChange={day => {
+                    if (!!day) {
+                        setDay(day)
+                        hidePicker()
+                    }
+                }}
                 rangeSelectorStyles={styles.picker}
             />
             <View>

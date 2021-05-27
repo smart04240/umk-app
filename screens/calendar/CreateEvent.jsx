@@ -7,9 +7,9 @@ import {useNavigation} from "@react-navigation/core";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
-import {schedulePushNotification} from "../../helpers/Notification";
 import {Alert} from "react-native";
-import {cancelScheduledNotificationAsync, getAllScheduledNotificationsAsync} from "expo-notifications";
+import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import API from "../../helpers/API";
 
 export const CreateEvent = props => {
     const id = props?.route?.params?.id;
@@ -19,7 +19,7 @@ export const CreateEvent = props => {
         title: '',
         description: '',
         place: '',
-        category: '',
+        category: 1,
         files: [],
         completed: false,
         is_event: true,
@@ -92,20 +92,33 @@ export const CreateEvent = props => {
             return;
         }
 
-        // ToDo send data to API and get response with id for notification
-        //await API.events[!!id ? 'edit' : 'create']().then(res => res);
+        let eventData = {
+            title: data?.title,
+            description: data?.description,
+            start_date: data?.start,
+            end_date: data?.end,
+            category: data?.category,
+            attachments: data?.files
+        };
 
-        const getReminderId = notifications.find(notification => notification?.content?.data?.eventID === data?.id)?.identifier;
 
-        if (!data?.reminder && !!getReminderId) {
-            await cancelScheduledNotificationAsync(getReminderId);
-        }
+        API.events[!!id ? 'edit' : 'create'](eventData).then(res => {
+            console.log(res)
+            if (res?.status === '200') {
 
-        // ToDo checking all reminders from the server and replace old local reminders with new
+            }
+        });
+        // const getReminderId = notifications.find(notification => notification?.content?.data?.eventID === data?.id)?.identifier;
+        //
+        // if (!data?.reminder && !!getReminderId) {
+        //     await cancelScheduledNotificationAsync(getReminderId);
+        // }
+        //
+        // // ToDo checking all reminders from the server and replace old local reminders with new
+        //
+        // await schedulePushNotification(data?.title, data?.description, data?.reminder_date, data?.id);
 
-        await schedulePushNotification(data?.title, data?.description, data?.reminder_date, data?.id);
-
-        navigation.goBack();
+        //navigation.goBack();
     };
 
     return (

@@ -365,6 +365,11 @@ export default {
 		pl: "Lista zdarzeń zaimportowanych z USOS"
 	},
 
+	EventMessage: {
+		en: "You don't have any events for this day.",
+		pl: 'Nie masz żadnych wydarzeń na ten dzień'
+	},
+
 	ReturnToProfileEdit: {
 		en: "Return to profile editing",
 		pl: "Powrót do edycji profilu"

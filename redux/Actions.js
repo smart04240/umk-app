@@ -35,7 +35,7 @@ export default {
     Toasts: {
         Danger: createAction('toasts/danger', message => ({payload: {color: Colors.Red, message}})),
         Warning: createAction('toasts/warning', message => ({payload: {color: Colors.Yellow, message}})),
-        Message: createAction('toasts/message', message => ({payload: {message}})),
+        Message: createAction('toasts/message', message => ({payload: {color: Colors.Blue, message}})),
     },
     Notifications: {
         upsertOne: createAction('notification/upsertOne'),

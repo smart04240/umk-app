@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://6ad32cbf3e17.ngrok.io/mobile`,
+    baseURL: `https://f4f713ea0b70.ngrok.io/mobile`,
 });
 
 const Types = {
@@ -43,7 +43,7 @@ API.events = {
     byRange: (startDate, endDate) => API.get(`/events?from=${startDate}&till=${endDate}`),
     create: data => API.post(`/events/create`, data),
     edit: data => API.put(`/events/update`, data),
-    delete: id => API.delete(`/events/?id=${id}`),
+    delete: id => API.delete(`/events/delete?id=${id}`),
     categories: () => API.get(`/events/categories`),
 };
 
