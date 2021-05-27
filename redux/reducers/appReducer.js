@@ -29,6 +29,12 @@ export default createReducer(InitialState, builder => {
         .addCase(Actions.API.DataLoaded, state => {
             state.cached = true;
         })
+        .addCase(Actions.Tutorial.Passed, state => {
+            state.tutorialViewed = true;
+        })
+        .addCase(Actions.Tutorial.Reset, state => {
+            state.tutorialViewed = false;
+        })
         .addCase(Actions.InternetChange, (state, action) => {
             state.online = !!action.payload;
         })

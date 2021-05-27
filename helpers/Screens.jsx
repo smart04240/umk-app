@@ -189,12 +189,13 @@ const RegisteredScreens = {
 
 const StackScreens = () => {
     const user = useSelector(state => state.user);
+    const tutorialViewed = useSelector(state => state.app.tutorialViewed);
     const loggedIn = !!user?.token;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
     const screens = React.useMemo(() => (
-        loggedIn && !user.isFirstLogin
+        loggedIn && tutorialViewed
             ? RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial)
             : RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut']
     ).map(screen => (
@@ -217,9 +218,7 @@ const StackScreens = () => {
         >
             {props => <screen.component {...props} />}
         </Stack.Screen>
-    )), [user, loggedIn, ThemeStyles, translate]);
-
-    // todo add seamless removal of tutorial screen
+    )), [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
 
     if (loggedIn) {
         return (

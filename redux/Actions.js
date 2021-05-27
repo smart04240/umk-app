@@ -6,6 +6,10 @@ export default {
         DataLoaded: createAction('API/fetch'),
     },
     InternetChange: createAction('internetChange'),
+    Tutorial: {
+        Passed: createAction('tutorial/passed'),
+        Reset: createAction('tutorial/reset'),
+    },
     Theme: {
         Toggle: createAction('theme/toggle'),
     },
