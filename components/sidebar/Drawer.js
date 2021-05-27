@@ -18,17 +18,20 @@ export default function Drawer({state, navigation, defaultActiveRouteName}) {
     const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
 
-    if (!user)
-        return null;
-
+    // must provide default for first screen, route state only appears after navigation (!)
     let currentRouteName = defaultActiveRouteName;
     const route = state.routes[0].state;
     if (route)
         currentRouteName = route.routes[route.index].name;
 
+    const logout = () => {
+        navigation.closeDrawer();
+        dispatch(Actions.User.Logout());
+    };
+
     return (
         <View style={styles.sidebar_content}>
-            <CloseButton style={styles.close_button} onPress={() => navigation.closeDrawer()}/>
+            <CloseButton style={styles.close_button} onPress={navigation.closeDrawer}/>
             <ScrollView style={{flex: 1}}>
                 <View style={{flexDirection: "row", marginBottom: 35}}>
                     <SidebarUserInfo navigation={navigation}/>
@@ -39,7 +42,7 @@ export default function Drawer({state, navigation, defaultActiveRouteName}) {
                     <LocaleSwitcher/>
                     <ThemeSwitcher style={{marginVertical: 15}}/>
 
-                    <TouchableOpacity style={{marginTop: 40}} onPress={() => dispatch(Actions.User.Logout())}>
+                    <TouchableOpacity style={{marginTop: 40}} onPress={logout}>
                         <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text}]}>
                             {translate(Translations.LogOut)}
                         </Text>

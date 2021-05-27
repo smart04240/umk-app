@@ -316,7 +316,7 @@ export default React.memo(function MonthScreen({calendar}) {
     const navigation = useNavigation();
     const width = useWindowDimensions().width;
     const height = useWindowDimensions().height;
-    const locale = useSelector(state => state.locale);
+    const locale = useSelector(state => state.app.locale);
     const [selectedDate, setSelectedDate] = React.useState(moment());
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
     const [events, setEvents] = React.useState(null);

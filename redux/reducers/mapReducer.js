@@ -43,7 +43,7 @@ const filterMarkers = (locale, markers, categories, searchText) => markers.filte
 
 export const selectFilteredMarkers = createSelector(
     [
-        state => state.locale,
+        state => state.app.locale,
         state => state.mapData.markers,
         state => state.mapData.selectedCategories,
         state => state.mapData.searchText,

@@ -33,6 +33,8 @@ import CalendarScreen from "../screens/calendar/CalendarScreen";
 import {CreateEvent} from "../screens/calendar/CreateEvent";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
+import FirstLoadingGate from "./FirstLoadingGate";
+import DataManager from "./DataManager";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -187,37 +189,50 @@ const RegisteredScreens = {
 
 const StackScreens = () => {
     const user = useSelector(state => state.user);
+    const loggedIn = !!user?.token;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => {
-        let calculatedScreens = RegisteredScreens[user?.token ? 'LoggedIn' : 'LoggedOut'];
+    const screens = React.useMemo(() => (
+        loggedIn && !user.isFirstLogin
+            ? RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial)
+            : RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut']
+    ).map(screen => (
+        <Stack.Screen
+            key={screen.name}
+            name={screen.name}
+            options={{
+                title: translate(screen.title),
+                headerStyle: {
+                    backgroundColor: ThemeStyles.box_bg,
+                },
+                headerTintColor: ThemeStyles.blue_text,
+                headerTitleStyle: {
+                    ...GeneralStyles.header_title,
+                    textAlign: 'center',
+                    color: ThemeStyles.blue_text
+                },
+                headerRight: () => <HeaderRight/>
+            }}
+        >
+            {props => <screen.component {...props} />}
+        </Stack.Screen>
+    )), [user, loggedIn, ThemeStyles, translate]);
 
-        if (!!user?.token && !user.isFirstLogin)
-            calculatedScreens = RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial);
+    // todo add seamless removal of tutorial screen
 
-        return calculatedScreens.map(screen => (
-            <Stack.Screen
-                key={screen.name}
-                name={screen.name}
-                options={{
-                    title: translate(screen.title),
-                    headerStyle: {
-                        backgroundColor: ThemeStyles.box_bg,
-                    },
-                    headerTintColor: ThemeStyles.blue_text,
-                    headerTitleStyle: {
-                        ...GeneralStyles.header_title,
-                        textAlign: 'center',
-                        color: ThemeStyles.blue_text
-                    },
-                    headerRight: () => <HeaderRight/>
-                }}
-            >
-                {props => <screen.component {...props} />}
-            </Stack.Screen>
-        ));
-    }, [user, ThemeStyles, translate]);
+    if (loggedIn) {
+        return (
+            <>
+                <DataManager/>
+                <FirstLoadingGate>
+                    <Stack.Navigator screenOptions={ScreenOptions}>
+                        {screens}
+                    </Stack.Navigator>
+                </FirstLoadingGate>
+            </>
+        );
+    }
 
     return (
         <Stack.Navigator screenOptions={ScreenOptions}>

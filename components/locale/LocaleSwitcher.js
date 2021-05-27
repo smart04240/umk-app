@@ -9,7 +9,7 @@ import useTranslator from "../../hooks/useTranslator";
 const LocaleSwitcher = () => {
 	const translate = useTranslator();
 	const dispatch = useDispatch();
-	const locale = useSelector( state => state.locale );
+	const locale = useSelector( state => state.app.locale );
 
 	return (
 		<Switch 

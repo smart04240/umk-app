@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {useSelector} from "react-redux";
 
 export const useCategoryPreparer = () => {
-    const lang = useSelector(state => state.locale);
+    const lang = useSelector(state => state.app.locale);
     const categories = useSelector(state => state.eventCategories);
 
     return useMemo(() => {

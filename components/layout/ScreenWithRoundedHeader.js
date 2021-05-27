@@ -8,7 +8,7 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import shadowGenerator from "../../helpers/shadowGenerator";
 
 const ScreenWithRoundedHeader = props => {
-	const theme = useSelector( state => state.theme );
+	const theme = useSelector( state => state.app.theme );
 	const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
 
