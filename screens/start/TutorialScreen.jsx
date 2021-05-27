@@ -1,10 +1,11 @@
 import React from "react";
 import Routes from "../../constants/Routes";
-
 import Container from "../../components/general/Container";
 import Main from "../../components/general/Main";
 import InfoCardsStack from "../../components/info-card/InfoCardsStack";
 import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
+import {useDispatch} from "react-redux";
+import Actions from "../../redux/Actions";
 
 const cards = [
 	{
@@ -35,7 +36,13 @@ const cards = [
 ];
 
 export default function TutorialScreen(props) {
-	const toStartScreen = () => props.navigation.navigate(Routes.Start);
+	const dispatch = useDispatch();
+
+	const toStartScreen = () => {
+		// remove Tutorial screen from history so that user could not go back to it
+		props.navigation.reset({index: 0, routes: [{name: Routes.Start}]});
+		dispatch(Actions.Tutorial.Passed());
+	};
 
 	return (
 		<ScreenWithHeaderTitleOnly>

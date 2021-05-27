@@ -1,31 +1,18 @@
 import React from "react";
 import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
 import Menu from "../../constants/Menu";
-
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import ScreenWithHeaderTitleOnly from "../../components/layout/ScreenWithHeaderTitleOnly";
 import useTranslator from "../../hooks/useTranslator";
-import Actions from "../../redux/Actions";
-import {useDispatch, useSelector} from "react-redux";
 
 export default function StartScreen(props) {
-	const dispatch = useDispatch();
 	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
-	const user = useSelector(state => state.user);
-
-	React.useEffect(() => {
-		dispatch(Actions.User.Update({
-			...user,
-			isFirstLogin: false,
-		}));
-	}, []);
 
 	return (
 		<ScreenWithHeaderTitleOnly>
