@@ -4,6 +4,7 @@ import shadowGenerator from "../../helpers/shadowGenerator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Constants from "expo-constants";
 import {useSelector} from "react-redux";
+import {getTranslated} from "../../helpers/functions";
 
 export const Toast = forwardRef((props, ref) => {
     const statusBarHeight = Constants.statusBarHeight;
@@ -12,6 +13,10 @@ export const Toast = forwardRef((props, ref) => {
     const animationValue = toastContainerHeight + statusBarHeight;
     const animatedValue = useRef(new Animated.Value(-animationValue)).current;
     const toast = useSelector(state => state.toasts);
+    const locale = useSelector(state => state.app.locale);
+
+
+    console.log(toast)
 
     useEffect(() => {
         if (!!toast)
@@ -63,7 +68,7 @@ export const Toast = forwardRef((props, ref) => {
                         textAlign: 'center',
                         color: theme.dark_text
                     }}>
-                        {toast?.message || props.message}
+                        {getTranslated(toast?.message || props.message, locale)}
                     </Text>
                 </View>
             </TouchableOpacity>

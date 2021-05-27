@@ -19,6 +19,16 @@ export default {
 		pl: "Edytuj profil"
 	},
 
+	InternetConnectionLost: {
+		en: "No internet connection :(\n The app going to offline mode.",
+		pl: "Brak połączenia z internetem :(\n Aplikacja przechodzi w tryb offline."
+	},
+
+	InternetConnectionConnect: {
+		en: "Internet connection restored :)\n Loading data.",
+		pl: "Przywrócono połączenie internetowe :(\n Ładowanie danych."
+	},
+
 	DeleteConfirmTitle: {
 		en: "Delete",
 		pl: "Usuń"
