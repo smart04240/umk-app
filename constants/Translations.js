@@ -26,7 +26,7 @@ export default {
 
 	InternetConnectionConnect: {
 		en: "Internet connection restored :)\n Loading data.",
-		pl: "Przywrócono połączenie internetowe :(\n Ładowanie danych."
+		pl: "Przywrócono połączenie internetowe :)\n Ładowanie danych."
 	},
 
 	DeleteConfirmTitle: {

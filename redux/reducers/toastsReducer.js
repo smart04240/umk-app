@@ -22,5 +22,8 @@ export default createReducer(null, builder => {
               color: isOnline ? Colors.Green : Colors.Red,
               message: Translations[isOnline ? 'InternetConnectionConnect' : 'InternetConnectionLost']
             };
-        });
+        })
+        .addCase(Actions.Toasts.Cleanup, (state, action) => {
+            return state = null
+        })
 });
