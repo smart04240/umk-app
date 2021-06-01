@@ -73,8 +73,7 @@ export const TopBoxWithContent = ({id, isTask, event}) => {
             if (res?.status === 200) {
                 dispatch(Actions.Calendar.removeOne(data.id))
 
-                if (!data?.reminder && !!data.id)
-                    await cancelPushNotification(data.id, notifications);
+                await cancelPushNotification(data.id, notifications);
 
                 navigation.goBack();
             }
