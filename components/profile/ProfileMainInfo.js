@@ -15,7 +15,7 @@ const ProfileMainInfo = props => {
 	const ThemeStyles = useThemeStyles();
 	const user = useSelector( state => state.user );
 
-	const nick_name = "nick_studenta123";
+	const nick_name = user?.nick_name || "nick_studenta123";
 	const ECTS = "59%";
 	const to_end = "13 miesięcy";
 
