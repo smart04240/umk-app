@@ -19,6 +19,16 @@ export default {
 		pl: "Edytuj profil"
 	},
 
+	InternetConnectionLost: {
+		en: "No internet connection :(\n The app going to offline mode.",
+		pl: "Brak połączenia z internetem :(\n Aplikacja przechodzi w tryb offline."
+	},
+
+	InternetConnectionConnect: {
+		en: "Internet connection restored :)\n Loading data.",
+		pl: "Przywrócono połączenie internetowe :)\n Ładowanie danych."
+	},
+
 	DeleteConfirmTitle: {
 		en: "Delete",
 		pl: "Usuń"
@@ -363,6 +373,11 @@ export default {
 	EventsImportedFromUsos: {
 		en: "List of events imported from USOS",
 		pl: "Lista zdarzeń zaimportowanych z USOS"
+	},
+
+	EventMessage: {
+		en: "You don't have any events for this day.",
+		pl: 'Nie masz żadnych wydarzeń na ten dzień'
 	},
 
 	ReturnToProfileEdit: {

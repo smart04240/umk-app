@@ -1,17 +1,30 @@
-import React, {forwardRef, useEffect, useRef} from "react";
-import {Animated, Text, TouchableOpacity, View} from "react-native";
+import React, {forwardRef, useEffect} from "react";
+import {Text, TouchableOpacity, View} from "react-native";
 import shadowGenerator from "../../helpers/shadowGenerator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Constants from "expo-constants";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getTranslated} from "../../helpers/functions";
+import Animated, {
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withSequence,
+    withSpring,
+} from 'react-native-reanimated';
+import Actions from "../../redux/Actions";
+
+const toastContainerHeight = 150;
 
 export const Toast = forwardRef((props, ref) => {
     const statusBarHeight = Constants.statusBarHeight;
-    const theme = useThemeStyles();
-    const toastContainerHeight = 150;
     const animationValue = toastContainerHeight + statusBarHeight;
-    const animatedValue = useRef(new Animated.Value(-animationValue)).current;
+    const offset = useSharedValue(0);
+    const dispatch = useDispatch();
+    const theme = useThemeStyles();
     const toast = useSelector(state => state.toasts);
+    const locale = useSelector(state => state.app.locale);
 
     useEffect(() => {
         if (!!toast)
@@ -19,33 +32,32 @@ export const Toast = forwardRef((props, ref) => {
     },[toast]);
 
     const showToast = () => {
-        Animated.timing(animatedValue, {
-            toValue: 1,
-            duration: 550,
-            useNativeDriver: true
-        }).start(() => hideToast());
-    }
+        offset.value = withSequence(
+            withSpring(animationValue),
+            withDelay(6000, withSpring(-animationValue, {}, (finished) => {
+                if (finished)
+                    runOnJS(cleanup)();
+            })));
+    };
 
-    const hideToast = () => {
-        setTimeout(() => {
-            Animated.timing(animatedValue, {
-                toValue: -animationValue,
-                duration: 550,
-                useNativeDriver: true
-            }).start();
-        }, 8000);
-    }
+    const cleanup = () => dispatch(Actions.Toasts.Cleanup());
+
+    const defaultStyles = useAnimatedStyle(() => ({
+        transform: [{translateY: withSpring(offset.value - animationValue, {
+            damping: 20,
+            stiffness: 120,
+            mass: 1
+        })}],
+    }));
 
     return(
         <Animated.View
             style={[
                 styles.toastContainer,
+                defaultStyles,
                 {
-                    height: animationValue,
-                    transform: [{
-                        translateY: animatedValue
-                    }],
-                }
+                    height: animationValue
+                },
             ]}
         >
             <TouchableOpacity
@@ -57,13 +69,17 @@ export const Toast = forwardRef((props, ref) => {
                         borderColor: !!toast ? toast?.color : props?.toastColor || theme.main_bg
                     }
                 ]}
+                onPress={() => {
+                    (offset.value = -animationValue)
+                    cleanup()
+                }}
             >
                 <View style={{flex:1}}>
                     <Text style={{
                         textAlign: 'center',
                         color: theme.dark_text
                     }}>
-                        {toast?.message || props.message}
+                        {getTranslated(toast?.message || props.message, locale)}
                     </Text>
                 </View>
             </TouchableOpacity>

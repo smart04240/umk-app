@@ -4,7 +4,6 @@ import Actions from "../Actions";
 const user_init = {
 	nick_name: '',
 	avatar: '',
-	isFirstLogin: true,
 	token: null,
 	role: ''
 }

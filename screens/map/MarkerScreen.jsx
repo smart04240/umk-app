@@ -14,6 +14,7 @@ import useTranslator from "../../hooks/useTranslator";
 import RoundedPhoneButton from "../../components/buttons/RoundedPhoneButton";
 import RoundedMailButton from "../../components/buttons/RoundedMailButton";
 import RoundedLocationButton from "../../components/buttons/RoundedLocationButton";
+import Links from "../../helpers/Links";
 
 const image = require('../../assets/stockimage.png');
 
@@ -27,25 +28,24 @@ export default function MarkerScreen({route}) {
 
     const marker = route.params;
 
+    const openMarker = () => Links.openMap(translate(marker.title), marker.latitude, marker.longitude);
+
     return (
         <WithHeaderConfig semitransparent={true}>
             <Main>
-                <ScrollView
-                    style={{marginTop: headerHeight - GeneralStyles.bottom_border_radius.borderBottomLeftRadius}}>
-                    <Image style={styles.image} source={image}/>
+                <ScrollView style={{marginTop: headerHeight - GeneralStyles.bottom_border_radius.borderBottomLeftRadius}}>
+                    <Image style={styles.image} source={marker.image ? {uri: marker.image} : image}/>
                     <View style={styles.container}>
                         <View style={{paddingBottom: ButtonHeight}}>
                             <View style={[styles.card.body, {backgroundColor: theme.box_bg}]}>
                                 <Text style={[styles.card.title, {color: theme.blue_text}]}>
-                                    Wydział Filozofii i Nauk Społecznych
+                                    {translate(marker.title)}
                                 </Text>
                                 <Text style={[styles.card.text, {color: theme.blue_text}]}>
-                                    Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                    nisi ut aliquip ex ea commodo consequat.
+                                    {translate(marker.description)}
                                 </Text>
                             </View>
-                            <TouchableOpacity style={styles.card.button} onPress={() => console.log('hsjbhjsc')}>
+                            <TouchableOpacity style={styles.card.button} onPress={openMarker}>
                                 <LinearGradient style={styles.card.buttonGradient} colors={['#1E69BF', '#034EA2']}>
                                     <MaterialCommunityIcons name="google-maps" size={24} color={'white'}/>
                                     <Text style={styles.card.buttonText}>
@@ -56,33 +56,13 @@ export default function MarkerScreen({route}) {
                         </View>
 
                         <Text style={[styles.text, {color: theme.dark_text}]}>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo.
+                            {translate(marker.content)}
                         </Text>
 
-                        <Text style={[styles.section, {color: theme.dark_text}]}>
-                            Dziekanat
-                        </Text>
-                        <Text style={[styles.text, {color: theme.dark_text}]}>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo.
-                        </Text>
-
-                        <Text style={[styles.section, {color: theme.dark_text}]}>
-                            Kontakt
-                        </Text>
-                        <Text style={[styles.text, {color: theme.dark_text}]}>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo.
-                        </Text>
-
-                        <RoundedPhoneButton phone={'+48 777 888 999'}/>
-                        <RoundedMailButton email={'mail@mail.pl'}/>
+                        {!!marker.phone && <RoundedPhoneButton phone={marker.phone}/>}
+                        {!!marker.email && <RoundedMailButton email={marker.email}/>}
                         <RoundedLocationButton
-                            address={marker.address}
+                            address={marker.address_string}
                             latitude={marker.latitude}
                             longitude={marker.longitude}
                         />

@@ -25,7 +25,6 @@ export default function LoginScreen(props) {
 	const login = () => API.user.login().then(result => dispatch(Actions.User.Login({
 		nick_name: 'Petro Vedro',
 		avatar: '',
-		isFirstLogin: true,
 		token: result?.data?.data?.token,
 		role: result?.data?.data?.role
 	})));

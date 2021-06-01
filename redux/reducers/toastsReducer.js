@@ -1,5 +1,7 @@
 import {createReducer} from "@reduxjs/toolkit";
 import Actions from '../Actions';
+import Colors from "../../constants/Colors";
+import Translations from "../../constants/Translations";
 
 
 export default createReducer(null, builder => {
@@ -12,5 +14,16 @@ export default createReducer(null, builder => {
         })
         .addCase(Actions.Toasts.Message, (state, action) => {
             return action.payload;
+        })
+        .addCase(Actions.InternetChange, (state, action) => {
+            let isOnline = action.payload;
+
+            return state = {
+              color: isOnline ? Colors.Green : Colors.Red,
+              message: Translations[isOnline ? 'InternetConnectionConnect' : 'InternetConnectionLost']
+            };
+        })
+        .addCase(Actions.Toasts.Cleanup, (state, action) => {
+            return state = null
         })
 });
