@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import {EventTaskEditForm} from "../../components/general/EventTaskEditForm";
@@ -10,42 +10,61 @@ import moment from "moment";
 import {Alert} from "react-native";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import API from "../../helpers/API";
+import {cancelPushNotification, schedulePushNotification} from "../../helpers/Notification";
+import Actions from "../../redux/Actions";
+import {useDispatch} from "react-redux";
 
 export const CreateEvent = props => {
-    const id = props?.route?.params?.id;
+    const event = props?.route?.params;
+    const id = event.id;
+
     const navigation = useNavigation();
     const translate = useTranslator();
+    const dispatch = useDispatch();
     const [data, setData] = React.useState({
-        title: '',
-        description: '',
-        place: '',
-        category: 1,
-        files: [],
-        completed: false,
-        is_event: true,
-        start: '',
-        end: '',
-        date: '',
-        reminder: true,
-        reminder_date: '',
+        title: !!id ? event.title : '',
+        description: !!id ? event.description : '',
+        place: !!id ? event.description : '',
+        category: !!id ? event.category : '',
+        files: !!id ? event.files : [],
+        start: !!id ? event.start_date : '',
+        end: !!id ? event.end_date : '',
+        date: !!id ? moment(event.start_date).toISOString() : moment().toISOString(),
+        one_day_event: !!id ? event?.is_full_day : false,
+        reminder: !!id ? event.reminder : true,
+        reminder_date: !!id ? event.reminder_date : null,
     });
+
     const [notifications, setNotifications] = React.useState([]);
 
-    useEffect(() => {
-        const getNotifications = async () => {await getAllScheduledNotificationsAsync().then(res => setNotifications(res))}
-        getNotifications();
-    }, []);
+    React.useEffect(() => {
+        getAllScheduledNotificationsAsync().then(setNotifications)
+    },[]);
 
     const canSave = useMemo(() => {
-        return !!data?.description?.length && !!data?.title?.length && !!data?.category && !!data?.place
+        return (!!data?.description?.length && !!data?.title?.length && !!data?.category && !!data?.place && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
     },[data]);
 
     const title = useMemo(() => {
         return !!id ? translate(Translations.EditEvent) : translate(Translations.CreateEvent)
     }, [id]);
 
+    const datePreparer = useMemo(() => {
+        if (!!data?.date && !!data?.start && !!data?.end && !data?.one_day_event)
+            return {
+                start: moment(moment(data?.date).format('YYYY-MM-DD') + ' ' + moment(data?.start).format('HH:mm:00')).toISOString(),
+                end: moment(moment(data?.date).format('YYYY-MM-DD') + ' ' + moment(data?.end).format('HH:mm:00')).toISOString()
+            };
+
+        if (data?.one_day_event)
+            return {
+                start: moment(data?.date).startOf('day').toISOString(),
+                end: moment(data?.date).endOf('day').toISOString()
+            }
+    },[data.date, data.start, data.end, data.one_day_event]);
+
     const onChange = (name, value) => {
-        const checkIfDate = (name === 'start' || name === 'end' || name === 'reminder_date' || name === 'date') ? moment(value).toISOString() : value;
+        const checkValue = (name === 'start' || name === 'end' || name === 'reminder_date' || name === 'date') ? moment(value).toISOString() : value;
 
         if (name === 'reminder' && !value && !!data?.reminder_date) {
             Alert.alert(
@@ -73,7 +92,7 @@ export const CreateEvent = props => {
 
         setData({
             ...data,
-            [name] : checkIfDate
+            [name] : checkValue
         });
     };
 
@@ -95,30 +114,33 @@ export const CreateEvent = props => {
         let eventData = {
             title: data?.title,
             description: data?.description,
-            start_date: data?.start,
-            end_date: data?.end,
+            start_date: datePreparer.start,
+            end_date: datePreparer.end,
             category: data?.category,
-            attachments: data?.files
+            attachments: data?.files,
+            reminder: data?.reminder,
+            reminder_date: data?.reminder_date,
+            is_full_day: data?.one_day_event
         };
 
+        !!id ? eventData['id'] = id : '';
 
-        API.events[!!id ? 'edit' : 'create'](eventData).then(res => {
-            console.log(res)
-            if (res?.status === '200') {
+        API.events[!!id ? 'edit' : 'create'](eventData).then(async res => {
+            if (res?.status === 200) {
+                const eventID = res?.data?.eventID;
 
+                !!id ? eventData['id'] = eventID : '';
+                dispatch(Actions.Calendar.upsertOne(eventData.id));
+
+                if (data?.reminder)
+                    await schedulePushNotification(data?.title, data?.description, data?.reminder_date, eventID);
+
+                if (!data?.reminder && !!eventID)
+                    await cancelPushNotification(eventID, notifications);
+
+                navigation.goBack();
             }
         });
-        // const getReminderId = notifications.find(notification => notification?.content?.data?.eventID === data?.id)?.identifier;
-        //
-        // if (!data?.reminder && !!getReminderId) {
-        //     await cancelScheduledNotificationAsync(getReminderId);
-        // }
-        //
-        // // ToDo checking all reminders from the server and replace old local reminders with new
-        //
-        // await schedulePushNotification(data?.title, data?.description, data?.reminder_date, data?.id);
-
-        //navigation.goBack();
     };
 
     return (

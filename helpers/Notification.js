@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Notifications from 'expo-notifications';
+import {cancelScheduledNotificationAsync} from 'expo-notifications';
 import moment from "moment";
 
 Notifications.setNotificationHandler({
@@ -28,5 +29,14 @@ export const schedulePushNotification = async (title, description, date, eventID
             seconds: countedDate
         },
     });
+}
+
+export const cancelPushNotification = async (eventID, notifications) => {
+    if (notifications?.length) {
+        const getReminderId = !!eventID && notifications?.find(notification => notification?.content?.data?.eventID === eventID)?.identifier;
+
+        if (!!getReminderId)
+            await cancelScheduledNotificationAsync(getReminderId);
+    }
 }
 

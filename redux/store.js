@@ -9,6 +9,7 @@ import todosReducer from "./reducers/todosReducer";
 import notificationsReducer from "./reducers/notificationsReducer";
 import toastsReducer from "./reducers/toastsReducer";
 import eventCategoriesReducer from "./reducers/eventCategoriesReducer";
+import calendarReducer from "./reducers/calendarReducer";
 
 // todo - data carries user-specific information (e.g. profile) along with regular data (e.g. markers), should reset application data on logout?
 const reducer = combineReducers({
@@ -20,6 +21,7 @@ const reducer = combineReducers({
     notifications: notificationsReducer,
     toasts: toastsReducer,
     eventCategories: eventCategoriesReducer,
+    events: calendarReducer
 });
 
 const persistConfig = {

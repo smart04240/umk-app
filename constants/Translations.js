@@ -129,6 +129,11 @@ export default {
 		pl: 'Aby moduł działał, wymagane są uprawnienia do kalendarza i powiadomień. Udziel tej aplikacji tych uprawnień.',
 	},
 
+	CalendarOffline: {
+		en: 'Calendar module does not work offline.',
+		pl: '', // todo
+	},
+
 	CalendarRetrievalError: {
 		en: 'There was an error while trying to retrieve calendar from your phone.',
 		pl: 'Wystąpił błąd podczas próby pobrania kalendarza z telefonu.',
@@ -567,7 +572,7 @@ export default {
 
 	EditEvent: {
 		en: "Edit event",
-		pl: "Dodaj wydarzenie"
+		pl: "Edytuj wydarzenie"
 	},
 
 	LoadingEvents: {

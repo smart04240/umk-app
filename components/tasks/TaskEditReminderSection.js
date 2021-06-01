@@ -33,7 +33,7 @@ const TaskEditReminderSection = props => {
 				row_style={{alignItems: "center"}}
 				onChange={o => onChange(o)}
 			/>
-			{reminder && (
+			{!!reminder && (
 				<View style={[GeneralStyles.row_ac, {marginVertical: 10, justifyContent: 'space-between', flex: 1}]}>
 					{/*<Dropdown*/}
 					{/*	name="reminder_option"*/}
