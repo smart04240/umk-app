@@ -194,7 +194,7 @@ const RegisteredScreens = {
 const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
-    const loggedIn = !!user?.token;
+    const loggedIn = !!user?.access_token && !!user?.access_secret;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
@@ -269,32 +269,6 @@ export default function Screens() {
         subscribe: listener => {
             const onReceiveURL = (e) => {
                 const params = parse(e.url);
-
-                // console.log(2);
-                // const payload = dispatch(Actions.User.USOSOAuth({
-                //     oauth_token:    params.oauth_token,
-                //     oauth_verifier: params.oauth_verifier,
-                //     access_token:   null,
-                //     access_secret:  null,
-                // })).payload;
-
-                // const state = {...state, ...payload}
-                // console.log(state);
-
-				// API.post('/usos/get_access_token', {
-				// 	oauth_token:    state.oauth_token,
-				// 	oauth_verifier: state.oauth_verifier,
-				// 	secret:         state.secret
-				// }).then(result => {
-                //     console.log(3);
-				// 	dispatch(Actions.User.USOSOAuth({
-				// 		oauth_token:    null,
-				// 		oauth_verifier: null,
-				// 		secret:         null,
-				// 		access_token:   result?.data?.access_token,
-				// 		access_secret:  result?.data?.access_secret,
-				// 	}));
-				// });
 
                 // console.log(2);
                 dispatch(Actions.User.USOSAccessToken({
