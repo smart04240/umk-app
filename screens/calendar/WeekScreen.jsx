@@ -11,8 +11,12 @@ import {RangeSelector} from "../../components/calendar/RangeSelector";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import {Vibrator} from "../../helpers/Vibrator";
-import {eventsByWeek, selectDate} from "../../redux/selectors/eventsSelector";
+import {eventsByWeek, eventsSelectors, selectDate} from "../../redux/selectors/eventsSelector";
 import Actions from "../../redux/Actions";
+import {getTranslated} from "../../helpers/functions";
+import API from "../../helpers/API";
+import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import {cancelPushNotification} from "../../helpers/Notification";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -22,9 +26,19 @@ export default React.memo(function WeekScreen() {
     const dispatch = useDispatch();
     const locale = useSelector(state => state.app.locale);
     const [show, setShow] = React.useState(false);
+    const [notifications, setNotifications] = React.useState([]);
+    const allEvents = useSelector(state => eventsSelectors.All(state));
     const events = useSelector(state => eventsByWeek(state));
     const categories = useSelector(state => state.eventCategories);
 
+    React.useEffect(() => {
+        if (!events?.length)
+            dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessageWeek, locale)));
+    },[selectedDay]);
+
+    React.useEffect(() => {
+        getAllScheduledNotificationsAsync().then(setNotifications)
+    },[]);
 
     const weekPreparer = useMemo(() => {
         const week = [];
@@ -44,7 +58,7 @@ export default React.memo(function WeekScreen() {
         }
 
         return week.filter(day => day?.data?.length);
-    },[selectedDay]);
+    },[allEvents, selectedDay]);
 
     const SectionHeader = ({day}) => (
         <View
@@ -66,8 +80,15 @@ export default React.memo(function WeekScreen() {
         </View>
     );
 
-    const deleteEvent = () => {
-        // ToDo delete event
+    const deleteEvent = event => {
+        API.events.delete(event.id).then(async res => {
+            if (res?.status === 200) {
+                dispatch(Actions.Calendar.removeOne(event.id))
+
+                if (event.reminder)
+                    await cancelPushNotification(event.id, notifications);
+            }
+        });
     }
 
     return (
@@ -93,33 +114,31 @@ export default React.memo(function WeekScreen() {
             }
             ListFooterComponent={<View style={{height: 20}}/>}
             renderItem={({item}) => (
-                <>
-                    <ColorCard
-                        title={item.title}
-                        text={item.description}
-                        color={categories?.find(category => category.id === item.category).color}
-                        from={moment(item.start_date).format('HH:mm')}
-                        to={moment(item.end_date).format('HH:mm')}
-                        onPressIn={() => Vibrator()}
-                        onPress={() => navigation.navigate(Routes.CalendarEvent)}
-                        onLongPress={() => {
-                            Alert.alert(
-                                translate(Translations.DeleteConfirmTitle),
-                                translate(Translations.DeleteConfirmDescription) + '?',
-                                [
-                                    {
-                                        text: translate(Translations.Cancel),
-                                        style: "cancel"
-                                    },
-                                    {
-                                        text: "OK",
-                                        onPress: () => deleteEvent(),
-                                    },
-                                ]
-                            );
-                        }}
-                    />
-                </>
+                <ColorCard
+                    title={item.title}
+                    text={item.description}
+                    color={categories?.find(category => category.id === item.category).color}
+                    from={moment(item.start_date).format('HH:mm')}
+                    to={moment(item.end_date).format('HH:mm')}
+                    onPressIn={() => Vibrator()}
+                    onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
+                    onLongPress={() => {
+                        Alert.alert(
+                            translate(Translations.DeleteConfirmTitle),
+                            translate(Translations.DeleteConfirmDescription) + '?',
+                            [
+                                {
+                                    text: translate(Translations.Cancel),
+                                    style: "cancel"
+                                },
+                                {
+                                    text: "OK",
+                                    onPress: () => deleteEvent(item),
+                                },
+                            ]
+                        );
+                    }}
+                />
             )}
             renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}
         />

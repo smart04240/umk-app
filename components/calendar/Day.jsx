@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors";
 
 const Circle = ({color}) => <View style={{marginHorizontal: 1, borderColor: color, borderRadius: 999, borderWidth: 2}}/>;
 
-export default function Day({style, textStyle, date: {isSelectedMonth, isToday, date, day} = {}, onPress, selectedDate}) {
+export default function Day({style, textStyle, date: {isSelectedMonth, isToday, date, day} = {}, onPress, selectedDate, events, categories}) {
     const Component = onPress ? TouchableOpacity : View;
 
     const press = () => onPress(moment(date));
@@ -20,7 +20,7 @@ export default function Day({style, textStyle, date: {isSelectedMonth, isToday, 
             ]}
             onPress={press}
         >
-            <TouchableOpacity style={[
+            <View style={[
                 {borderRadius: style.width / 2},
                 isToday && styles.today,
                 selectedDate.isSame(date, 'day') && styles.selected,
@@ -34,11 +34,12 @@ export default function Day({style, textStyle, date: {isSelectedMonth, isToday, 
                 >
                     {day}
                 </Text>
-            </TouchableOpacity>
+            </View>
             <View style={styles.events}>
-                <Circle color={'red'}/>
-                <Circle color={'orange'}/>
-                <Circle color={'green'}/>
+                {!!events?.length && events.map(event => {
+                    const category = categories?.find?.(category => category.id === event.category);
+                    return category?.color ? <Circle key={String(event.id)} color={category.color}/> : null;
+                })}
             </View>
         </Component>
     );

@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://468c780410d8.ngrok.io/mobile`,
+    baseURL: `https://2cb052bc0f9a.ngrok.io/mobile`,
 });
 
 const Types = {

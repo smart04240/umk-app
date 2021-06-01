@@ -15,22 +15,27 @@ import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
 import {cancelPushNotification} from "../../helpers/Notification";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import {eventsSelectors} from "../../redux/selectors/eventsSelector";
+import {categories} from "../tasks/TaskListItem";
+import moment from "moment";
 
-export const TopBoxWithContent = ({id, isTask, event}) => {
+export const TopBoxWithContent = ({id, isTask}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const todos = useSelector(state => ToDosSelectors.byId(state, id));
-    const [data, setData] = React.useState(isTask ? todos : event);
+    const event = useSelector(state => eventsSelectors.byId(state, id));
+    const locale = useSelector(state => state.app.locale);
+    const data = isTask ? todos : event;
     const [notifications, setNotifications] = React.useState([]);
-    const categories = useSelector(state => state.eventCategories);
-    const category = categories.find(category => category.id === parseInt(data?.category));
+    const eventCategories = useSelector(state => state.eventCategories);
+    const category = (isTask ? categories : eventCategories).find(category => category.id === parseInt(data?.category));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
     const info = [
-        {circle_color: category?.color, value: data?.category},
-        {icon: "map-marker-outline", value: data?.place},
+        {circle_color: category?.color, value: category?.title[locale]},
+        {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: status},
     ];
 
@@ -73,8 +78,7 @@ export const TopBoxWithContent = ({id, isTask, event}) => {
             if (res?.status === 200) {
                 dispatch(Actions.Calendar.removeOne(data.id))
 
-                if (!data?.reminder && !!data.id)
-                    await cancelPushNotification(data.id, notifications);
+                await cancelPushNotification(data.id, notifications);
 
                 navigation.goBack();
             }

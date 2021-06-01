@@ -32,12 +32,12 @@ export const EventTaskEditForm = props => {
     }), [translate]);
 
     const main_dropdowns = [
-        {
-            name: "place",
-            placeholder: "Miejsce *",
-            options: opt_sample,
-            init_value: opt_sample.find(option => option.value === props?.placeValue)?.value,
-        },
+        // {
+        //     name: "place",
+        //     placeholder: "Miejsce *",
+        //     options: opt_sample,
+        //     init_value: opt_sample.find(option => option.value === props?.placeValue)?.value,
+        // },
         {
             name: "category",
             placeholder: "Kategoria *",

@@ -382,7 +382,12 @@ export default {
 
 	EventMessage: {
 		en: "You don't have any events for this day.",
-		pl: 'Nie masz żadnych wydarzeń na ten dzień'
+		pl: 'Nie masz żadnych wydarzeń na ten dzień.'
+	},
+
+	EventMessageWeek: {
+		en: "You don't have any events for this week.",
+		pl: 'Nie masz żadnych wydarzeń w tym tygodniu.'
 	},
 
 	ReturnToProfileEdit: {
