@@ -22,7 +22,7 @@ export default function MarkersListScreen() {
     const navigation = useNavigation();
     const translate = useTranslator();
     const theme = useThemeStyles();
-    const categories = useSelector(state => state.mapData.categories);
+    const {categories, searchText} = useSelector(state => state.mapData);
     const markers = useSelector(state => selectFilteredMarkers(state));
 
     const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
@@ -39,7 +39,12 @@ export default function MarkersListScreen() {
     return (
         <Main>
             <TopBox>
-                <Input style={styles.search} placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
+                <Input
+                    style={styles.search}
+                    placeholder={translate(Translations.Search)}
+                    value={searchText}
+                    onChangeText={searchChange}
+                />
                 <Dropdown
                     placeholder={translate(Translations.SelectCategory)}
                     options={options}

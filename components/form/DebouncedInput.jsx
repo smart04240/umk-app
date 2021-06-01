@@ -18,10 +18,8 @@ export default function DebouncedInput({value, delay, onDebouncedChange, onChang
     const onChange = value => {
         if (firstUpdate.current)
             firstUpdate.current = false;
-        else {
-            setInnerValue(value);
-            onChangeText && onChangeText(value);
-        }
+        setInnerValue(value);
+        onChangeText && onChangeText(value);
     };
 
     return (
