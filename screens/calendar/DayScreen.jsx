@@ -17,6 +17,9 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
+import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import {cancelPushNotification} from "../../helpers/Notification";
+import {eventsByDay, selectDate} from "../../redux/selectors/eventsSelector";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -48,15 +51,25 @@ export default React.memo(function DayScreen() {
     const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
-    const [day, setDay] = React.useState(new Date());
+    const selectedDay = useSelector(state => selectDate(state));
     const [now, setNow] = React.useState(new Date());
-    const [events, setEvents] = React.useState(null);
+    const events = useSelector(state => eventsByDay(state));
+    const [notifications, setNotifications] = React.useState([]);
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
     const locale = useSelector(state => state.app.locale);
 
     const lineWidth = width - linesLeftOffset - Layout.paddingHorizontal * 2;
     const nowLineWidth = lineWidth - nowCircleSize / 2;
+
+    React.useEffect(() => {
+        if (!events?.length)
+            dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
+    },[selectDate])
+
+    React.useEffect(() => {
+        getAllScheduledNotificationsAsync().then(setNotifications)
+    },[]);
 
     // move current time line every minute
     React.useEffect(() => {
@@ -72,21 +85,6 @@ export default React.memo(function DayScreen() {
 
         return () => clearTimeout(timeout);
     }, []);
-
-    // load new events on day change
-    React.useEffect(() => {
-        if (!!day) {
-            let startOfDay = moment(day).startOf('day').toISOString(),
-                endOfDay = moment(day).endOf('day').toISOString();
-
-            API.events.byRange(startOfDay, endOfDay)
-                .then(res => {
-                    setEvents(res?.data);
-                    if (!res?.data?.length)
-                        dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
-                })
-        }
-    }, [day]);
 
     // memoize events JSX asynchronously
     React.useEffect(() => {
@@ -107,7 +105,7 @@ export default React.memo(function DayScreen() {
                         },
                     ]}
                     // todo update navigation
-                    onPress={() => navigation.navigate(Routes.CalendarEvent, {id: event.id})}
+                    onPress={() => navigation.navigate(Routes.CalendarEvent, event)}
                     onPressIn={() => Vibrator()}
                     onLongPress={() => {
                         Vibrator();
@@ -158,9 +156,13 @@ export default React.memo(function DayScreen() {
     const hidePicker = () => setShow(false);
 
     const deleteEvent = event => {
-        API.events.delete(event.id).then(res => {
-            if (res?.status === '200')
-                setEvents(events.filter(e => e.id !== event.id));
+        API.events.delete(event.id).then(async res => {
+            if (res?.status === 200) {
+                dispatch(Actions.Calendar.removeOne(event.id))
+
+                if (event.reminder)
+                    await cancelPushNotification(event.id, notifications);
+            }
         });
     }
 
@@ -171,13 +173,13 @@ export default React.memo(function DayScreen() {
             delayPressIn={200}
         >
             <RangeSelector
-                day={day}
+                day={selectedDay}
                 show={show}
                 onPress={showPicker}
                 setClose={hidePicker}
                 calendarOnChange={day => {
                     if (!!day) {
-                        setDay(day)
+                        dispatch(Actions.Calendar.SetDate(moment(day).toISOString()))
                         hidePicker()
                     }
                 }}
@@ -278,6 +280,7 @@ const styles = {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: 'rgba(255,255,255,0.6)',
+        height: 18,
         borderRadius: 3,
         padding: 2,
     },

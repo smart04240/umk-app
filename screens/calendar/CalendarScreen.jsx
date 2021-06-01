@@ -2,8 +2,6 @@ import React, {useMemo} from "react";
 import ErrorView from "../../components/general/ErrorView";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
-import * as Calendar from "expo-calendar";
-import {Platform} from "react-native";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
 import DayScreen from "./DayScreen";
 import WeekScreen from "./WeekScreen";
@@ -13,68 +11,36 @@ import shadowGenerator from "../../helpers/shadowGenerator";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
-import Colors from "../../constants/Colors";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import FloatAddButton from "../../components/tasks/FloatAddButton";
 import {useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
-import {useSelector} from "react-redux";
-
-const CalendarTitle = 'UMK Calendar';
-
-const createCalendar = async () => {
-    const source = Platform.OS === 'ios'
-        ? (await Calendar.getDefaultCalendarAsync()).source
-        : {isLocalAccount: true, name: CalendarTitle};
-    return await Calendar.createCalendarAsync({
-        title: CalendarTitle,
-        color: Colors.PrussianBlue,
-        entityType: Calendar.EntityTypes.EVENT,
-        sourceId: source.id,
-        source: source,
-        name: 'umkCalendar',
-        ownerAccount: 'personal',
-        accessLevel: Calendar.CalendarAccessLevel.OWNER,
-    });
-};
-
-const getCalendar = async () => {
-    const calendar = (await Calendar.getCalendarsAsync()).find(calendar => calendar.title === CalendarTitle);
-    if (!calendar) {
-        await createCalendar();
-        return await getCalendar();
-    } else
-        return calendar;
-};
+import {useDispatch, useSelector} from "react-redux";
+import moment from "moment";
+import API from "../../helpers/API";
+import Actions from "../../redux/Actions";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
     const theme = useThemeStyles();
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
-    const [permission, setPermission] = React.useState(null);
-    const [calendar, setCalendar] = React.useState(null);
+    const selectedDate = useSelector(state => state.events.selectedDate);
 
     React.useEffect(() => {
-        Calendar.requestCalendarPermissionsAsync().then(({status}) => {
-            if (status !== 'granted') {
-                setPermission(false);
-                return;
-            }
-
-            if (Platform.OS === 'android') {
-                setPermission(true);
-                return;
-            }
-
-            // reminders only on iOS
-            Calendar.requestRemindersPermissionsAsync().then(({status}) => setPermission(status === 'granted'));
-        });
+        dispatch(Actions.Calendar.SetDate(moment().toISOString()));
     }, []);
 
     React.useEffect(() => {
-        permission && getCalendar().then(setCalendar).catch(() => setCalendar(false));
-    }, [permission]);
+        if (!selectedDate)
+            return;
+
+        let startOfDay = moment(selectedDate).startOf('month').day(-7).toISOString(),
+            endOfDay = moment(selectedDate).endOf('month').day(+7).toISOString();
+
+        API.events.byRange(startOfDay, endOfDay).then(res => {dispatch(Actions.Calendar.setAll(res?.data))});
+    },[selectedDate]);
 
     const style = useMemo(() => ({
         pillContainer: {
@@ -97,51 +63,32 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-    // asking for permission
-    if (permission === null)
+    if (!selectedDate)
         return null;
 
-    // permission denied
-    if (!permission) {
+    // offline
+    if (!isOnline) {
         return (
             <WithHeaderConfig semitransparent={true}>
                 <MainWithNavigation>
-                    <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                    <ErrorView text={translate(Translations.CalendarOffline)}/>
                 </MainWithNavigation>
             </WithHeaderConfig>
         );
     }
-
-    // error while retrieving/creating calendar
-    if (calendar === false) {
-        return (
-            <WithHeaderConfig semitransparent={true}>
-                <MainWithNavigation>
-                    <ErrorView text={translate(Translations.CalendarRetrievalError)}/>
-                </MainWithNavigation>
-            </WithHeaderConfig>
-        );
-    }
-
-    // all good, calendar is being loaded (but not loaded yet)
-
-    const props = {calendar};
 
     const screens = [
         {
             component: DayScreen,
             tabLabel: translate(Translations.Day),
-            props,
         },
         {
             component: WeekScreen,
             tabLabel: translate(Translations.Week),
-            props,
         },
         {
             component: MonthScreen,
             tabLabel: translate(Translations.Month),
-            props,
         },
     ];
 

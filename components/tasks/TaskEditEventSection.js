@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {Text, View} from 'react-native';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import useTranslator from '../../hooks/useTranslator';
@@ -11,7 +11,7 @@ const TaskEditEventSection = props => {
 	const ThemeStyles = useThemeStyles();
 	const translate = useTranslator();
 	const {data, onChange} = props;
-	const {one_day_event} = data;
+	const {one_day_event, is_full_day} = data;
 
 	return (
 		<View style={{marginBottom: 15}}>
@@ -34,26 +34,30 @@ const TaskEditEventSection = props => {
 					/>
 				</View>
 				<View style={[GeneralStyles.row_ac, {marginVertical: 10, justifyContent: 'space-between', flex: 1}]}>
-					<CustomDateTimePicker
-						label={'Start time'}
-						buttonStyle={{flex: 0.48}}
-						initialValue={data?.start}
-						name='start'
-						mode={'time'}
-						dateFormat={'HH:mm'}
-						onChange={onChange}
-						validateData={props?.validateEndDate}
-					/>
-					<CustomDateTimePicker
-						label={'End time'}
-						initialValue={data?.end}
-						buttonStyle={{flex: 0.48}}
-						name='end'
-						mode={'time'}
-						dateFormat={'HH:mm'}
-						onChange={onChange}
-						validateData={props?.validateEndDate}
-					/>
+					{!one_day_event && (
+						<>
+							<CustomDateTimePicker
+								label={'Start time'}
+								buttonStyle={{flex: 0.48}}
+								initialValue={data?.start}
+								name='start'
+								mode={'time'}
+								dateFormat={'HH:mm'}
+								onChange={onChange}
+								validateData={props?.validateEndDate}
+							/>
+							<CustomDateTimePicker
+								label={'End time'}
+								initialValue={data?.end}
+								buttonStyle={{flex: 0.48}}
+								name='end'
+								mode={'time'}
+								dateFormat={'HH:mm'}
+								onChange={onChange}
+								validateData={props?.validateEndDate}
+							/>
+						</>
+					)}
 				</View>
 				<Checkbox
 					name="one_day_event"

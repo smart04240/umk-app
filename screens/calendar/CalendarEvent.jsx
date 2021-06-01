@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, Image} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -8,16 +8,15 @@ import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 
 export const CalendarEvent = props => {
-    const id = props?.route?.params?.id;
     const ThemeStyles = useThemeStyles();
-    const [data, setData] = React.useState({});
+    const event = props?.route?.params || {};
 
     return (
         <MainWithNavigation>
             <ContainerWithScroll
                 header={
                     <>
-                        <TopBoxWithContent id={id}/>
+                        <TopBoxWithContent event={event}/>
                         {!!props.src && (
                             <Image
                                 source={props.src}
@@ -35,15 +34,15 @@ export const CalendarEvent = props => {
                     </>
                 }
             >
-                {!!data?.description && (
+                {!!event?.description && (
                     <Text style={[
                         styles.content,
                         {color: ThemeStyles.dark_text},
                     ]}>
-                        {data.description}
+                        {event.description}
                     </Text>
                 )}
-                {!!data?.files && <Attachments attachments={data.files}/>}
+                {!!event?.files && <Attachments attachments={event.files}/>}
             </ContainerWithScroll>
         </MainWithNavigation>
     )

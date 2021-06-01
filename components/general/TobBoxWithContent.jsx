@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Alert} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Button from "../form/Button";
@@ -9,20 +9,23 @@ import {useNavigation} from "@react-navigation/core";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
-import {categories} from "../tasks/TaskListItem";
 import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
+import API from "../../helpers/API";
+import {cancelPushNotification} from "../../helpers/Notification";
+import {getAllScheduledNotificationsAsync} from "expo-notifications";
 
-export const TopBoxWithContent = ({id, isTask}) => {
+export const TopBoxWithContent = ({id, isTask, event}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const todos = useSelector(state => ToDosSelectors.byId(state, id));
-    // todo get data for events from api
-    const [data, setData] = React.useState(isTask ? todos : {});
-    const category = categories.find(category => category.value === parseInt(data?.category));
+    const [data, setData] = React.useState(isTask ? todos : event);
+    const [notifications, setNotifications] = React.useState([]);
+    const categories = useSelector(state => state.eventCategories);
+    const category = categories.find(category => category.id === parseInt(data?.category));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
     const info = [
@@ -33,8 +36,12 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     const message = {
         title: translate(Translations.DeleteConfirmTitle),
-        description: translate(Translations.DeleteConfirmDescription) + data?.title + '?'
+        description: translate(Translations.DeleteConfirmDescription) + ' ' + data?.title + '?'
     };
+
+    React.useEffect(() => {
+        getAllScheduledNotificationsAsync().then(setNotifications)
+    },[]);
 
     const completeTask = () => {
         dispatch(Actions.ToDos.upsertOne({
@@ -55,13 +62,23 @@ export const TopBoxWithContent = ({id, isTask}) => {
                 },
                 {
                     text: "OK",
-                    onPress: () => {
-                        // todo add delete event method
-                        navigation.goBack()
-                    }
+                    onPress: () => deleteEvent()
                 }
             ]
         );
+    }
+
+    const deleteEvent = () => {
+        API.events.delete(data.id).then(async res => {
+            if (res?.status === 200) {
+                dispatch(Actions.Calendar.removeOne(data.id))
+
+                if (!data?.reminder && !!data.id)
+                    await cancelPushNotification(data.id, notifications);
+
+                navigation.goBack();
+            }
+        })
     }
 
     const toDoButtons = [
@@ -72,7 +89,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const eventButtons = [
         {
             label: translate(Translations.EditEvent),
-            onPress: () => navigation.navigate(Routes.CalendarCreateEvent, {id})
+            onPress: () => navigation.navigate(Routes.CalendarCreateEvent, data)
         },
         {
             label: translate(Translations.Delete),

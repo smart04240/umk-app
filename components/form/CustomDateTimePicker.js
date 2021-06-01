@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {TouchableOpacity, Text} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -12,7 +12,6 @@ import Colors from "../../constants/Colors";
 export const CustomDateTimePicker = ({buttonStyle, label, onChange, validateData, dateFormat, name, mode, initialValue}) => {
     const ThemeStyles = useThemeStyles();
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [selectedDate, setSelectedDate] = React.useState(null);
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -28,11 +27,9 @@ export const CustomDateTimePicker = ({buttonStyle, label, onChange, validateData
         if (!!initialValue)
             return format(initialValue);
 
-        if (!initialValue && !selectedDate)
+        if (!initialValue)
             return label;
-
-        return format(selectedDate);
-    },[selectedDate]);
+    },[onChange]);
 
     return (
         <>
@@ -57,7 +54,6 @@ export const CustomDateTimePicker = ({buttonStyle, label, onChange, validateData
                 isVisible={isDatePickerVisible}
                 mode={mode}
                 onConfirm={value => {
-                    setSelectedDate(value);
                     isFunction(onChange) && onChange({name, value});
                     hideDatePicker();
                 }}
