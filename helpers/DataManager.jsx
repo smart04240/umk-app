@@ -3,6 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "./API";
 import Actions from "../redux/Actions";
 
+const recursiveCache = (promises, element) => {
+    if (typeof element === 'string' && element.match(/\.(jpeg|jpg|gif|png)$/) != null)
+        promises.push(Image.prefetch(element));
+    else if (Array.isArray(element))
+        element.forEach(value => recursiveCache(promises, value));
+    else if (typeof element === 'object' && element !== null)
+        Object.values(element).forEach(value => recursiveCache(promises, value));
+};
+
 /**
  * Background service that runs scheduled tasks and refreshes application data
  * @returns {null}
@@ -17,11 +26,18 @@ export default function DataManager() {
             return;
 
         API.Scheduler.hasTasks().then(async hasTasks => {
-            if (hasTasks) {
+            if (hasTasks)
                 await API.Scheduler.runAll();
-            }
 
-            API.fetch().then(response => dispatch(Actions.API.DataLoaded(response.data)));
+            API.fetch().then(async response => {
+                // cache images recursively
+                const cachePromises = [];
+                recursiveCache(cachePromises, response.data);
+                await Promise.all(cachePromises);
+
+                // dispatch data
+                dispatch(Actions.API.DataLoaded(response.data));
+            });
         });
     }, [isOnline]);
 

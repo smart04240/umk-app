@@ -9,6 +9,7 @@ import todosReducer from "./reducers/todosReducer";
 import notificationsReducer from "./reducers/notificationsReducer";
 import toastsReducer from "./reducers/toastsReducer";
 import eventCategoriesReducer from "./reducers/eventCategoriesReducer";
+import thunk from "redux-thunk";
 import calendarReducer from "./reducers/calendarReducer";
 
 // todo - data carries user-specific information (e.g. profile) along with regular data (e.g. markers), should reset application data on logout?
@@ -38,7 +39,7 @@ export const store = configureStore({
             // must blacklist react-persist actions in react-toolkit
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-    }),
+    }).concat(thunk),
 });
 
 export const persistor = persistStore(store);

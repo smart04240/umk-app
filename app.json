@@ -6,6 +6,7 @@
       "android",
       "ios"
     ],
+    "scheme": "umk",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

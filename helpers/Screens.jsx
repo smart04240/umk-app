@@ -1,8 +1,9 @@
 import React from "react";
+import * as Linking from "expo-linking";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
-import {useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslator from "../hooks/useTranslator";
 import Routes from "../constants/Routes";
@@ -35,6 +36,9 @@ import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
+import Actions from "../redux/Actions";
+import { parse } from "search-params";
+import API from "./API";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -252,11 +256,69 @@ const DrawerStyles = {
 
 const RenderDrawerContent = props => <CustomDrawer defaultActiveRouteName={RegisteredScreens.LoggedIn[0].name} {...props}/>;
 
+const prefix = Linking.createURL('/');
+
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
+    const dispatch = useDispatch();
+    const state = useSelector(state => state.user);
+
+    const linking = {
+        prefixes: [prefix],
+        
+        subscribe: listener => {
+            const onReceiveURL = (e) => {
+                const params = parse(e.url);
+
+                // console.log(2);
+                // const payload = dispatch(Actions.User.USOSOAuth({
+                //     oauth_token:    params.oauth_token,
+                //     oauth_verifier: params.oauth_verifier,
+                //     access_token:   null,
+                //     access_secret:  null,
+                // })).payload;
+
+                // const state = {...state, ...payload}
+                // console.log(state);
+
+				// API.post('/usos/get_access_token', {
+				// 	oauth_token:    state.oauth_token,
+				// 	oauth_verifier: state.oauth_verifier,
+				// 	secret:         state.secret
+				// }).then(result => {
+                //     console.log(3);
+				// 	dispatch(Actions.User.USOSOAuth({
+				// 		oauth_token:    null,
+				// 		oauth_verifier: null,
+				// 		secret:         null,
+				// 		access_token:   result?.data?.access_token,
+				// 		access_secret:  result?.data?.access_secret,
+				// 	}));
+				// });
+
+                // console.log(2);
+                dispatch(Actions.User.USOSAccessToken({
+                    oauth_token:    params.oauth_token,
+                    oauth_verifier: params.oauth_verifier,
+                    access_token:   null,
+                    access_secret:  null,
+                }));
+
+                listener(e.url);
+            }
+      
+            // Listen to incoming links from deep linking
+            Linking.addEventListener('url', onReceiveURL);
+
+            return () => {
+                // Clean up the event listeners
+                Linking.removeEventListener('url', onReceiveURL);
+            };
+        },
+    }
 
     return (
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
             <Drawer.Navigator
                 drawerContent={RenderDrawerContent}
                 drawerPosition={'right'}
