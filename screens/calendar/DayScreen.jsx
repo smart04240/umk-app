@@ -65,7 +65,7 @@ export default React.memo(function DayScreen() {
     React.useEffect(() => {
         if (!events?.length)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
-    },[selectDate])
+    },[selectedDay]);
 
     React.useEffect(() => {
         getAllScheduledNotificationsAsync().then(setNotifications)

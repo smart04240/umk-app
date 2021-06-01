@@ -6,17 +6,20 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
+import {useSelector} from "react-redux";
+import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 
 export const CalendarEvent = props => {
+    const id = props?.route?.params?.id;
     const ThemeStyles = useThemeStyles();
-    const event = props?.route?.params || {};
+    const event = useSelector(state => eventsSelectors.byId(state, id));
 
     return (
         <MainWithNavigation>
             <ContainerWithScroll
                 header={
                     <>
-                        <TopBoxWithContent event={event}/>
+                        <TopBoxWithContent id={id}/>
                         {!!props.src && (
                             <Image
                                 source={props.src}

@@ -13,6 +13,7 @@ import useTranslator from "../../hooks/useTranslator";
 import {Vibrator} from "../../helpers/Vibrator";
 import {eventsByWeek, selectDate} from "../../redux/selectors/eventsSelector";
 import Actions from "../../redux/Actions";
+import {getTranslated} from "../../helpers/functions";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -25,6 +26,10 @@ export default React.memo(function WeekScreen() {
     const events = useSelector(state => eventsByWeek(state));
     const categories = useSelector(state => state.eventCategories);
 
+    React.useEffect(() => {
+        if (!events?.length)
+            dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessageWeek, locale)));
+    },[selectedDay]);
 
     const weekPreparer = useMemo(() => {
         const week = [];

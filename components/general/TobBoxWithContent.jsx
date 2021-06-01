@@ -15,21 +15,26 @@ import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
 import {cancelPushNotification} from "../../helpers/Notification";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import {eventsSelectors} from "../../redux/selectors/eventsSelector";
+import {categories} from "../tasks/TaskListItem";
 
-export const TopBoxWithContent = ({id, isTask, event}) => {
+export const TopBoxWithContent = ({id, isTask}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const todos = useSelector(state => ToDosSelectors.byId(state, id));
-    const [data, setData] = React.useState(isTask ? todos : event);
+    const event = useSelector(state => eventsSelectors.byId(state, id));
+    const locale = useSelector(state => state.app.locale);
+    const data = isTask ? todos : event;
     const [notifications, setNotifications] = React.useState([]);
-    const categories = useSelector(state => state.eventCategories);
-    const category = categories.find(category => category.id === parseInt(data?.category));
+    const eventCategories = useSelector(state => state.eventCategories);
+    const category = (isTask ? categories : eventCategories).find(category => category.id === parseInt(data?.category));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
+
     const info = [
-        {circle_color: category?.color, value: data?.category},
+        {circle_color: category?.color, value: category?.title[locale]},
         {icon: "map-marker-outline", value: data?.place},
         {icon: "playlist-check", value: status},
     ];

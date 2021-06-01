@@ -129,8 +129,8 @@ export const CreateEvent = props => {
             if (res?.status === 200) {
                 const eventID = res?.data?.eventID;
 
-                !!id ? eventData['id'] = eventID : '';
-                dispatch(Actions.Calendar.upsertOne(eventData.id));
+                !id ? eventData['id'] = eventID : '';
+                dispatch(Actions.Calendar.upsertOne(eventData));
 
                 if (data?.reminder)
                     await schedulePushNotification(data?.title, data?.description, data?.reminder_date, eventID);
