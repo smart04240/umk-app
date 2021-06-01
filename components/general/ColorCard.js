@@ -26,6 +26,13 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
         {color: theme.dark_text},
     ];
 
+    const longPress = () => {
+        if (!onLongPress)
+            return;
+        Vibrator();
+        onLongPress();
+    };
+
     return (
         <Component
             style={[
@@ -35,15 +42,12 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
             ]}
             onPress={onPress}
             onPressIn={onPressIn}
-            onLongPress={() => {
-                Vibrator();
-                onLongPress();
-            }}
+            onLongPress={longPress}
         >
             <View
                 style={{
                     flexDirection: 'column',
-                    flex: 0.2
+                    paddingRight: 12,
                 }}
             >
                 {!!from && <Text style={regularTextStyles}>{from}</Text>}
@@ -102,7 +106,6 @@ const styles = {
     },
     content: {
         flexGrow: 1,
-        flex: 0.8
     },
     actions: {
         marginLeft: 20,

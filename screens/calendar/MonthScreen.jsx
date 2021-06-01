@@ -11,302 +11,19 @@ import Day from "../../components/calendar/Day";
 import {useNavigation} from "@react-navigation/core";
 import Translations from "../../constants/Translations";
 import ColorCard from "../../components/general/ColorCard";
-import {categories} from "../../components/tasks/TaskListItem";
 import Routes from "../../constants/Routes";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
 import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
+import {getAllScheduledNotificationsAsync} from "expo-notifications";
+import API from "../../helpers/API";
+import {cancelPushNotification} from "../../helpers/Notification";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     pl: ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Ndz'],
 };
-
-const DATA = [
-    {
-        day: '2020-04-1',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 1,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-2',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-3',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 1,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 1,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-4',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 5,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 5,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-5',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 3,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-6',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-7',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-8',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 5,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-9',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-10',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-11',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-12',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 3,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-13',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 3,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-14',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-15',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-16',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 4,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-17',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 2,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-18',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 3,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-19',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 3,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-    {
-        day: '2020-04-20',
-        data: [
-            {
-                from: '17:00',
-                to: '17:30',
-                title: 'Title',
-                category: 5,
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.'
-            },
-        ]
-    },
-];
 
 const SectionHeader = ({day}) => {
     const theme = useThemeStyles();
@@ -360,8 +77,18 @@ export default React.memo(function MonthScreen() {
     const events = useSelector(state => eventsByMonthPerDay(state));
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
+    const [notifications, setNotifications] = React.useState([]);
 
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
+    const sections = React.useMemo(() => {
+        const sections = [];
+        const from = selectedDate.format('YYYY-MM-DD');
+        Object.keys(events).forEach(date => date >= from && sections.push({
+            day: date,
+            data: events[date],
+        }));
+        return sections;
+    }, [events]);
 
     const buttonWidth = (width - Layout.paddingHorizontal * 2) / 7;
     const arrowStyle = {width: buttonWidth, alignItems: 'center', justifyContent: 'center'};
@@ -374,13 +101,28 @@ export default React.memo(function MonthScreen() {
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
 
+    React.useEffect(() => {
+        getAllScheduledNotificationsAsync().then(setNotifications);
+    }, []);
+
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));
     const nextMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).add(1, 'month').toISOString()));
 
+    const deleteEvent = event => {
+        API.events.delete(event.id).then(async res => {
+            if (res?.status === 200) {
+                dispatch(Actions.Calendar.removeOne(event.id))
+
+                if (event.reminder)
+                    await cancelPushNotification(event.id, notifications);
+            }
+        });
+    };
+
     return (
         <SectionList
-            sections={DATA}
+            sections={sections}
             stickySectionHeadersEnabled={true}
             keyExtractor={(item, index) => index}
             ListHeaderComponent={
@@ -457,10 +199,10 @@ export default React.memo(function MonthScreen() {
                     }}
                     title={item.title}
                     text={item.description}
-                    color={categories.find(category => category.value === item.category).color}
-                    from={item.from}
-                    to={item.to}
-                    onPress={() => navigation.navigate(Routes.CalendarEvent)}
+                    color={eventCategories?.find?.(category => category.id === item.category)?.color}
+                    from={moment(item.start_date).format('HH:mm')}
+                    to={moment(item.end_date).format('HH:mm')}
+                    onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
                     onLongPress={() => {
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
@@ -472,8 +214,7 @@ export default React.memo(function MonthScreen() {
                                 },
                                 {
                                     text: "OK",
-                                    onPress: () => {
-                                    },
+                                    onPress: () => deleteEvent(item),
                                 },
                             ]
                         );

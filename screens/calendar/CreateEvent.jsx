@@ -42,7 +42,7 @@ export const CreateEvent = props => {
     },[]);
 
     const canSave = useMemo(() => {
-        return (!!data?.description?.length && !!data?.title?.length && !!data?.category && !!data?.place && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
+        return (!!data?.description?.length && !!data?.title?.length && !!data?.category && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
     },[data]);
 
     const title = useMemo(() => {

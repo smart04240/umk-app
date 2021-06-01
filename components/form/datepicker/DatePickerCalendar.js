@@ -37,8 +37,6 @@ const DatePickerCalendar = props => {
 	const [ year, setYear ] = useState( +init_year || +now_year );
 	const [ selected_date, setSelectedDate ] = useState( init_iso_date || null );
 
-	useEffect(() => isFunction( onChange ) && onChange( selected_date ), [ selected_date ]);
-
 	const days_amount = useMemo(() => ( getDaysAmountInMonth( year, month )), [ month, year ]);
 
 	const shift = useMemo(() => {
@@ -88,6 +86,11 @@ const DatePickerCalendar = props => {
 
 		setMonth( new_month );
 		setYear( new_year );
+	};
+
+	const change = (date) => () => {
+		setSelectedDate(date);
+		isFunction( onChange ) && onChange( date );
 	};
 
 	return (
@@ -148,7 +151,7 @@ const DatePickerCalendar = props => {
 									index === 0 ? { marginLeft: getShiftValue()} : {},
 									selected_date === date_iso ? { backgroundColor: ThemeStyles.blue_rgba(0.5)} : {}
 								]}
-								onPress={ () => setSelectedDate( date_iso )}
+								onPress={ change( date_iso )}
 							>
 								<Text style={[
 									GeneralStyles.text_regular,
