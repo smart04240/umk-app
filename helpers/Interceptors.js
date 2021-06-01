@@ -67,12 +67,18 @@ const Interceptors = {
         use: () => {
             Interceptors.References.Token = API.interceptors.request.use(config => {
                 const token = store.getState()?.user?.token;
+                const access_token  = store.getState()?.user?.access_token;
+                const access_secret = store.getState()?.user?.access_secret;
 
-                if (!token)
-                    return config;
-
-                config.headers = config.headers || {};
-                config.headers.Authorization = 'Bearer ' + store.getState().user.token;
+                if (token) {
+                    config.headers = config.headers || {};
+                    config.headers.Authorization = 'Bearer ' + token;
+                }
+                if (access_token && access_secret) {
+                    config.params = config.params || {};
+                    config.params.access_token  = access_token;
+                    config.params.access_secret = access_secret;
+                }
                 return config;
             })
         },
