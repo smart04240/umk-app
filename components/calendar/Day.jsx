@@ -21,7 +21,7 @@ export default function Day({style, textStyle, date: {isSelectedMonth, isToday, 
             onPress={press}
         >
             <View style={[
-                {borderRadius: style.width / 2},
+                {borderRadius: style.width / 2,   overflow: 'hidden',},
                 isToday && styles.today,
                 selectedDate.isSame(date, 'day') && styles.selected,
             ]}>
