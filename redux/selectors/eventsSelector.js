@@ -10,6 +10,7 @@ export const eventsSelectors = {
 };
 
 export const selectDate = createSelector(state => state.events.selectedDate, date => new Date(date));
+export const selectDateMoment = createSelector(state => state.events.selectedDate, date => moment(date));
 
 const filterBy = range => (date, events) => {
     return Object.values(events).filter(event => {
@@ -19,6 +20,32 @@ const filterBy = range => (date, events) => {
         return rangeStart.isSameOrBefore(event.start_date) && rangeEnd.isSameOrAfter(event.end_date);
     });
 };
+
+export const eventsByMonthPerDay = createSelector(
+    [
+        state => state.events.selectedDate,
+        state => state.events.entities,
+    ],
+    (date, events) => {
+        const rangeStart = moment(date).startOf('month');
+        const rangeEnd = moment(date).endOf('month');
+        const days = {};
+
+        Object.values(events).forEach(event => {
+            if (rangeStart.isAfter(event.start_date) || rangeEnd.isBefore(event.end_date))
+                return;
+
+            const dayNumber = moment(event.start_date).format('YYYY-MM-DD');
+
+            if (!days[dayNumber])
+                days[dayNumber] = [];
+
+            days[dayNumber].push(event);
+        });
+
+        return days;
+    }
+);
 
 export const eventsByDay = createSelector(
     [
