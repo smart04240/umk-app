@@ -17,6 +17,7 @@ import {cancelPushNotification} from "../../helpers/Notification";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import {categories} from "../tasks/TaskListItem";
+import moment from "moment";
 
 export const TopBoxWithContent = ({id, isTask}) => {
     const translate = useTranslator();
@@ -32,10 +33,10 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const category = (isTask ? categories : eventCategories).find(category => category.id === parseInt(data?.category));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
-
     const info = [
         {circle_color: category?.color, value: category?.title[locale]},
-        {icon: "map-marker-outline", value: data?.place},
+        {icon: "map-marker-outline", value: data?.place || 'Aula 12'},
+        {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: status},
     ];
 

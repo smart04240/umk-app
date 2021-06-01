@@ -1,4 +1,4 @@
-import React, {useMemo, useReducer} from "react";
+import React, {useMemo} from "react";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
@@ -34,7 +34,7 @@ export default function TaskEditScreen(props) {
 	const [data, setData] = React.useState(!!todo ? todo : generateTodo());
 
 	const canSave = useMemo(() => {
-		return !!data?.description?.length && !!data?.title?.length && !!data?.category && !!data?.place
+		return !!data?.description?.length && !!data?.title?.length && !!data?.category
 	},[data]);
 
 	const onChange = (name, value) => {

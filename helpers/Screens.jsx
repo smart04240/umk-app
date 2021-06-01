@@ -3,7 +3,7 @@ import * as Linking from "expo-linking";
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator, HeaderStyleInterpolators, TransitionSpecs} from '@react-navigation/stack';
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import useThemeStyles from "../hooks/useThemeStyles";
 import useTranslator from "../hooks/useTranslator";
 import Routes from "../constants/Routes";
@@ -37,8 +37,7 @@ import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
 import Actions from "../redux/Actions";
-import { parse } from "search-params";
-import API from "./API";
+import {parse} from "search-params";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -194,7 +193,7 @@ const RegisteredScreens = {
 const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
-    const loggedIn = !!user?.access_token && !!user?.access_secret;
+    const loggedIn = !!user?.token;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
@@ -265,7 +264,7 @@ export default function Screens() {
 
     const linking = {
         prefixes: [prefix],
-        
+
         subscribe: listener => {
             const onReceiveURL = (e) => {
                 const params = parse(e.url);
@@ -280,7 +279,7 @@ export default function Screens() {
 
                 listener(e.url);
             }
-      
+
             // Listen to incoming links from deep linking
             Linking.addEventListener('url', onReceiveURL);
 
