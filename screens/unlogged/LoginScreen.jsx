@@ -35,7 +35,7 @@ export default function LoginScreen(props) {
 		});
 		// TODO: make functions in API.user
 		API.post('/usos/get_auth_uri', { callback: callbackUri }).then(result => {
-			console.log(1);
+			// console.log(1);
 			dispatch(Actions.User.USOSOAuth({
 				oauth_token:    result?.data?.oauth_token,
 				oauth_verifier: null,
