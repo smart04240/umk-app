@@ -1,5 +1,6 @@
-import {createAction} from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import Colors from "../constants/Colors";
+import API from "../helpers/API";
 
 export default {
     API: {
@@ -27,6 +28,39 @@ export default {
         Login: createAction('user/login'),
         Logout: createAction('user/logout'),
         Update: createAction('user/update'),
+        USOSOAuth: createAction('user/usos-oauth'),
+        USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
+            const state = { ...thunkAPI.getState().user, ...payload };
+            // console.log('state', state);
+            const result = await API.post('/usos/get_access_token', {
+                oauth_token:    state.oauth_token,
+                oauth_verifier: state.oauth_verifier,
+                secret:         state.secret
+            });
+            return {
+                oauth_token:    null,
+                oauth_verifier: null,
+                secret:         null,
+                access_token:   result?.data?.access_token,
+                access_secret:  result?.data?.access_secret,
+            };
+        }),
+        USOSAccessToken: createAsyncThunk('user/usos-user-data', async (payload, thunkAPI) => {
+            const state = { ...thunkAPI.getState().user, ...payload };
+            // console.log('state', state);
+            const result = await API.post('/usos/get_access_token', {
+                oauth_token:    state.oauth_token,
+                oauth_verifier: state.oauth_verifier,
+                secret:         state.secret
+            });
+            return {
+                oauth_token:    null,
+                oauth_verifier: null,
+                secret:         null,
+                access_token:   result?.data?.access_token,
+                access_secret:  result?.data?.access_secret,
+            };
+        }),
     },
     Categories: {
         Toggle: createAction('categories/toggle'),

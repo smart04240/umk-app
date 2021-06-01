@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, TouchableOpacity} from "react-native";
+import {Linking, StyleSheet, Text, TouchableOpacity} from "react-native";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
@@ -14,6 +14,7 @@ import API from "../../helpers/API";
 import {useDispatch} from "react-redux";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
+import { makeRedirectUri } from "expo-auth-session";
 
 export default function LoginScreen(props) {
 	const ThemeStyles = useThemeStyles();
@@ -29,6 +30,24 @@ export default function LoginScreen(props) {
 		role: result?.data?.data?.role
 	})));
 
+	const loginUSOS = () => {
+		const callbackUri = makeRedirectUri({
+			scheme: 'umk',
+		});
+		// TODO: make functions in API.user
+		API.post('/usos/get_auth_uri', { callback: callbackUri }).then(result => {
+			console.log(1);
+			dispatch(Actions.User.USOSOAuth({
+				oauth_token:    result?.data?.oauth_token,
+				oauth_verifier: null,
+				secret:         result?.data?.secret,
+				access_token:   null,
+				access_secret:  null,
+			}));
+			Linking.openURL(result?.data?.uri)
+		});
+	}
+
 	return (
 		<ScreenWithHiddenHeader>
 			<Main>
@@ -40,7 +59,7 @@ export default function LoginScreen(props) {
 							{translate(Translations.SignIn)}
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={[styles.button]} onPress={login}>
+					<TouchableOpacity style={[styles.button]} onPress={loginUSOS}>
 						<Text style={[blue_text, GeneralStyles.text_semibold, {textAlign: "center"}]}>
 							{translate(Translations.LoginInUsingNCU)}
 						</Text>
