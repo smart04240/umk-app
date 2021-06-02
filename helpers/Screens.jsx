@@ -193,7 +193,7 @@ const RegisteredScreens = {
 const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
-    const loggedIn = !!user?.token;
+    const loggedIn = !!user?.token || (!!user?.access_token && !!user?.access_secret);
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
