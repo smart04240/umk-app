@@ -7,6 +7,7 @@ const InitialState = {
     categories: [],
     selectedCategories: [],
     searchText: '',
+    debouncedSearchText: '',
 };
 
 export default createReducer(InitialState, builder => {
@@ -16,6 +17,7 @@ export default createReducer(InitialState, builder => {
             categories: action.payload.marker_categories,
             selectedCategories: InitialState.selectedCategories,
             searchText: InitialState.searchText,
+            debouncedSearchText: InitialState.debouncedSearchText,
         }))
         .addCase(Actions.Categories.Toggle, (state, action) => {
             state.selectedCategories = state.selectedCategories.includes(action.payload)
@@ -26,7 +28,12 @@ export default createReducer(InitialState, builder => {
             state.selectedCategories = [action.payload];
         })
         .addCase(Actions.ChangeMapSearch, (state, action) => {
-            state.searchText = action.payload;
+            if (state.searchText !== action.payload)
+                state.searchText = action.payload;
+        })
+        .addCase(Actions.ChangeMapSearchDebounced, (state, action) => {
+            if (state.debouncedSearchText !== action.payload)
+                state.debouncedSearchText = action.payload;
         });
 });
 
@@ -46,7 +53,7 @@ export const selectFilteredMarkers = createSelector(
         state => state.app.locale,
         state => state.mapData.markers,
         state => state.mapData.selectedCategories,
-        state => state.mapData.searchText,
+        state => state.mapData.debouncedSearchText,
     ],
     filterMarkers,
 );

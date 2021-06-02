@@ -106,8 +106,10 @@ export default React.memo(function WeekScreen() {
                     show={show}
                     setClose={() => setShow(false)}
                     calendarOnChange={date => {
-                        if (!!date)
-                            dispatch(Actions.Calendar.SetDate(moment(date).toISOString()))
+                        if (!!date) {
+                            dispatch(Actions.Calendar.SetDate(moment(date).toISOString()));
+                            setShow(false);
+                        }
                     }}
                     rangeSelectorStyles={{marginHorizontal: 20, marginVertical: 20}}
                 />

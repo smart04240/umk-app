@@ -69,4 +69,5 @@ export default {
         removeOne: createAction('notifications/removeOne')
     },
     ChangeMapSearch: createAction('changeMapSearch'),
+    ChangeMapSearchDebounced: createAction('changeMapSearchDebounced'),
 };

@@ -88,6 +88,7 @@ export default function MapScreen() {
     );
 
     const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
+    const searchChangeDebounced = text => dispatch(Actions.ChangeMapSearchDebounced(text));
 
     const onLayout = e => searchPanelHeight.current = e.nativeEvent.layout.height;
 
@@ -117,7 +118,12 @@ export default function MapScreen() {
     return (
         <Main>
             <TopBox style={{position: 'absolute', width: '100%'}} onLayout={onLayout}>
-                <Input placeholder={translate(Translations.Search)} onDebouncedChange={searchChange}/>
+                <Input
+                    placeholder={translate(Translations.Search)}
+                    value={data.searchText}
+                    onChangeText={searchChange}
+                    onDebouncedChange={searchChangeDebounced}
+                />
             </TopBox>
 
             <ScrollView
