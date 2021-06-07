@@ -60,6 +60,7 @@ export default function TaskEditScreen(props) {
 			<MainWithNavigation>
 				<ContainerWithScroll>
 					<EventTaskEditForm
+						isToDo={true}
 						formTitle={title}
 						title={data?.title}
 						canSave={!canSave}
@@ -69,7 +70,10 @@ export default function TaskEditScreen(props) {
 						placeValue={data?.place}
 						categoryValue={data?.category}
 						descriptionOnChange={description => onChange('description', description)}
-						docPickerOnChange={object => onChange(object.name, object.value)}
+						docPickerOnChange={object => {
+							onChange(object.name, object.value);
+							dispatch(Actions.Toasts.Message(translate(Translations.TaskFileNotification)))
+						}}
 						description={data?.description}
 						files={data?.files}
 					/>

@@ -650,6 +650,31 @@ export default {
 		pl: "Początek studiów"
 	},
 
+	TaskCategory1: {
+		en: "Important and urgent",
+		pl: "Ważne i pilne"
+	},
+
+	TaskCategory2: {
+		en: "Important",
+		pl: "Ważne"
+	},
+
+	TaskCategory3: {
+		en: "Urgent",
+		pl: "Pilne"
+	},
+
+	TaskCategory4: {
+		en: "Reminder",
+		pl: "Przypomnienie"
+	},
+
+	TaskFileNotification: {
+		en: 'The file is only stored in the local memory of the phone.',
+		pl: 'Plik jest przechowywany tylko w pamięci lokalnej telefonu.'
+	},
+
 	"1_month": {
 		en: "January",
 		pl: "Styczeń"
