@@ -47,6 +47,7 @@ export default {
                 secret:         null,
                 access_token:   result?.data?.access_token,
                 access_secret:  result?.data?.access_secret,
+                isUnregistered: result?.data?.is_unregistered,
             };
         }),
     },

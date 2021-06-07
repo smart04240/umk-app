@@ -86,16 +86,20 @@ const RegisteredScreens = {
             name: Routes.Login,
             component: LoginScreen,
         },
-        {
-            name: Routes.Registration,
-            component: RegistrationScreen,
-        },
+        // {
+        //     name: Routes.Registration,
+        //     component: RegistrationScreen,
+        // },
     ],
     LoggedIn: [
         {
             name: Routes.Tutorial,
             title: Translations.Tutorial,
             component: TutorialScreen
+        },
+        {
+            name: Routes.Registration,
+            component: RegistrationScreen,
         },
         {
             name: Routes.Start,
@@ -194,34 +198,37 @@ const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
     const loggedIn = !!user?.token || (!!user?.access_token && !!user?.access_secret);
+    const firstLogin = loggedIn && !!user?.isUnregistered;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
 
-    const screens = React.useMemo(() => (
-        loggedIn && tutorialViewed
-            ? RegisteredScreens.LoggedIn.filter(screen => screen.name !== Routes.Tutorial)
-            : RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut']
-    ).map(screen => (
-        <Stack.Screen
-            key={screen.name}
-            name={screen.name}
-            options={{
-                title: translate(screen.title),
-                headerStyle: {
-                    backgroundColor: ThemeStyles.box_bg,
-                },
-                headerTintColor: ThemeStyles.blue_text,
-                headerTitleStyle: {
-                    ...GeneralStyles.header_title,
-                    textAlign: 'center',
-                    color: ThemeStyles.blue_text
-                },
-                headerRight: () => <HeaderRight/>
-            }}
-        >
-            {props => <screen.component {...props} />}
-        </Stack.Screen>
-    )), [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
+    const screens = React.useMemo(() => {
+        let selectedScreens = RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut'];
+        console.log(firstLogin);
+        if (tutorialViewed) selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Tutorial);
+        if (!firstLogin)    selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Registration);
+        return selectedScreens.map(screen => (
+            <Stack.Screen
+                key={screen.name}
+                name={screen.name}
+                options={{
+                    title: translate(screen.title),
+                    headerStyle: {
+                        backgroundColor: ThemeStyles.box_bg,
+                    },
+                    headerTintColor: ThemeStyles.blue_text,
+                    headerTitleStyle: {
+                        ...GeneralStyles.header_title,
+                        textAlign: 'center',
+                        color: ThemeStyles.blue_text
+                    },
+                    headerRight: () => <HeaderRight/>
+                }}
+            >
+                {props => <screen.component {...props} />}
+            </Stack.Screen>
+        ))
+    }, [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
 
     if (loggedIn) {
         return (
@@ -269,7 +276,7 @@ export default function Screens() {
             const onReceiveURL = (e) => {
                 const params = parse(e.url);
 
-                // console.log(2);
+                // console.log(e);
                 dispatch(Actions.User.USOSAccessToken({
                     oauth_token:    params.oauth_token,
                     oauth_verifier: params.oauth_verifier,
@@ -277,7 +284,7 @@ export default function Screens() {
                     access_secret:  null,
                 }));
 
-                listener(e.url);
+                // listener(e.url);
             }
 
             // Listen to incoming links from deep linking
