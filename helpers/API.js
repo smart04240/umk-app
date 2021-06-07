@@ -61,6 +61,19 @@ API.markers = {
  */
 
 /**
+ * USOS OAuth
+ */
+
+API.oauth = {
+    getURI: (callbackUri) => API.post('/usos/get_auth_uri', { callback: callbackUri }),
+    getAccessToken: (oauth_token, oauth_verifier, secret) => API.post('/usos/get_access_token', {
+        oauth_token:    oauth_token,
+        oauth_verifier: oauth_verifier,
+        secret:         secret
+    }),
+};
+
+/**
  * Map Types to API methods
  */
 const TypeMethods = {

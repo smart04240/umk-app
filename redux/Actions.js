@@ -40,11 +40,7 @@ export default {
         USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
             const state = { ...thunkAPI.getState().user, ...payload };
             // console.log('state', state);
-            const result = await API.post('/usos/get_access_token', {
-                oauth_token:    state.oauth_token,
-                oauth_verifier: state.oauth_verifier,
-                secret:         state.secret
-            });
+            const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
             return {
                 oauth_token:    null,
                 oauth_verifier: null,
