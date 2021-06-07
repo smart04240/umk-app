@@ -34,7 +34,7 @@ export default function LoginScreen(props) {
 			scheme: 'umk',
 		});
 		// TODO: make functions in API.user
-		API.post('/usos/get_auth_uri', { callback: callbackUri }).then(result => {
+		API.oauth.getURI(callbackUri).then(result => {
 			// console.log(1);
 			dispatch(Actions.User.USOSOAuth({
 				oauth_token:    result?.data?.oauth_token,

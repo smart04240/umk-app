@@ -2,6 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import API from "./API";
 import Actions from "../redux/Actions";
+import { Image } from "react-native";
 
 const recursiveCache = (promises, element) => {
     if (typeof element === 'string' && element.match(/\.(jpeg|jpg|gif|png)$/) != null)

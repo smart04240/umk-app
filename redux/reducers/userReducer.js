@@ -22,5 +22,10 @@ export default createReducer(user_init, builder => {
 			// console.log('USOSAccessToken', {...state, ...payload});
 
 			return {...state, ...payload};
-		});
+		})
+		.addCase(Actions.API.DataLoaded, (state, {payload: {profile}}) => ({
+			...state,
+			nick_name: `${profile.first_name} ${profile.last_name}`,
+			avatar_url: profile.avatar_url
+		}))
 });
