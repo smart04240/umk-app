@@ -35,7 +35,6 @@ export default function LoginScreen(props) {
 		});
 		// TODO: make functions in API.user
 		API.oauth.getURI(callbackUri).then(result => {
-			// console.log(1);
 			dispatch(Actions.User.USOSOAuth({
 				oauth_token:    result?.data?.oauth_token,
 				oauth_verifier: null,
@@ -43,7 +42,7 @@ export default function LoginScreen(props) {
 				access_token:   null,
 				access_secret:  null,
 			}));
-			Linking.openURL(result?.data?.uri)
+			console.log(1);
 			props.navigation.navigate(Routes.Web, { uri: result?.data?.uri });
 		});
 	}

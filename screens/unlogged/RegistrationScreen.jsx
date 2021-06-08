@@ -15,11 +15,17 @@ import Main from "../../components/general/Main";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
 import useTranslator from "../../hooks/useTranslator";
+import API from "../../helpers/API";
+import { useDispatch } from "react-redux";
+import Actions from "../../redux/Actions";
 
 
 export default function LoginScreen(props) {
 	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
+    const dispatch = useDispatch();
+
+	const [nick, setNick] = useState('');
 
 	const checkboxes = [
 		{ 
@@ -39,6 +45,16 @@ export default function LoginScreen(props) {
 		},
 	]
 
+	const register = () => {
+		API.user.update({
+			nick: nick,
+		}).then(result => props.navigation.navigate( Routes.Start ));
+	};
+
+	const cancelRegister = () => {
+		dispatch(Actions.User.Logout());
+	};
+
     return (
 		<ScreenWithHiddenHeader>
 			<Main style={{ paddingTop: 25 }}>
@@ -57,6 +73,7 @@ export default function LoginScreen(props) {
 						style={{marginBottom: 20}}
 						label={translate(Translations.EnterNickname)}
 						placeholder={translate(Translations.UserName)}
+						onChangeText={text => setNick(text)}
 					/>
 
 					<View style={styles.checkboxes_container}>
@@ -64,9 +81,9 @@ export default function LoginScreen(props) {
 					</View>
 
 
-					<Button> { ucfirst( translate( Translations.Register ))} </Button>
+					<Button onPress={register}> { ucfirst( translate( Translations.Register ))} </Button>
 
-					<TouchableOpacity onPress={ () => props.navigation.navigate( Routes.Login )}> 
+					<TouchableOpacity onPress={cancelRegister}> 
 						<Text style={[ { color: ThemeStyles.blue_text }, styles.back ]}>
 							{ translate( Translations.Cancel )}
 						</Text> 
