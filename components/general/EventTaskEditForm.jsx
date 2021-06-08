@@ -12,12 +12,6 @@ import useTranslator from "../../hooks/useTranslator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {useCategoryPreparer} from "../../hooks/useCategoryPreparer";
 
-const opt_sample = [
-    { value: 1, label: "Opt 1"},
-    { value: 2, label: "Opt 2"},
-    { value: 3, label: "Opt 3"},
-];
-
 export const EventTaskEditForm = props => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
@@ -31,6 +25,29 @@ export const EventTaskEditForm = props => {
         category: translate(Translations.SelectingCategoryIsRequired)
     }), [translate]);
 
+    const TaskCategories = [
+        {
+            value: 1,
+            label: translate(Translations.TaskCategory1),
+            color: '#ff111a'
+        },
+        {
+            value: 2,
+            label: translate(Translations.TaskCategory2),
+            color: '#ff9124',
+        },
+        {
+            value: 3,
+            label: translate(Translations.TaskCategory3),
+            color: '#b73839'
+        },
+        {
+            value: 4,
+            label: translate(Translations.TaskCategory4),
+            color: '#346eaa'
+        },
+    ];
+
     const main_dropdowns = [
         // {
         //     name: "place",
@@ -41,8 +58,8 @@ export const EventTaskEditForm = props => {
         {
             name: "category",
             placeholder: "Kategoria *",
-            options: eventsOptions,
-            init_value: eventsOptions.find(option => option.value === props?.categoryValue)?.value,
+            options: props.isToDo ? TaskCategories : eventsOptions,
+            init_value: (props.isToDo ? TaskCategories : eventsOptions).find(option => option.value === props?.categoryValue)?.value,
         }
     ];
 

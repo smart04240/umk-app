@@ -83,7 +83,22 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
 							<TouchableWithoutFeedback
 								key={index}
 								onPress={() => onOptionPress(opt.value)}
+								style={{
+									flexDirection: 'row',
+									alignItems: 'center',
+								}}
 							>
+								{!!opt.color && (
+									<View
+										style={{
+											height: 10,
+											width: 10,
+											marginRight: 10,
+											borderRadius: 20,
+											backgroundColor: opt?.color
+										}}
+									/>
+								)}
 								<Text style={[
 									GeneralStyles.text_regular,
 									styles.option_text,
