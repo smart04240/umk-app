@@ -38,6 +38,7 @@ import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
 import Actions from "../redux/Actions";
 import {parse} from "search-params";
+import Web from "../screens/unlogged/Web";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -85,6 +86,10 @@ const RegisteredScreens = {
         {
             name: Routes.Login,
             component: LoginScreen,
+        },
+        {
+            name: Routes.Web,
+            component: Web,
         },
         // {
         //     name: Routes.Registration,

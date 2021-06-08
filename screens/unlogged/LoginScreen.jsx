@@ -44,6 +44,7 @@ export default function LoginScreen(props) {
 				access_secret:  null,
 			}));
 			Linking.openURL(result?.data?.uri)
+			props.navigation.navigate(Routes.Web, { uri: result?.data?.uri });
 		});
 	}
 
