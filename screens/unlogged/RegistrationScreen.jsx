@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 import { ucfirst } from "../../helpers/functions";
@@ -20,12 +20,12 @@ import { useDispatch } from "react-redux";
 import Actions from "../../redux/Actions";
 
 
-export default function LoginScreen(props) {
+export default function RegistrationScreen(props) {
 	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
 
-	const [nick, setNick] = React.useState('');
+	const [nick, setNick] = useState('');
 
 	const checkboxes = [
 		{ 
