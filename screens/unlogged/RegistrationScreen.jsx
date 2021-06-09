@@ -25,7 +25,7 @@ export default function LoginScreen(props) {
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
 
-	const [nick, setNick] = useState('');
+	const [nick, setNick] = React.useState('');
 
 	const checkboxes = [
 		{ 
