@@ -1,6 +1,7 @@
 export default {
 
 	Login: "login",
+	Web: "web",
 	Registration: "registration",
 
 	Start: "start",

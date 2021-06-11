@@ -38,6 +38,7 @@ import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
 import Actions from "../redux/Actions";
 import {parse} from "search-params";
+import Web from "../screens/unlogged/Web";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -85,6 +86,10 @@ const RegisteredScreens = {
         {
             name: Routes.Login,
             component: LoginScreen,
+        },
+        {
+            name: Routes.Web,
+            component: Web,
         },
         // {
         //     name: Routes.Registration,
@@ -197,7 +202,7 @@ const RegisteredScreens = {
 const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
-    const loggedIn = !!user?.token || (!!user?.access_token && !!user?.access_secret);
+    const loggedIn = !!user?.access_token && !!user?.access_secret;
     const firstLogin = loggedIn && !!user?.isUnregistered;
     const ThemeStyles = useThemeStyles();
     const translate = useTranslator();
@@ -228,7 +233,7 @@ const StackScreens = () => {
                 {props => <screen.component {...props} />}
             </Stack.Screen>
         ))
-    }, [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
+    }, [firstLogin, loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
 
     if (loggedIn) {
         return (
