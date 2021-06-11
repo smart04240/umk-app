@@ -22,8 +22,8 @@ export const CreateEvent = props => {
     const translate = useTranslator();
     const dispatch = useDispatch();
     const [data, setData] = React.useState({
-        title: !!id ? event.title : '',
-        description: !!id ? event.description : '',
+        title: !!id ? event.title['pl'] : '',
+        description: !!id ? event.description['pl'] : '',
         place: !!id ? event.description : '',
         category: !!id ? event.category : '',
         files: !!id ? event.files : [],
@@ -112,8 +112,14 @@ export const CreateEvent = props => {
         }
 
         let eventData = {
-            title: data?.title,
-            description: data?.description,
+            title: {
+                pl: data?.title,
+                en: data?.title
+            },
+            description: {
+                pl: data?.description,
+                en: data?.description
+            },
             start_date: datePreparer.start,
             end_date: datePreparer.end,
             category: data?.category,

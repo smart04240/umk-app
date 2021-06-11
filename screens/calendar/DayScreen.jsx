@@ -107,7 +107,7 @@ export default React.memo(function DayScreen() {
                     // todo update navigation
                     onPress={() => navigation.navigate(Routes.CalendarEvent, event)}
                     onPressIn={() => Vibrator()}
-                    onLongPress={() => {
+                    onLongPress={!!event.user_id ? () => {
                         Vibrator();
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
@@ -123,7 +123,7 @@ export default React.memo(function DayScreen() {
                                 },
                             ]
                         );
-                    }}
+                    } : () => {}}
                 >
                     <View style={cardHeight < 100 ? {
                         flexDirection: 'row',
@@ -143,7 +143,7 @@ export default React.memo(function DayScreen() {
                         </View>
                         {cardHeight > 100 && (
                             <Text numberOfLines={2} style={styles.eventDescription}>
-                                {event.description}
+                                {translate(event.description)}
                             </Text>
                         )}
                     </View>

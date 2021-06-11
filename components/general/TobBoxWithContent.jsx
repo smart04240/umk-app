@@ -36,7 +36,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const info = [
         {circle_color: category?.color, value: category?.title[locale]},
         {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
-        {icon: "playlist-check", value: status},
+        {icon: "playlist-check", value: isTask && status},
     ];
 
     const message = {
@@ -104,13 +104,13 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     return (
         <TopBox>
-            {data?.title && (
+            {!!data?.title && (
                 <Text style={[
                     GeneralStyles.text_bold,
                     {color: ThemeStyles.dark_blue_text},
                     {marginBottom: 20}
                 ]}>
-                    {data?.title}
+                    {translate(data?.title)}
                 </Text>
             )}
             <View>
@@ -152,17 +152,22 @@ export const TopBoxWithContent = ({id, isTask}) => {
                 GeneralStyles.row_ac,
                 {marginHorizontal: -5}
             ]}>
-                {(isTask ? toDoButtons : eventButtons).map((b, index) => (
-                    <Button
-                        key={index}
-                        style={b?.style || styles.bottom_button}
-                        isDangerButton={b?.isDangerButton}
-                        transparent_bg={true}
-                        onPress={b.onPress}
-                    >
-                        {b.label}
-                    </Button>
-                ))}
+                {(isTask ? toDoButtons : eventButtons).map((b, index) => {
+                    if (!isTask && !event.user_id)
+                        return;
+
+                    return (
+                        <Button
+                            key={index}
+                            style={b?.style || styles.bottom_button}
+                            isDangerButton={b?.isDangerButton}
+                            transparent_bg={true}
+                            onPress={b.onPress}
+                        >
+                            {b.label}
+                        </Button>
+                    );
+                })}
             </View>
         </TopBox>
     )

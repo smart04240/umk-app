@@ -197,13 +197,13 @@ export default React.memo(function MonthScreen() {
                         width: width - 100,
                         left: 60
                     }}
-                    title={item.title}
-                    text={item.description}
+                    title={translate(item.title)}
+                    text={translate(item.description)}
                     color={eventCategories?.find?.(category => category.id === item.category)?.color}
                     from={moment(item.start_date).format('HH:mm')}
                     to={moment(item.end_date).format('HH:mm')}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
-                    onLongPress={() => {
+                    onLongPress={!!item.user_id ? () => {
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
                             translate(Translations.DeleteConfirmDescription) + '?',
@@ -218,7 +218,7 @@ export default React.memo(function MonthScreen() {
                                 },
                             ]
                         );
-                    }}
+                    } : () => {}}
                 />
             )}
             renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}

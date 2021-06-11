@@ -117,14 +117,14 @@ export default React.memo(function WeekScreen() {
             ListFooterComponent={<View style={{height: 20}}/>}
             renderItem={({item}) => (
                 <ColorCard
-                    title={item.title}
-                    text={item.description}
+                    title={translate(item.title)}
+                    text={translate(item.description)}
                     color={categories?.find(category => category.id === item.category).color}
                     from={moment(item.start_date).format('HH:mm')}
                     to={moment(item.end_date).format('HH:mm')}
                     onPressIn={() => Vibrator()}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
-                    onLongPress={() => {
+                    onLongPress={!!item.user_id ? () => {
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
                             translate(Translations.DeleteConfirmDescription) + '?',
@@ -139,7 +139,7 @@ export default React.memo(function WeekScreen() {
                                 },
                             ]
                         );
-                    }}
+                    } : () => {}}
                 />
             )}
             renderSectionHeader={({section: {day}}) => (<SectionHeader day={day}/>)}

@@ -8,10 +8,12 @@ import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 import {useSelector} from "react-redux";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
+import useTranslator from "../../hooks/useTranslator";
 
 export const CalendarEvent = props => {
     const id = props?.route?.params?.id;
     const ThemeStyles = useThemeStyles();
+    const translate = useTranslator();
     const event = useSelector(state => eventsSelectors.byId(state, id));
 
     return (
@@ -42,7 +44,7 @@ export const CalendarEvent = props => {
                         styles.content,
                         {color: ThemeStyles.dark_text},
                     ]}>
-                        {event.description}
+                        {translate(event.description)}
                     </Text>
                 )}
                 {!!event?.files && <Attachments attachments={event.files}/>}
