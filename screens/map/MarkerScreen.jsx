@@ -62,7 +62,7 @@ export default function MarkerScreen({route}) {
                         {!!marker.phone && <RoundedPhoneButton phone={marker.phone}/>}
                         {!!marker.email && <RoundedMailButton email={marker.email}/>}
                         <RoundedLocationButton
-                            address={marker.address_string}
+                            address={marker.address}
                             latitude={marker.latitude}
                             longitude={marker.longitude}
                         />
