@@ -123,7 +123,7 @@ export const CreateEvent = props => {
             start_date: datePreparer.start,
             end_date: datePreparer.end,
             category: data?.category,
-            attachments: data?.files,
+            files: data?.files,
             reminder: data?.reminder,
             reminder_date: data?.reminder_date,
             is_full_day: data?.one_day_event
@@ -139,7 +139,7 @@ export const CreateEvent = props => {
                 dispatch(Actions.Calendar.upsertOne(eventData));
 
                 if (data?.reminder)
-                    await schedulePushNotification(data?.title, data?.description, data?.reminder_date, eventID);
+                    await schedulePushNotification(translate(data?.title), translate(data?.description), data?.reminder_date, eventID);
 
                 if (!data?.reminder && !!eventID)
                     await cancelPushNotification(eventID, notifications);
