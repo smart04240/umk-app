@@ -32,6 +32,7 @@ export default function LoginScreen(props) {
 	const loginUSOS = () => {
 		const callbackUri = makeRedirectUri({
 			scheme: 'umk',
+			// path: 'umk',
 		});
 		// TODO: make functions in API.user
 		API.oauth.getURI(callbackUri).then(result => {
@@ -42,9 +43,8 @@ export default function LoginScreen(props) {
 				access_token:   null,
 				access_secret:  null,
 			}));
-			console.log(1);
 			props.navigation.navigate(Routes.Web, { uri: result?.data?.uri });
-		});
+		}).catch(err => console.log(err));
 	}
 
 	return (
