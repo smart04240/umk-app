@@ -13,7 +13,6 @@ import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
-import {cancelPushNotification} from "../../helpers/Notification";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import {categories} from "../tasks/TaskListItem";
@@ -74,15 +73,11 @@ export const TopBoxWithContent = ({id, isTask}) => {
     }
 
     const deleteEvent = () => {
-        API.events.delete(data.id).then(async res => {
-            if (res?.status === 200) {
-                dispatch(Actions.Calendar.removeOne(data.id))
+        API.events.delete(data.id).then(() => {
+            dispatch(Actions.Calendar.removeOne(data.id));
 
-                await cancelPushNotification(data.id, notifications);
-
-                navigation.goBack();
-            }
-        })
+            navigation.goBack();
+        });
     }
 
     const toDoButtons = [

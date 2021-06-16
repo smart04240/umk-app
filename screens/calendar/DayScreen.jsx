@@ -17,8 +17,6 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
-import {cancelPushNotification} from "../../helpers/Notification";
 import {eventsByDay, selectDate} from "../../redux/selectors/eventsSelector";
 
 function range(from, to) {
@@ -66,10 +64,6 @@ export default React.memo(function DayScreen() {
         if (!events?.length)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
     },[selectedDay]);
-
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications)
-    },[]);
 
     // move current time line every minute
     React.useEffect(() => {
@@ -156,14 +150,7 @@ export default React.memo(function DayScreen() {
     const hidePicker = () => setShow(false);
 
     const deleteEvent = event => {
-        API.events.delete(event.id).then(async res => {
-            if (res?.status === 200) {
-                dispatch(Actions.Calendar.removeOne(event.id))
-
-                if (event.reminder)
-                    await cancelPushNotification(event.id, notifications);
-            }
-        });
+        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
     }
 
     return (

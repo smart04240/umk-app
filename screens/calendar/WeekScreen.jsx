@@ -16,7 +16,6 @@ import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
 import API from "../../helpers/API";
 import {getAllScheduledNotificationsAsync} from "expo-notifications";
-import {cancelPushNotification} from "../../helpers/Notification";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -81,14 +80,7 @@ export default React.memo(function WeekScreen() {
     );
 
     const deleteEvent = event => {
-        API.events.delete(event.id).then(async res => {
-            if (res?.status === 200) {
-                dispatch(Actions.Calendar.removeOne(event.id))
-
-                if (event.reminder)
-                    await cancelPushNotification(event.id, notifications);
-            }
-        });
+        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
     }
 
     return (
