@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, StyleSheet, Text, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Button from "../form/Button";
@@ -13,10 +13,12 @@ import {ToDosSelectors} from "../../redux/selectors/todosSelectors";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import {categories} from "../tasks/TaskListItem";
 import moment from "moment";
+import Layout from "../../constants/Layout";
+
+const ImageHeight = Layout.height / 2.5;
 
 export const TopBoxWithContent = ({id, isTask}) => {
     const translate = useTranslator();
@@ -27,7 +29,6 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const event = useSelector(state => eventsSelectors.byId(state, id));
     const locale = useSelector(state => state.app.locale);
     const data = isTask ? todos : event;
-    const [notifications, setNotifications] = React.useState([]);
     const eventCategories = useSelector(state => state.eventCategories);
     const category = (isTask ? categories : eventCategories).find(category => category.id === parseInt(data?.category));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
@@ -42,10 +43,6 @@ export const TopBoxWithContent = ({id, isTask}) => {
         title: translate(Translations.DeleteConfirmTitle),
         description: translate(Translations.DeleteConfirmDescription) + ' ' + data?.title + '?'
     };
-
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications)
-    },[]);
 
     const completeTask = () => {
         dispatch(Actions.ToDos.upsertOne({
@@ -99,6 +96,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     return (
         <TopBox>
+            {!!data?.image && (<Image style={styles.image} source={{uri: data.image}}/>)}
             {!!data?.title && (
                 <Text style={[
                     GeneralStyles.text_bold,
@@ -178,6 +176,11 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         flexShrink: 1,
         marginHorizontal: 5
-    }
+    },
+    image: {
+        width: '100%',
+        height: ImageHeight,
+        ...GeneralStyles.bottom_border_radius,
+    },
 })
 
