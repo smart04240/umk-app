@@ -16,7 +16,6 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
 import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import API from "../../helpers/API";
 
 const Days = {
@@ -76,7 +75,6 @@ export default React.memo(function MonthScreen() {
     const events = useSelector(state => eventsByMonthPerDay(state));
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
-    const [notifications, setNotifications] = React.useState([]);
 
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
     const sections = React.useMemo(() => {
@@ -99,10 +97,6 @@ export default React.memo(function MonthScreen() {
         if (selectedMonth.month() !== selectedDate.month())
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
-
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications);
-    }, []);
 
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));

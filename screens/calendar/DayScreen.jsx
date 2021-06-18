@@ -52,7 +52,6 @@ export default React.memo(function DayScreen() {
     const selectedDay = useSelector(state => selectDate(state));
     const [now, setNow] = React.useState(new Date());
     const events = useSelector(state => eventsByDay(state));
-    const [notifications, setNotifications] = React.useState([]);
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
     const locale = useSelector(state => state.app.locale);
