@@ -17,7 +17,7 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
-import {eventsByDay, selectDate} from "../../redux/selectors/eventsSelector";
+import {eventsByDay} from "../../redux/selectors/eventsSelector";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -36,8 +36,8 @@ const nowLeftOffset = linesLeftOffset - nowCircleSize / 2;
 
 const timeHeight = date => (date.getHours() * 60 + date.getMinutes()) * minuteHeight + linesTopOffset;
 const getCardHeight = event => {
-    let start = moment(event.start_date).toDate();
-    let end = moment(event.end_date).toDate();
+    let start = moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').toDate();
+    let end = moment(event.end_date, 'YYYY-MM-DD HH:mm:ss').toDate();
 
     return ((end?.getHours() * 60) + end?.getMinutes()) - ((start?.getHours() * 60) + start?.getMinutes());
 };
@@ -49,9 +49,12 @@ export default React.memo(function DayScreen() {
     const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
-    const selectedDay = useSelector(state => selectDate(state));
+    const selectedDay = useSelector(state => state.events.selectedDate);
     const [now, setNow] = React.useState(new Date());
     const events = useSelector(state => eventsByDay(state));
+
+    console.log(events)
+
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
     const locale = useSelector(state => state.app.locale);
@@ -94,7 +97,7 @@ export default React.memo(function DayScreen() {
                             height: cardHeight,
                             width: Math.round(event?.width),
                             left: event.left + leftMargin,
-                            top: timeHeight(moment(event.start_date).toDate()),
+                            top: timeHeight(moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').toDate()),
                         },
                     ]}
                     // todo update navigation
@@ -131,7 +134,7 @@ export default React.memo(function DayScreen() {
                         </Text>
                         <View style={styles.timeBox}>
                             <Text style={styles.timeRange}>
-                                {moment(event.start_date).format('HH:mm') + ' - ' + moment(event.end_date).format('HH:mm')}
+                                {moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm') + ' - ' + moment(event.end_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
                             </Text>
                         </View>
                         {cardHeight > 100 && (

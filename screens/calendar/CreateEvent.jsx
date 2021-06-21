@@ -27,7 +27,7 @@ export const CreateEvent = props => {
         files: !!id ? event.files : [],
         start: !!id ? event.start_date : '',
         end: !!id ? event.end_date : '',
-        date: !!id ? moment(event.start_date).toISOString() : moment().toISOString(),
+        date: !!id ? moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').toISOString() : moment().toISOString(),
         one_day_event: !!id ? event?.is_full_day : false,
         reminder: !!id ? event.reminder : true,
         reminder_date: !!id ? event.notification.reminder_date : null,
@@ -50,8 +50,8 @@ export const CreateEvent = props => {
 
         if (data?.one_day_event)
             return {
-                start: moment(data?.date).startOf('day').toISOString(),
-                end: moment(data?.date).endOf('day').toISOString()
+                start: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').startOf('day').toISOString(),
+                end: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').endOf('day').toISOString()
             }
     },[data.date, data.start, data.end, data.one_day_event]);
 

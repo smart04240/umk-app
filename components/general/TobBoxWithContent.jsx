@@ -35,7 +35,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     const info = [
         {circle_color: category?.color, value: category?.title[locale]},
-        {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
+        {icon: "calendar-range", value: !isTask && moment(data?.start_date, 'YYYY-MM-DD HH:mm:ss').format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: isTask && status},
     ];
 
