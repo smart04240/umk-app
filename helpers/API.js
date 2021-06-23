@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://093e09acafab.ngrok.io/mobile`,
+    baseURL: `https://76e402dc32b5.ngrok.io`,
 });
 
 const Types = {
@@ -41,11 +41,15 @@ API.user = {
  */
 
 API.events = {
-    byRange: (startDate, endDate) => API.get(`/events?from=${startDate}&till=${endDate}`),
-    create: data => API.post(`/events/create`, data),
-    edit: (data) => API.post(`/events/update`, data),
-    delete: id => API.delete(`/events/delete?id=${id}`),
-    categories: () => API.get(`/events/categories`),
+    byRange: (startDate, endDate) => API.get(`/calendar_events?from=${startDate}&till=${endDate}`),
+    create: data => API.post(`/calendar_events/user`, data),
+    edit: data => {
+        data.append('_method', 'PUT');
+        return API.post(`/calendar_events/user` + data.get('id'), data);
+    },
+    delete: id => API.delete(`/calendar_events/delete?id=${id}`),
+    categories: () => API.get(`calendar_events/categories`),
+    notifications: () => API.get('/calendar_events/notifications')
 };
 
 /**
