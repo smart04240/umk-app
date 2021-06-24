@@ -16,9 +16,7 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
 import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import API from "../../helpers/API";
-import {cancelPushNotification} from "../../helpers/Notification";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -77,7 +75,6 @@ export default React.memo(function MonthScreen() {
     const events = useSelector(state => eventsByMonthPerDay(state));
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
-    const [notifications, setNotifications] = React.useState([]);
 
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
     const sections = React.useMemo(() => {
@@ -101,23 +98,12 @@ export default React.memo(function MonthScreen() {
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
 
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications);
-    }, []);
-
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));
     const nextMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).add(1, 'month').toISOString()));
 
     const deleteEvent = event => {
-        API.events.delete(event.id).then(async res => {
-            if (res?.status === 200) {
-                dispatch(Actions.Calendar.removeOne(event.id))
-
-                if (event.reminder)
-                    await cancelPushNotification(event.id, notifications);
-            }
-        });
+        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
     };
 
     return (
@@ -200,8 +186,8 @@ export default React.memo(function MonthScreen() {
                     title={translate(item.title)}
                     text={translate(item.description)}
                     color={eventCategories?.find?.(category => category.id === item.category)?.color}
-                    from={moment(item.start_date).format('HH:mm')}
-                    to={moment(item.end_date).format('HH:mm')}
+                    from={moment(item.start_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
+                    to={moment(item.end_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
                     onLongPress={!!item.user_id ? () => {
                         Alert.alert(

@@ -8,16 +8,14 @@ import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
 import {Alert} from "react-native";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
 import API from "../../helpers/API";
-import {cancelPushNotification, schedulePushNotification} from "../../helpers/Notification";
 import Actions from "../../redux/Actions";
 import {useDispatch} from "react-redux";
+import makeFormData from "../../helpers/makeFormData";
 
 export const CreateEvent = props => {
     const event = props?.route?.params;
     const id = event.id;
-
     const navigation = useNavigation();
     const translate = useTranslator();
     const dispatch = useDispatch();
@@ -29,17 +27,11 @@ export const CreateEvent = props => {
         files: !!id ? event.files : [],
         start: !!id ? event.start_date : '',
         end: !!id ? event.end_date : '',
-        date: !!id ? moment(event.start_date).toISOString() : moment().toISOString(),
+        date: !!id ? moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').toISOString() : moment().toISOString(),
         one_day_event: !!id ? event?.is_full_day : false,
         reminder: !!id ? event.reminder : true,
-        reminder_date: !!id ? event.reminder_date : null,
+        reminder_date: !!id ? event.notification.reminder_date : null,
     });
-
-    const [notifications, setNotifications] = React.useState([]);
-
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications)
-    },[]);
 
     const canSave = useMemo(() => {
         return (!!data?.description?.length && !!data?.title?.length && !!data?.category && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
@@ -58,8 +50,8 @@ export const CreateEvent = props => {
 
         if (data?.one_day_event)
             return {
-                start: moment(data?.date).startOf('day').toISOString(),
-                end: moment(data?.date).endOf('day').toISOString()
+                start: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').startOf('day').toISOString(),
+                end: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').endOf('day').toISOString()
             }
     },[data.date, data.start, data.end, data.one_day_event]);
 
@@ -129,23 +121,10 @@ export const CreateEvent = props => {
             is_full_day: data?.one_day_event
         };
 
-        !!id ? eventData['id'] = id : '';
+        API.events[!!id ? 'edit' : 'create'](makeFormData(eventData)).then(res => {
+            dispatch(Actions.Calendar.upsertOne(eventData));
 
-        API.events[!!id ? 'edit' : 'create'](eventData).then(async res => {
-            if (res?.status === 200) {
-                const eventID = res?.data?.eventID;
-
-                !id ? eventData['id'] = eventID : '';
-                dispatch(Actions.Calendar.upsertOne(eventData));
-
-                if (data?.reminder)
-                    await schedulePushNotification(translate(data?.title), translate(data?.description), data?.reminder_date, eventID);
-
-                if (!data?.reminder && !!eventID)
-                    await cancelPushNotification(eventID, notifications);
-
-                navigation.goBack();
-            }
+            navigation.goBack();
         });
     };
 

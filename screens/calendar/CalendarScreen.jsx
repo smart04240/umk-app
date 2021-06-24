@@ -13,12 +13,14 @@ import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import FloatAddButton from "../../components/tasks/FloatAddButton";
-import {useNavigation} from "@react-navigation/core";
+import {useFocusEffect, useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
+import {replacePushNotifications} from "../../helpers/Notification";
+import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -27,6 +29,7 @@ export default function CalendarScreen() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
     const selectedDate = useSelector(state => state.events.selectedDate);
+    const events = useSelector(state => eventsSelectors.All(state));
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
@@ -36,11 +39,17 @@ export default function CalendarScreen() {
         if (!selectedDate)
             return;
 
-        let startOfDay = moment(selectedDate).startOf('month').day(-7).toISOString(),
-            endOfDay = moment(selectedDate).endOf('month').day(+7).toISOString();
+        let startOfMonth = moment(selectedDate, 'YYYY-MM-DD').startOf('month').day(-7).format('YYYY-MM-DD'),
+            endOfMonth = moment(selectedDate, 'YYYY-MM-DD').endOf('month').day(+7).format('YYYY-MM-DD');
 
-        API.events.byRange(startOfDay, endOfDay).then(res => {dispatch(Actions.Calendar.setAll(res?.data))});
+        API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
     },[selectedDate]);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+        },[events])
+    );
 
     const style = useMemo(() => ({
         pillContainer: {

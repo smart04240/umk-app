@@ -15,6 +15,7 @@ Interceptors.register();
 
 function Main(props) {
     const theme = useSelector(state => state.app.theme);
+
     return (
         <>
             <InternetMonitor/>
@@ -28,11 +29,11 @@ function Main(props) {
 }
 
 export default function App() {
-	const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(true);
 
-	const setLoaded = () => setLoading(false);
+    const setLoaded = () => setLoading(false);
 
-	React.useEffect(() => {
+    React.useEffect(() => {
         Font.loadAsync({
             [Fonts.ProximaNova.Regular]: require('./assets/fonts/ProximaNova-Regular.ttf'),
             [Fonts.ProximaNova.Bold]: require('./assets/fonts/ProximaNova-Bold.ttf'),
@@ -40,10 +41,10 @@ export default function App() {
         }).then(setLoaded);
     }, []);
 
-	if (loading)
-	    return null;
+    if (loading)
+        return null;
 
-	const render = bootstrapped => <Main loading={!bootstrapped}/>;
+    const render = bootstrapped => <Main loading={!bootstrapped}/>;
 
     return (
         <Provider store={store}>

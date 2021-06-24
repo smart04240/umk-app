@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/core';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
@@ -11,33 +11,29 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import Routes from '../../constants/Routes';
 import shadowGenerator from "../../helpers/shadowGenerator";
 
-export const categories = [
+export const taskCategories = [
 	{
 		value: 1,
-		color: Colors.Yellow,
+		color: '#ff111a'
 	},
 	{
 		value: 2,
-		color: Colors.Purple,
+		color: '#ff9124',
 	},
 	{
 		value: 3,
-		color: Colors.Green,
+		color: '#b73839'
 	},
 	{
 		value: 4,
-		color: Colors.CarrotOrange,
-	},
-	{
-		value: 5,
-		color: Colors.DeepSkyBlue,
+		color: '#346eaa'
 	},
 ];
 
 const TaskListItem = props => {
 	const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
-	const itemCategory = categories.find(category => category.value === parseInt(props.category));
+	const itemCategory = taskCategories.find(category => category.value === parseInt(props.category));
 
 	const actions = [
 		{icon: "eye-outline", onPress: () => navigation.navigate(Routes.TaskSingle, props)},

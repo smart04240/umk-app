@@ -15,8 +15,6 @@ import {eventsByWeek, eventsSelectors, selectDate} from "../../redux/selectors/e
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
 import API from "../../helpers/API";
-import {getAllScheduledNotificationsAsync} from "expo-notifications";
-import {cancelPushNotification} from "../../helpers/Notification";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -26,7 +24,6 @@ export default React.memo(function WeekScreen() {
     const dispatch = useDispatch();
     const locale = useSelector(state => state.app.locale);
     const [show, setShow] = React.useState(false);
-    const [notifications, setNotifications] = React.useState([]);
     const allEvents = useSelector(state => eventsSelectors.All(state));
     const events = useSelector(state => eventsByWeek(state));
     const categories = useSelector(state => state.eventCategories);
@@ -35,10 +32,6 @@ export default React.memo(function WeekScreen() {
         if (!events?.length)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessageWeek, locale)));
     },[selectedDay]);
-
-    React.useEffect(() => {
-        getAllScheduledNotificationsAsync().then(setNotifications)
-    },[]);
 
     const weekPreparer = useMemo(() => {
         const week = [];
@@ -51,7 +44,7 @@ export default React.memo(function WeekScreen() {
 
             week.push({
                 day: start.format('YYYY-MM-DD'),
-                data: events.filter(event => newDay === moment(event.start_date).format('YYYY-MM-DD'))
+                data: events.filter(event => newDay === moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'))
             });
 
             start.add(1, 'days');
@@ -81,14 +74,7 @@ export default React.memo(function WeekScreen() {
     );
 
     const deleteEvent = event => {
-        API.events.delete(event.id).then(async res => {
-            if (res?.status === 200) {
-                dispatch(Actions.Calendar.removeOne(event.id))
-
-                if (event.reminder)
-                    await cancelPushNotification(event.id, notifications);
-            }
-        });
+        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
     }
 
     return (
@@ -120,8 +106,8 @@ export default React.memo(function WeekScreen() {
                     title={translate(item.title)}
                     text={translate(item.description)}
                     color={categories?.find(category => category.id === item.category).color}
-                    from={moment(item.start_date).format('HH:mm')}
-                    to={moment(item.end_date).format('HH:mm')}
+                    from={moment(item.start_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
+                    to={moment(item.end_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
                     onPressIn={() => Vibrator()}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
                     onLongPress={!!item.user_id ? () => {
