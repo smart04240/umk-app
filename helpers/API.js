@@ -31,7 +31,7 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
  */
 
 API.user = {
-    login: () => API.post('/login'),
+    login: () => API.post('/auth/login'),
     logOut: () => {},
     update: (data) => API.post('/update', data),
 };
@@ -41,15 +41,15 @@ API.user = {
  */
 
 API.events = {
-    byRange: (startDate, endDate) => API.get(`/calendar_events?from=${startDate}&till=${endDate}`),
+    byRange: (startDate, endDate) => API.get(`/calendar_events_by_range?from=${startDate}&till=${endDate}`),
     create: data => API.post(`/calendar_events/user`, data),
     edit: data => {
         data.append('_method', 'PUT');
-        return API.post(`/calendar_events/user` + data.get('id'), data);
+        return API.post(`/calendar_events/user/` + data.get('id'), data);
     },
-    delete: id => API.delete(`/calendar_events/delete?id=${id}`),
+    delete: id => API.delete(`/calendar_events/${id}`),
     categories: () => API.get(`calendar_events/categories`),
-    notifications: () => API.get('/calendar_events/notifications')
+    notifications: () => API.get('/calendar_events/reminders')
 };
 
 /**
