@@ -1,12 +1,16 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {useSelector} from "react-redux";
+import DropDownTextGroup from '../dropdowntext/DropDownTextGroup';
 import Container from "../general/Container";
 
 const ProfileCollegeGraduationTab = props => {
+	const {graduation} = useSelector(state => {return state.zdarzenia});
 
 	return (
 		<Container>
-			<Text> College Graduation </Text>
+			<DropDownTextGroup
+				items={ graduation }
+			/>
 		</Container>
 	)
 }

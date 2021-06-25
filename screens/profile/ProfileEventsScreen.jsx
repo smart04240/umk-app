@@ -1,9 +1,12 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
+import {useDispatch} from "react-redux";
 import {Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import Routes from "../../constants/Routes";
+import Actions from "../../redux/Actions";
+import API from "../../helpers/API";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ProfileUsosEvents from "../../components/profile-events/ProfileUsosEvents";
@@ -18,6 +21,7 @@ import Container from "../../components/general/Container";
 import Fonts from "../../constants/Fonts";
 
 const ProfileEventsScreen = props => {
+	const dispatch = useDispatch();
 	const translate = useTranslator();translate()
 	const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
@@ -39,6 +43,24 @@ const ProfileEventsScreen = props => {
 			component: ProfileCollegeGraduationTab
 		}
 	];
+
+	useEffect(() => {
+		API.zdarzenia.getAll().then(response => {
+			const data = response.data.data.list;
+			let _data = {
+				affectList: data.affectList.map(item => (formatData(item))),
+				notAffectList: data.notAffectList.map(item => (formatData(item))),
+				others: data.others.map(item => (formatData(item))),
+				graduation: data.graduation.map(item => (formatData(item))),
+			}
+			
+			dispatch(Actions.Zdarzenia.All(_data));
+		})
+	}, []);
+	
+	const formatData = item => {
+		return {label: translate(item.name), text: translate(item.description)};
+	}
 
 	const styles = useMemo(() => (
 		{
