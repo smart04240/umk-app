@@ -51,6 +51,9 @@ const Interceptors = {
                     case 401:
                         store.dispatch(Actions.Toasts.Warning(getTranslated(Translations.SessionExpired, locale)));
                         break;
+                    case 422:
+                        store.dispatch(Actions.Toasts.Warning(getTranslated(Translations.UnprocessableEntity, locale)));
+                        break;
                     case 500:
                         store.dispatch(Actions.Toasts.Danger(getTranslated(Translations.InternalServerError, locale)));
                         break;

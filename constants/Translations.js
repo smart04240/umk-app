@@ -133,6 +133,11 @@ export default {
 		pl: 'Serwer napotkał nieoczekiwany stan, który uniemożliwił mu realizację żądania.',
 	},
 
+	UnprocessableEntity: {
+		en: 'The request cannot be processed because the data you provided is not valid. Please check if all fields have valid values.',
+		pl: 'Nie można przetworzyć żądania, ponieważ podane przez Ciebie dane są nieprawidłowe. Sprawdź, czy wszystkie pola mają prawidłowe wartości.',
+	},
+
 	ToDoList: {
 		en: "To do list",
 		pl: "Lista zadań"
