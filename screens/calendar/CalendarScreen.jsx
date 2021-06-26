@@ -43,13 +43,11 @@ export default function CalendarScreen() {
             endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
 
         API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
-    },[selectedDate]);
+    }, [selectedDate]);
 
-    useFocusEffect(
-        React.useCallback(() => {
-            API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-        },[events])
-    );
+    useFocusEffect(React.useCallback(() => {
+        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+    }, []));
 
     const style = useMemo(() => ({
         pillContainer: {
