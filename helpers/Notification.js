@@ -14,7 +14,7 @@ Notifications.setNotificationHandler({
 export const schedulePushNotification = async (title, description, reminderOffset, eventID, eventStartDate) => {
     const notificationDate = moment(eventStartDate).subtract(reminderOffset, 'seconds').diff(moment(), 'seconds');
 
-    if (!!reminderOffset?.length && !!eventStartDate?.length) {
+    if (!!notificationDate) {
         await Notifications.scheduleNotificationAsync({
             content: {
                 title: `${title}`,
