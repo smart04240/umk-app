@@ -177,6 +177,14 @@ export default function CreateEventScreen(props) {
 
         const eventData = {
             ...data,
+            title: {
+                pl: data.title,
+                en: data.title,
+            },
+            description: {
+                pl: data.description,
+                en: data.description,
+            },
             show_location_link: data.show_location_link === '1',
         };
 
