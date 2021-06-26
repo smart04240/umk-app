@@ -6,6 +6,7 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import shadowGenerator from "../../helpers/shadowGenerator";
 import {Vibrator} from "../../helpers/Vibrator";
+import {HtmlParser} from "./HtmlParser";
 
 const CircleButton = ({style, theme, icon, onPress}) => (
     <TouchableOpacity style={[styles.circle, {borderColor: theme.blue_text}, style]} onPress={onPress}>
@@ -17,7 +18,7 @@ const CircleButton = ({style, theme, icon, onPress}) => (
     </TouchableOpacity>
 );
 
-export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress, onPressIn}) {
+export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress, onPressIn, html}) {
     const theme = useThemeStyles();
 
     const Component = onPress ? TouchableOpacity : View;
@@ -64,10 +65,16 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 ]}>
                     {title}
                 </Text>
-
-                <Text style={regularTextStyles}>
-                    {text}
-                </Text>
+                {!!html && (
+                    <HtmlParser
+                        html={html}
+                    />
+                )}
+                {!!text && (
+                    <Text style={regularTextStyles}>
+                        {text}
+                    </Text>
+                )}
             </View>
 
             <View style={styles.actions}>
@@ -96,6 +103,7 @@ const styles = {
         flex: 1,
         ...shadowGenerator(9),
         flexDirection: "row",
+        maxHeight: 120,
         borderRadius: 15,
         paddingTop: 14,
         paddingBottom: 10,

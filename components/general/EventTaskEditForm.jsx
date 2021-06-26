@@ -12,7 +12,7 @@ import useTranslator from "../../hooks/useTranslator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {useCategoryPreparer} from "../../hooks/useCategoryPreparer";
 
-export const EventTaskEditForm = props => {
+export const EventTaskEditForm = ({onChange, isToDo, categoryValue, formTitle, title, description, files, canSave, saveData, eventData, validateStartDate, validateEndDate}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const eventsOptions = useCategoryPreparer();
@@ -56,10 +56,10 @@ export const EventTaskEditForm = props => {
         //     init_value: opt_sample.find(option => option.value === props?.placeValue)?.value,
         // },
         {
-            name: "category",
+            name: isToDo ? "category" : "category_id",
             placeholder: "Kategoria *",
-            options: props.isToDo ? TaskCategories : eventsOptions,
-            init_value: (props.isToDo ? TaskCategories : eventsOptions).find(option => option.value === props?.categoryValue)?.value,
+            options: isToDo ? TaskCategories : eventsOptions,
+            init_value: (isToDo ? TaskCategories : eventsOptions).find(option => option.value === categoryValue)?.value,
         }
     ];
 
@@ -73,49 +73,49 @@ export const EventTaskEditForm = props => {
                     {color: ThemeStyles.dark_text, marginBottom: 20}
                 ]}
             >
-                {props?.formTitle}
+                {formTitle}
             </Text>
             <View style={{width: "100%", marginBottom: 30}}>
                 <Input
                     name="title"
                     placeholder="Tytuł zadania *"
-                    defaultValue={props?.title}
+                    defaultValue={title}
                     style={{marginBottom: 8}}
                     error_message={getErrorMessage("title")}
-                    onChangeText={props?.titleOnChange}
+                    onChangeText={title => onChange({name: 'title', value: title})}
                 />
                 {main_dropdowns.map(dropdown => (
                    <Dropdown
                        key={dropdown.name}
                        {...dropdown}
                        error_message={getErrorMessage(dropdown.name)}
-                       onChange={props?.dropdownOnChange}
+                       onChange={onChange}
                    />
                 ))}
             </View>
-            {props.isEvent && props.eventData && (
+            {!isToDo && eventData && (
                 <TaskEditEventSection
-                    data={props.eventData}
-                    onChange={props.editEventOnChange}
-                    validateStartDate={props?.validateStartDate}
-                    validateEndDate={props?.validateEndDate}
+                    data={eventData}
+                    onChange={onChange}
+                    validateStartDate={validateStartDate}
+                    validateEndDate={validateEndDate}
                 />
             )}
             <Input
                 name="description"
-                defaultValue={props?.description}
+                defaultValue={description}
                 style={{marginBottom: 15, textAlignVertical: 'top'}}
                 label={translate(Translations.EnterDescOfTask)}
                 placeholder={translate(Translations.DescEllipsis)}
                 multiline={true}
                 numberOfLines={6}
-                onChangeText={props?.descriptionOnChange}
+                onChangeText={text => onChange({name: 'description', value: text})}
             />
-            <DocPicker files={props?.files} onChange={props?.docPickerOnChange}/>
-            {props.isEvent && props.reminderData && <TaskEditReminderSection data={props.reminderData} onChange={props.reminderOnChange}/>}
+            <DocPicker files={files} onChange={onChange}/>
+            {!isToDo && eventData && <TaskEditReminderSection data={eventData} onChange={onChange}/>}
             <Button
-                disabled={props?.canSave}
-                onPress={props?.saveData}
+                disabled={canSave}
+                onPress={saveData}
             >
                 {translate(Translations.Save)}
             </Button>

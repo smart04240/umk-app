@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -9,6 +9,7 @@ import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 import {useSelector} from "react-redux";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import useTranslator from "../../hooks/useTranslator";
+import {HtmlParser} from "../../components/general/HtmlParser";
 
 export const CalendarEvent = props => {
     const id = props?.route?.params?.id;
@@ -40,12 +41,9 @@ export const CalendarEvent = props => {
                 }
             >
                 {!!event?.description && (
-                    <Text style={[
-                        styles.content,
-                        {color: ThemeStyles.dark_text},
-                    ]}>
-                        {translate(event.description)}
-                    </Text>
+                    <HtmlParser
+                        html={translate(event.description)}
+                    />
                 )}
                 {!!event?.files && <Attachments attachments={event.files}/>}
             </ContainerWithScroll>

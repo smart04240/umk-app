@@ -63,7 +63,7 @@ const TaskEditEventSection = props => {
 					name="one_day_event"
 					init_checked={one_day_event}
 					label="Wydarzenie jednodniowe"
-					onChange={o => onChange(o)}
+					onChange={onChange}
 				/>
 			</View>
 		</View>

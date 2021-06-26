@@ -39,8 +39,8 @@ export default function CalendarScreen() {
         if (!selectedDate)
             return;
 
-        let startOfMonth = moment(selectedDate, 'YYYY-MM-DD').startOf('month').day(-7).format('YYYY-MM-DD'),
-            endOfMonth = moment(selectedDate, 'YYYY-MM-DD').endOf('month').day(+7).format('YYYY-MM-DD');
+        let startOfMonth = moment(selectedDate).startOf('month').day(-7).format('YYYY-MM-DD'),
+            endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
 
         API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
     },[selectedDate]);

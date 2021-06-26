@@ -7,7 +7,7 @@ const recursiveAppend = (formData, field, value) => {
     }
 
     if (Array.isArray(value)) {
-        value.forEach(val => recursiveAppend(formData, field + '[]', val));
+        value.forEach((val, index) => recursiveAppend(formData, field + '[' + index + ']', val));
         return formData;
     }
 
@@ -25,7 +25,6 @@ const recursiveAppend = (formData, field, value) => {
         formData.append(field, !!value ? '1' : '');
         return formData;
     }
-
     return formData.append(field, value);
 };
 

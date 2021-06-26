@@ -27,7 +27,7 @@ const SectionHeader = ({day}) => {
     const theme = useThemeStyles();
     const locale = useSelector(state => state.app.locale);
 
-    const formatDate = format => moment(day, 'YYYY-MM-DD').locale(locale).format(format);
+    const formatDate = format => moment(day).locale(locale).format(format);
 
     return (
         <View style={{
@@ -184,12 +184,12 @@ export default React.memo(function MonthScreen() {
                         left: 60
                     }}
                     title={translate(item.title)}
-                    text={translate(item.description)}
-                    color={eventCategories?.find?.(category => category.id === item.category)?.color}
-                    from={moment(item.start_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
-                    to={moment(item.end_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
+                    html={translate(item.description)}
+                    color={eventCategories?.find?.(category => category.id === item.category_id)?.color}
+                    from={moment(item.start_date).format('HH:mm')}
+                    to={moment(item.end_date).format('HH:mm')}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
-                    onLongPress={!!item.user_id ? () => {
+                    onLongPress={!!item.student_id ? () => {
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
                             translate(Translations.DeleteConfirmDescription) + '?',

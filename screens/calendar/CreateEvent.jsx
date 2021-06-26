@@ -23,18 +23,18 @@ export const CreateEvent = props => {
         title: !!id ? event.title['pl'] : '',
         description: !!id ? event.description['pl'] : '',
         place: !!id ? event.description : '',
-        category: !!id ? event.category : '',
+        category_id: !!id ? event.category_id : '',
         files: !!id ? event.files : [],
         start: !!id ? event.start_date : '',
         end: !!id ? event.end_date : '',
-        date: !!id ? moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').toISOString() : moment().toISOString(),
+        date: !!id ? moment(event.start_date).toISOString() : moment().toISOString(),
         one_day_event: !!id ? event?.is_full_day : false,
         reminder: !!id ? event.reminder : true,
-        reminder_date: !!id ? event.notification.reminder_date : null,
+        reminder_offset: !!id ? event.reminder_offset : null,
     });
 
     const canSave = useMemo(() => {
-        return (!!data?.description?.length && !!data?.title?.length && !!data?.category && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
+        return (!!data?.description?.length && !!data?.title?.length && !!data?.category_id && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
     },[data]);
 
     const title = useMemo(() => {
@@ -50,15 +50,18 @@ export const CreateEvent = props => {
 
         if (data?.one_day_event)
             return {
-                start: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').startOf('day').toISOString(),
-                end: moment(data?.date, 'YYYY-MM-DD HH:mm:ss').endOf('day').toISOString()
+                start: moment(data?.date).startOf('day').toISOString(),
+                end: moment(data?.date).endOf('day').toISOString()
             }
     },[data.date, data.start, data.end, data.one_day_event]);
 
-    const onChange = (name, value) => {
-        const checkValue = (name === 'start' || name === 'end' || name === 'reminder_date' || name === 'date') ? moment(value).toISOString() : value;
+    console.log(data)
 
-        if (name === 'reminder' && !value && !!data?.reminder_date) {
+    const onChange = (name, value) => {
+        console.log(name, value)
+        const checkValue = (name === 'start' || name === 'end' || name === 'date') ? moment(value).toISOString() : name === 'reminder_offset' ? moment(value).unix() : value;
+
+        if (name === 'reminder' && !value && !!data?.reminder_offset) {
             Alert.alert(
                 translate(Translations.Calendar),
                 translate(Translations.ReminderDisable),
@@ -69,7 +72,7 @@ export const CreateEvent = props => {
                         onPress: () => setData({
                             ...data,
                             reminder: false,
-                            reminder_date: '',
+                            reminder_offset: '',
                         }),
                     },
                     {
@@ -89,7 +92,7 @@ export const CreateEvent = props => {
     };
 
     const save = async () => {
-        if (data?.reminder && !data?.reminder_date) {
+        if (data?.reminder && !data?.reminder_offset) {
             Alert.alert(
                 translate(Translations.Calendar),
                 translate(Translations.ReminderDateWarning),
@@ -114,10 +117,9 @@ export const CreateEvent = props => {
             },
             start_date: datePreparer.start,
             end_date: datePreparer.end,
-            category: data?.category,
+            category_id: data?.category_id,
             files: data?.files,
-            reminder: data?.reminder,
-            reminder_date: data?.reminder_date,
+            reminder_offset: data?.reminder_offset,
             is_full_day: data?.one_day_event
         };
 
@@ -136,23 +138,16 @@ export const CreateEvent = props => {
                         title={data?.title}
                         formTitle={title}
                         route={props.route}
-                        isEvent={true}
                         canSave={!canSave}
                         saveData={() => save()}
-                        titleOnChange={title => onChange('title', title)}
-                        dropdownOnChange={option => onChange(option.name, option.value)}
+                        onChange={o => onChange(o.name, o.value)}
                         placeValue={data?.place}
                         categoryValue={data?.category}
-                        descriptionOnChange={description => onChange('description', description)}
-                        docPickerOnChange={object => onChange(object.name, object.value)}
                         description={data?.description}
                         files={data?.files}
                         eventData={data}
                         validateStartDate={!moment(data.start).isSameOrBefore(moment(data.end))}
                         validateEndDate={!moment(data.end).isSameOrAfter(moment(data.start))}
-                        editEventOnChange={o => onChange(o.name, o.value)}
-                        reminderData={data}
-                        reminderOnChange={o => onChange(o.name, o.value)}
                     />
                 </ContainerWithScroll>
             </MainWithNavigation>

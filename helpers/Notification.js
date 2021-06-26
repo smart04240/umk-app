@@ -11,25 +11,25 @@ Notifications.setNotificationHandler({
    }),
 });
 
-export const schedulePushNotification = async (title, description, date, eventID) => {
-    const now = moment();
-    const reminderDate = moment(date);
-    const countedDate = moment.duration(reminderDate?.diff(now)).as('seconds');
+export const schedulePushNotification = async (title, description, reminderOffset, eventID, eventStartDate) => {
+    const notificationDate = moment(eventStartDate).subtract(reminderOffset, 'seconds').diff(moment(), 'seconds');
 
-    return await Notifications.scheduleNotificationAsync({
-        content: {
-            title: `${title}`,
-            body: `${description}`,
-            sound: 'default',
-            data: {
-                eventID: eventID,
-            }
-        },
-        trigger: {
-            seconds: countedDate
-        },
-    });
-}
+    if (!!reminderOffset?.length && !!eventStartDate?.length) {
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: `${title}`,
+                body: `${description}`,
+                sound: 'default',
+                data: {
+                    eventID: eventID,
+                }
+            },
+            trigger: {
+                seconds: notificationDate
+            },
+        })
+    }
+};
 
 export const cancelPushNotification = async (eventID, notifications) => {
     if (notifications?.length) {
@@ -49,8 +49,7 @@ export const replacePushNotifications = async data => {
 
     if (!!data?.length) {
         data.forEach(notification => {
-            // ToDo connect notification title, description to app locale
-            schedulePushNotification(notification.events.title.pl, notification.events.description.pl, notification.reminder_date, notification.event_id)
+            schedulePushNotification(notification.title.pl, notification.description.pl, notification.reminder_offset, notification.id, notification.start_date)
         });
     }
 }
