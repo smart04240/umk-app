@@ -20,7 +20,6 @@ import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {replacePushNotifications} from "../../helpers/Notification";
-import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -29,7 +28,6 @@ export default function CalendarScreen() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
     const selectedDate = useSelector(state => state.events.selectedDate);
-    const events = useSelector(state => eventsSelectors.All(state));
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
