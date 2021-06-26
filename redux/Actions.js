@@ -67,4 +67,7 @@ export default {
     },
     ChangeMapSearch: createAction('changeMapSearch'),
     ChangeMapSearchDebounced: createAction('changeMapSearchDebounced'),
+    Zdarzenia: {
+        All: createAction('zdarzenia/all')
+    }
 };

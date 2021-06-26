@@ -170,4 +170,12 @@ API.Scheduler = {
     },
 };
 
+/**
+ * Zdarzenia
+ */
+
+ API.zdarzenia = {
+    getAll: () => API.get('/zdarzenia/all'),
+};
+
 export default API;
