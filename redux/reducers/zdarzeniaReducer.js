@@ -6,6 +6,7 @@ const InitialState = {
     notAffectList: [],
     others: [],
     graduation: [],
+    usosEvents: [],
 };
 
 export default createReducer(InitialState, builder => {
@@ -21,5 +22,6 @@ export const zdarzenias = createSelector(
         state => state.zdarzenia.notAffectList,
         state => state.zdarzenia.others,
         state => state.zdarzenia.graduation,
+        state => state.zdarzenia.usosEvents,
     ]
 );

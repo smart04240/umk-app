@@ -2,7 +2,8 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://api.gra.umk.pl/`,
+    baseURL: `https://api.gra.umk.pl`,
+    // baseURL: `https://00cd2d41b79e.ngrok.io`,
 });
 
 const Types = {
@@ -175,7 +176,7 @@ API.Scheduler = {
  */
 
  API.zdarzenia = {
-    getAll: () => API.get('/zdarzenia/all'),
+    getAll: student_id => API.get('/zdarzenia/all', {params: {student_id}}),
 };
 
 export default API;
