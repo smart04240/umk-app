@@ -43,9 +43,9 @@ API.user = {
 API.events = {
     byRange: (startDate, endDate) => API.get(`/calendar_events_by_range?from=${startDate}&till=${endDate}`),
     create: data => API.post(`/calendar_events`, data),
-    edit: data => {
+    edit: (data, id) => {
         data.append('_method', 'PUT');
-        return API.post(`/calendar_events/` + data.get('id'), data);
+        return API.post(`/calendar_events/` + id, data);
     },
     delete: id => API.delete(`/calendar_events/${id}`),
     categories: () => API.get(`calendar_events/categories`),
