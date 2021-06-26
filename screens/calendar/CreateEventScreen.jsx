@@ -108,7 +108,7 @@ const Validate = data => {
     if (!data.is_full_day && !data.end_date)
         return 'Start time required';
 
-    if (!data.is_full_day && data.start_date > data.end_date)
+    if (!data.is_full_day && moment(data.start_date).isAfter(data.end_date))
         return 'Start time must be before or equal end time';
 
     if (!!data.reminder_enabled && !data.reminder_option)
@@ -149,6 +149,7 @@ export default function CreateEventScreen(props) {
         marker_id: event?.marker_id || null,
 
         start_date: event?.start_date || moment().toISOString(),
+        start_time: event?.start_date || moment().toISOString(),
         end_date: event?.end_date || moment().toISOString(),
         is_full_day: event?.is_full_day || false,
 
@@ -167,8 +168,36 @@ export default function CreateEventScreen(props) {
     const [data, setData] = React.useState(initialValue);
     const [saving, setSaving] = React.useState(false);
 
-    const onChange = ({name, value}) => setData({...data, [name]: value});
     const onTextChange = name => value => onChange({name, value});
+    const onChange = ({name, value}) => {
+        if (['start_time', 'start_date', 'end_date'].includes(name)) {
+            const start_date = moment(name === 'start_date' ? value : data.start_date);
+            const start_time = moment(name === 'start_time' ? value : data.start_time);
+            const end_date = moment(name === 'end_date' ? value : data.end_date);
+
+            start_date.hours(start_time.hours());
+            start_date.minutes(start_time.minutes());
+            start_date.seconds(start_time.seconds());
+            start_date.milliseconds(start_time.milliseconds());
+
+            start_time.date(start_date.date());
+            start_time.month(start_date.month());
+            start_time.year(start_date.year());
+
+            end_date.date(start_date.date());
+            end_date.month(start_date.month());
+            end_date.year(start_date.year());
+
+            return setData({
+                ...data,
+                start_date: start_date.toISOString(),
+                start_time: start_time.toISOString(),
+                end_date: end_date.toISOString(),
+            });
+        }
+
+        setData({...data, [name]: value});
+    };
 
     const save = () => {
         setSaving(true);
@@ -297,7 +326,7 @@ export default function CreateEventScreen(props) {
                             <CustomDateTimePicker
                                 buttonStyle={styles.dateButton}
                                 label={'Date'}
-                                initialValue={data?.start_date}
+                                initialValue={data.start_date}
                                 name={'start_date'}
                                 mode={'date'}
                                 dateFormat={'DD.MM.YYYY'}
@@ -310,8 +339,8 @@ export default function CreateEventScreen(props) {
                                     <CustomDateTimePicker
                                         buttonStyle={styles.timeButton}
                                         label={'Start time'}
-                                        initialValue={data?.start_date}
-                                        name={'start_date'}
+                                        initialValue={data.start_time}
+                                        name={'start_time'}
                                         mode={'time'}
                                         dateFormat={'HH:mm'}
                                         onChange={onChange}
@@ -319,7 +348,7 @@ export default function CreateEventScreen(props) {
                                     <CustomDateTimePicker
                                         buttonStyle={styles.timeButton}
                                         label={'End time'}
-                                        initialValue={data?.end_date}
+                                        initialValue={data.end_date}
                                         name={'end_date'}
                                         mode={'time'}
                                         dateFormat={'HH:mm'}
