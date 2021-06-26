@@ -185,7 +185,7 @@ export default React.memo(function MonthScreen() {
                     }}
                     title={translate(item.title)}
                     html={translate(item.description)}
-                    color={eventCategories?.find?.(category => category.id === item.category_id)?.color}
+                    color={eventCategories?.find(category => String(category.id) === String(item.category_id))?.color}
                     from={moment(item.start_date).format('HH:mm')}
                     to={moment(item.end_date).format('HH:mm')}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
