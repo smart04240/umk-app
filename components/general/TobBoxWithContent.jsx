@@ -20,6 +20,16 @@ import Layout from "../../constants/Layout";
 
 const ImageHeight = Layout.height / 4;
 
+const extractAddress = event => {
+    if (!event)
+        return '';
+
+    if (event?.show_location_link)
+        return event.location_link;
+
+    return event?.marker?.address;
+};
+
 export const TopBoxWithContent = ({id, isTask}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
@@ -35,7 +45,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     const info = [
         {circle_color: category?.color, value: category?.title[locale]},
-        {icon: "map-marker", value: !isTask && data?.marker?.address},
+        {icon: "map-marker", value: !isTask && extractAddress(data)},
         {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: isTask && status},
     ];

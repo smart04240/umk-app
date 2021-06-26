@@ -38,7 +38,10 @@ const recursiveAppend = (formData, field, value) => {
         formData.append(field, !!value ? '1' : '');
         return formData;
     }
-    return formData.append(field, value);
+
+    formData.append(field, value);
+
+    return formData;
 };
 
 export default function makeFormData(data) {

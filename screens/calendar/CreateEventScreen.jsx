@@ -255,7 +255,7 @@ export default function CreateEventScreen(props) {
             }
         }
 
-        (!!event?.id ? API.events.edit : API.events.create)(makeFormData(eventData)).then(response => {
+        (!!event?.id ? API.events.edit : API.events.create)(makeFormData(eventData), event.id).then(response => {
             dispatch(Actions.Calendar.upsertOne(response.data));
             navigation.goBack();
         }).finally(() => setSaving(false));
