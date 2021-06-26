@@ -54,6 +54,40 @@ export default {
 		pl: "Najbliższe wydarzenia"
 	},
 
+	EventFormTitle: {
+		en: "Event title *",
+		pl: "Tytuł wydarzenia *",
+	},
+	EventFormCategory: {
+		en: "Category *",
+		pl: "Kategoria *",
+	},
+	EventFormDates: {
+		en: 'Specify event date',
+		pl: 'Określ datę wydarzenia',
+	},
+	EventFormFullDay: {
+		en: 'Full day',
+		pl: 'Wydarzenie jednodniowe',
+	},
+	EventFormReminderOption: {
+		en: 'Select time of reminder',
+		pl: 'Wybierz godzinę przypomnienia',
+	},
+	EventFormLocation: {
+		en: 'Location',
+		pl: 'Lokalizacja',
+	},
+	EventFormLocationLink: {
+		en: 'Link',
+		pl: 'Link',
+	},
+
+	SelectMarker: {
+		en: 'Select marker',
+		pl: 'Wybierz znacznik mapy',
+	},
+
 	Yes: {
 		en: "Yes",
 		pl: "Tak"
