@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/core";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
-import {Text, View} from "react-native";
+import {ActivityIndicator, Text, View} from "react-native";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,6 +20,7 @@ import {CustomDateTimePicker} from "../../components/form/CustomDateTimePicker";
 import Checkbox from "../../components/form/Checkbox";
 import DocPicker from "../../components/form/doc-picker/DocPicker";
 import Button from "../../components/form/Button";
+import Colors from "../../constants/Colors";
 
 const LocationOptions = [
     {
@@ -164,14 +165,18 @@ export default function CreateEventScreen(props) {
             : null,
     }), []);
     const [data, setData] = React.useState(initialValue);
+    const [saving, setSaving] = React.useState(false);
 
     const onChange = ({name, value}) => setData({...data, [name]: value});
     const onTextChange = name => value => onChange({name, value});
 
     const save = () => {
+        setSaving(true);
+
         const errorMessage = Validate(data);
         if (errorMessage) {
             dispatch(Actions.Toasts.Warning(errorMessage));
+            setSaving(false);
             return;
         }
 
@@ -218,10 +223,10 @@ export default function CreateEventScreen(props) {
             }
         }
 
-        API.events[!!event?.id ? 'edit' : 'create'](makeFormData(eventData)).then(response => {
+        (!!event?.id ? API.events.edit : API.events.create)(makeFormData(eventData)).then(response => {
             dispatch(Actions.Calendar.upsertOne(response.data));
             navigation.goBack();
-        });
+        }).finally(() => setSaving(false));
     };
 
     return (
@@ -380,7 +385,8 @@ export default function CreateEventScreen(props) {
                     </View>
 
                     <Button onPress={save}>
-                        {translate(Translations.Save)}
+                        {!!saving && <ActivityIndicator color={Colors.White}/>}
+                        {!saving && translate(Translations.Save)}
                     </Button>
                 </ContainerWithScroll>
             </MainWithNavigation>
