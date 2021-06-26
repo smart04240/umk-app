@@ -91,7 +91,7 @@ export default React.memo(function DayScreen() {
                     style={[
                         styles.eventContainer,
                         {
-                            backgroundColor: categories?.find(category => category.id === event.category_id)?.color,
+                            backgroundColor: categories?.find(category => String(category.id) === String(event.category_id))?.color,
                             height: cardHeight,
                             width: Math.round(event?.width),
                             left: event.left + leftMargin,

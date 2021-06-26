@@ -37,7 +37,7 @@ export default function Day({style, textStyle, date: {isSelectedMonth, isToday, 
             </View>
             <View style={styles.events}>
                 {!!events?.length && events.map(event => {
-                    const category = categories?.find?.(category => category.id === event.category_id);
+                    const category = categories?.find?.(category => String(category.id) === String(event.category_id));
                     return category?.color ? <Circle key={String(event.id)} color={category.color}/> : null;
                 })}
             </View>

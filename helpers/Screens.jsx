@@ -209,7 +209,6 @@ const StackScreens = () => {
 
     const screens = React.useMemo(() => {
         let selectedScreens = RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut'];
-        console.log(firstLogin);
         if (tutorialViewed) selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Tutorial);
         if (!firstLogin)    selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Registration);
         return selectedScreens.map(screen => (
