@@ -20,7 +20,6 @@ import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {replacePushNotifications} from "../../helpers/Notification";
-import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -29,7 +28,6 @@ export default function CalendarScreen() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
     const selectedDate = useSelector(state => state.events.selectedDate);
-    const events = useSelector(state => eventsSelectors.All(state));
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
@@ -39,17 +37,15 @@ export default function CalendarScreen() {
         if (!selectedDate)
             return;
 
-        let startOfMonth = moment(selectedDate, 'YYYY-MM-DD').startOf('month').day(-7).format('YYYY-MM-DD'),
-            endOfMonth = moment(selectedDate, 'YYYY-MM-DD').endOf('month').day(+7).format('YYYY-MM-DD');
+        let startOfMonth = moment(selectedDate).startOf('month').day(-7).format('YYYY-MM-DD'),
+            endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
 
         API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
-    },[selectedDate]);
+    }, [selectedDate]);
 
-    useFocusEffect(
-        React.useCallback(() => {
-            API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-        },[events])
-    );
+    useFocusEffect(React.useCallback(() => {
+        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+    }, []));
 
     const style = useMemo(() => ({
         pillContainer: {

@@ -31,7 +31,7 @@ import shadowGenerator from "./shadowGenerator";
 import Layout from "../constants/Layout";
 import MarkerScreen from "../screens/map/MarkerScreen";
 import CalendarScreen from "../screens/calendar/CalendarScreen";
-import {CreateEvent} from "../screens/calendar/CreateEvent";
+import CreateEventScreen from "../screens/calendar/CreateEventScreen";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 import FirstLoadingGate from "./FirstLoadingGate";
@@ -194,7 +194,7 @@ const RegisteredScreens = {
         {
             name: Routes.CalendarCreateEvent,
             title: Translations.Calendar,
-            component: CreateEvent
+            component: CreateEventScreen
         }
     ],
 };
@@ -209,7 +209,6 @@ const StackScreens = () => {
 
     const screens = React.useMemo(() => {
         let selectedScreens = RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut'];
-        console.log(firstLogin);
         if (tutorialViewed) selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Tutorial);
         if (!firstLogin)    selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Registration);
         return selectedScreens.map(screen => (

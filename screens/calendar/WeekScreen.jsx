@@ -44,7 +44,7 @@ export default React.memo(function WeekScreen() {
 
             week.push({
                 day: start.format('YYYY-MM-DD'),
-                data: events.filter(event => newDay === moment(event.start_date, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD'))
+                data: events.filter(event => newDay === moment(event.start_date).format('YYYY-MM-DD'))
             });
 
             start.add(1, 'days');
@@ -68,7 +68,7 @@ export default React.memo(function WeekScreen() {
                     left: 20
                 }
             ]}>
-                {moment(day, 'YYYY-MM-DD').locale(locale).format('dddd, D MMMM')}
+                {moment(day).locale(locale).format('dddd, D MMMM')}
             </Text>
         </View>
     );
@@ -104,13 +104,13 @@ export default React.memo(function WeekScreen() {
             renderItem={({item}) => (
                 <ColorCard
                     title={translate(item.title)}
-                    text={translate(item.description)}
-                    color={categories?.find(category => category.id === item.category).color}
-                    from={moment(item.start_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
-                    to={moment(item.end_date, 'YYYY-MM-DD HH:mm:ss').format('HH:mm')}
+                    html={translate(item.description)}
+                    color={categories?.find(category => String(category.id) === String(item.category_id))?.color}
+                    from={moment(item.start_date).format('HH:mm')}
+                    to={moment(item.end_date).format('HH:mm')}
                     onPressIn={() => Vibrator()}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}
-                    onLongPress={!!item.user_id ? () => {
+                    onLongPress={!!item.student_id ? () => {
                         Alert.alert(
                             translate(Translations.DeleteConfirmTitle),
                             translate(Translations.DeleteConfirmDescription) + '?',

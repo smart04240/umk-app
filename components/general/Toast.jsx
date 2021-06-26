@@ -65,7 +65,7 @@ export const Toast = forwardRef((props, ref) => {
                     styles.toast,
                     {
                         backgroundColor: theme.main_bg,
-                        borderWidth: 5,
+                        borderWidth: 1,
                         borderColor: !!toast ? toast?.color : props?.toastColor || theme.main_bg
                     }
                 ]}

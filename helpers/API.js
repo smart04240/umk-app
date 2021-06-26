@@ -2,8 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    baseURL: `https://api.gra.umk.pl`,
-    // baseURL: `https://00cd2d41b79e.ngrok.io`,
+    baseURL: `https://6355ac575d15.ngrok.io`,
 });
 
 const Types = {
@@ -43,10 +42,10 @@ API.user = {
 
 API.events = {
     byRange: (startDate, endDate) => API.get(`/calendar_events_by_range?from=${startDate}&till=${endDate}`),
-    create: data => API.post(`/calendar_events/user`, data),
+    create: data => API.post(`/calendar_events`, data),
     edit: data => {
         data.append('_method', 'PUT');
-        return API.post(`/calendar_events/user/` + data.get('id'), data);
+        return API.post(`/calendar_events/` + data.get('id'), data);
     },
     delete: id => API.delete(`/calendar_events/${id}`),
     categories: () => API.get(`calendar_events/categories`),

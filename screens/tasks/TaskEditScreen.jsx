@@ -38,6 +38,10 @@ export default function TaskEditScreen(props) {
 	},[data]);
 
 	const onChange = (name, value) => {
+		if (name === 'files') {
+			dispatch(Actions.Toasts.Message(translate(Translations.TaskFileNotification)));
+		}
+
 		setData({
 			...data,
 			[name] : value
@@ -65,15 +69,9 @@ export default function TaskEditScreen(props) {
 						title={data?.title}
 						canSave={!canSave}
 						saveData={() => save()}
-						titleOnChange={title => onChange('title', title)}
-						dropdownOnChange={option => onChange(option.name, option.value)}
+						onChange={e => onChange(e.name, e.value)}
 						placeValue={data?.place}
 						categoryValue={data?.category}
-						descriptionOnChange={description => onChange('description', description)}
-						docPickerOnChange={object => {
-							onChange(object.name, object.value);
-							dispatch(Actions.Toasts.Message(translate(Translations.TaskFileNotification)))
-						}}
 						description={data?.description}
 						files={data?.files}
 					/>

@@ -33,7 +33,7 @@ export const taskCategories = [
 const TaskListItem = props => {
 	const ThemeStyles = useThemeStyles();
 	const navigation = useNavigation();
-	const itemCategory = taskCategories.find(category => category.value === parseInt(props.category));
+	const itemCategory = taskCategories.find(category => String(category.value) === String(props.category));
 
 	const actions = [
 		{icon: "eye-outline", onPress: () => navigation.navigate(Routes.TaskSingle, props)},

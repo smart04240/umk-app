@@ -54,6 +54,40 @@ export default {
 		pl: "Najbliższe wydarzenia"
 	},
 
+	EventFormTitle: {
+		en: "Event title *",
+		pl: "Tytuł wydarzenia *",
+	},
+	EventFormCategory: {
+		en: "Category *",
+		pl: "Kategoria *",
+	},
+	EventFormDates: {
+		en: 'Specify event date',
+		pl: 'Określ datę wydarzenia',
+	},
+	EventFormFullDay: {
+		en: 'Full day',
+		pl: 'Wydarzenie jednodniowe',
+	},
+	EventFormReminderOption: {
+		en: 'Select time of reminder',
+		pl: 'Wybierz godzinę przypomnienia',
+	},
+	EventFormLocation: {
+		en: 'Location',
+		pl: 'Lokalizacja',
+	},
+	EventFormLocationLink: {
+		en: 'Link',
+		pl: 'Link',
+	},
+
+	SelectMarker: {
+		en: 'Select marker',
+		pl: 'Wybierz znacznik mapy',
+	},
+
 	Yes: {
 		en: "Yes",
 		pl: "Tak"
@@ -97,6 +131,11 @@ export default {
 	InternalServerError: {
 		en: 'Server encountered an unexpected condition that prevented it from fulfilling the request.',
 		pl: 'Serwer napotkał nieoczekiwany stan, który uniemożliwił mu realizację żądania.',
+	},
+
+	UnprocessableEntity: {
+		en: 'The request cannot be processed because the data you provided is not valid. Please check if all fields have valid values.',
+		pl: 'Nie można przetworzyć żądania, ponieważ podane przez Ciebie dane są nieprawidłowe. Sprawdź, czy wszystkie pola mają prawidłowe wartości.',
 	},
 
 	ToDoList: {
@@ -770,5 +809,36 @@ export default {
 		pl: "Nd"
 	},
 
-
+	TitleRequired: {
+		en: 'Title required',
+		pl: 'Wymagany tytuł',
+	},
+	CategoryRequired: {
+		en: 'Category required',
+		pl: 'Wymagana kategoria',
+	},
+	DescriptionRequired: {
+		en: 'Description required',
+		pl: 'Wymagany opis',
+	},
+	DateRequired: {
+		en: 'Date required',
+		pl: 'Wymagana data',
+	},
+	StartTimeRequired: {
+		en: 'Start time required',
+		pl: 'Wymagany czas rozpoczęcia',
+	},
+	StartTimeBeforeEndTime: {
+		en: 'Start time must be before or equal end time',
+		pl: 'Czas rozpoczęcia musi być wcześniejszy lub równy czasowi zakończenia',
+	},
+	ValidReminder: {
+		en: 'Please select valid reminder option',
+		pl: 'Wybierz prawidłową opcję przypomnienia',
+	},
+	CustomReminderRequired: {
+		en: 'Custom reminder required',
+		pl: 'Wymagana niestandardowa data przypomnienia',
+	},
 };
