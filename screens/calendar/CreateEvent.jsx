@@ -29,17 +29,22 @@ export const CreateEvent = props => {
         end: !!id ? event.end_date : '',
         date: !!id ? moment(event.start_date).toISOString() : moment().toISOString(),
         one_day_event: !!id ? event?.is_full_day : false,
-        reminder: !!id ? event.reminder : true,
+        reminder: !!id ? !!event.reminder_offset : false,
         reminder_offset: !!id ? event.reminder_offset : null,
     });
 
     const canSave = useMemo(() => {
-        return (!!data?.description?.length && !!data?.title?.length && !!data?.category_id && (!!data.date && data?.one_day_event || !!data.date && !!data?.start && !!data?.end))
-    },[data]);
+        if (!data?.description?.length || !data?.title?.length || !data?.category_id)
+            return false;
 
-    const title = useMemo(() => {
-        return !!id ? translate(Translations.EditEvent) : translate(Translations.CreateEvent)
-    }, [id]);
+        if (!!data?.one_day_event && !data.date)
+            return false;
+
+        if (!data?.one_day_event && (!data.start || !data.end))
+            return false;
+
+        return true;
+    },[data]);
 
     const datePreparer = useMemo(() => {
         if (!!data?.date && !!data?.start && !!data?.end && !data?.one_day_event)
@@ -55,10 +60,7 @@ export const CreateEvent = props => {
             }
     },[data.date, data.start, data.end, data.one_day_event]);
 
-    console.log(data)
-
     const onChange = (name, value) => {
-        console.log(name, value)
         const checkValue = (name === 'start' || name === 'end' || name === 'date') ? moment(value).toISOString() : name === 'reminder_offset' ? moment(value).unix() : value;
 
         if (name === 'reminder' && !value && !!data?.reminder_offset) {
@@ -123,9 +125,8 @@ export const CreateEvent = props => {
             is_full_day: data?.one_day_event
         };
 
-        API.events[!!id ? 'edit' : 'create'](makeFormData(eventData)).then(res => {
-            dispatch(Actions.Calendar.upsertOne(eventData));
-
+        API.events[!!id ? 'edit' : 'create'](makeFormData(eventData)).then(response => {
+            dispatch(Actions.Calendar.upsertOne(response.data));
             navigation.goBack();
         });
     };
@@ -136,7 +137,7 @@ export const CreateEvent = props => {
                 <ContainerWithScroll>
                     <EventTaskEditForm
                         title={data?.title}
-                        formTitle={title}
+                        formTitle={!!id ? translate(Translations.EditEvent) : translate(Translations.CreateEvent)}
                         route={props.route}
                         canSave={!canSave}
                         saveData={() => save()}
