@@ -30,10 +30,8 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const locale = useSelector(state => state.app.locale);
     const data = isTask ? todos : event;
     const eventCategories = useSelector(state => state.eventCategories);
-    const category = (isTask ? taskCategories : eventCategories).find(category => category.id === parseInt(data['category_id' || 'category']));
+    const category = (isTask ? taskCategories : eventCategories).find(category => String(category.id) === String(data?.['category_id' || 'category']));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
-
-    console.log(data)
 
     const info = [
         {circle_color: category?.color, value: category?.title[locale]},
@@ -44,56 +42,49 @@ export const TopBoxWithContent = ({id, isTask}) => {
 
     const message = {
         title: translate(Translations.DeleteConfirmTitle),
-        description: translate(Translations.DeleteConfirmDescription) + ' ' + data?.title + '?'
+        description: translate(Translations.DeleteConfirmDescription) + ' ' + translate(data?.title) + '?',
     };
 
-    const completeTask = () => {
-        dispatch(Actions.ToDos.upsertOne({
-            id,
-            ...data,
-            completed: true
-        }));
-    };
+    const completeTask = () => dispatch(Actions.ToDos.upsertOne({
+        id,
+        ...data,
+        completed: true,
+    }));
 
-    const askBeforeDelete = () => {
-        Alert.alert(
-            message.title,
-            message.description,
-            [
-                {
-                    text: "Cancel",
-                    style: "cancel"
-                },
-                {
-                    text: "OK",
-                    onPress: () => deleteEvent()
-                }
-            ]
-        );
-    }
+    const askBeforeDelete = () => Alert.alert(
+        message.title,
+        message.description,
+        [
+            {
+                text: "Cancel",
+                style: "cancel",
+            },
+            {
+                text: "OK",
+                onPress: () => deleteEvent(),
+            },
+        ],
+    );
 
-    const deleteEvent = () => {
-        API.events.delete(data.id).then(() => {
-            dispatch(Actions.Calendar.removeOne(data.id));
-
-            navigation.goBack();
-        });
-    }
+    const deleteEvent = () => API.events.delete(data.id).then(() => {
+        dispatch(Actions.Calendar.removeOne(data.id));
+        navigation.goBack();
+    });
 
     const toDoButtons = [
         {label: translate(Translations.MarkAsDone), onPress: () => completeTask()},
-        {label: translate(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})}
+        {label: translate(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})},
     ];
 
     const eventButtons = [
         {
             label: translate(Translations.EditEvent),
-            onPress: () => navigation.navigate(Routes.CalendarCreateEvent, data)
+            onPress: () => navigation.navigate(Routes.CalendarCreateEvent, data),
         },
         {
             label: translate(Translations.Delete),
             isDangerButton: true,
-            onPress: () => askBeforeDelete()
+            onPress: () => askBeforeDelete(),
         },
     ];
 
@@ -149,7 +140,7 @@ export const TopBoxWithContent = ({id, isTask}) => {
                     {marginHorizontal: -5}
                 ]}>
                     {(isTask ? toDoButtons : eventButtons).map((b, index) => {
-                        if (!isTask && !event.student_id)
+                        if (!isTask && !event?.student_id)
                             return;
 
                         return (
