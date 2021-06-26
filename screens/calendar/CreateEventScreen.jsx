@@ -200,6 +200,9 @@ export default function CreateEventScreen(props) {
     };
 
     const save = () => {
+        if (saving)
+            return;
+
         setSaving(true);
 
         const errorMessage = validate(data);
