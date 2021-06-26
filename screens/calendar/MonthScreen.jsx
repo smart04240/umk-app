@@ -80,7 +80,7 @@ export default React.memo(function MonthScreen() {
     const sections = React.useMemo(() => {
         const sections = [];
         const from = selectedDate.format('YYYY-MM-DD');
-        Object.keys(events).forEach(date => date >= from && sections.push({
+        Object.keys(events).sort().forEach(date => date >= from && sections.push({
             day: date,
             data: events[date],
         }));
