@@ -809,5 +809,36 @@ export default {
 		pl: "Nd"
 	},
 
-
+	TitleRequired: {
+		en: 'Title required',
+		pl: 'Wymagany tytuł',
+	},
+	CategoryRequired: {
+		en: 'Category required',
+		pl: 'Wymagana kategoria',
+	},
+	DescriptionRequired: {
+		en: 'Description required',
+		pl: 'Wymagany opis',
+	},
+	DateRequired: {
+		en: 'Date required',
+		pl: 'Wymagana data',
+	},
+	StartTimeRequired: {
+		en: 'Start time required',
+		pl: 'Wymagany czas rozpoczęcia',
+	},
+	StartTimeBeforeEndTime: {
+		en: 'Start time must be before or equal end time',
+		pl: 'Czas rozpoczęcia musi być wcześniejszy lub równy czasowi zakończenia',
+	},
+	ValidReminder: {
+		en: 'Please select valid reminder option',
+		pl: 'Wybierz prawidłową opcję przypomnienia',
+	},
+	CustomReminderRequired: {
+		en: 'Custom reminder required',
+		pl: 'Wymagana niestandardowa data przypomnienia',
+	},
 };

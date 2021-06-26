@@ -92,32 +92,32 @@ export const ReminderOptions = [
     },
 ];
 
-const Validate = data => {
+const validate = data => {
     if (!data.title)
-        return 'Title required';
+        return Translations.TitleRequired;
 
     if (!data.category_id)
-        return 'Category required';
+        return Translations.CategoryRequired;
 
     if (!data.description)
-        return 'Description required';
+        return Translations.DescriptionRequired;
 
     if (!data.start_date)
-        return 'Date required';
+        return Translations.DateRequired;
 
     if (!data.is_full_day && !data.end_date)
-        return 'Start time required';
+        return Translations.StartTimeRequired;
 
     if (!data.is_full_day && moment(data.start_date).isAfter(data.end_date))
-        return 'Start time must be before or equal end time';
+        return Translations.StartTimeBeforeEndTime;
 
     if (!!data.reminder_enabled && !data.reminder_option)
-        return 'Please select valid reminder option';
+        return Translations.ValidReminder;
 
     if (!!data.reminder_enabled && data.reminder_option === CustomReminderOptionValue && !data.custom_reminder)
-        return 'Custom reminder required';
+        return Translations.CustomReminderRequired;
 
-    return '';
+    return null;
 };
 
 export default function CreateEventScreen(props) {
@@ -202,9 +202,9 @@ export default function CreateEventScreen(props) {
     const save = () => {
         setSaving(true);
 
-        const errorMessage = Validate(data);
+        const errorMessage = validate(data);
         if (errorMessage) {
-            dispatch(Actions.Toasts.Warning(errorMessage));
+            dispatch(Actions.Toasts.Warning(translate(errorMessage)));
             setSaving(false);
             return;
         }
