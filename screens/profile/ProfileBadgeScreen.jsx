@@ -6,7 +6,7 @@ import Translations from "../../constants/Translations";
 import Layout from "../../constants/Layout";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
-import BadgeCircle from "../../components/badge/BadgeCircle";
+import BadgeImage from "../../components/badge/BadgeImage";
 import BadgeMainInfo from "../../components/badge/BadgeMainInfo";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
@@ -27,7 +27,7 @@ export default function BadgeScreen(props) {
 		<MainWithNavigation>
 			<TopBox>
 				<View style={{ flexDirection: "row", marginBottom: 18 }}>
-					<BadgeCircle size={ badge_size > 155 ? 155 : badge_size } />
+					<BadgeImage size={ badge_size > 155 ? 155 : badge_size } />
 					<BadgeMainInfo/>
 				</View>
 			</TopBox>

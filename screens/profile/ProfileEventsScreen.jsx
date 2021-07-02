@@ -90,7 +90,6 @@ const ProfileEventsScreen = props => {
 	useEffect(() => {
 		API.fetch().then(response => {
 			let studentId = response.data.profile.id;
-			console.log(studentId)
 			API.zdarzenia.getAll(studentId).then(response => {
 				setData(response.data.data.list);
 			})

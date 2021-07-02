@@ -178,4 +178,12 @@ API.Scheduler = {
     getAll: student_id => API.get('/zdarzenia/all', {params: {student_id}}),
 };
 
+/**
+ * Badges
+ */
+
+API.badges = {
+    getEarned: () => API.get('badge/earned')
+}
+
 export default API;
