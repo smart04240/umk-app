@@ -841,4 +841,8 @@ export default {
 		en: 'Custom reminder required',
 		pl: 'Wymagana niestandardowa data przypomnienia',
 	},
+	Required: {
+		en: "This field is required",
+		pl: "Wpisanie tytułu jest obowiązkowe!"
+	},
 };

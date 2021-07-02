@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import {useDispatch} from "react-redux";
 import { View } from "react-native";
+import Actions from "../../redux/Actions";
 import API from "../../helpers/API";
 import Badge from '../badge/Badge';
 import Container from "../general/Container";
 
 const ProfileBadges = props => {
+	const dispatch = useDispatch();
 	const [rows, setRows] = useState([]);
 	// Load badges the student has earned
 	useEffect(() => {
 		API.badges.getEarned().then(response => {
-			formatBadgesList(response.data.data.badge_list);
+			const badges = response.data.data.badge_list;
+			formatBadgesList(badges);
+			dispatch(Actions.Badges.Earned(badges));
 		});
 	}, []);
 
@@ -25,7 +30,6 @@ const ProfileBadges = props => {
 		}
 		setRows(_rows);
 	}
-
 	return (
 		<Container>
 			{rows.map((row, index) => {
@@ -37,7 +41,8 @@ const ProfileBadges = props => {
 								badgeContainerStyle={{
 									flex: 0.5
 								}}
-								{...badge}
+								badge={{...badge.badge, progress: JSON.parse(badge.progress)}}
+								active={true}
 							/>
 						))}
 					</View>

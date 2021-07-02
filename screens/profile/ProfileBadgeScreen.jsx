@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
 import { View, Text } from "react-native";
 
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -19,15 +20,20 @@ import useTranslator from "../../hooks/useTranslator";
 export default function BadgeScreen(props) {
 	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
+	const badge = useSelector(state => state.badges.selected);
+	const [checked, setChecked]	= useState(false);
 	const badge_size = Math.floor( Layout.width * 0.362 );
 
-	const active = true;
-
+	const handlePress = () => {
+		if(!checked) return;
+		
+	}
+	
 	return (
 		<MainWithNavigation>
 			<TopBox>
 				<View style={{ flexDirection: "row", marginBottom: 18 }}>
-					<BadgeImage size={ badge_size > 155 ? 155 : badge_size } />
+					<BadgeImage size={ badge_size > 155 ? 155 : badge_size } image_uri={badge.image} />
 					<BadgeMainInfo/>
 				</View>
 			</TopBox>
@@ -39,16 +45,17 @@ export default function BadgeScreen(props) {
 				</Text>
 
 				<Text style={[ GeneralStyles.text_regular, { color: ThemeStyles.dark_text } ]}>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
+					{translate(badge?.description)}
 				</Text>
 
-
-				{ active &&
+				{ badge?.active &&
 					<View style={{ marginTop: 60 }}>
-						<Button>{ translate( Translations.ExportToPdf )}</Button>
+						<Button onPress={handlePress}>{ translate( Translations.ExportToPdf )}</Button>
 						<Checkbox
 							label={ translate( Translations.ExportToPdfAgree )}
 							required={ true }
+							warning={translate( Translations.Required )}
+							onChange={({name, value}) => {setChecked(value)}}
 						/>
 					</View>
 				}

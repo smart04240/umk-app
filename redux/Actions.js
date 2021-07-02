@@ -69,5 +69,11 @@ export default {
     ChangeMapSearchDebounced: createAction('changeMapSearchDebounced'),
     Zdarzenia: {
         All: createAction('zdarzenia/all')
+    },
+    Badges: {
+        All: createAction('badges/all'),
+        Earned: createAction('badges/earned'),
+        Selected: createAction('badges/selected'),
+        Promoted: createAction('badges/promoted'),
     }
 };

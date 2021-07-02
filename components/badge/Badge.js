@@ -1,8 +1,9 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useNavigation} from '@react-navigation/core';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import Routes from '../../constants/Routes';
+import Actions from "../../redux/Actions";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import BadgeImage from './BadgeImage';
@@ -10,20 +11,24 @@ import Translations from '../../constants/Translations';
 import useTranslator from "../../hooks/useTranslator";
 
 const Badge = props => {
+	const dispatch = useDispatch();
 	const translate = useTranslator();
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
-	const locale = useSelector(state => state.app.locale);
-	const {badge, not_active} = props;
+	const {badge, active, progress} = props;
 	if (!badge?.id) return null;
+	const handlePress = () => {
+		dispatch(Actions.Badges.Selected({...badge, active}));
+		navigation.navigate(Routes.ProfileBadge);
+	}
 
 	return (
 		<TouchableWithoutFeedback
-			onPress={() => navigation.navigate(Routes.ProfileBadge, {id: badge.id})}
+			onPress={handlePress}
 		>
 			<View
 				style={[
-					{marginBottom: 35, opacity: not_active ? 0.35 : 1, justifyContent: 'center', alignItems: 'center'},
+					{marginBottom: 35, opacity: active ? 1 : 0.35, justifyContent: 'center', alignItems: 'center'},
 					props.badgeContainerStyle
 				]}
 			>
