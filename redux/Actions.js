@@ -33,18 +33,17 @@ export default {
         Toggle: createAction('locale/toggle'),
     },
     User: {
-        Login: createAction('user/login'),
+        Registered: createAction('user/registered'),
         Logout: createAction('user/logout'),
-        Update: createAction('user/update'),
         USOSOAuth: createAction('user/usos-oauth'),
         USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
-            const state = { ...thunkAPI.getState().user, ...payload };
+            const state = {...thunkAPI.getState().user, ...payload};
             // console.log('state', state);
             const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
             return {
-                oauth_token:    null,
+                oauth_token: null,
                 oauth_verifier: null,
-                secret:         null,
+                secret: null,
                 access_token:   result?.data?.access_token,
                 access_secret:  result?.data?.access_secret,
                 isUnregistered: result?.data?.is_unregistered,
