@@ -1,5 +1,5 @@
 import React from "react";
-import {Linking, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, Text, TouchableOpacity} from "react-native";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Colors from "../../constants/Colors";
@@ -14,20 +14,13 @@ import API from "../../helpers/API";
 import {useDispatch} from "react-redux";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
-import { makeRedirectUri } from "expo-auth-session";
+import {makeRedirectUri} from "expo-auth-session";
 
 export default function LoginScreen(props) {
 	const ThemeStyles = useThemeStyles();
 	const dispatch = useDispatch();
 	const translate = useTranslator();
 	const blue_text = {color: ThemeStyles.blue_text};
-
-	const login = () => API.user.login().then(result => dispatch(Actions.User.Login({
-		nick_name: 'Petro Vedro',
-		avatar: '',
-		token: result?.data?.data?.token,
-		role: result?.data?.data?.role
-	})));
 
 	const loginUSOS = () => {
 		const callbackUri = makeRedirectUri({
@@ -53,7 +46,7 @@ export default function LoginScreen(props) {
 				<LocaleSwitcherBox/>
 				<Container>
 					<UniversityLogo/>
-					<TouchableOpacity style={{width: "100%"}} onPress={login}>
+					<TouchableOpacity style={{width: "100%"}}>
 						<Text style={[blue_text, GeneralStyles.text_regular, {fontSize: 20, textAlign: "center"}]}>
 							{translate(Translations.SignIn)}
 						</Text>

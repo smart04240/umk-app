@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, {useMemo} from "react";
 import ProfileMain from "../../components/profile/ProfileMain";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import ProfileStatistics from "../../components/profile/ProfileStatistics";
@@ -13,66 +13,66 @@ import useTranslator from "../../hooks/useTranslator";
 
 
 export default function ProfileScreen(props) {
-	const translate = useTranslator();
-	const theme = useThemeStyles();
+    const translate = useTranslator();
+    const theme = useThemeStyles();
 
-	const screens = [
-		{
-			tabLabel: translate(Translations.Information),
-			component: ProfileInformation
-		},
-		{
-			tabLabel: translate(Translations.Statistics),
-			component: ProfileStatistics
-		},
-		{
-			tabLabel: translate(Translations.Badges),
-			component: ProfileBadges
-		},
-	];
+    const screens = [
+        {
+            tabLabel: translate(Translations.Information),
+            component: ProfileInformation
+        },
+        {
+            tabLabel: translate(Translations.Statistics),
+            component: ProfileStatistics
+        },
+        {
+            tabLabel: translate(Translations.Badges),
+            component: ProfileBadges
+        },
+    ];
 
-	const styles = useMemo(() => {
-		return (
-			{
-				pillContainer: {
-					backgroundColor: theme.box_bg,
-					borderBottomRightRadius: 15,
-					borderBottomLeftRadius: 15,
-					...shadowGenerator(5),
-				},
-				borderActive: {
-					borderColor: theme.blue_text
-				},
-				pillLabel: {
-					...GeneralStyles.text_regular,
-					textTransform: "uppercase",
-					color: theme.blue_text
-				},
-				activeLabel: {
-					...GeneralStyles.text_bold,
-					textTransform: "uppercase",
-					color: theme.blue_text
-				},
-				pillsOverflow: {
-					overflow: 'hidden',
-					height: 70
-				}
-			}
-		)
-	},[theme]);
+    const styles = useMemo(() => {
+        return (
+            {
+                pillContainer: {
+                    backgroundColor: theme.box_bg,
+                    borderBottomRightRadius: 15,
+                    borderBottomLeftRadius: 15,
+                    ...shadowGenerator(5),
+                },
+                borderActive: {
+                    borderColor: theme.blue_text
+                },
+                pillLabel: {
+                    ...GeneralStyles.text_regular,
+                    textTransform: "uppercase",
+                    color: theme.blue_text
+                },
+                activeLabel: {
+                    ...GeneralStyles.text_bold,
+                    textTransform: "uppercase",
+                    color: theme.blue_text
+                },
+                pillsOverflow: {
+                    overflow: 'hidden',
+                    height: 70
+                }
+            }
+        )
+    }, [theme]);
 
-	return (
-		<MainWithNavigation>
-			<Swiper
-				data={screens}
-				style={styles}
-				scrollableContainer={true}
-				stickyHeaderEnabled={true}
-				isStaticPills={true}
-				stickyHeaderIndex={1}
-			>
-				<ProfileMain/>
-			</Swiper>
-		</MainWithNavigation>
-	);
+    return (
+        <MainWithNavigation>
+            <Swiper
+                data={screens}
+                style={styles}
+                scrollableContainer={true}
+                stickyHeaderEnabled={true}
+                isStaticPills={true}
+                stickyHeaderIndex={1}
+            >
+                <ProfileMain/>
+            </Swiper>
+        </MainWithNavigation>
+    );
 };

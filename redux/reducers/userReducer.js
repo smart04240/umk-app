@@ -25,7 +25,9 @@ export default createReducer(user_init, builder => {
 		})
 		.addCase(Actions.API.DataLoaded, (state, {payload: {profile}}) => ({
 			...state,
-			nick_name: `${profile.first_name} ${profile.last_name}`,
-			avatar_url: profile.avatar_url
+			user_name: `${profile.user_name}`,
+			avatar_url: profile.avatar_url,
+			studies: profile.studies,
+			graduation_dates: profile.graduation_dates
 		}))
 });
