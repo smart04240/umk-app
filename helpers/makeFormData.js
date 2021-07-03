@@ -1,6 +1,19 @@
 import React from "react";
+import mime from "mime";
 
 const recursiveAppend = (formData, field, value) => {
+    if (typeof value === 'object' && value?.uri?.startsWith('file://')) {
+        formData.append(
+            field,
+            {
+                ...value,
+                type: mime.getType(value.uri),
+            },
+            value.name
+        );
+        return formData;
+    }
+
     if (value instanceof File) {
         formData.append(field, value, value.name);
         return formData;
@@ -25,7 +38,10 @@ const recursiveAppend = (formData, field, value) => {
         formData.append(field, !!value ? '1' : '');
         return formData;
     }
-    return formData.append(field, value);
+
+    formData.append(field, value);
+
+    return formData;
 };
 
 export default function makeFormData(data) {

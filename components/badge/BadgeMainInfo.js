@@ -1,30 +1,31 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import { View, Text, StyleSheet } from 'react-native';
 
 import Fonts from '../../constants/Fonts';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
+import useTranslator from "../../hooks/useTranslator";
 
 const BadgeMainInfo = props => {
-
+	const translate = useTranslator();
 	const ThemeStyles = useThemeStyles();
-
-	const name = "Odkrywca";
+	const badge = useSelector(state => state.badges.selected);
 	const text_color = { color: ThemeStyles.dark_blue_text };
 
 	const info = [
 		{
 			heading: "Ile studentów ma odznakę",
 			items: [
-				{ value: "11%", label: "na kierunku Psychologia" },
-				{ value: "28%", label: "na kierunku Filozofia" },
+				{ value: `${badge?.progress?.main}%`, label: "na kierunku Psychologia" },
+				{ value: `${badge?.progress?.sub_type_1}%`, label: "na kierunku Filozofia" },
 
 			]
 		},
 		{
 			heading: "Punkty za odznakę",
 			items: [
-				{ value: "20" }
+				{ value: `${badge?.points}` }
 			]
 		}
 	]
@@ -33,7 +34,7 @@ const BadgeMainInfo = props => {
 		<View style={{ flexGrow: 1, paddingLeft: 20 }}>
 
 			 <Text style={[ styles.font_family, styles.big, text_color, { marginBottom: 19 } ]}>
-				{ name }
+				{ translate(badge.name) }
 			</Text>
 
 			

@@ -6,7 +6,7 @@ import {useNavigation} from "@react-navigation/core";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
-import {Text, View} from "react-native";
+import {ActivityIndicator, Text, View} from "react-native";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,6 +20,7 @@ import {CustomDateTimePicker} from "../../components/form/CustomDateTimePicker";
 import Checkbox from "../../components/form/Checkbox";
 import DocPicker from "../../components/form/doc-picker/DocPicker";
 import Button from "../../components/form/Button";
+import Colors from "../../constants/Colors";
 
 const LocationOptions = [
     {
@@ -91,32 +92,32 @@ export const ReminderOptions = [
     },
 ];
 
-const Validate = data => {
+const validate = data => {
     if (!data.title)
-        return 'Title required';
+        return Translations.TitleRequired;
 
     if (!data.category_id)
-        return 'Category required';
+        return Translations.CategoryRequired;
 
     if (!data.description)
-        return 'Description required';
+        return Translations.DescriptionRequired;
 
     if (!data.start_date)
-        return 'Date required';
+        return Translations.DateRequired;
 
     if (!data.is_full_day && !data.end_date)
-        return 'Start time required';
+        return Translations.StartTimeRequired;
 
-    if (!data.is_full_day && data.start_date > data.end_date)
-        return 'Start time must be before or equal end time';
+    if (!data.is_full_day && moment(data.start_date).isAfter(data.end_date))
+        return Translations.StartTimeBeforeEndTime;
 
     if (!!data.reminder_enabled && !data.reminder_option)
-        return 'Please select valid reminder option';
+        return Translations.ValidReminder;
 
     if (!!data.reminder_enabled && data.reminder_option === CustomReminderOptionValue && !data.custom_reminder)
-        return 'Custom reminder required';
+        return Translations.CustomReminderRequired;
 
-    return '';
+    return null;
 };
 
 export default function CreateEventScreen(props) {
@@ -148,6 +149,7 @@ export default function CreateEventScreen(props) {
         marker_id: event?.marker_id || null,
 
         start_date: event?.start_date || moment().toISOString(),
+        start_time: event?.start_date || moment().toISOString(),
         end_date: event?.end_date || moment().toISOString(),
         is_full_day: event?.is_full_day || false,
 
@@ -164,14 +166,49 @@ export default function CreateEventScreen(props) {
             : null,
     }), []);
     const [data, setData] = React.useState(initialValue);
+    const [saving, setSaving] = React.useState(false);
 
-    const onChange = ({name, value}) => setData({...data, [name]: value});
     const onTextChange = name => value => onChange({name, value});
+    const onChange = ({name, value}) => {
+        if (['start_time', 'start_date', 'end_date'].includes(name)) {
+            const start_date = moment(name === 'start_date' ? value : data.start_date);
+            const start_time = moment(name === 'start_time' ? value : data.start_time);
+            const end_date = moment(name === 'end_date' ? value : data.end_date);
+
+            start_date.hours(start_time.hours());
+            start_date.minutes(start_time.minutes());
+            start_date.seconds(start_time.seconds());
+            start_date.milliseconds(start_time.milliseconds());
+
+            start_time.date(start_date.date());
+            start_time.month(start_date.month());
+            start_time.year(start_date.year());
+
+            end_date.date(start_date.date());
+            end_date.month(start_date.month());
+            end_date.year(start_date.year());
+
+            return setData({
+                ...data,
+                start_date: start_date.toISOString(),
+                start_time: start_time.toISOString(),
+                end_date: end_date.toISOString(),
+            });
+        }
+
+        setData({...data, [name]: value});
+    };
 
     const save = () => {
-        const errorMessage = Validate(data);
+        if (saving)
+            return;
+
+        setSaving(true);
+
+        const errorMessage = validate(data);
         if (errorMessage) {
-            dispatch(Actions.Toasts.Warning(errorMessage));
+            dispatch(Actions.Toasts.Warning(translate(errorMessage)));
+            setSaving(false);
             return;
         }
 
@@ -218,10 +255,10 @@ export default function CreateEventScreen(props) {
             }
         }
 
-        API.events[!!event?.id ? 'edit' : 'create'](makeFormData(eventData)).then(response => {
+        (!!event?.id ? API.events.edit : API.events.create)(makeFormData(eventData), event.id).then(response => {
             dispatch(Actions.Calendar.upsertOne(response.data));
             navigation.goBack();
-        });
+        }).finally(() => setSaving(false));
     };
 
     return (
@@ -292,7 +329,7 @@ export default function CreateEventScreen(props) {
                             <CustomDateTimePicker
                                 buttonStyle={styles.dateButton}
                                 label={'Date'}
-                                initialValue={data?.start_date}
+                                initialValue={data.start_date}
                                 name={'start_date'}
                                 mode={'date'}
                                 dateFormat={'DD.MM.YYYY'}
@@ -305,8 +342,8 @@ export default function CreateEventScreen(props) {
                                     <CustomDateTimePicker
                                         buttonStyle={styles.timeButton}
                                         label={'Start time'}
-                                        initialValue={data?.start_date}
-                                        name={'start_date'}
+                                        initialValue={data.start_time}
+                                        name={'start_time'}
                                         mode={'time'}
                                         dateFormat={'HH:mm'}
                                         onChange={onChange}
@@ -314,7 +351,7 @@ export default function CreateEventScreen(props) {
                                     <CustomDateTimePicker
                                         buttonStyle={styles.timeButton}
                                         label={'End time'}
-                                        initialValue={data?.end_date}
+                                        initialValue={data.end_date}
                                         name={'end_date'}
                                         mode={'time'}
                                         dateFormat={'HH:mm'}
@@ -380,7 +417,8 @@ export default function CreateEventScreen(props) {
                     </View>
 
                     <Button onPress={save}>
-                        {translate(Translations.Save)}
+                        {!!saving && <ActivityIndicator color={Colors.White}/>}
+                        {!saving && translate(Translations.Save)}
                     </Button>
                 </ContainerWithScroll>
             </MainWithNavigation>

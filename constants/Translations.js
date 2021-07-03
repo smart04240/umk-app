@@ -133,6 +133,11 @@ export default {
 		pl: 'Serwer napotkał nieoczekiwany stan, który uniemożliwił mu realizację żądania.',
 	},
 
+	UnprocessableEntity: {
+		en: 'The request cannot be processed because the data you provided is not valid. Please check if all fields have valid values.',
+		pl: 'Nie można przetworzyć żądania, ponieważ podane przez Ciebie dane są nieprawidłowe. Sprawdź, czy wszystkie pola mają prawidłowe wartości.',
+	},
+
 	ToDoList: {
 		en: "To do list",
 		pl: "Lista zadań"
@@ -223,6 +228,20 @@ export default {
 		pl: "Nazwa użytkownika"
 	},
 
+	ProvideValidNick: {
+		en: "Please provide valid nick",
+		pl: "Proszę podać poprawny nick"
+	},
+
+	AgreeToRegulations: {
+		en: "Please read and accept the regulations",
+		pl: "Proszę przeczytać i zaakceptować regulamin"
+	},
+
+	AgreeToDataProcessing: {
+		en: "Please agree to processing of personal data",
+		pl: "Proszę wyrazić zgodę na przetwarzanie danych osobowych"
+	},
 
 	RegCheckboxLabel1: {
 		en: "I declare that I have read the content of the Regulations.",
@@ -804,5 +823,40 @@ export default {
 		pl: "Nd"
 	},
 
-
+	TitleRequired: {
+		en: 'Title required',
+		pl: 'Wymagany tytuł',
+	},
+	CategoryRequired: {
+		en: 'Category required',
+		pl: 'Wymagana kategoria',
+	},
+	DescriptionRequired: {
+		en: 'Description required',
+		pl: 'Wymagany opis',
+	},
+	DateRequired: {
+		en: 'Date required',
+		pl: 'Wymagana data',
+	},
+	StartTimeRequired: {
+		en: 'Start time required',
+		pl: 'Wymagany czas rozpoczęcia',
+	},
+	StartTimeBeforeEndTime: {
+		en: 'Start time must be before or equal end time',
+		pl: 'Czas rozpoczęcia musi być wcześniejszy lub równy czasowi zakończenia',
+	},
+	ValidReminder: {
+		en: 'Please select valid reminder option',
+		pl: 'Wybierz prawidłową opcję przypomnienia',
+	},
+	CustomReminderRequired: {
+		en: 'Custom reminder required',
+		pl: 'Wymagana niestandardowa data przypomnienia',
+	},
+	Required: {
+		en: "This field is required",
+		pl: "Wpisanie tytułu jest obowiązkowe!"
+	},
 };

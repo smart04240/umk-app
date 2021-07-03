@@ -7,7 +7,7 @@ import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import useThemeStyles from '../../hooks/useThemeStyles';
 
-import BadgeCircle from './BadgeCircle';
+import BadgeImage from './BadgeImage';
 import Range from "../form/Range";
 import useTranslator from "../../hooks/useTranslator";
 
@@ -22,7 +22,7 @@ const BadgeWithRange = props => {
 		<TouchableWithoutFeedback onPress={ () => navigation.navigate( Routes.ProfileBadge, { id }) }>
 			<View style={{ width: "100%", flexDirection: "row", marginBottom: 30 }}>
 
-				<BadgeCircle size={ 120 }/>
+				<BadgeImage size={ 120 }/>
 
 				<View style={{ paddingTop: 20, marginLeft: 16, flexGrow: 1, flexShrink: 1 }}>
 					<Text style={[ 
