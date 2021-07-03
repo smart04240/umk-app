@@ -1,7 +1,7 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
-import {useNavigation} from '@react-navigation/core';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import { useDispatch } from "react-redux";
+import { useNavigation } from '@react-navigation/core';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Routes from '../../constants/Routes';
 import Actions from "../../redux/Actions";
 import GeneralStyles from '../../constants/GeneralStyles';
@@ -15,31 +15,31 @@ const Badge = props => {
 	const translate = useTranslator();
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
-	const {badge, active, progress} = props;
+	const { badge, active, earned } = props;
 	if (!badge?.id) return null;
 	const handlePress = () => {
-		dispatch(Actions.Badges.Selected({...badge, active}));
+		dispatch(Actions.Badges.Selected({ ...badge, active: earned }));
 		navigation.navigate(Routes.ProfileBadge);
 	}
 
 	return (
-		<TouchableWithoutFeedback
-			onPress={handlePress}
-		>
+		<TouchableWithoutFeedback>
 			<View
 				style={[
-					{marginBottom: 35, opacity: active ? 1 : 0.35, justifyContent: 'center', alignItems: 'center'},
+					{ marginBottom: 35, opacity: active ? 1 : 0.35, justifyContent: 'center', alignItems: 'center' },
 					props.badgeContainerStyle
 				]}
 			>
 				<BadgeImage image_uri={badge.image} />
-				<Text style={[GeneralStyles.text_regular, {textAlign: "center", color: ThemeStyles.dark_text}]}>
+				<Text style={[GeneralStyles.text_regular, { textAlign: "center", color: ThemeStyles.dark_text }]}>
 					{translate(badge.name)}
 				</Text>
-				<Text style={[
-					GeneralStyles.text_regular,
-					{textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase"}
-				]}>
+				<Text
+					onPress={handlePress}
+					style={[
+						GeneralStyles.text_regular,
+						{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" }
+					]}>
 					{translate(Translations.FindOutMore)}
 				</Text>
 			</View>

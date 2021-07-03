@@ -2,9 +2,8 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    // baseURL: `https://6355ac575d15.ngrok.io`,
     // baseURL: `https://api.gra.umk.pl`,
-    baseURL: `https://28defee9b294.ngrok.io`,
+    baseURL: `https://f5ecd2eb8d79.ngrok.io`,
 });
 
 const Types = {
@@ -185,7 +184,8 @@ API.Scheduler = {
  */
 
 API.badges = {
-    getEarned: () => API.get('badge/earned')
+    getEarned: () => API.get('badge/earned'),
+    getPromoted: () => API.get('badge/promoted')
 }
 
 export default API;

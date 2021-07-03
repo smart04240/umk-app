@@ -17,8 +17,8 @@ const BadgeMainInfo = props => {
 		{
 			heading: "Ile studentów ma odznakę",
 			items: [
-				{ value: `${badge?.progress?.main}%`, label: "na kierunku Psychologia" },
-				{ value: `${badge?.progress?.sub_type_1}%`, label: "na kierunku Filozofia" },
+				{ value: `70%`, label: "na kierunku Psychologia" },
+				{ value: `20%`, label: "na kierunku Filozofia" },
 
 			]
 		},
