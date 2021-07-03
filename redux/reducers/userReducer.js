@@ -10,9 +10,11 @@ const user_init = {
 
 export default createReducer(user_init, builder => {
 	builder
-		.addCase(Actions.User.Login, (state, action) => action.payload)
+		.addCase(Actions.User.Registered, ((state, action) => {
+			state.nick_name = action.payload;
+			state.isUnregistered = false;
+		}))
 		.addCase(Actions.User.Logout, () => null)
-		.addCase(Actions.User.Update, (state, action) => action.payload)
 		.addCase(Actions.User.USOSOAuth, (state, {payload}) => {
 			// console.log('USOSOAuth', {...state, ...payload});
 
@@ -25,7 +27,9 @@ export default createReducer(user_init, builder => {
 		})
 		.addCase(Actions.API.DataLoaded, (state, {payload: {profile}}) => ({
 			...state,
-			nick_name: `${profile.first_name} ${profile.last_name}`,
-			avatar_url: profile.avatar_url
+			avatar_url: profile.avatar_url,
+			user_name: `${profile.user_name}`,
+			studies: profile.studies,
+			graduation_dates: profile.graduation_dates
 		}))
 });

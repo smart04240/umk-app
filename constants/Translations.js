@@ -228,6 +228,20 @@ export default {
 		pl: "Nazwa użytkownika"
 	},
 
+	ProvideValidNick: {
+		en: "Please provide valid nick",
+		pl: "Proszę podać poprawny nick"
+	},
+
+	AgreeToRegulations: {
+		en: "Please read and accept the regulations",
+		pl: "Proszę przeczytać i zaakceptować regulamin"
+	},
+
+	AgreeToDataProcessing: {
+		en: "Please agree to processing of personal data",
+		pl: "Proszę wyrazić zgodę na przetwarzanie danych osobowych"
+	},
 
 	RegCheckboxLabel1: {
 		en: "I declare that I have read the content of the Regulations.",

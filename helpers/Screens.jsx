@@ -91,10 +91,6 @@ const RegisteredScreens = {
             name: Routes.Web,
             component: Web,
         },
-        // {
-        //     name: Routes.Registration,
-        //     component: RegistrationScreen,
-        // },
     ],
     LoggedIn: [
         {
@@ -208,10 +204,15 @@ const StackScreens = () => {
     const translate = useTranslator();
 
     const screens = React.useMemo(() => {
-        let selectedScreens = RegisteredScreens[loggedIn ? 'LoggedIn' : 'LoggedOut'];
-        if (tutorialViewed) selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Tutorial);
-        if (!firstLogin)    selectedScreens = selectedScreens.filter(screen => screen.name !== Routes.Registration);
-        return selectedScreens.map(screen => (
+        return (loggedIn ? RegisteredScreens.LoggedIn : RegisteredScreens.LoggedOut).filter(screen => {
+            if (tutorialViewed && screen.name === Routes.Tutorial)
+                return false;
+
+            if (!firstLogin && screen.name === Routes.Registration)
+                return false;
+
+            return true;
+        }).map(screen => (
             <Stack.Screen
                 key={screen.name}
                 name={screen.name}
@@ -231,8 +232,8 @@ const StackScreens = () => {
             >
                 {props => <screen.component {...props} />}
             </Stack.Screen>
-        ))
-    }, [firstLogin, loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' to dependencies, only used on app start
+        ));
+    }, [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' or 'firstLogin' to dependencies, only used on app start
 
     if (loggedIn) {
         return (
@@ -271,35 +272,28 @@ const prefix = Linking.createURL('/');
 export default function Screens() {
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
-    const state = useSelector(state => state.user);
 
     const linking = {
         prefixes: [prefix],
-
         subscribe: listener => {
             const onReceiveURL = (e) => {
                 const params = parse(e.url);
 
-                // console.log(e);
+                if (!params.oauth_token || !params.oauth_verifier)
+                    return;
+
                 dispatch(Actions.User.USOSAccessToken({
-                    oauth_token:    params.oauth_token,
+                    oauth_token: params.oauth_token,
                     oauth_verifier: params.oauth_verifier,
-                    access_token:   null,
-                    access_secret:  null,
+                    access_token: null,
+                    access_secret: null,
                 }));
-
-                // listener(e.url);
-            }
-
-            // Listen to incoming links from deep linking
-            Linking.addEventListener('url', onReceiveURL);
-
-            return () => {
-                // Clean up the event listeners
-                Linking.removeEventListener('url', onReceiveURL);
             };
+
+            Linking.addEventListener('url', onReceiveURL);
+            return () => Linking.removeEventListener('url', onReceiveURL);
         },
-    }
+    };
 
     return (
         <NavigationContainer linking={linking}>
