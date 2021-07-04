@@ -25,12 +25,20 @@ const BadgeMainInfo = props => {
 	]);
 	useEffect(() => {
 		let facultyUSOS = badge?.conditions[0]?.value;
+		if(!facultyUSOS) {
+			setInfo(prev => {
+				let _prev = [...prev];
+				_prev[0].item = { label: `na kierunku`, value: `100%` };
+				return _prev;
+			});
+			return;
+		}
 		API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
 			let data = response.data.data;
-
 			setInfo(prev => {
-				prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
-				return prev;
+				let _prev = [...prev];
+				_prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
+				return _prev;
 			});
 		});
 	}, []);

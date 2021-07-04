@@ -15,10 +15,10 @@ const Badge = props => {
 	const translate = useTranslator();
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
-	const { badge, active, earned } = props;
+	const { badge, active, promoted } = props;
 	if (!badge?.id) return null;
 	const handlePress = () => {
-		dispatch(Actions.Badges.Selected({ ...badge, active: earned }));
+		dispatch(Actions.Badges.Selected({ ...badge, active: promoted ? false : active }));
 		navigation.navigate(Routes.ProfileBadge);
 	}
 

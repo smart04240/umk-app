@@ -58,7 +58,6 @@ const ProfileInformation = props => {
 	useEffect(() => {
 		API.badges.getPromoted().then(response => {
 			const badges = response.data.data;
-			dispatch(Actions.Badges.Promoted(badges));
 			setPromotedBadges(badges);
 		});
 	}, []);
@@ -92,7 +91,7 @@ const ProfileInformation = props => {
 					</Text>
 
 					<View style={[GeneralStyles.row_wrap, { justifyContent: 'space-between' }]}>
-						{promoted_badges.map(badge => <Badge key={badge?.id} badge={badge} active={true} />)}
+						{promoted_badges.map(badge => <Badge key={badge?.id} badge={badge} active={true} promoted={true} />)}
 					</View>
 				</View>
 			}

@@ -26,8 +26,7 @@ const ProfileBadges = props => {
 					<Badge
 						key={badge?.id}
 						badge={{ ...badge.badge }}
-						active={true}
-						earned={true} />
+						active={true}/>
 				)}
 			</View>
 		</Container>

@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import { View } from "react-native";
 import GeneralStyles from "../../constants/GeneralStyles";
 
@@ -8,18 +9,8 @@ import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
 
 export default function ProfileBadges(props) {	
-
-	const badges = [
-		{ id: 1, name: "Podróżnik" },
-		{ id: 2, not_active: true, name: "Odkrywca" },
-		{ id: 3, name: "Bezpieczny student" },
-		{ id: 4, name: "Stypendysta" },
-		{ id: 5, not_active: true, name: "Odkrywca" },
-		{ id: 6, name: "Odkrywca" },
-		{ id: 7, name: "Odkrywca" },
-		{ id: 8, name: "Odkrywca" },
-	];
-
+	const badges = useSelector(state => state.badges.all);
+	
 	return (
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>
@@ -30,7 +21,7 @@ export default function ProfileBadges(props) {
 						{ justifyContent: "space-around" }
 					]}>
 						{ badges && !!badges.length &&
-							badges.map( badge => <Badge key={ badge.id } {...badge } />)
+							badges.map( badge => <Badge key={ badge.id } badge={badge} active={badge?.active} />)
 						}
 
 					</View>
