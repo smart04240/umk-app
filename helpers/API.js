@@ -2,8 +2,8 @@ import axios from "axios";
 import Storage from "./Storage";
 
 const API = axios.create({
-    // baseURL: `https://api.gra.umk.pl`,
-    baseURL: `https://f5ecd2eb8d79.ngrok.io`,
+    baseURL: `https://api.gra.umk.pl`,
+    // baseURL: `https://634ab3d2c93e.ngrok.io`,
 });
 
 const Types = {
@@ -25,7 +25,7 @@ const Types = {
  */
 API.fetch = () => API.get('fetch');
 
-API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfile});
+API.updateProfile = data => API.post('/profile', data, { type: Types.UpdateProfile });
 
 /**
  * User
@@ -33,7 +33,7 @@ API.updateProfile = data => API.post('/profile', data, {type: Types.UpdateProfil
 
 API.user = {
     login: () => API.post('/auth/login'),
-    logOut: () => {},
+    logOut: () => { },
     update: (data) => API.post('/update', data),
 };
 
@@ -73,9 +73,9 @@ API.markers = {
 API.oauth = {
     getURI: (callbackUri) => API.post('/usos/get_auth_uri', { callback: callbackUri }),
     getAccessToken: (oauth_token, oauth_verifier, secret) => API.post('/usos/get_access_token', {
-        oauth_token:    oauth_token,
+        oauth_token: oauth_token,
         oauth_verifier: oauth_verifier,
-        secret:         secret
+        secret: secret
     }),
 };
 
@@ -121,7 +121,7 @@ API.Scheduler = {
      *   }
      * @returns {Promise<void>}
      */
-    schedule: async function(config) {
+    schedule: async function (config) {
         await API.Scheduler.set(config.type, [
             ...(await API.Scheduler.get(config.type)),
             config,
@@ -132,7 +132,7 @@ API.Scheduler = {
      * Check if there are any scheduled tasks
      * @returns {Promise<boolean>}
      */
-    hasTasks: async function() {
+    hasTasks: async function () {
         for (const type of Object.values(Types)) {
             if ((await API.Scheduler.get(type))?.length)
                 return true;
@@ -146,7 +146,7 @@ API.Scheduler = {
      * @param type
      * @returns {Promise<void>}
      */
-    runType: async function(type) {
+    runType: async function (type) {
         // get scheduled tasks from storage
         const scheduledTasks = await API.Scheduler.get(type);
         // clear storage to prevent task duplication
@@ -166,7 +166,7 @@ API.Scheduler = {
      * Run all scheduled tasks, each entity type in separate thread
      * @returns {Promise<void[]>}
      */
-    runAll: function() {
+    runAll: function () {
         return Promise.all(Object.values(Types).map(API.Scheduler.runType));
     },
 };
@@ -175,8 +175,8 @@ API.Scheduler = {
  * Zdarzenia
  */
 
- API.zdarzenia = {
-    getAll: student_id => API.get('/zdarzenia/all', {params: {student_id}}),
+API.zdarzenia = {
+    getAll: student_id => API.get('/zdarzenia/all', { params: { student_id } }),
 };
 
 /**
@@ -185,7 +185,10 @@ API.Scheduler = {
 
 API.badges = {
     getEarned: () => API.get('badge/earned'),
-    getPromoted: () => API.get('badge/promoted')
+    getPromoted: () => API.get('badge/promoted'),
+    getEarnedPercentage: (faculty_usos, badge_id) => API.get('badge/earnedPercentage', {
+        params: { faculty_usos, badge_id }
+    }),
 }
 
 export default API;

@@ -114,7 +114,7 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
                )}
            </View>
 
-           <Modal
+           {/* <Modal
                 visible={true}
                 transparent
            >
@@ -123,7 +123,7 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
                        Lol
                    </Text>
                </View>
-           </Modal>
+           </Modal> */}
        </>
     )
 }

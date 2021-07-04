@@ -54,7 +54,6 @@ export default function BadgeScreen(props) {
 						<Checkbox
 							label={ translate( Translations.ExportToPdfAgree )}
 							required={ true }
-							warning={translate( Translations.Required )}
 							onChange={({name, value}) => {setChecked(value)}}
 						/>
 					</View>

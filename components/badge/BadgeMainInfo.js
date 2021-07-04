@@ -1,7 +1,8 @@
-import React from 'react';
-import {useSelector} from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import { View, Text, StyleSheet } from 'react-native';
 
+import API from "../../helpers/API";
 import Fonts from '../../constants/Fonts';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -12,54 +13,53 @@ const BadgeMainInfo = props => {
 	const ThemeStyles = useThemeStyles();
 	const badge = useSelector(state => state.badges.selected);
 	const text_color = { color: ThemeStyles.dark_blue_text };
-
-	const info = [
+	const [info, setInfo] = useState([
 		{
 			heading: "Ile studentów ma odznakę",
-			items: [
-				{ value: `70%`, label: "na kierunku Psychologia" },
-				{ value: `20%`, label: "na kierunku Filozofia" },
-
-			]
+			item: { value: `70%`, label: "na kierunku Psychologia" },
 		},
 		{
 			heading: "Punkty za odznakę",
-			items: [
-				{ value: `${badge?.points}` }
-			]
+			item: { value: `${badge?.points}` }
 		}
-	]
+	]);
+	useEffect(() => {
+		let facultyUSOS = badge?.conditions[0]?.value;
+		API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
+			let data = response.data.data;
+
+			setInfo(prev => {
+				prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
+				return prev;
+			});
+		});
+	}, []);
 
 	return (
 		<View style={{ flexGrow: 1, paddingLeft: 20 }}>
 
-			 <Text style={[ styles.font_family, styles.big, text_color, { marginBottom: 19 } ]}>
-				{ translate(badge.name) }
+			<Text style={[styles.font_family, styles.big, text_color, { marginBottom: 19 }]}>
+				{translate(badge.name)}
 			</Text>
 
-			
+
 			<View>
-				{ info.map(({ heading, items }, index ) => (
-					<View key={ index }>
-						
-						<Text style={[ styles.font_family, styles.small, text_color ]}>
-							{ heading }
+				{info.map(({ heading, item }, index) => (
+					<View key={index}>
+
+						<Text style={[styles.font_family, styles.small, text_color]}>
+							{heading}
 						</Text>
 
-						{ items && !!items.length &&
-							items.map(({ value, label }, index ) => (
-								<View key={ index } style={[ GeneralStyles.row_wrap, { alignItems: "flex-end" } ]}>
-									<Text style={[ styles.font_family, styles.big, text_color ]}>
-										{ value } 
-									</Text> 
-									<Text style={[ styles.font_family, styles.small, text_color ]}> { label } </Text>
-								</View>
-							))
-							
-						}
+						<View style={[GeneralStyles.row_wrap, { alignItems: "flex-end" }]}>
+							<Text style={[styles.font_family, styles.big, text_color]}>
+								{item?.value}
+							</Text>
+							<Text style={[styles.font_family, styles.small, text_color]}> {item?.label} </Text>
+						</View>
 					</View>
-				)) }
-			</View> 
+				))}
+			</View>
 		</View>
 	)
 }
