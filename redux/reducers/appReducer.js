@@ -29,6 +29,9 @@ export default createReducer(InitialState, builder => {
         .addCase(Actions.API.DataLoaded, state => {
             state.cached = true;
         })
+        .addCase(Actions.User.Logout, state => {
+            state.cached = false;
+        })
         .addCase(Actions.Tutorial.Passed, state => {
             state.tutorialViewed = true;
         })
