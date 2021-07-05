@@ -19,7 +19,7 @@ const ProfileMainInfo = props => {
     const [gradDates, setGradDates] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
 
-    const nick_name = user?.user_name;
+    const name = `${user?.first_name || ''} ${user?.last_name || ''}`;
     const ECTS = "59%";
     const to_end = "13 miesięcy";
 
@@ -53,7 +53,7 @@ const ProfileMainInfo = props => {
 
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{nick_name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
