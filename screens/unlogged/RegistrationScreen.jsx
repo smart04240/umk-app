@@ -14,7 +14,7 @@ import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Actions from "../../redux/Actions";
 import Colors from "../../constants/Colors";
 
@@ -22,7 +22,7 @@ export default function RegistrationScreen(props) {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
-
+    const tutorialViewed = useSelector(state => state.app.tutorialViewed);
     const [nick, setNick] = useState('');
     const [regulationsAccepted, setRegulationsAccepted] = React.useState(false);
     const [dataProcessingAccepted, setDataProcessingAccepted] = React.useState(false);
@@ -69,7 +69,7 @@ export default function RegistrationScreen(props) {
 
         API.user.update({nick_name: nick}).then(() => {
             dispatch(Actions.User.Registered(nick));
-            props.navigation.reset({index: 0, routes: [{name: Routes.Start}]});
+            props.navigation.reset({index: 0, routes: [{name: tutorialViewed ? Routes.Start : Routes.Tutorial}]});
         }).finally(() => setRegistering(false));
     };
     const cancelRegister = () => dispatch(Actions.User.Logout());
