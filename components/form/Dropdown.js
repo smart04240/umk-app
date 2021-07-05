@@ -1,12 +1,13 @@
 import React, {useMemo, useState} from 'react';
-import {Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {FontAwesome} from '@expo/vector-icons';
+import {Dimensions, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Translations from '../../constants/Translations';
 import {isFunction} from '../../helpers/functions';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Colors from '../../constants/Colors';
 import useTranslator from "../../hooks/useTranslator";
+import shadowGenerator from "../../helpers/shadowGenerator";
 
 const Dropdown = ({init_value, label, name, options, error_message, onChange, ...props}) => {
     const ThemeStyles = useThemeStyles();
@@ -17,8 +18,6 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
 
     const value_label = useMemo(() => (options?.find?.(item => item.value === value)?.label || placeholder), [value, options]);
 
-    const icon_name = open ? "angle-up" : "angle-down";
-
     const onOptionPress = value => {
         setValue(value);
         isFunction(onChange) && onChange({name, value});
@@ -26,105 +25,140 @@ const Dropdown = ({init_value, label, name, options, error_message, onChange, ..
     };
 
     return (
-       <>
-           <View style={[
-               {marginBottom: 8},
-               props.container_style,
-           ]}>
-               {label && (
-                   <Text style={[
-                       GeneralStyles.text_regular,
-                       {color: ThemeStyles.dark_text, marginBottom: 8}
-                   ]}>
-                       {label}
-                   </Text>
-               )}
-               <View style={[
-                   styles.box,
-                   open ? styles.box_open : null,
-                   {borderColor: ThemeStyles.blue_text},
-                   props.box_style,
-               ]}>
-                   <TouchableOpacity onPress={() => setOpen(!open)}>
-                       <View style={[GeneralStyles.row_ac]}>
-                           <Text style={[
-                               GeneralStyles.text_regular,
-                               styles.value_label,
-                               {color: ThemeStyles.dark_text},
-                               props.value_label_style,
-                           ]}>
-                               {value_label}
-                           </Text>
-                           <FontAwesome
-                               style={{marginLeft: 8}}
-                               name={icon_name}
-                               size={24}
-                               color={ThemeStyles.icon_color}
-                           />
-                       </View>
-                   </TouchableOpacity>
-               </View>
-               {!!error_message && (
-                   <Text style={styles.error_message}>
-                       {error_message}
-                   </Text>
-               )}
-               {(options && !!options.length && !!open) && (
-                   <View style={[
-                       styles.options_box,
-                       {
-                           borderColor: ThemeStyles.blue_text,
-                           backgroundColor: 'red'
-                       },
-                       props.options_box_style,
-                   ]}>
-                       <ScrollView>
-                           {options.map((opt, index) => (
-                               <TouchableOpacity
-                                   key={index}
-                                   onPress={() => onOptionPress(opt.value)}
-                                   style={{
-                                       flexDirection: 'row',
-                                       alignItems: 'center',
-                                   }}
-                               >
-                                   {!!opt.color && (
-                                       <View
-                                           style={{
-                                               height: 10,
-                                               width: 10,
-                                               marginRight: 10,
-                                               borderRadius: 20,
-                                               backgroundColor: opt?.color
-                                           }}
-                                       />
-                                   )}
-                                   <Text style={[
-                                       GeneralStyles.text_regular,
-                                       styles.option_text,
-                                       {color: ThemeStyles.blue_text},
-                                       props.option_text_style,
-                                   ]}>
-                                       {opt.label}
-                                   </Text>
-                               </TouchableOpacity>
-                           ))}
-                       </ScrollView>
-                   </View>
-               )}
-           </View>
+        <>
+            <View style={[
+                {marginBottom: 8},
+                props.container_style,
+            ]}>
+                {label && (
+                    <Text style={[
+                        GeneralStyles.text_regular,
+                        {color: ThemeStyles.dark_text, marginBottom: 8}
+                    ]}>
+                        {label}
+                    </Text>
+                )}
+                <View style={[
+                    styles.box,
+                    {borderColor: ThemeStyles.blue_text},
+                    props.box_style,
+                ]}>
+                    <TouchableOpacity onPress={() => setOpen(!open)}>
+                        <View style={[GeneralStyles.row_ac]}>
+                            <Text style={[
+                                GeneralStyles.text_regular,
+                                styles.value_label,
+                                {color: ThemeStyles.dark_text},
+                                props.value_label_style,
+                            ]}>
+                                {value_label}
+                            </Text>
+                            <FontAwesome
+                                style={{marginLeft: 8}}
+                                name={"angle-down"}
+                                size={24}
+                                color={ThemeStyles.icon_color}
+                            />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                {!!error_message && (
+                    <Text style={styles.error_message}>
+                        {error_message}
+                    </Text>
+                )}
+            </View>
 
-           {/* <Modal
-                visible={true}
+            <Modal
+                visible={open}
                 transparent
-           >
-               <View>
-                   <Text>
-                       Lol
-                   </Text>
-               </View>
-           </Modal> */}
-       </>
+                animationType={"fade"}
+            >
+                <View
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flex: 1
+                    }}
+                >
+                    <View
+                        style={{
+                            backgroundColor: ThemeStyles.main_bg,
+                            borderRadius: 10,
+                            minHeight: 50,
+                            maxHeight: 300,
+                            width: Dimensions.get('window').width - 100,
+                            ...shadowGenerator(3)
+                        }}
+                    >
+                        <View
+                            style={styles.buttonContainer}
+                        >
+                            <TouchableOpacity
+                                onPress={() => setOpen(false)}
+                                style={styles.button}
+                            >
+                                <MaterialCommunityIcons
+                                    name={'close-circle'}
+                                    size={22}
+                                    color={ThemeStyles.icon_color}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView
+                            style={{
+                                padding: 20,
+                            }}
+                            showsVerticalScrollIndicator={false}
+                            contentContainerStyle={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingBottom: 30
+                            }}
+                        >
+                            {(options && !!options.length && !!open) && options.map((opt, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => onOptionPress(opt.value)}
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        borderWidth: 1,
+                                        borderColor: ThemeStyles.blue_text,
+                                        borderRadius: 5,
+                                        marginVertical: 5,
+                                        paddingHorizontal: 10,
+                                        paddingVertical: 5,
+                                        width: '100%'
+                                    }}
+                                >
+                                    {!!opt.color && (
+                                        <View
+                                            style={{
+                                                height: 10,
+                                                width: 10,
+                                                marginRight: 10,
+                                                borderRadius: 20,
+                                                backgroundColor: opt?.color
+                                            }}
+                                        />
+                                    )}
+                                    <Text style={[
+                                        GeneralStyles.text_regular,
+                                        styles.option_text,
+                                        {color: ThemeStyles.blue_text},
+                                        props.option_text_style,
+                                    ]}>
+                                        {opt.label}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                </View>
+            </Modal>
+        </>
     )
 }
 
@@ -166,7 +200,19 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 7,
     },
     option_text: {
-        paddingVertical: 5
+        paddingVertical: 5,
+        fontSize: 19,
+    },
+    buttonContainer: {
+        alignItems: "flex-end",
+        justifyContent: "center",
+    },
+    button: {
+        height: 30,
+        width: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100
     }
 })
 
