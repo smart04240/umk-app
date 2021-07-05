@@ -50,7 +50,7 @@ const ProfileMainInfo = () => {
 
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
