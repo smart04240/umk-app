@@ -1,14 +1,7 @@
 import {createReducer} from "@reduxjs/toolkit";
 import Actions from "../Actions";
 
-const user_init = {
-    nick_name: '',
-    avatar: '',
-    token: null,
-    role: ''
-}
-
-export default createReducer(user_init, builder => {
+export default createReducer(null, builder => {
     builder
         .addCase(Actions.User.Registered, ((state, action) => {
             state.nick_name = action.payload;

@@ -94,13 +94,13 @@ const RegisteredScreens = {
     ],
     LoggedIn: [
         {
+            name: Routes.Registration,
+            component: RegistrationScreen,
+        },
+        {
             name: Routes.Tutorial,
             title: Translations.Tutorial,
             component: TutorialScreen
-        },
-        {
-            name: Routes.Registration,
-            component: RegistrationScreen,
         },
         {
             name: Routes.Start,

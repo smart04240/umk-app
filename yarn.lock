@@ -3364,6 +3364,11 @@ expo-notifications@~0.11.6:
     unimodules-permissions-interface "~6.1.0"
     uuid "^3.4.0"
 
+expo-print@~10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-10.1.0.tgz#7a24d52af0f9bfcabd96cb4c1b542b8c19cf2835"
+  integrity sha512-Kewebb4bq4mzc+kl98hEiJfy0BsC5a91NkYVMJ3cswQkJviOJbYR0cK2julVJXh22DpidgJ43FxHMIjsN/aPsg==
+
 expo-random@~11.1.2:
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/expo-random/-/expo-random-11.1.2.tgz#09f686a2f47c83e7c92d919833692d8722e8d18b"
