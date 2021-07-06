@@ -11,7 +11,7 @@ import Line from './Line';
 const Point = props => {
 
     const ThemeStyles = useThemeStyles();
-	const { label, extra_label, passed } = props;
+	const { label, extra_label, passed, current } = props;
 
 	const label_width = props.label_width || MOSConstants.PointLabel.Width;
 	const label_position = props.label_position || "bottom";
@@ -35,7 +35,13 @@ const Point = props => {
 			/>
 			
 
-			<View style={ styles.circle }>
+			<View style={[
+					styles.circle,
+					{
+						backgroundColor: current ? "rgba(228, 235, 245, .7)" : "rgba(255, 255, 255, .7)",
+						borderColor: current ? Colors.Blue : Colors.BunkerRgba(0.05)
+					} 
+				]} >
 				<View 
 					style={[
 						styles.inner_circle,
