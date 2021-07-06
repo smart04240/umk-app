@@ -90,7 +90,7 @@ export default function BadgeScreen(props) {
 					{translate(badge?.description)}
 				</Text>
 
-				{badge?.active &&
+				{badge?.active && allow_certificate === 1 &&
 					<View style={{ marginTop: 60 }}>
 						<Button onPress={handlePress}>{translate(Translations.ExportToPdf)}</Button>
 						<Checkbox
