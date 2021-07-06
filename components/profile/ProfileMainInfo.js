@@ -11,17 +11,16 @@ import Dropdown from "../form/Dropdown";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
 
-const ProfileMainInfo = props => {
+const ProfileMainInfo = () => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const user = useSelector(state => state.user);
+    const locale = useSelector(state => state.app.locale);
     const [studies, setStudies] = React.useState([]);
     const [gradDates, setGradDates] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
 
-    const name = `${user?.first_name || ''} ${user?.last_name || ''}`;
     const ECTS = "59%";
-    const to_end = "13 miesięcy";
 
     React.useEffect(() => {
         user?.studies?.forEach((study) => {
@@ -41,19 +40,17 @@ const ProfileMainInfo = props => {
     }, [user]);
 
     const info = React.useMemo(() => {
-        const endDate = moment(gradDates?.find(gradDate => gradDate.study_id === selectedPath)?.date);
-
-        console.log(moment.duration(moment().diff(endDate)).humanize())
+        const endDate = gradDates?.find(gradDate => gradDate.study_id === selectedPath)?.date;
 
         return [
             {label: translate(Translations.ECTSEarned), value: ECTS},
-            {label: translate(Translations.EndOfStudies), value: ''}
+            {label: translate(Translations.EndOfStudies), value: !!endDate && moment.duration(moment().diff(endDate)).humanize(false, {M: 99999})}
         ]
-    },[selectedPath]);
+    },[selectedPath, locale]);
 
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
@@ -81,15 +78,19 @@ const ProfileMainInfo = props => {
 }
 
 const styles = StyleSheet.create({
-
-    font_family: {fontFamily: Fonts.ProximaNova.Regular},
-
-    big: {fontSize: 20, marginBottom: 19},
-
-    medium: {fontSize: 18},
-
-    small: {fontSize: 14},
-
+    font_family: {
+        fontFamily: Fonts.ProximaNova.Regular
+    },
+    big: {
+        fontSize: 20,
+        marginBottom: 19
+    },
+    medium: {
+        fontSize: 18
+    },
+    small: {
+        fontSize: 14
+    },
     textContainer: {
         marginVertical: 5,
     }

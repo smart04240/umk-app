@@ -49,6 +49,7 @@ export default {
                 isUnregistered: result?.data?.is_unregistered,
             };
         }),
+        Update: createAction('user/update')
     },
     Categories: {
         Toggle: createAction('categories/toggle'),
