@@ -24,7 +24,6 @@ export default createReducer(null, builder => {
             first_name: profile.first_name,
             last_name: profile.last_name,
             avatar_url: profile.avatar_url,
-            user_name: `${profile.user_name}`,
             studies: profile.studies,
             graduation_dates: profile.graduation_dates,
         }))
