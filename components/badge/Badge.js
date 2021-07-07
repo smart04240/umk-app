@@ -26,7 +26,7 @@ const Badge = props => {
 		<TouchableWithoutFeedback>
 			<View
 				style={[
-					{ marginBottom: 35, opacity: active ? 1 : 0.35, justifyContent: 'center', alignItems: 'center' },
+					{ marginBottom: 35, opacity: active ? 1 : 0.35, width: '50%', alignItems: 'center' },
 					props.badgeContainerStyle
 				]}
 			>

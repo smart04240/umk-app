@@ -53,14 +53,14 @@ export default function BadgeScreen(props) {
 							<h1 style="font-size: 60px; color: #034ea2; margin-top: 20px; margin-bottom: 100px; font-weight: normal;">${user?.user_name}</h1>
 							<p style="font-size: 28px; color: #034ea2; margin: 0; margin-bottom: -30px; text-transform: uppercase">${translate(title)}</p>
 
-							<h1 style="font-size: 80px; color: #034ea2; letter-spacing: 30px; text-transform: uppercase; font-weight: normal; margin-bottom: 50px; width: 90%; white-space: wrap">${translate(badge?.name)}</h1>
+							<h1 style="font-size: 80px; color: #034ea2; letter-spacing: 20px; text-align: center; text-transform: uppercase; font-weight: normal; margin-bottom: 50px; width: 90%; white-space: wrap">${translate(badge?.name)}</h1>
 
-							<p style="font-size: 26px; width: 80%; margin-bottom: 100px; text-align: center;">${translate(badge?.description)}</p>
+							<p style="font-size: 26px; width: 80%; margin-bottom: 50px; text-align: center;">${translate(badge?.description)}</p>
 
 							<div style="display: flex; justify-content: space-between; align-items: center">
-								<img src="${appLogoUrl}" style="width: 100%;" />
-								<img src="${badge?.image}" style="width: 150px; margin-right: 30px; margin-left: 30px; border-radius: 50%" />
-								<img src="${umkLogoUrl}" style="width: 100%;" />
+								<img src="${appLogoUrl}" style="flex: 1 1 auto;" />
+								<img src="${badge?.image}" style="width: 170px; margin-right: 15px; margin-left: 15px; border-radius: 50%" />
+								<img src="${umkLogoUrl}" style="flex: 1 1 auto;" />
 							</div>
 						</div>
 					</div>`,
@@ -90,7 +90,7 @@ export default function BadgeScreen(props) {
 					{translate(badge?.description)}
 				</Text>
 
-				{badge?.active &&
+				{badge?.active && allow_certificate === 1 &&
 					<View style={{ marginTop: 60 }}>
 						<Button onPress={handlePress}>{translate(Translations.ExportToPdf)}</Button>
 						<Checkbox
