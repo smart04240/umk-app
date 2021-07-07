@@ -17,6 +17,7 @@ import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import * as ImagePicker from 'expo-image-picker';
 import makeFormData from "../../helpers/makeFormData";
+import * as FileSystem from 'expo-file-system';
 
 export default function EditProfileScreen() {
     const translate = useTranslator();
@@ -24,22 +25,36 @@ export default function EditProfileScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
-    const [nickName, setNickName] = React.useState('');
-    const [image, setImage] = React.useState(null);
+    const [nickName, setNickName] = React.useState(user?.nick_name || '');
+    const [image, setImage] = React.useState(user?.avatar_url || '');
 
     const message = {
         title: translate(Translations.DeleteConfirmTitle),
         description: translate(Translations.DeleteConfirmDescription) + ' ' + translate(Translations.Account) + ' ?',
     };
 
-    const updateUserData = () => {
-        API.user.update(makeFormData({nick_name: nickName, avatar: image})).then(response => {
-            console.log(makeFormData({nick_name: nickName, avatar: image}))
+    const updateUserData = async () => {
+        if (!nickName) {
+            Alert.alert(
+                'Cant save',
+                'Please provide the user name'
+            )
+            return;
+        }
 
+        let selectedImage = await FileSystem.getInfoAsync(image);
 
-            //dispatch(Actions.User.Update({user_name: nickName, avatar: response?.image}));
-            navigation.navigate(Routes.Profile);
-        })
+        API.user.update(makeFormData({nick_name: nickName, avatar: {
+                name: selectedImage?.uri?.split('/')[11],
+                size: selectedImage?.size,
+                uri: selectedImage?.uri,
+            }})).then(response => {
+                dispatch(Actions.User.Update({user_name: nickName, avatar: response?.data?.avatar}));
+                navigation.navigate(Routes.Profile);
+        }).catch(() => Alert.alert(
+            'Cant save',
+            'User with the same nick already exist'
+        ))
     }
 
     const deleteAccount = () => Alert.alert(
@@ -78,14 +93,14 @@ export default function EditProfileScreen() {
         });
 
         if (!result.cancelled) {
-            setImage(result);
+            setImage(result?.uri);
         }
     };
 
     return (
         <MainWithNavigation>
             <TopBox style={{alignItems: "center"}}>
-                <ProfileAvatar size={132} imageSrc={image?.uri || ''}/>
+                <ProfileAvatar size={132} imageSrc={image || ''}/>
                 <TouchableOpacity onPress={() => pickImage()}>
                     <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text, marginTop: 20}]}>
                         {translate(Translations.EditAvatar)}
@@ -96,7 +111,7 @@ export default function EditProfileScreen() {
                 <Input
                     style={{marginBottom: 20}}
                     label={translate(Translations.ChangeYouNick)}
-                    defaultValue={user?.nick_name}
+                    defaultValue={nickName}
                     onChangeText={name => setNickName(name)}
                 />
                 <View style={{marginTop: 50}}>

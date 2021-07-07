@@ -19,8 +19,6 @@ const ProfileInformation = props => {
     const user = useSelector(state => state.user);
     const [promoted_badges, setPromotedBadges] = useState([]);
 
-    console.log('here', user)
-
     const started_badges = [
         {
             id: 114,

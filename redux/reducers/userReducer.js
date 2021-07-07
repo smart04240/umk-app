@@ -26,8 +26,11 @@ export default createReducer(null, builder => {
             avatar_url: profile.avatar_url,
             studies: profile.studies,
             graduation_dates: profile.graduation_dates,
+            ects: profile.ects,
         }))
-        .addCase(Actions.User.Update, (state, {payload}) => {
-            state = payload
-        })
+        .addCase(Actions.User.Update, (state, {payload}) => ({
+            ...state,
+            nick_name: payload.user_name,
+            avatar_url: payload.avatar,
+        }))
 });
