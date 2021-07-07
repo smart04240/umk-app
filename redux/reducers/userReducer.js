@@ -18,14 +18,17 @@ export default createReducer(null, builder => {
 
             return {...state, ...payload};
         })
-        .addCase(Actions.API.DataLoaded, (state, {payload: {profile}}) => ({
+        .addCase(Actions.API.DataLoaded, (state, {payload: {user, profile}}) => ({
             ...state,
+            ...user,
+            first_name: profile.first_name,
+            last_name: profile.last_name,
             avatar_url: profile.avatar_url,
             user_name: `${profile.user_name}`,
             studies: profile.studies,
-            graduation_dates: profile.graduation_dates
+            graduation_dates: profile.graduation_dates,
         }))
         .addCase(Actions.User.Update, (state, {payload}) => {
-            state.user_name = payload
+            state = payload
         })
 });

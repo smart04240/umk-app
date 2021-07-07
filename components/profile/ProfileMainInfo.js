@@ -20,23 +20,29 @@ const ProfileMainInfo = () => {
     const [gradDates, setGradDates] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
 
+    const name = `${user?.first_name || ''} ${user?.last_name || ''}`;
+
     const ECTS = "59%";
 
     React.useEffect(() => {
-        user?.studies?.forEach((study) => {
-            setStudies(oldVal => [...oldVal, {
-                label: study?.study?.name,
-                value: study?.study?.id
-            }]);
+        if (!!user?.studies?.length) {
+            user?.studies?.forEach((study) => {
+                console.log(study)
 
-            if (!!study?.graduation_date) {
-                setGradDates(oldVal => [...oldVal, {
-                    date: study?.graduation_date?.planowana_data_ukonczenia,
-                    study_id: study?.study?.id,
-                    id: study?.graduation_date?.id
+                setStudies(oldVal => [...oldVal, {
+                    label: study?.study?.name,
+                    value: study?.study?.id
                 }]);
-            }
-        });
+
+                if (!!study?.graduation_date) {
+                    setGradDates(oldVal => [...oldVal, {
+                        date: study?.graduation_date?.planowana_data_ukonczenia,
+                        study_id: study?.study?.id,
+                        id: study?.graduation_date?.id
+                    }]);
+                }
+            });
+        }
     }, [user]);
 
     const info = React.useMemo(() => {
@@ -48,9 +54,11 @@ const ProfileMainInfo = () => {
         ]
     },[selectedPath, locale]);
 
+    console.log('user', user.index)
+
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
