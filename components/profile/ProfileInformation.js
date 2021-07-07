@@ -54,7 +54,7 @@ const ProfileInformation = props => {
 	];
 
 	const [promoted_badges, setPromotedBadges] = useState([]);
-	// Load badges the student has earned
+	// Load badges the promoted
 	useEffect(() => {
 		API.badges.getPromoted().then(response => {
 			const badges = response.data.data;

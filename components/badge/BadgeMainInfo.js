@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 
-import API from "../../helpers/API";
+import API from '../../helpers/API';
 import Fonts from '../../constants/Fonts';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
-import useTranslator from "../../hooks/useTranslator";
+import useTranslator from '../../hooks/useTranslator';
 
 const BadgeMainInfo = props => {
 	const translate = useTranslator();
@@ -15,16 +15,23 @@ const BadgeMainInfo = props => {
 	const text_color = { color: ThemeStyles.dark_blue_text };
 	const [info, setInfo] = useState([
 		{
-			heading: "Ile studentów ma odznakę",
-			item: { value: `70%`, label: "na kierunku Psychologia" },
+			heading: 'Ile studentów ma odznakę',
+			item: { value: ``, label: '' },
 		},
 		{
-			heading: "Punkty za odznakę",
+			heading: 'Punkty za odznakę',
 			item: { value: `${badge?.points}` }
 		}
 	]);
 	useEffect(() => {
-		let facultyUSOS = badge?.conditions[0]?.value;
+		let facultyUSOS = null;
+		badge?.conditions.forEach(condition => {
+			if(condition.condition_id === 1) {
+				facultyUSOS = condition.value;
+				return;
+			}
+		});
+
 		if(!facultyUSOS) {
 			setInfo(prev => {
 				let _prev = [...prev];
@@ -33,6 +40,7 @@ const BadgeMainInfo = props => {
 			});
 			return;
 		}
+
 		API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
 			let data = response.data.data;
 			setInfo(prev => {

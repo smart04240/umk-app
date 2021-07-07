@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { View, Text } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { View, Text } from 'react-native';
 import * as Print from 'expo-print';
 
 import { baseURL } from '../../helpers/API';
 
-import GeneralStyles from "../../constants/GeneralStyles";
-import Translations from "../../constants/Translations";
-import Layout from "../../constants/Layout";
-import useThemeStyles from "../../hooks/useThemeStyles";
+import GeneralStyles from '../../constants/GeneralStyles';
+import Translations from '../../constants/Translations';
+import Layout from '../../constants/Layout';
+import useThemeStyles from '../../hooks/useThemeStyles';
 
-import BadgeImage from "../../components/badge/BadgeImage";
-import BadgeMainInfo from "../../components/badge/BadgeMainInfo";
-import ContainerWithScroll from "../../components/general/ContainerWithScroll";
-import MainWithNavigation from "../../components/general/MainWithNavigation";
-import TopBox from "../../components/general/TopBox";
-import Button from "../../components/form/Button";
-import Checkbox from "../../components/form/Checkbox";
-import useTranslator from "../../hooks/useTranslator";
+import BadgeImage from '../../components/badge/BadgeImage';
+import BadgeMainInfo from '../../components/badge/BadgeMainInfo';
+import ContainerWithScroll from '../../components/general/ContainerWithScroll';
+import MainWithNavigation from '../../components/general/MainWithNavigation';
+import TopBox from '../../components/general/TopBox';
+import Button from '../../components/form/Button';
+import Checkbox from '../../components/form/Checkbox';
+import useTranslator from '../../hooks/useTranslator';
 
 
 export default function BadgeScreen(props) {
@@ -42,7 +42,7 @@ export default function BadgeScreen(props) {
 		}
 
 		const title = { pl: 'ZDOBYTA ODZNAKA', en: 'BADGE EARNED' };
-		const avatar = user?.avatar_url || require("../../assets/images/avatar.jpg");
+		const avatar = user?.avatar_url || require('../../assets/images/avatar.jpg');
 		const appLogoUrl = `${baseURL}/logo/app_logo_${locale}.png`;
 		const umkLogoUrl = `${baseURL}/logo/umk_logo_${locale}.png`;
 
@@ -67,8 +67,7 @@ export default function BadgeScreen(props) {
 			width: 612,
 			base64: false
 		});
-
-		alert('PDF Generated', filePath);
+		// alert('PDF Generated');
 	}
 
 	return (
@@ -90,7 +89,7 @@ export default function BadgeScreen(props) {
 					{translate(badge?.description)}
 				</Text>
 
-				{badge?.active && allow_certificate === 1 &&
+				{badge?.active && badge?.allow_certificate == 1 &&
 					<View style={{ marginTop: 60 }}>
 						<Button onPress={handlePress}>{translate(Translations.ExportToPdf)}</Button>
 						<Checkbox
