@@ -34,6 +34,26 @@ export default {
         pl: "Usuń"
     },
 
+    Error: {
+        en: 'Error',
+        pl: 'Błąd'
+    },
+
+    ProfileUserNameError: {
+        en: 'Please provide the user name',
+        pl: 'Proszę podać nazwę użytkownika'
+    },
+
+    ProfileUserUniqueError: {
+        en: 'User with the same nick already exist',
+        pl: 'Użytkownik o tym samym nicku już istnieje'
+    },
+
+    PermissionMessage: {
+        en: 'Sorry, we need camera roll permissions to make this work!',
+        pl: 'Przepraszamy, potrzebujemy uprawnień do rolki aparatu, aby to zadziałało!'
+    },
+
     DeleteConfirmDescription: {
         en: "Are you sure do you want to delete",
         pl: "Czy na pewno chcesz usunąć"

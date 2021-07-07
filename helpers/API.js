@@ -37,6 +37,7 @@ API.user = {
     login: () => API.post('/auth/login'),
     logOut: () => { },
     update: (data) => API.post('/update', data),
+    delete: () => API.delete('/delete'),
 };
 
 /**

@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Platform, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import useThemeStyles from "../../hooks/useThemeStyles";
@@ -15,6 +15,9 @@ import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
+import * as ImagePicker from 'expo-image-picker';
+import makeFormData from "../../helpers/makeFormData";
+import * as FileSystem from 'expo-file-system';
 
 export default function EditProfileScreen() {
     const translate = useTranslator();
@@ -22,18 +25,36 @@ export default function EditProfileScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
-    const [name, setName] = React.useState('');
+    const [nickName, setNickName] = React.useState(user?.nick_name || '');
+    const [image, setImage] = React.useState(user?.avatar_url || '');
 
     const message = {
         title: translate(Translations.DeleteConfirmTitle),
         description: translate(Translations.DeleteConfirmDescription) + ' ' + translate(Translations.Account) + ' ?',
     };
 
-    const updateUserData = () => {
-        API.user.update({nick_name: name}).then(() => {
-            dispatch(Actions.User.Update(name));
-            navigation.navigate(Routes.Profile);
-        })
+    const updateUserData = async () => {
+        if (!nickName) {
+            Alert.alert(
+                'Cant save',
+                'Please provide the user name'
+            )
+            return;
+        }
+
+        let selectedImage = await FileSystem.getInfoAsync(image);
+
+        API.user.update(makeFormData({nick_name: nickName, avatar: {
+                name: selectedImage?.uri?.split('/')[11],
+                size: selectedImage?.size,
+                uri: selectedImage?.uri,
+            }})).then(response => {
+                dispatch(Actions.User.Update({user_name: nickName, avatar: response?.data?.avatar}));
+                navigation.navigate(Routes.Profile);
+        }).catch(() => Alert.alert(
+            'Cant save',
+            'User with the same nick already exist'
+        ))
     }
 
     const deleteAccount = () => Alert.alert(
@@ -47,16 +68,40 @@ export default function EditProfileScreen() {
             {
                 text: "OK",
                 onPress: () => {
+                    API.user.delete().then(() => {
+                        dispatch(Actions.User.Logout());
+                    })
                 },
             },
         ],
     );
 
+    const pickImage = async () => {
+        if (Platform.OS !== 'web') {
+            const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+                return;
+            }
+        }
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setImage(result?.uri);
+        }
+    };
+
     return (
         <MainWithNavigation>
             <TopBox style={{alignItems: "center"}}>
-                <ProfileAvatar size={132}/>
-                <TouchableOpacity>
+                <ProfileAvatar size={132} imageSrc={image || ''}/>
+                <TouchableOpacity onPress={() => pickImage()}>
                     <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text, marginTop: 20}]}>
                         {translate(Translations.EditAvatar)}
                     </Text>
@@ -66,8 +111,8 @@ export default function EditProfileScreen() {
                 <Input
                     style={{marginBottom: 20}}
                     label={translate(Translations.ChangeYouNick)}
-                    defaultValue={user?.user_name}
-                    onChangeText={name => setName(name)}
+                    defaultValue={nickName}
+                    onChangeText={name => setNickName(name)}
                 />
                 <View style={{marginTop: 50}}>
                     <Button onPress={() => navigation.navigate(Routes.ProfileEvents)} transparent_bg={true}>

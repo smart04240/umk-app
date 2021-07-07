@@ -13,6 +13,7 @@ export default {
 	WhiteRgba: getRgbaFunc( 255, 255, 255 ),
 	
 	AliceBlue: "#FBFCFE",
+	AliceBlueRgba: getRgbaFunc( 251, 252, 254 ),
 	
 	Blue: "#034EA2",
 	BlueRgba: getRgbaFunc( 3, 78, 162 ),

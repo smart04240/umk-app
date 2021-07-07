@@ -17,40 +17,45 @@ const ProfileMainInfo = () => {
     const user = useSelector(state => state.user);
     const locale = useSelector(state => state.app.locale);
     const [studies, setStudies] = React.useState([]);
-    const [gradDates, setGradDates] = React.useState([]);
+    const [studentData, setStudentData] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
 
-    const ECTS = "59%";
+    const name = `${user?.first_name || ''} ${user?.last_name || ''}`;
 
     React.useEffect(() => {
-        user?.studies?.forEach((study) => {
-            setStudies(oldVal => [...oldVal, {
-                label: study?.study?.name,
-                value: study?.study?.id
-            }]);
-
-            if (!!study?.graduation_date) {
-                setGradDates(oldVal => [...oldVal, {
-                    date: study?.graduation_date?.planowana_data_ukonczenia,
-                    study_id: study?.study?.id,
-                    id: study?.graduation_date?.id
+        if (!!user?.studies?.length) {
+            user?.studies?.forEach((study) => {
+                setStudies(oldVal => [...oldVal, {
+                    label: study?.study?.name,
+                    value: study?.study?.id
                 }]);
-            }
-        });
+
+                if (!!study?.graduation_dates) {
+                    study.graduation_dates.forEach((item) => {
+                        setStudentData(oldVal => [...oldVal, {
+                            date: item?.planowana_data_ukonczenia,
+                            study_id: study?.study?.id,
+                            ects: study?.ects,
+                            id: item?.id
+                        }]);
+                    });
+                }
+            });
+        }
     }, [user]);
 
     const info = React.useMemo(() => {
-        const endDate = gradDates?.find(gradDate => gradDate.study_id === selectedPath)?.date;
+        const selectedData = studentData?.find(gradDate => gradDate.study_id === selectedPath);
 
         return [
-            {label: translate(Translations.ECTSEarned), value: ECTS},
-            {label: translate(Translations.EndOfStudies), value: !!endDate && moment.duration(moment().diff(endDate)).humanize(false, {M: 99999})}
+            {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : 'N/A'},
+            {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false, {M: 99999}) : 'N/A'}
         ]
     },[selectedPath, locale]);
 
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
