@@ -11,6 +11,32 @@ import Dropdown from "../form/Dropdown";
 import useTranslator from "../../hooks/useTranslator";
 import moment from "moment";
 
+const statusRules = [
+    'graduated_end_of_study',
+    'graduated_diploma'
+];
+// Function for counting ects points in percents
+/*
+* years(string with duration to end of studies)
+* userEcts(current user ects points)
+* max ects points per year is 60
+* depending on status rules and user study status we display to user 99 or 100 percent of ects
+* */
+const percentCounter = (years, userEcts, status) => {
+    if (!years && !userEcts)
+        return;
+
+    const percentPerYear = 60;
+    const getYear = years.charAt(0);
+    const ectsPercent = (percentPerYear * getYear) / 100;
+    const totalPercent = userEcts * ectsPercent;
+
+    if (totalPercent > 99 && statusRules.includes(status))
+        return "99";
+
+    return totalPercent;
+}
+
 const ProfileMainInfo = () => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
@@ -30,12 +56,12 @@ const ProfileMainInfo = () => {
                     value: study?.study?.id
                 }]);
 
-                if (!!study?.graduation_dates) {
+                if (!!study?.graduation_dates || !!study?.ects) {
                     study.graduation_dates.forEach((item) => {
                         setStudentData(oldVal => [...oldVal, {
                             date: item?.planowana_data_ukonczenia,
                             study_id: study?.study?.id,
-                            ects: study?.ects,
+                            ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
                             id: item?.id
                         }]);
                     });
@@ -48,7 +74,7 @@ const ProfileMainInfo = () => {
         const selectedData = studentData?.find(gradDate => gradDate.study_id === selectedPath);
 
         return [
-            {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : 'N/A'},
+            {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : '0 %'},
             {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false, {M: 99999}) : 'N/A'}
         ]
     },[selectedPath, locale]);
