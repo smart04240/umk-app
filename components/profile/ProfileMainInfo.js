@@ -26,9 +26,9 @@ const percentCounter = (years, userEcts, status) => {
     if (!years && !userEcts)
         return;
 
-    const percentPerYear = 60;
+    const pointsPerYear = 60;
     const getYear = years.charAt(0);
-    const ectsPercent = (percentPerYear * getYear) / 100;
+    const ectsPercent = (pointsPerYear * getYear) / 100;
     const totalPercent = userEcts * ectsPercent;
 
     if (totalPercent > 99 && statusRules.includes(status))
