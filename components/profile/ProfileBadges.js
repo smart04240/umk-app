@@ -13,7 +13,7 @@ const ProfileBadges = props => {
 	// Load badges the student has earned
 	useEffect(() => {
 		API.badges.getEarned().then(response => {
-			const badges = response.data.data.badge_list;
+			const badges = response.data.badges;
 			setRows(badges);
 			dispatch(Actions.Badges.Earned(badges));
 		});
@@ -25,7 +25,7 @@ const ProfileBadges = props => {
 				{rows.map(badge =>
 					<Badge
 						key={badge?.id}
-						badge={{ ...badge.badge }}
+						badge={badge}
 						active={true}/>
 				)}
 			</View>
