@@ -23,18 +23,15 @@ const statusRules = [
 * depending on status rules and user study status we display to user 99 or 100 percent of ects
 * */
 const percentCounter = (years, userEcts, status) => {
-    if (!years && !userEcts)
+    if (!years || !userEcts)
         return;
 
-    const pointsPerYear = 60;
-    const getYear = years.charAt(0);
-    const ectsPercent = (pointsPerYear * getYear) / 100;
-    const totalPercent = userEcts * ectsPercent;
+    const totalPercent = userEcts / (60 * years.charAt(0)) * 100;
 
     if (totalPercent > 99 && statusRules.includes(status))
         return "99";
 
-    return totalPercent;
+    return Math.floor(Number(totalPercent));
 }
 
 const ProfileMainInfo = () => {
@@ -45,8 +42,6 @@ const ProfileMainInfo = () => {
     const [studies, setStudies] = React.useState([]);
     const [studentData, setStudentData] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
-
-    const name = `${user?.first_name || ''} ${user?.last_name || ''}`;
 
     React.useEffect(() => {
         if (!!user?.studies?.length) {
@@ -81,7 +76,7 @@ const ProfileMainInfo = () => {
 
     return (
         <View style={{flexGrow: 1}}>
-            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{name}</Text>
+            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
             {studies.length === 1 ? (
                 <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
             ) : (
