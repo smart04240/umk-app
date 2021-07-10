@@ -2,7 +2,7 @@ import axios from "axios";
 import Storage from "./Storage";
 
 export const baseURL = 'https://api.gra.umk.pl';
-// export const baseURL = 'https://57e954ec5d8c.ngrok.io';
+// export const baseURL = 'https://0791ed2166dc.ngrok.io';
 
 const API = axios.create({
     baseURL
@@ -194,5 +194,11 @@ API.badges = {
         params: { faculty_usos, badge_id }
     }),
 }
+
+/**
+ * Ranking
+ */
+
+API.ranking = (params) => API.get('student/ranking', {params});
 
 export default API;
