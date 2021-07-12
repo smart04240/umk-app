@@ -1,14 +1,11 @@
 import React from 'react';
 import {Text, View} from "react-native";
-import {useNavigation} from "@react-navigation/native";
 import HTML from 'react-native-render-html';
 import Colors from "../../constants/Colors";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 
-
 export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
-    const navigation = useNavigation();
     const theme = useThemeStyles();
 
     if (!html) return null;
@@ -31,7 +28,6 @@ export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
                     <Text
                         key={passProps.key}
                         style={{
-                            marginBottom: 16,
                             ...convertedCSSStyles,
                             ...pStyles
                         }}
@@ -65,6 +61,5 @@ export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
                 )
             }}
         />
-    )
+    );
 }
-

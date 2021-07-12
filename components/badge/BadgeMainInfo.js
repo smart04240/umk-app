@@ -25,12 +25,12 @@ const BadgeMainInfo = props => {
 	]);
 	useEffect(() => {
 		let facultyUSOS = null;
-		badge?.conditions.forEach(condition => {
-			if(condition.condition_id === 1) {
-				facultyUSOS = condition.value;
-				return;
-			}
-		});
+		// badge?.conditions.forEach(condition => {
+		// 	if(condition.condition_id === 1) {
+		// 		facultyUSOS = condition.value;
+		// 		return;
+		// 	}
+		// });
 
 		if(!facultyUSOS) {
 			setInfo(prev => {
@@ -41,14 +41,14 @@ const BadgeMainInfo = props => {
 			return;
 		}
 
-		API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
-			let data = response.data.data;
-			setInfo(prev => {
-				let _prev = [...prev];
-				_prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
-				return _prev;
-			});
-		});
+		// API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
+		// 	let data = response.data.data;
+		// 	setInfo(prev => {
+		// 		let _prev = [...prev];
+		// 		_prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
+		// 		return _prev;
+		// 	});
+		// });
 	}, []);
 
 	return (

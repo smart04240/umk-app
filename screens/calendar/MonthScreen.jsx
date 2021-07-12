@@ -17,6 +17,8 @@ import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
 import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
 import API from "../../helpers/API";
+import Dropdown from "../../components/form/Dropdown";
+import {HtmlParser} from "../../components/general/HtmlParser";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -73,9 +75,16 @@ export default React.memo(function MonthScreen() {
     const locale = useSelector(state => state.app.locale);
     const selectedDate = useSelector(state => selectDateMoment(state));
     const events = useSelector(state => eventsByMonthPerDay(state));
+    const semesters = useSelector(state => state.semesters);
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
+    const [semesterId, setSemesterId] = React.useState(null);
 
+    const semesterOptions = React.useMemo(() => (semesters || []).map(semester => ({
+        value: semester.id,
+        label: semester.name
+    })), [semesters]);
+    const semester = React.useMemo(() => (semesters || []).find(semester => String(semester.id) === String(semesterId)), [semesters, semesterId]);
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
     const sections = React.useMemo(() => {
         const sections = [];
@@ -98,13 +107,15 @@ export default React.memo(function MonthScreen() {
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
 
+    React.useEffect(() => {
+        setSemesterId(semesters?.[0]?.id);
+    }, [semesters]);
+
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));
     const nextMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).add(1, 'month').toISOString()));
 
-    const deleteEvent = event => {
-        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
-    };
+    const deleteEvent = event => API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
 
     return (
         <SectionList
@@ -176,7 +187,26 @@ export default React.memo(function MonthScreen() {
                     </View>
                 </>
             }
-            ListFooterComponent={<View style={{height: 20}}/>}
+            ListFooterComponent={(
+                <>
+                    <View style={{marginTop: 20, marginBottom: 80, paddingHorizontal: 20}}>
+                        <Text style={[GeneralStyles.text_bold, {color: theme.dark_text, marginBottom: 5}]}>
+                            {translate(Translations.CalendarEventSemestersTitle)}
+                        </Text>
+
+                        {!!semesterId && (
+                            <Dropdown
+                                placeholder={translate(Translations.EventFormCategory)}
+                                init_value={semesterId}
+                                options={semesterOptions}
+                                onChange={({value}) => setSemesterId(value)}
+                            />
+                        )}
+
+                        {!!semester && <HtmlParser html={translate(semester.organization)}/>}
+                    </View>
+                </>
+            )}
             renderItem={({item}) => (
                 <ColorCard
                     style={{

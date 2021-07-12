@@ -1,4 +1,5 @@
-import React, {useMemo} from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import API from '../../helpers/API';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import useThemeStyles from "../../hooks/useThemeStyles";
@@ -12,27 +13,23 @@ import shadowGenerator from "../../helpers/shadowGenerator";
 import Container from "../../components/general/Container";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
 
-const ranking_sample = {
-	number: 1,
-	avatar_source: require("../../assets/images/avatar.jpg"),
-	user_nickname: "nick_studenta1234",
-	badges: 12,
-	points: 254
+const Faculty = (data) => {
+	return (
+		<Container>
+			{data && !!data.length && data.map((item, i) =>
+				<RankingBox key={i} {...{ ...item, number: i + 1 }} />
+			)}
+		</Container>
+	)
 }
 
-const Faculty = () => {
+const Annual = (data) => {
 	const translate = useTranslator();
-	const ThemeStyles = useThemeStyles();
 
-	const rankings = [];
-	for ( let i = 0; i < 15; i++) {
-		rankings.push({ ...ranking_sample, number: i + 1 })
-	}
-
-	return(
+	return (
 		<Container>
 			<Dropdown
-				label={ translate( Translations.FilterSelectDirection )}
+				label={translate(Translations.FilterSelectDirection)}
 				options_box_style={{ maxHeight: Layout.height * 0.5 }}
 				options={[
 					{ value: "*", label: "Wszystkie" },
@@ -40,28 +37,25 @@ const Faculty = () => {
 				]}
 			/>
 
-			{rankings && !!rankings.length && rankings.map(ranking => <RankingBox key={ranking.number} {...ranking} />)}
+			{data && !!data.length && data.map((item, i) =>
+				<RankingBox key={i} {...{...item, number: i + 1}} />
+			)}
 		</Container>
 	)
 }
 
-export default function RankingsScreen() {
+const RankingsScreen = () => {
 	const translate = useTranslator();
 	const theme = useThemeStyles();
-
-	const rankings = [];
-	for ( let i = 0; i < 15; i++) {
-		rankings.push({ ...ranking_sample, number: i + 1 })
-	}
 
 	const screens = [
 		{
 			tabLabel: translate(Translations.Faculty),
-			component: Faculty
+			component: () => Faculty(data?.faculty)
 		},
 		{
 			tabLabel: translate(Translations.Annual),
-			component: Faculty
+			component: () => Annual(data?.annual)
 		},
 	];
 
@@ -93,7 +87,14 @@ export default function RankingsScreen() {
 				}
 			}
 		)
-	},[theme]);
+	}, [theme]);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		API.ranking().then(response => {
+			setData(response.data.data);
+		});
+	}, []);
 
 	return (
 		<MainWithNavigation>
@@ -110,3 +111,5 @@ export default function RankingsScreen() {
 		</MainWithNavigation>
 	)
 }
+
+export default RankingsScreen;
