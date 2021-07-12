@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, SectionList, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {Alert, Modal, SectionList, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import moment from "moment";
 import useTranslator from "../../hooks/useTranslator";
 import Layout from "../../constants/Layout";
@@ -19,6 +19,8 @@ import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/event
 import API from "../../helpers/API";
 import Dropdown from "../../components/form/Dropdown";
 import {HtmlParser} from "../../components/general/HtmlParser";
+import MonthPicker from "react-native-month-picker";
+import Colors from "../../constants/Colors";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -79,6 +81,7 @@ export default React.memo(function MonthScreen() {
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
     const [semesterId, setSemesterId] = React.useState(null);
+    const [showPicker, setShowPicker] = React.useState(false);
 
     const semesterOptions = React.useMemo(() => (semesters || []).map(semester => ({
         value: semester.id,
@@ -111,6 +114,13 @@ export default React.memo(function MonthScreen() {
         setSemesterId(semesters?.[0]?.id);
     }, [semesters]);
 
+    const openPicker = () => setShowPicker(true);
+    const hidePicker = () => setShowPicker(false);
+    const setMonth = date => {
+        hidePicker();
+        dispatch(Actions.Calendar.SetDate(date.toISOString()));
+    };
+
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));
     const nextMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).add(1, 'month').toISOString()));
@@ -129,7 +139,7 @@ export default React.memo(function MonthScreen() {
                             <TouchableOpacity style={arrowStyle} onPress={prevMonth}>
                                 <Feather name="arrow-left" size={22} color={theme.icon_color}/>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.controlCenter}>
+                            <TouchableOpacity style={styles.controlCenter} onPress={openPicker}>
                                 <Text style={{
                                     fontFamily: Fonts.ProximaNova.Regular,
                                     color: theme.blue_text,
@@ -146,6 +156,22 @@ export default React.memo(function MonthScreen() {
                                 <Feather name="arrow-right" size={22} color={theme.icon_color}/>
                             </TouchableOpacity>
                         </View>
+
+                        <Modal visible={showPicker} animationType={'fade'} onRequestClose={hidePicker} transparent>
+                            <View style={{flex: 1, justifyContent: 'center', padding: 20}}>
+                                <MonthPicker
+                                    maxDate={moment().add(10, 'years')}
+                                    containerStyle={{backgroundColor: theme.box_bg, borderRadius: 20}}
+                                    selectedBackgroundColor={Colors.Blue}
+                                    yearTextStyle={{fontFamily: Fonts.ProximaNova.Regular, color: theme.blue_text}}
+                                    monthTextStyle={{fontFamily: Fonts.ProximaNova.Bold, color: theme.dark_text}}
+                                    currentMonthTextStyle={{color: Colors.Blue}}
+                                    localeLanguage={locale}
+                                    selectedDate={selectedDate}
+                                    onMonthChange={setMonth}
+                                />
+                            </View>
+                        </Modal>
 
                         <View style={styles.day_names}>
                             {translate(Days).map(day => (
