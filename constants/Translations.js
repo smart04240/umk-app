@@ -79,6 +79,11 @@ export default {
         pl: "Najbliższe wydarzenia"
     },
 
+    CalendarEventSemestersTitle: {
+        en: "Semester organizations",
+        pl: "Organizacja semestru",
+    },
+
     EventFormTitle: {
         en: "Event title *",
         pl: "Tytuł wydarzenia *",
