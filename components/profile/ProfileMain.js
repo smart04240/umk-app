@@ -140,7 +140,11 @@ const ProfileMain = () => {
                     <View style={{flexGrow: 0.7}}>
                         <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
                         {studies.length === 1 ? (
-                            <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
+                            <View style={{
+                                width: Layout.width / 2
+                            }}>
+                                <Text style={[styles.font_family, styles.small, {color: ThemeStyles.dark_blue_text}]}>hasfghjhafjhdjsahjfdshahfjdshfjksahdjsahfjdshajfhjsd</Text>
+                            </View>
                         ) : (
                             <Dropdown
                                 name="study_path"
