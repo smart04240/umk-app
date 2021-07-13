@@ -19,7 +19,49 @@ import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
-import {replacePushNotifications} from "../../helpers/Notification";
+import * as Calendar from 'expo-calendar';
+import {Platform} from "react-native";
+import Colors from "../../constants/Colors";
+
+const CalendarTitle = 'UMK Calendar';
+
+const createCalendar = async () => {
+    const source = Platform.OS === 'ios'
+        ? (await Calendar.getDefaultCalendarAsync()).source
+        : {isLocalAccount: true, name: CalendarTitle};
+    return await Calendar.createCalendarAsync({
+        title: CalendarTitle,
+        color: Colors.PrussianBlue,
+        entityType: Calendar.EntityTypes.EVENT,
+        sourceId: source.id,
+        source: source,
+        name: 'umkCalendar',
+        ownerAccount: 'personal',
+        accessLevel: Calendar.CalendarAccessLevel.OWNER,
+    });
+};
+
+const getCalendar = async () => {
+    const calendar = (await Calendar.getCalendarsAsync()).find(calendar => calendar.title === CalendarTitle);
+    if (!calendar) {
+        await createCalendar();
+        return await getCalendar();
+    } else
+        return calendar;
+};
+
+/**
+ * @returns {string|undefined}
+ */
+const extractAddress = event => {
+    if (!event)
+        return '';
+
+    if (event?.show_location_link)
+        return event.location_link;
+
+    return event?.marker?.address;
+};
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -28,23 +70,75 @@ export default function CalendarScreen() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
     const selectedDate = useSelector(state => state.events.selectedDate);
+    const remoteEventsMap = useSelector(state => state.events.remoteEventsMap);
+    const [permission, setPermission] = React.useState(null);
+    const [calendar, setCalendar] = React.useState(null);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
+
+        Calendar.requestCalendarPermissionsAsync().then(({status}) => setPermission(status === 'granted'));
     }, []);
 
     React.useEffect(() => {
-        if (!selectedDate)
+        permission && getCalendar().then(setCalendar).catch(() => setCalendar(false));
+    }, [permission]);
+
+    React.useEffect(() => {
+        if (!selectedDate || !calendar)
             return;
 
-        let startOfMonth = moment(selectedDate).startOf('month').day(-7).format('YYYY-MM-DD'),
-            endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
+        let startOfMonth = moment(selectedDate).startOf('month').day(-7),
+            endOfMonth = moment(selectedDate).endOf('month').day(+7);
 
-        API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
-    }, [selectedDate]);
+        API.events.byRange(startOfMonth.format('YYYY-MM-DD'), endOfMonth.format('YYYY-MM-DD')).then(async res => {
+            if (!res?.data)
+                return;
+
+            const map = {...remoteEventsMap};
+            const allRemoteIds = (await API.events.allIds()).data;
+
+            for (const event of res.data) {
+                const remoteEventId = String(event.id);
+                let localEventId = map[remoteEventId];
+                const details = {
+                    title: translate(event.title),
+                    location: extractAddress(event),
+                    notes: translate(event.description)?.replace(/[^a-zA-Z ]/g, "").slice(1, -1),
+                    startDate: event.start_date,
+                    endDate: event.end_date,
+                    allDay: !!event.is_full_day,
+                    alarms: [],
+                };
+
+                if (event?.reminder_offset)
+                    details.alarms.push({
+                        relativeOffset: -(event.reminder_offset / 60),
+                        method: Calendar.AlarmMethod.ALARM,
+                    });
+
+                if (!localEventId)
+                    localEventId = await Calendar.createEventAsync(calendar.id, details);
+                else
+                    await Calendar.updateEventAsync(localEventId, details);
+
+                map[remoteEventId] = localEventId;
+            }
+
+            for (const remoteId in map) {
+                if (!allRemoteIds.includes(parseInt(remoteId))) {
+                    map[remoteId] && await Calendar.deleteEventAsync(map[remoteId]);
+                    delete map[remoteId];
+                }
+            }
+
+            dispatch(Actions.Calendar.SetMap(map));
+            dispatch(Actions.Calendar.setAll(res?.data));
+        });
+    }, [selectedDate, calendar, translate]);
 
     useFocusEffect(React.useCallback(() => {
-        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+        // API.events.notifications().then(async res => await replacePushNotifications(res?.data));
     }, []));
 
     const style = useMemo(() => ({
@@ -68,8 +162,7 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-
-    if (!selectedDate)
+    if (!selectedDate && !permission)
         return null;
 
     // offline

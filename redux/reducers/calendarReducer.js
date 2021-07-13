@@ -5,6 +5,7 @@ export const eventAdapter = createEntityAdapter();
 
 const InitialState = {
     selectedDate: null,
+    remoteEventsMap: {},
     ...eventAdapter.getInitialState(),
 };
 
@@ -17,4 +18,7 @@ export default createReducer(InitialState, builder => {
        .addCase(Actions.Calendar.upsertOne, eventAdapter.upsertOne)
        .addCase(Actions.Calendar.removeOne, eventAdapter.removeOne)
        .addCase(Actions.Calendar.setAll, eventAdapter.setAll)
+       .addCase(Actions.Calendar.SetMap, (state, action) => {
+           state.remoteEventsMap = action.payload;
+       })
 });
