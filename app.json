@@ -30,6 +30,7 @@
         "googleMapsApiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
       },
       "infoPlist": {
+        "NSRemindersUsageDescription": "Access to the calendar is necessary for the purpose of data integration with calendar of the device.",
         "NSLocationAlwaysUsageDescription": "Permission to access the device's location is necessary in order to use location function. Granting consent is voluntary, but failure to do so may restrict access to certain functions.",
         "NSCalendarsUsageDescription": "Access to the calendar is necessary for the purpose of data integration with calendar of the device. Consent for access is voluntary, but failure to do so may result in restriction or loss of the functionality."
       }
@@ -53,7 +54,9 @@
         "WRITE_CALENDAR",
         "ACCESS_NETWORK_STATE",
         "ACCESS_WIFI_STATE",
-        "VIBRATE"
+        "VIBRATE",
+        "READ_CALENDAR",
+        "WRITE_CALENDAR"
       ]
     }
   }

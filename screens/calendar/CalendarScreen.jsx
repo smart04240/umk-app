@@ -68,6 +68,7 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
+
     if (!selectedDate)
         return null;
 
