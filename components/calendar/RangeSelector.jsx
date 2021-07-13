@@ -5,12 +5,9 @@ import {FontAwesome} from "@expo/vector-icons";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import moment from "moment";
 import {useSelector} from "react-redux";
-import {ModalCalendar} from "../form/datepicker/ModalCalendar";
-import Translations from "../../constants/Translations";
-import useTranslator from "../../hooks/useTranslator";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnChange, rangeSelectorStyles}) => {
-    const translate = useTranslator();
     const theme = useThemeStyles();
     const locale = useSelector(state => state.app.locale);
 
@@ -64,12 +61,13 @@ export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnCha
                     color={theme.icon_color}
                 />
             </TouchableOpacity>
-            <ModalCalendar
-                modalTitle={translate(Translations.Calendar)}
-                show={show}
-                setClose={setClose}
-                calendarOnChange={calendarOnChange}
-                initialCalendarDate={date}
+            <DateTimePickerModal
+                isVisible={show}
+                mode={'date'}
+                onConfirm={value => {
+                    calendarOnChange(value);
+                }}
+                onCancel={setClose}
             />
         </>
     )
