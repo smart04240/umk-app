@@ -1,8 +1,8 @@
 import axios from "axios";
 import Storage from "./Storage";
 
-export const baseURL = 'https://api.gra.umk.pl';
-// export const baseURL = 'https://a55408cd984c.ngrok.io';
+// export const baseURL = 'https://api.gra.umk.pl';
+export const baseURL = 'https://e5fd08fd99fe.ngrok.io';
 
 const API = axios.create({
     baseURL
@@ -193,6 +193,7 @@ API.badges = {
     getEarnedPercentage: (faculty_usos, badge_id) => API.get('badge/earnedPercentage', {
         params: { faculty_usos, badge_id }
     }),
+    getStartedEarning: () => API.get('badge/startedEarning')
 }
 
 /**
