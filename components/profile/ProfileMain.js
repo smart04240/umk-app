@@ -61,24 +61,45 @@ const ProfileMain = () => {
     const selectedData = studentData?.find(gradDate => gradDate.study_id === selectedPath);
 
     React.useEffect(() => {
+        let preparedStudies = [];
+        let preparedStudentData = [];
+
         if (!!user?.studies?.length) {
             user?.studies?.forEach((study) => {
-                setStudies(oldVal => [...oldVal, {
+                preparedStudies.push({
                     label: study?.study?.name,
                     value: study?.study?.id
-                }]);
+                });
 
-                if (!!study?.graduation_dates || !!study?.ects) {
+                if (!study?.ects && !!study?.graduation_dates) {
                     study.graduation_dates.forEach((item) => {
-                        setStudentData(oldVal => [...oldVal, {
+                        preparedStudentData.push({
+                            date: item?.planowana_data_ukonczenia,
+                            study_id: study?.study?.id,
+                        });
+                    });
+                }
+
+                if (!!study?.graduation_dates && !!study?.ects) {
+                    study.graduation_dates.forEach((item) => {
+                        preparedStudentData.push({
                             date: item?.planowana_data_ukonczenia,
                             study_id: study?.study?.id,
                             ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
-                            id: item?.id
-                        }]);
+                        });
                     });
                 }
+
+                if (!!study?.ects && !study?.graduation_dates) {
+                    preparedStudentData.push({
+                        study_id: study?.study?.id,
+                        ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
+                    })
+                }
             });
+
+            setStudies(preparedStudies);
+            setStudentData(preparedStudentData);
         }
     }, [user]);
 
