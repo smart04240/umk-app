@@ -15,6 +15,7 @@ import {eventsByWeek, eventsSelectors, selectDate} from "../../redux/selectors/e
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
 import API from "../../helpers/API";
+import Colors from "../../constants/Colors";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -105,7 +106,7 @@ export default React.memo(function WeekScreen() {
                 <ColorCard
                     title={translate(item.title)}
                     html={translate(item.description)}
-                    color={categories?.find(category => String(category.id) === String(item.category_id))?.color}
+                    color={categories?.find(category => String(category.id) === String(item.category_id))?.color || Colors.NoCategoryColor}
                     from={moment(item.start_date).format('HH:mm')}
                     to={moment(item.end_date).format('HH:mm')}
                     onPressIn={() => Vibrator()}

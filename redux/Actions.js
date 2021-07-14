@@ -34,7 +34,6 @@ export default {
         USOSOAuth: createAction('user/usos-oauth'),
         USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
             const state = {...thunkAPI.getState().user, ...payload};
-            // console.log('state', state);
             const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
             return {
                 oauth_token: null,

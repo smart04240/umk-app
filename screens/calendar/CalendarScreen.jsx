@@ -20,6 +20,9 @@ import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {replacePushNotifications} from "../../helpers/Notification";
+import {getCalendarsAsync, getEventsAsync, requestCalendarPermissionsAsync} from "expo-calendar";
+
+const getCalendarIds = async () => (await getCalendarsAsync()).map(calendar => calendar.id);
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -28,20 +31,48 @@ export default function CalendarScreen() {
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
     const selectedDate = useSelector(state => state.events.selectedDate);
+    const [permission, setPermission] = React.useState(null);
+    const [calendarIds, setCalendarIds] = React.useState(null);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
+        requestCalendarPermissionsAsync().then(({status}) => setPermission(status === 'granted'));
     }, []);
 
     React.useEffect(() => {
-        if (!selectedDate)
+        permission && getCalendarIds().then(setCalendarIds).catch(() => setCalendarIds(false));
+    }, [permission]);
+
+    React.useEffect(() => {
+        if (!selectedDate || !calendarIds)
             return;
 
-        let startOfMonth = moment(selectedDate).startOf('month').day(-7).format('YYYY-MM-DD'),
-            endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
+        const rangeStart = moment(selectedDate).startOf('month').day(-7);
+        const rangeEnd = moment(selectedDate).endOf('month').day(+7);
 
-        API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
-    }, [selectedDate]);
+        (async () => {
+            let remoteEvents = API.events.byRange(rangeStart.format('YYYY-MM-DD'), rangeEnd.format('YYYY-MM-DD')).then(response => response.data);
+            let systemEvents = getEventsAsync(calendarIds, rangeStart.toDate(), rangeEnd.toDate()).then(events => {
+                events.forEach(event => {
+                    event.start_date = event.startDate;
+                    event.end_date = event.endDate;
+                });
+                return events;
+            });
+
+            [remoteEvents, systemEvents] = await Promise.all([remoteEvents, systemEvents]);
+
+            dispatch(Actions.Calendar.setAll([...remoteEvents, ...systemEvents].sort((a, b) => {
+                if (a.start_date < b.start_date)
+                    return -1;
+
+                if (a.start_date > b.start_date)
+                    return 1;
+
+                return 0;
+            })));
+        })();
+    }, [selectedDate, calendarIds]);
 
     useFocusEffect(React.useCallback(() => {
         API.events.notifications().then(async res => await replacePushNotifications(res?.data));
@@ -68,8 +99,7 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-
-    if (!selectedDate)
+    if (!selectedDate || !calendarIds)
         return null;
 
     // offline

@@ -42,7 +42,7 @@ export default function LoginScreen(props) {
                 access_secret: null,
             }));
             props.navigation.navigate(Routes.Web, {uri: result?.data?.uri});
-        }).catch(err => console.log(err)).finally(() => setAuthenticating(false));
+        }).finally(() => setAuthenticating(false));
     }
 
     return (
