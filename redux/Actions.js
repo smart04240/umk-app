@@ -14,10 +14,6 @@ export default {
     Theme: {
         Toggle: createAction('theme/toggle'),
     },
-    Reminders: {
-        MarkAsRead: createAction('reminders/mark-as-read'),
-        MarkAsReadAll: createAction('reminders/mark-as-read-all')
-    },
     ToDos: {
         upsertOne: createAction('todos/create'),
     },
@@ -63,7 +59,10 @@ export default {
     },
     Notifications: {
         upsertOne: createAction('notification/upsertOne'),
-        removeOne: createAction('notifications/removeOne')
+        removeOne: createAction('notifications/removeOne'),
+        setAll: createAction('notifications/setAll'),
+        markAsRead: createAction('notification/markAsRead'),
+        markAsReadAll: createAction('notification/markAsReadAll')
     },
     ChangeMapSearch: createAction('changeMapSearch'),
     ChangeMapSearchDebounced: createAction('changeMapSearchDebounced'),

@@ -1,7 +1,7 @@
 import Fonts from "./Fonts";
 import Layout from "./Layout";
 
-const main_font_size = Layout.width < 375 ? 14 : 16;
+export const main_font_size = Layout.width < 375 ? 14 : 16;
 
 export default {
 
@@ -21,8 +21,8 @@ export default {
 	},
 
 	flex_centered: {
-		alignItems: "center", 
-		justifyContent: "center" 
+		alignItems: "center",
+		justifyContent: "center"
 	},
 
 	row_wrap: {
@@ -31,8 +31,8 @@ export default {
 	},
 
 	row_ac: {
-		flexDirection: "row", 
-		alignItems: "center", 
+		flexDirection: "row",
+		alignItems: "center",
 	},
 
 	row_ac_jfe: {
@@ -42,9 +42,9 @@ export default {
 	},
 
 	row_centered: {
-		flexDirection: "row", 
-		alignItems: "center", 
-		justifyContent: "center" 
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center"
 	},
 
 	row_center_around: {
@@ -65,8 +65,8 @@ export default {
 	},
 
 	circle_with_icon: {
-		flexDirection: "row", 
-		alignItems: "center", 
+		flexDirection: "row",
+		alignItems: "center",
 		justifyContent: "center",
 		width: 32,
 		height: 32,

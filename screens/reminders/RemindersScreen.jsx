@@ -8,22 +8,20 @@ import Translations from "../../constants/Translations";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import useTranslator from "../../hooks/useTranslator";
 import Actions from "../../redux/Actions";
-import {getUnreadRemindersAmount} from "../../redux/reducers/remindersReducer";
 
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import Main from "../../components/general/Main";
 import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHeader";
 import RemindItem from "../../components/reminders/RemindItem";
+import {getUnreadNotifications, NotificationsSelector} from "../../redux/selectors/notificationsSelectors";
 
 
 export default function RemindersScreen(props) {
     const ThemeStyles = useThemeStyles();
     const dispatch = useDispatch();
     const translate = useTranslator();
-    const reminders = useSelector(state => state.reminders);
-    const reminders_unread_amount = useSelector(state => getUnreadRemindersAmount(state));
-
-    // ToDo show notifications from the store
+    const notifications = useSelector(state => NotificationsSelector.All(state));
+    const unreadNotifications = useSelector(state => getUnreadNotifications(state));
 
     return (
         <ScreenWithRoundedHeader>
@@ -37,10 +35,10 @@ export default function RemindersScreen(props) {
                                 marginBottom: 8
                             }
                         ]}>
-                            {translate(Translations.UnreadNotifications)}: {reminders_unread_amount}
+                            {translate(Translations.UnreadNotifications)}: {unreadNotifications.length}
                         </Text>
-                        {!!reminders_unread_amount && (
-                            <TouchableOpacity onPress={() => dispatch(Actions.Reminders.MarkAsReadAll())}>
+                        {!!unreadNotifications && (
+                            <TouchableOpacity onPress={() => dispatch(Actions.Notifications.markAsReadAll())}>
                                 <Text style={[
                                     GeneralStyles.text_regular,
                                     {
@@ -53,7 +51,7 @@ export default function RemindersScreen(props) {
                             </TouchableOpacity>
                         )}
                     </View>
-                    {reminders && !!reminders.length && reminders.map((item, index) => <RemindItem key={index} {...item}/>)}
+                    {!!notifications && notifications?.map((item, index) => <RemindItem key={index} {...item}/>)}
                 </ContainerWithScroll>
             </Main>
         </ScreenWithRoundedHeader>
