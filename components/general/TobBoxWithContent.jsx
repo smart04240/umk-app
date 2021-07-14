@@ -16,6 +16,7 @@ import API from "../../helpers/API";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import moment from "moment";
 import Layout from "../../constants/Layout";
+import Colors from "../../constants/Colors";
 
 const ImageHeight = Layout.height / 4;
 
@@ -67,7 +68,10 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const category = (isTask ? TaskCategories : eventCategories).find(category => String(category.id) === String(data?.[isTask ? 'category' : 'category_id']));
 
     const info = [
-        {circle_color: category?.color, value: typeof category?.title === 'string' ? category?.title : category?.title[locale]},
+        {
+            circle_color: category?.color || Colors.NoCategoryColor,
+            value: typeof category?.title === 'string' ? category?.title : category?.title[locale]
+        },
         {icon: "map-marker", value: !isTask && extractAddress(data)},
         {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: isTask && status},

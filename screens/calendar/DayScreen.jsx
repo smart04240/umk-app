@@ -19,6 +19,7 @@ import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
 import {eventsByDay} from "../../redux/selectors/eventsSelector";
 import {HtmlParser} from "../../components/general/HtmlParser";
+import Colors from "../../constants/Colors";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -91,7 +92,7 @@ export default React.memo(function DayScreen() {
                     style={[
                         styles.eventContainer,
                         {
-                            backgroundColor: categories?.find(category => String(category.id) === String(event.category_id))?.color,
+                            backgroundColor: categories?.find(category => String(category.id) === String(event.category_id))?.color || Colors.NoCategoryColor,
                             height: cardHeight,
                             width: Math.round(event?.width),
                             left: event.left + leftMargin,
