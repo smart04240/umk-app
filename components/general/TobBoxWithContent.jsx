@@ -14,7 +14,6 @@ import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
-import taskCategories from "../tasks/TaskListItem";
 import moment from "moment";
 import Layout from "../../constants/Layout";
 
@@ -40,11 +39,35 @@ export const TopBoxWithContent = ({id, isTask}) => {
     const locale = useSelector(state => state.app.locale);
     const data = isTask ? todos : event;
     const eventCategories = useSelector(state => state.eventCategories);
-    const category = (isTask ? taskCategories : eventCategories).find(category => String(category.id) === String(data?.['category_id' || 'category']));
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 
+    const TaskCategories = [
+        {
+            id: 1,
+            title: translate(Translations.TaskCategory1),
+            color: '#ff111a'
+        },
+        {
+            id: 2,
+            title: translate(Translations.TaskCategory2),
+            color: '#ff9124',
+        },
+        {
+            id: 3,
+            title: translate(Translations.TaskCategory3),
+            color: '#b73839'
+        },
+        {
+            id: 4,
+            title: translate(Translations.TaskCategory4),
+            color: '#346eaa'
+        },
+    ];
+
+    const category = (isTask ? TaskCategories : eventCategories).find(category => String(category.id) === String(data?.[isTask ? 'category' : 'category_id']));
+
     const info = [
-        {circle_color: category?.color, value: category?.title[locale]},
+        {circle_color: category?.color, value: typeof category?.title === 'string' ? category?.title : category?.title[locale]},
         {icon: "map-marker", value: !isTask && extractAddress(data)},
         {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
         {icon: "playlist-check", value: isTask && status},
