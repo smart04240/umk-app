@@ -71,30 +71,12 @@ const ProfileMain = () => {
                     value: study?.study?.id
                 });
 
-                if (!study?.ects && !!study?.graduation_dates) {
-                    study.graduation_dates.forEach((item) => {
-                        preparedStudentData.push({
-                            date: item?.planowana_data_ukonczenia,
-                            study_id: study?.study?.id,
-                        });
-                    });
-                }
-
-                if (!!study?.graduation_dates && !!study?.ects) {
-                    study.graduation_dates.forEach((item) => {
-                        preparedStudentData.push({
-                            date: item?.planowana_data_ukonczenia,
-                            study_id: study?.study?.id,
-                            ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
-                        });
-                    });
-                }
-
-                if (!!study?.ects && !study?.graduation_dates) {
+                if (!!study?.ects || !!study?.graduation_dates) {
                     preparedStudentData.push({
+                        date: study?.graduation_dates.find((item) => !!item?.planowana_data_ukonczenia)?.planowana_data_ukonczenia,
                         study_id: study?.study?.id,
                         ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
-                    })
+                    });
                 }
             });
 
