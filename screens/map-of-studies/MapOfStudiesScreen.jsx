@@ -10,7 +10,7 @@ export default function MapOfStudiesScreen( props ) {
 	return (
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>
-				<ContainerWithScroll>
+				<ContainerWithScroll container_style={{ paddingHorizontal: 0 }}>
 					
 					<MapOfStudiesStructure/>				
 					
