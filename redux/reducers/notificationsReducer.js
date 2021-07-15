@@ -11,6 +11,7 @@ export default createReducer(initialState, builder => {
         .addCase(Actions.Notifications.removeOne, notificationAdapter.removeOne)
         .addCase(Actions.Notifications.setAll, notificationAdapter.setAll)
         .addCase(Actions.Notifications.markAsRead, notificationAdapter.updateOne)
+        .addCase(Actions.Notifications.upsertMany, notificationAdapter.upsertMany)
         .addCase(Actions.Notifications.markAsReadAll, state => {
             for (const id of state.ids)
                 state.entities[id].read = true;

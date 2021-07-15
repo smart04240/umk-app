@@ -60,6 +60,7 @@ export default {
         upsertOne: createAction('notification/upsertOne'),
         removeOne: createAction('notifications/removeOne'),
         setAll: createAction('notifications/setAll'),
+        upsertMany: createAction('notifications/upsertMany'),
         markAsRead: createAction('notification/markAsRead'),
         markAsReadAll: createAction('notification/markAsReadAll')
     },
