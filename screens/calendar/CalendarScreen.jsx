@@ -13,13 +13,12 @@ import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import FloatAddButton from "../../components/tasks/FloatAddButton";
-import {useFocusEffect, useNavigation} from "@react-navigation/core";
+import {useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
-import {replacePushNotifications} from "../../helpers/Notification";
 import {getCalendarsAsync, getEventsAsync, requestCalendarPermissionsAsync} from "expo-calendar";
 
 const getCalendarIds = async () => (await getCalendarsAsync()).map(calendar => calendar.id);
@@ -73,10 +72,6 @@ export default function CalendarScreen() {
             })));
         })();
     }, [selectedDate, calendarIds]);
-
-    useFocusEffect(React.useCallback(() => {
-        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-    }, []));
 
     const style = useMemo(() => ({
         pillContainer: {

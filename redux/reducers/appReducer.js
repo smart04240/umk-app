@@ -20,7 +20,7 @@ const InitialState = {
     locale: 'en',
     theme: Appearance.getColorScheme() === 'no-preference' ? 'light' : Appearance.getColorScheme(),
     cached: false,
-    online: false,
+    online: true,
     tutorialViewed: false,
 };
 

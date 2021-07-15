@@ -1,11 +1,19 @@
 import {createEntityAdapter, createReducer} from "@reduxjs/toolkit";
 import Actions from '../Actions';
 
-export const notificationAdapter = createEntityAdapter({});
+export const notificationAdapter = createEntityAdapter({
+    sortComparer: (a, b) => {
+        if (a.reminderDate < b.reminderDate)
+            return 1;
 
-const initialState = notificationAdapter.getInitialState();
+        if (a.reminderDate > b.reminderDate)
+            return -1;
 
-export default createReducer(initialState, builder => {
+        return 0;
+    },
+});
+
+export default createReducer(notificationAdapter.getInitialState(), builder => {
     builder
         .addCase(Actions.Notifications.upsertOne, notificationAdapter.upsertOne)
         .addCase(Actions.Notifications.removeOne, notificationAdapter.removeOne)
@@ -16,4 +24,5 @@ export default createReducer(initialState, builder => {
             for (const id of state.ids)
                 state.entities[id].read = true;
         })
+        .addCase(Actions.User.Logout, () => notificationAdapter.getInitialState());
 });
