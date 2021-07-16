@@ -19,10 +19,73 @@ import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
-import {replacePushNotifications} from "../../helpers/Notification";
-import {getCalendarsAsync, getEventsAsync, requestCalendarPermissionsAsync} from "expo-calendar";
+import * as Calendar from "expo-calendar";
+import {Platform} from "react-native";
+import Colors from "../../constants/Colors";
 
-const getCalendarIds = async () => (await getCalendarsAsync()).map(calendar => calendar.id);
+const extractAddress = event => {
+    if (!event)
+        return '';
+
+    if (event?.show_location_link)
+        return event.location_link;
+
+    return event?.marker?.address;
+};
+
+const CalendarTitle = 'UMK Calendar';
+
+const getDefaultCalendarSource = async () => {
+    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
+    return defaultCalendars[0].source;
+};
+
+/**
+ * Create calendar for UMK events
+ * @returns {Promise<string>} New calendar ID
+ */
+const createCalendar = async () => {
+    const source = Platform.OS === 'ios'
+        ? await getDefaultCalendarSource()
+        : {isLocalAccount: true, name: CalendarTitle};
+    return await Calendar.createCalendarAsync({
+        title: CalendarTitle,
+        color: Colors.PrussianBlue,
+        entityType: Calendar.EntityTypes.EVENT,
+        sourceId: source.id,
+        source: source,
+        name: 'umkCalendar',
+        ownerAccount: 'personal',
+        accessLevel: Calendar.CalendarAccessLevel.OWNER,
+    });
+};
+
+/**
+ * Get calendar ID that contains UMK events
+ * @returns {Promise<string>} Calendar ID
+ */
+const getCalendarId = async () => {
+    const calendar = (await Calendar.getCalendarsAsync()).find(calendar => calendar.title === CalendarTitle);
+    return calendar ? calendar.id : await createCalendar();
+};
+
+/**
+ * Get calendar IDs that do not contain UMK events
+ * @returns {Promise<string[]>} Array of calendar IDs
+ */
+const getCalendarIds = async () => {
+    const ids = [];
+
+    for (const calendar of await Calendar.getCalendarsAsync()) {
+        if (calendar.title === CalendarTitle)
+            continue;
+
+        ids.push(calendar.id);
+    }
+
+    return ids;
+};
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -30,21 +93,29 @@ export default function CalendarScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
-    const selectedDate = useSelector(state => state.events.selectedDate);
+    const {selectedDate, remoteEventsMap} = useSelector(state => state.events);
     const [permission, setPermission] = React.useState(null);
+    const [calendarId, setCalendarId] = React.useState(null);
     const [calendarIds, setCalendarIds] = React.useState(null);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
-        requestCalendarPermissionsAsync().then(({status}) => setPermission(status === 'granted'));
+        Calendar.requestCalendarPermissionsAsync().then(({status}) => setPermission(status === 'granted'));
+        return () => {
+            dispatch(Actions.Calendar.SetDate(null))
+        };
     }, []);
 
     React.useEffect(() => {
-        permission && getCalendarIds().then(setCalendarIds).catch(() => setCalendarIds(false));
+        if (!permission)
+            return;
+
+        getCalendarId().then(setCalendarId).catch(() => setCalendarId(false));
+        getCalendarIds().then(setCalendarIds).catch(() => setCalendarIds(false));
     }, [permission]);
 
-    React.useEffect(() => {
-        if (!selectedDate || !calendarIds)
+    useFocusEffect(React.useCallback(() => {
+        if (!selectedDate || !calendarIds || !calendarId)
             return;
 
         const rangeStart = moment(selectedDate).startOf('month').day(-7);
@@ -52,15 +123,55 @@ export default function CalendarScreen() {
 
         (async () => {
             let remoteEvents = API.events.byRange(rangeStart.format('YYYY-MM-DD'), rangeEnd.format('YYYY-MM-DD')).then(response => response.data);
-            let systemEvents = getEventsAsync(calendarIds, rangeStart.toDate(), rangeEnd.toDate()).then(events => {
+            let systemEvents = Calendar.getEventsAsync(calendarIds, rangeStart.toDate(), rangeEnd.toDate()).then(events => {
                 events.forEach(event => {
                     event.start_date = event.startDate;
                     event.end_date = event.endDate;
                 });
                 return events;
             });
+            let allRemoteIds = API.events.allIds().then(response => response.data);
 
-            [remoteEvents, systemEvents] = await Promise.all([remoteEvents, systemEvents]);
+            [remoteEvents, systemEvents, allRemoteIds] = await Promise.all([remoteEvents, systemEvents, allRemoteIds]);
+
+            const map = {...remoteEventsMap};
+
+            for (const event of remoteEvents) {
+                const remoteEventId = String(event.id);
+                let localEventId = map[remoteEventId];
+                const details = {
+                    title: translate(event.title),
+                    location: extractAddress(event),
+                    notes: translate(event.description)?.replace(/[^a-zA-Z ]/g, "").slice(1, -1),
+                    startDate: event.start_date,
+                    endDate: event.end_date,
+                    allDay: !!event.is_full_day,
+                    alarms: [],
+                };
+
+                if (event.reminder_offset) {
+                    details.alarms.push({
+                        relativeOffset: -(event.reminder_offset / 60),
+                        method: Calendar.AlarmMethod.ALERT,
+                    });
+                }
+
+                if (!localEventId)
+                    localEventId = await Calendar.createEventAsync(calendarId, details);
+                else
+                    await Calendar.updateEventAsync(localEventId, details);
+
+                map[remoteEventId] = localEventId;
+            }
+
+            for (const remoteId in map) {
+                if (!allRemoteIds.includes(parseInt(remoteId))) {
+                    map[remoteId] && Calendar.deleteEventAsync(map[remoteId]);
+                    delete map[remoteId];
+                }
+            }
+
+            dispatch(Actions.Calendar.SetMap(map));
 
             dispatch(Actions.Calendar.setAll([...remoteEvents, ...systemEvents].sort((a, b) => {
                 if (a.start_date < b.start_date)
@@ -72,11 +183,11 @@ export default function CalendarScreen() {
                 return 0;
             })));
         })();
-    }, [selectedDate, calendarIds]);
+    }, [selectedDate, calendarIds, calendarId]));
 
-    useFocusEffect(React.useCallback(() => {
-        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-    }, []));
+    // useFocusEffect(React.useCallback(() => {
+    // API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+    // }, []));
 
     const style = useMemo(() => ({
         pillContainer: {
@@ -99,8 +210,23 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-    if (!selectedDate || !calendarIds)
-        return null;
+    if (permission === false) {
+        return (
+            <WithHeaderConfig semitransparent={true}>
+                <MainWithNavigation>
+                    <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                </MainWithNavigation>
+            </WithHeaderConfig>
+        );
+    }
+
+    if (!selectedDate || !calendarIds || !calendarId) {
+        return (
+            <WithHeaderConfig borderless={true}>
+                <MainWithNavigation/>
+            </WithHeaderConfig>
+        );
+    }
 
     // offline
     if (!isOnline) {
