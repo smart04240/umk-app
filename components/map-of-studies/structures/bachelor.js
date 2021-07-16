@@ -4,6 +4,7 @@ import Point from "../point/Point";
 import Branch from "../Branch";
 import BranchesNode from "../BranchesNode";
 import FinishCircle from "../FinishCircle";
+import MOSConstants from "../../../constants/MOSConstants";
 
 export default [
 
@@ -72,6 +73,8 @@ export default [
 							},
 							{
 								dead_end: true,
+								absolute: true,
+								left: MOSConstants.Column.Default,
 								children: [
 									{ Component: Point,  label: "niezaliczenie warunku", bottom_margin: 20 },
 									{ Component: Point,  label: "powtarzanie I roku" }
@@ -123,6 +126,8 @@ export default [
 							},
 							{
 								dead_end: true,
+								absolute: true,
+								left: MOSConstants.Column.Default,
 								children: [
 									{ Component: Point, label: "niezaliczenie warunku", bottom_margin: 20 },
 									{ Component: Point, label: "powtarzanie II roku" }

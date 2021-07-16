@@ -32,5 +32,10 @@ export default {
 			Size: POINT_INNER_CIRCLE_SIZE,
 			Radius: POINT_INNER_CIRCLE_SIZE / 2
 		}
+	},
+
+	Column: {
+		Default: Layout.width / 3,
+		Big: Layout.width / 2
 	}
 }

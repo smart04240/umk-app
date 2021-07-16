@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import Layout from '../../constants/Layout';
 import MOSConstants from '../../constants/MOSConstants';
 import Line from './Line';
 
@@ -12,16 +11,16 @@ const getChildComponent = ( obj, extra ) => {
 
 const Branch = props => {
 
-	const { children, absolute, dead_end, hide_line } = props;
+	const { children, absolute, dead_end } = props;
 	const children_is_array = Array.isArray( children );
 
 	return (
 		<View style={{
 			position: absolute ? "absolute" : "relative",
-			left: absolute ? Layout.width / 3 : 0,
+			left: props.left || 0,
 			alignItems: "center",
 			flex: 1,
-			width: "100%",
+			width: absolute ? MOSConstants.Column.Default : "100%"
 		}}>
 
 			{ !dead_end &&

@@ -22,15 +22,24 @@ const BranchesNode = props => {
 	const one_column_width = Layout.width / branches.length;
 	const start_line_width = ( one_column_width * ( branches.length - 1 )) + MOSConstants.Line.Size;
 
+	let end_line_left = 0;
 	let end_line_width;
 	switch ( end ) {
 		
 		case "full": end_line_width = start_line_width;
 			break;
 
-		case "half": end_line_width = start_line_width / 2 + MOSConstants.Line.Size / 2
+		case "half": 
+			end_line_width = start_line_width / 2 + MOSConstants.Line.Size / 2
+			end_line_left = one_column_width / 2 - MOSConstants.Line.Size / 2
 			break;	
+
+		case "half-right":
+			end_line_width = start_line_width / 2 + MOSConstants.Line.Size / 2
+			end_line_left = Layout.width / 2 - MOSConstants.Line.Size / 2
+			break;
 	} 
+
 
 	return (
 		<View style={{ width: "100%" }}>
@@ -58,8 +67,8 @@ const BranchesNode = props => {
 
 			{ inner && 
 				<Line 
-					width={ Layout.width / 3 }
-					left={ Layout.width / 3 / 2 }
+					width={ MOSConstants.Column.Default }
+					left={ MOSConstants.Column.Default / 2 }
 				/>
 			}
 
@@ -68,9 +77,7 @@ const BranchesNode = props => {
 					{ branches.map(( props, i ) => (
 						<Branch 
 							key={ i } 
-							{...props } 
-							inner
-							absolute={ inner && i > 0 }
+							{...props }
 						/>
 					)) }
 				</View>
@@ -83,7 +90,7 @@ const BranchesNode = props => {
 							<Line 
 								position="relative" 
 								width={ end_line_width }
-								left={ end === "full" ? 0 : one_column_width / 2 - MOSConstants.Line.Size / 2 }	
+								left={ end_line_left }	
 							/>
 						</View>
 					}
