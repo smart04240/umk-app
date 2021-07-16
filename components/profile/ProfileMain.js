@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Easing, Platform, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, Easing, Platform, Text, TouchableOpacity, View} from "react-native";
 import Translations from '../../constants/Translations';
 import Layout from "../../constants/Layout";
 import Routes from "../../constants/Routes";
@@ -35,13 +35,13 @@ const statusRules = [
 * depending on status rules and user study status we display to user 99 or 100 percent of ects
 * */
 const percentCounter = (years, userEcts, status) => {
-    if (!years || !userEcts)
-        return;
-
     const totalPercent = userEcts / (60 * years.charAt(0)) * 100;
 
     if (totalPercent > 99 && statusRules.includes(status))
         return "99";
+
+    if (statusRules.includes(status))
+        return "100"
 
     return Math.floor(Number(totalPercent));
 }
@@ -76,6 +76,7 @@ const ProfileMain = () => {
                         date: study?.graduation_dates.find((item) => !!item?.planowana_data_ukonczenia)?.planowana_data_ukonczenia,
                         study_id: study?.study?.id,
                         ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
+                        status: study?.status
                     });
                 }
             });
@@ -88,7 +89,7 @@ const ProfileMain = () => {
     const info = React.useMemo(() => {
         return [
             {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : '0 %'},
-            {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false, {M: 99999}) : 'N/A'}
+            {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false,{M: 99999}) : statusRules.includes(selectedData?.status) ? null : 'N/A'}
         ]
     },[selectedPath, locale]);
 
@@ -130,7 +131,7 @@ const ProfileMain = () => {
                         <AnimatedCircularProgress
                             size={160}
                             width={9}
-                            fill={selectedData?.ects || 0}
+                            fill={Number(selectedData?.ects) || 0}
                             duration={900}
                             rotation={0}
                             easing={Easing.out(Easing.ease)}
@@ -140,13 +141,15 @@ const ProfileMain = () => {
                             children={() => <ProfileAvatar imageSrc={user?.avatar_url} size={avatar_size > 132 ? 132 : avatar_size}/>}
                         />
                     </TouchableOpacity>
-                    <View style={{flexGrow: 0.7}}>
+                    <View style={{
+                        width: (Dimensions.get('window').width / 2) - Layout.paddingHorizontal,
+                    }}>
                         <Text style={[styles.font_family, styles.big, {color: ThemeStyles.dark_blue_text}]}>{user?.nick_name}</Text>
                         {studies.length === 1 ? (
                             <View style={{
                                 width: Layout.width / 2
                             }}>
-                                <Text style={[styles.font_family, styles.small, {color: ThemeStyles.dark_blue_text}]}>hasfghjhafjhdjsahjfdshahfjdshfjksahdjsahfjdshajfhjsd</Text>
+                                <Text style={[styles.font_family, styles.small, {color: ThemeStyles.dark_blue_text}]}>{studies[0]?.label}</Text>
                             </View>
                         ) : (
                             <Dropdown
