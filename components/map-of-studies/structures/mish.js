@@ -1,4 +1,3 @@
-
 import StartCircle from "../StartCircle";
 import Point from "../point/Point";
 import Branch from "../Branch";
@@ -7,35 +6,48 @@ import FinishCircle from "../FinishCircle";
 import MOSConstants from "../../../constants/MOSConstants";
 
 export default [
+
 	{
 		Component: Branch,
 		children: [
-			{
-				Component: StartCircle
+			{ Component: StartCircle },
+			{ 
+				Component: Point, 
+				label_position: "left",
+				label: "ROK I (2015/2016)", 
+				small_label: "Wnioski ogólne\n(do 02.03.2016)", 
+				bottom_margin: 5 
 			},
 			{
 				Component: Point,
-				label: "ROK I (2015/2016)",
-				small_label: "Wnioski ogólne\n(do 02.03.2016)",
 				label_position: "left",
-				bottom_margin: 5,
-			},
-			{
-				Component: Point,
-				label: "Sesja egzaminacyjna zimowa",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
-				label_position: "left",
-				bottom_margin: 5
-			},
-			{
-				Component: Point,
-				label: "Sesja egzaminacyjna letnia",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
-				label_position: "left",
+				label: "Złożenie wniosków",
+				small_label: "(programy studiów)\n(do 02.03.2016)",
 				bottom_margin: 5
 			}
 		]
 	},
+
+	{
+		Component: BranchesNode,
+		end: "half",
+		branches: [
+			{
+				children: [
+					{ Component: Point, label: "Sesja egzaminacyjna zimowa", small_label: "(od 21.01.2016 do 22.02.2016)", bottom_margin: 20 },
+					{ Component: Point, label: "Sesja egzaminacyjna letnia", small_label: "(od 21.01.2016 do 22.02.2016)", bottom_margin: 20 },
+				]
+			},
+			{
+				dead_end: true,
+				children: [
+					{ Component: Point, label: "niezłożenie programu", bottom_margin: 20 },
+					{ Component: Point, label: "skreślenie z listy studnetów", bottom_margin: 0 }
+				]
+			}
+		]
+	},
+
 	{
 		Component: BranchesNode,
 		end: "half-right",
@@ -44,6 +56,7 @@ export default [
 				children: [
 					{ Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
 					{ Component: Point, label: "ROK II", bottom_margin: 20 },
+					{ Component: Point, label: "Złożenie wniosków\n(programy studiów)", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 350 },
 					{
@@ -56,12 +69,16 @@ export default [
 								left: 0,
 								children: [
 									{ Component: Point, label: "niezaliczenie II roku", bottom_margin: 20 },
-									{ Component: Point, label: "podanie o powtarzanie", bottom_margin: 0 },
+									{ Component: Point, label: "podanie o powtarzanie", bottom_margin: 0 }
 								]
 							},
 							{
 								left: MOSConstants.Column.Default,
-								children: { Component: Point, label: "zaliczenie II roku", bottom_margin: 60 }
+								children: {
+									Component: Point, 
+									label: "zaliczenie II roku",
+									bottom_margin: 60
+								}
 							}
 						]
 					}
@@ -73,6 +90,7 @@ export default [
 					{ Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
 					{ Component: Point, label: "podanie o wpis warunkowy", small_label: "(do 02.03.2016)", bottom_margin: 20 },
 					{ Component: Point, label: "ROK II\n(wpis warunkowy)", bottom_margin: 20 },
+					{ Component: Point, label: "Złożenie wniosków\n(programy studiów)", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 20 },
 					{
@@ -94,17 +112,18 @@ export default [
 							}
 						]
 					}
+					
 				]
 			},
 			{
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o powtarzanie", small_label: "(do 06.02.2016)", bottom_margin: 20 },
-					{ Component: Point, label: "powtarzanie I roku" }
+					{ Component: Point, label: "podanie o powtarzanie", small_label: "(do 02.03.2016)", bottom_margin: 20 },
+					{ Component: Point, label: "powtarzanie I roku", bottom_margin: 0 },
 				]
 			}
-		]	
+		]
 	},
 
 	{

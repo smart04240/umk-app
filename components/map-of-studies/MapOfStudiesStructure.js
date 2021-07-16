@@ -3,11 +3,11 @@ import { View } from 'react-native';
 
 import bachelor_structure from "./structures/bachelor";
 import master_structure from "./structures/master";
-
+import mish_structure from "./structures/mish";
 
 const MapOfStudiesStructure = props => {
 
-	const structure = master_structure; 
+	const structure = mish_structure; 
 
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>
