@@ -7,7 +7,7 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 
 const Range = props => {
     const ThemeStyles = useThemeStyles();
-    const {data, label, color, hide_value_label} = props;
+    const {data, label, color, colorAlternative, hide_value_label} = props;
 
     if (!data || !data.type) return null;
     const {type, value, total} = data;
@@ -32,6 +32,11 @@ const Range = props => {
 
     let slider_box_bg = Colors.BlueRgba(0.2);
     let slider_bg = Colors.Blue;
+
+    if (!!color && !!colorAlternative) {
+        slider_box_bg = colorAlternative;
+        slider_bg = color;
+    }
 
     switch (color) {
         case "orange":

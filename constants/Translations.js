@@ -84,6 +84,26 @@ export default {
         pl: "Organizacja semestru",
     },
 
+    ViewAllBadges: {
+        en: "View all badges",
+        pl: "Zobacz wszystkie odznaki",
+    },
+
+    EarnedBadges: {
+        en: "Earned badges",
+        pl: "Zdobyte odznaki",
+    },
+
+    EndedSemesters: {
+        en: "Completed semesters",
+        pl: "Zaliczone semestry",
+    },
+
+    PassedCourses: {
+        en: "Courses passed",
+        pl: "Zaliczone kursy",
+    },
+
     EventFormTitle: {
         en: "Event title *",
         pl: "Tytuł wydarzenia *",
