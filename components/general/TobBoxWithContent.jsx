@@ -30,15 +30,15 @@ const extractAddress = event => {
     return event?.marker?.address;
 };
 
-export const TopBoxWithContent = ({id, isTask}) => {
+export const TopBoxWithContent = ({id, event, isTask}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const todos = useSelector(state => ToDosSelectors.byId(state, id));
-    const event = useSelector(state => eventsSelectors.byId(state, id));
+    const remoteEvent = useSelector(state => eventsSelectors.byId(state, id));
     const locale = useSelector(state => state.app.locale);
-    const data = isTask ? todos : event;
+    const data = isTask ? todos : (event?.isSystemEvent ? event : remoteEvent);
     const eventCategories = useSelector(state => state.eventCategories);
     let status = data?.completed ? translate(Translations.TaskCompleted) : translate(Translations.TaskNotCompleted);
 

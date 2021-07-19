@@ -18,6 +18,8 @@ export default {
         upsertOne: createAction('todos/create'),
     },
     Calendar: {
+        SetPermission: createAction('calendar/setPermission'),
+        SetCalendarIds: createAction('calendar/setCalendarIds'),
         SetDate: createAction('calendar/setDate'),
         SetMap: createAction('calendar/setMap'),
         setAll: createAction('calendar/upsertMany'),
