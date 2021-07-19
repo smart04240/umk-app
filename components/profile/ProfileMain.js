@@ -19,32 +19,49 @@ import API from "../../helpers/API";
 import makeFormData from "../../helpers/makeFormData";
 import Actions from "../../redux/Actions";
 import * as FileSystem from "expo-file-system";
+import {percentCounter, statusRules} from "../../helpers/ectsCounter";
 
-const EMPTY_COLOR = '#fddaf8';
-const PROGRESS_COLOR = '#A92895';
+const PROGRESS_COLORS = [
+    // Matematyki i Informatyki
+    { id: 1000000000, color: '#AAD23C', alternative: '#c5e99a'},
+    // Fizyki, Astronomii i Informatyki Stosowanej
+    { id:  800000000, color: '#AAD23C', alternative: '#c5e99a'},
+    // Chemii
+    { id:  600000000,  color: '#AAD23C', alternative: '#c5e99a'},
 
-const statusRules = [
-    'graduated_end_of_study',
-    'graduated_diploma'
+    //Sztuk Pięknych
+    { id: 1400000000, color: '#FF8228', alternative: '#ffc597' },
+
+    // Farmaceutyczny
+    { id: 1700000000, color: '#FA1414', alternative: '#ffa6a6' },
+    // Lekarski
+    { id: 1600000000, color: '#FA1414', alternative: '#ffa6a6' },
+    // Nauk o Zdrowiu
+    { id: 1800000000, color: '#FA1414', alternative: '#ffa6a6' },
+
+    // Biologii i Ochrony Środowiska (2012-2019)
+    { id: 2100000000, color: '#00A550', alternative: '#abffd0' },
+    // Nauk o Ziemi i Gospodarki Przestrzennej
+    { id: 2800000019, color: '#00A550', alternative: '#abffd0' },
+    // Nauk Biologicznych i Weterynaryjnych
+    { id: 2600000019, color: '#00A550', alternative: '#abffd0' },
+
+    // Teologiczny
+    { id: 1500000000, color: '#00AFFA', alternative: '#a5e9ff' },
+    // Nauk Historycznych
+    { id: 1200000000, color: '#00AFFA', alternative: '#a5e9ff' },
+    // Humanistyczny
+    { id: 2500000019, color: '#00AFFA', alternative: '#a5e9ff' },
+
+    // Prawa i Administracji
+    { id: 1300000000, color: '#AA2896', alternative: '#ffd0f9' },
+    // Filozofii i Nauk Społecznych
+    { id: 2400000019, color: '#AA2896', alternative: '#ffd0f9' },
+    // Nauk o Polityce i Bezpieczeństwie
+    { id: 2700000019, color: '#AA2896', alternative: '#ffd0f9' },
+    // Nauk Ekonomicznych i Zarządzania
+    { id: 1100000000, color: '#AA2896', alternative: '#ffd0f9' },
 ];
-// Function for counting ects points in percents
-/*
-* years(string with duration to end of studies)
-* userEcts(current user ects points)
-* max ects points per year is 60
-* depending on status rules and user study status we display to user 99 or 100 percent of ects
-* */
-const percentCounter = (years, userEcts, status) => {
-    const totalPercent = userEcts / (60 * years.charAt(0)) * 100;
-
-    if (totalPercent > 99 && statusRules.includes(status))
-        return "99";
-
-    if (statusRules.includes(status))
-        return "100"
-
-    return Math.floor(Number(totalPercent));
-}
 
 const ProfileMain = () => {
     const translate = useTranslator();
@@ -58,7 +75,9 @@ const ProfileMain = () => {
     const [studies, setStudies] = React.useState([]);
     const [studentData, setStudentData] = React.useState([]);
     const [selectedPath, setSelectedPath] = React.useState(null);
+    const [facultyId, setFacultyId] = React.useState(null);
     const selectedData = studentData?.find(gradDate => gradDate.study_id === selectedPath);
+    const progressColor = PROGRESS_COLORS.find(color => Number(color?.id) === Number(facultyId));
 
     React.useEffect(() => {
         let preparedStudies = [];
@@ -66,6 +85,7 @@ const ProfileMain = () => {
 
         if (!!user?.studies?.length) {
             user?.studies?.forEach((study) => {
+
                 preparedStudies.push({
                     label: study?.study?.name,
                     value: study?.study?.id
@@ -78,6 +98,7 @@ const ProfileMain = () => {
                         ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
                         status: study?.status
                     });
+                    setFacultyId(study?.study?.faculty?.usos_id)
                 }
             });
 
@@ -122,7 +143,6 @@ const ProfileMain = () => {
         }
     };
 
-
     return (
         <WithHeaderConfig borderless={true}>
             <View style={{padding: 15, backgroundColor: theme.box_bg}}>
@@ -135,8 +155,8 @@ const ProfileMain = () => {
                             duration={900}
                             rotation={0}
                             easing={Easing.out(Easing.ease)}
-                            tintColor={PROGRESS_COLOR}
-                            backgroundColor={EMPTY_COLOR}
+                            tintColor={progressColor?.color}
+                            backgroundColor={progressColor?.alternative}
                             lineCap={'round'}
                             children={() => <ProfileAvatar imageSrc={user?.avatar_url} size={avatar_size > 132 ? 132 : avatar_size}/>}
                         />
@@ -183,26 +203,6 @@ const ProfileMain = () => {
 
 const styles = {
     circleProgressBar: {
-        borderWidth: 8,
-        borderRadius: 160,
-        height: 160,
-        width: 160,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    emptyPart: {
-        borderColor: EMPTY_COLOR,
-        borderWidth: 8,
-        borderRadius: 160,
-        height: 160,
-        width: 160,
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    progressPart: {
-        borderColor: PROGRESS_COLOR,
         borderWidth: 8,
         borderRadius: 160,
         height: 160,
