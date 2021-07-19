@@ -23,7 +23,7 @@ const reducer = combineReducers({
     notifications: notificationsReducer,
     toasts: toastsReducer,
     eventCategories: eventCategoriesReducer,
-    events: calendarReducer,
+    calendar: calendarReducer,
     zdarzenia: zdarzeniaReducer,
     badges: badgesReducer,
     semesters: semesterReducer,

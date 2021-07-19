@@ -15,12 +15,13 @@ import Routes from "../../constants/Routes";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
-import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
+import {selectDateMoment} from "../../redux/selectors/eventsSelector";
 import API from "../../helpers/API";
 import Dropdown from "../../components/form/Dropdown";
 import {HtmlParser} from "../../components/general/HtmlParser";
 import MonthPicker from "react-native-month-picker";
 import Colors from "../../constants/Colors";
+import useMixedEvents from "../../hooks/useMixedEvents";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -76,7 +77,7 @@ export default React.memo(function MonthScreen() {
     const width = useWindowDimensions().width;
     const locale = useSelector(state => state.app.locale);
     const selectedDate = useSelector(state => selectDateMoment(state));
-    const events = useSelector(state => eventsByMonthPerDay(state));
+    const events = useMixedEvents('month');
     const semesters = useSelector(state => state.semesters);
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());

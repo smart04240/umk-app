@@ -11,11 +11,12 @@ import {RangeSelector} from "../../components/calendar/RangeSelector";
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
 import {Vibrator} from "../../helpers/Vibrator";
-import {eventsByWeek, eventsSelectors, selectDate} from "../../redux/selectors/eventsSelector";
+import {selectDate} from "../../redux/selectors/eventsSelector";
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
 import API from "../../helpers/API";
 import Colors from "../../constants/Colors";
+import useMixedEvents from "../../hooks/useMixedEvents";
 
 export default React.memo(function WeekScreen() {
     const theme = useThemeStyles();
@@ -25,8 +26,7 @@ export default React.memo(function WeekScreen() {
     const dispatch = useDispatch();
     const locale = useSelector(state => state.app.locale);
     const [show, setShow] = React.useState(false);
-    const allEvents = useSelector(state => eventsSelectors.All(state));
-    const events = useSelector(state => eventsByWeek(state));
+    const events = useMixedEvents('week');
     const categories = useSelector(state => state.eventCategories);
 
     React.useEffect(() => {
@@ -52,7 +52,7 @@ export default React.memo(function WeekScreen() {
         }
 
         return week.filter(day => day?.data?.length);
-    },[allEvents, selectedDay]);
+    }, [events, selectedDay]);
 
     const SectionHeader = ({day}) => (
         <View

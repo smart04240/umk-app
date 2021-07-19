@@ -39,7 +39,7 @@ import DataManager from "./DataManager";
 import Actions from "../redux/Actions";
 import {parse} from "search-params";
 import Web from "../screens/unlogged/Web";
-import NotificationsManager from "./NotificationsManager";
+import CalendarManager from "./CalendarManager";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -240,8 +240,8 @@ const StackScreens = () => {
         return (
             <>
                 <DataManager/>
-                <NotificationsManager/>
                 <FirstLoadingGate>
+                    <CalendarManager/>
                     <Stack.Navigator screenOptions={ScreenOptions}>
                         {screens}
                     </Stack.Navigator>
