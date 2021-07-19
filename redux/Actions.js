@@ -19,11 +19,10 @@ export default {
     },
     Calendar: {
         SetDate: createAction('calendar/setDate'),
+        SetMap: createAction('calendar/setMap'),
         setAll: createAction('calendar/upsertMany'),
         upsertOne: createAction('calendar/upsertOne'),
         removeOne: createAction('calendar/removeOne'),
-        filterByDay: createAction('calendar/filterByDay', (start, end) => ({payload: {lol: 'lol'}})),
-        filterByWeek: createAction('calendar/filterByWeek')
     },
     Locale: {
         Toggle: createAction('locale/toggle'),
