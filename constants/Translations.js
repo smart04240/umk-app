@@ -74,6 +74,11 @@ export default {
         pl: "Podaj datę przypomnienia."
     },
 
+    CalendarEmptyEventException: {
+        en: "Event imported from the system calendar. Check the details in the calendar application.",
+        pl: "Wpis zaimportowany z kalendarza systemowego. Sprawdź szczegóły w aplikacji kalendarza."
+    },
+
     CalendarEventsTitle: {
         en: "Upcoming events",
         pl: "Najbliższe wydarzenia"
