@@ -37,6 +37,7 @@ export default function useMixedEvents(range) {
                         event.isSystemEvent = true;
                         event.start_date = event.startDate;
                         event.end_date = event.endDate;
+                        event.description = event.notes;
                     });
                     return events;
                 }),

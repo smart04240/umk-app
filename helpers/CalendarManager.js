@@ -119,7 +119,7 @@ export default function CalendarManager() {
                 const details = {
                     title: translate(event.title),
                     location: extractAddress(event),
-                    notes: translate(event.description)?.replace(/[^a-zA-Z ]/g, "").slice(1, -1),
+                    notes: translate(event.description)?.replace?.(["<br/>", "<br>"], "\n").replace(/(<([^>]+)>)/ig, ""),
                     startDate: event.start_date,
                     endDate: event.end_date,
                     allDay: !!event.is_full_day,
