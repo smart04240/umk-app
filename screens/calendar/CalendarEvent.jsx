@@ -1,28 +1,31 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, Text} from 'react-native';
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
-import GeneralStyles from "../../constants/GeneralStyles";
-import useThemeStyles from "../../hooks/useThemeStyles";
 import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 import {useSelector} from "react-redux";
 import {eventsSelectors} from "../../redux/selectors/eventsSelector";
 import useTranslator from "../../hooks/useTranslator";
 import {HtmlParser} from "../../components/general/HtmlParser";
+import Translations from "../../constants/Translations";
+import GeneralStyles from "../../constants/GeneralStyles";
+import useThemeStyles from "../../hooks/useThemeStyles";
 
 export const CalendarEvent = props => {
-    const id = props?.route?.params?.id;
-    const ThemeStyles = useThemeStyles();
+    const propsEvent = props?.route?.params;
     const translate = useTranslator();
-    const event = useSelector(state => eventsSelectors.byId(state, id));
+    const ThemeStyles = useThemeStyles();
+    const remoteEvent = useSelector(state => eventsSelectors.byId(state, propsEvent.id));
+
+    const event = propsEvent?.isSystemEvent ? propsEvent : remoteEvent;
 
     return (
         <MainWithNavigation>
             <ContainerWithScroll
                 header={
                     <>
-                        <TopBoxWithContent id={id}/>
+                        <TopBoxWithContent id={event.id} event={event}/>
                         {!!props.src && (
                             <Image
                                 source={props.src}
@@ -45,25 +48,20 @@ export const CalendarEvent = props => {
                         html={translate(event.description)}
                     />
                 )}
+                {!event?.description && (
+                    <Text style={[
+                        GeneralStyles.text_regular,
+                        {
+                            color: ThemeStyles.dark_text,
+                            marginBottom: 8,
+                            textAlign: 'center'
+                        }
+                    ]}>
+                        {translate(Translations.CalendarEmptyEventException)}
+                    </Text>
+                )}
                 {!!event?.files && <Attachments attachments={event.files}/>}
             </ContainerWithScroll>
         </MainWithNavigation>
-    )
+    );
 }
-
-const styles = StyleSheet.create({
-    circle: {
-        width: 18,
-        height: 18,
-        borderRadius: 9
-    },
-    bottom_button: {
-        flexGrow: 1,
-        flexShrink: 1,
-        marginHorizontal: 5
-    },
-    content: {
-        ...GeneralStyles.text_regular,
-        marginBottom: 20
-    },
-});

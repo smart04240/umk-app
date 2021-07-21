@@ -18,7 +18,7 @@ export const schedulePushNotification = async (title, description, reminderOffse
         await Notifications.scheduleNotificationAsync({
             content: {
                 title: `${title}`,
-                body: `${description}`,
+                body: `${description?.replace(/[^a-zA-Z ]/g, "").slice(1, -1)}`,
                 sound: 'default',
                 data: {
                     eventID: eventID,

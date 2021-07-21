@@ -17,8 +17,9 @@ import {useDispatch, useSelector} from "react-redux";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import {getTranslated} from "../../helpers/functions";
-import {eventsByDay} from "../../redux/selectors/eventsSelector";
 import {HtmlParser} from "../../components/general/HtmlParser";
+import Colors from "../../constants/Colors";
+import useMixedEvents from "../../hooks/useMixedEvents";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -50,9 +51,9 @@ export default React.memo(function DayScreen() {
     const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
-    const selectedDay = useSelector(state => state.events.selectedDate);
+    const selectedDay = useSelector(state => state.calendar.selectedDate);
     const [now, setNow] = React.useState(new Date());
-    const events = useSelector(state => eventsByDay(state));
+    const events = useMixedEvents('day');
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
     const locale = useSelector(state => state.app.locale);
@@ -91,7 +92,7 @@ export default React.memo(function DayScreen() {
                     style={[
                         styles.eventContainer,
                         {
-                            backgroundColor: categories?.find(category => String(category.id) === String(event.category_id))?.color,
+                            backgroundColor: categories?.find(category => String(category.id) === String(event.category_id))?.color || Colors.NoCategoryColor,
                             height: cardHeight,
                             width: Math.round(event?.width),
                             left: event.left + leftMargin,
@@ -150,9 +151,7 @@ export default React.memo(function DayScreen() {
     const showPicker = () => setShow(true);
     const hidePicker = () => setShow(false);
 
-    const deleteEvent = event => {
-        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
-    }
+    const deleteEvent = event => API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
 
     return (
         <ScrollView

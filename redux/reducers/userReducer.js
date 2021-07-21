@@ -1,5 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import Actions from "../Actions";
+import moment from "moment";
 
 export default createReducer(null, builder => {
     builder
@@ -8,16 +9,12 @@ export default createReducer(null, builder => {
             state.isUnregistered = false;
         }))
         .addCase(Actions.User.Logout, () => null)
-        .addCase(Actions.User.USOSOAuth, (state, {payload}) => {
-            // console.log('USOSOAuth', {...state, ...payload});
-
-            return {...state, ...payload};
-        })
-        .addCase(Actions.User.USOSAccessToken.fulfilled, (state, {payload}) => {
-            // console.log('USOSAccessToken', {...state, ...payload});
-
-            return {...state, ...payload};
-        })
+        .addCase(Actions.User.USOSOAuth, (state, {payload}) => ({...state, ...payload}))
+        .addCase(Actions.User.USOSAccessToken.fulfilled, (state, {payload}) => ({
+            ...state,
+            ...payload,
+            loggedInAt: moment().toISOString(),
+        }))
         .addCase(Actions.API.DataLoaded, (state, {payload: {user, profile}}) => ({
             ...state,
             ...user,

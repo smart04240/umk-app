@@ -469,7 +469,6 @@
 
                     if (j == 0) {
                         if (b.firstX) {
-                            //console.log(b,'b')
                             firstX = b.firstX;
                             firstY = b.firstY;
                         } else {
@@ -555,7 +554,6 @@
         var abbrev =
             count >= 10000 ? Math.round(count / 1000) + 'k' :
                 count >= 1000 ? (Math.round(count / 100) / 10) + 'k' : count;
-        //console.log(cluster.firstX,cluster.firstY,cluster.x,cluster.y,'c')
         return extend(extend({}, cluster.properties), {
             cluster: true,
             cluster_id: cluster.id,

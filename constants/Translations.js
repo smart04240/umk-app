@@ -74,9 +74,39 @@ export default {
         pl: "Podaj datę przypomnienia."
     },
 
+    CalendarEmptyEventException: {
+        en: "Event imported from the system calendar. Check the details in the calendar application.",
+        pl: "Wpis zaimportowany z kalendarza systemowego. Sprawdź szczegóły w aplikacji kalendarza."
+    },
+
     CalendarEventsTitle: {
         en: "Upcoming events",
         pl: "Najbliższe wydarzenia"
+    },
+
+    CalendarEventSemestersTitle: {
+        en: "Semester organizations",
+        pl: "Organizacja semestru",
+    },
+
+    ViewAllBadges: {
+        en: "View all badges",
+        pl: "Zobacz wszystkie odznaki",
+    },
+
+    EarnedBadges: {
+        en: "Earned badges",
+        pl: "Zdobyte odznaki",
+    },
+
+    EndedSemesters: {
+        en: "Completed semesters",
+        pl: "Zaliczone semestry",
+    },
+
+    PassedCourses: {
+        en: "Courses passed",
+        pl: "Zaliczone kursy",
     },
 
     EventFormTitle: {

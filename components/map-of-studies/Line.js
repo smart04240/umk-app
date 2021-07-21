@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import MOSConstants from "../../constants/MOSConstants";
 import useThemeStyles from '../../hooks/useThemeStyles';
 
 export default props => {
-	
+
 	const ThemeStyles = useThemeStyles();
 
 	return (
@@ -15,9 +15,10 @@ export default props => {
 				height: props.height || MOSConstants.Line.Size,
 				top: props.top || 0,
 				left: props.left || 0,
-				backgroundColor: ThemeStyles.dark_blue_rgba(0.2)
+				backgroundColor: "#C9D1DB",
+				...props.style
 			}}
-		/>	
+		/>
 	)
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, SectionList, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {Alert, Modal, SectionList, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import moment from "moment";
 import useTranslator from "../../hooks/useTranslator";
 import Layout from "../../constants/Layout";
@@ -15,8 +15,13 @@ import Routes from "../../constants/Routes";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Container from "../../components/general/Container";
 import Actions from "../../redux/Actions";
-import {eventsByMonthPerDay, selectDateMoment} from "../../redux/selectors/eventsSelector";
+import {selectDateMoment} from "../../redux/selectors/eventsSelector";
 import API from "../../helpers/API";
+import Dropdown from "../../components/form/Dropdown";
+import {HtmlParser} from "../../components/general/HtmlParser";
+import MonthPicker from "react-native-month-picker";
+import Colors from "../../constants/Colors";
+import useMixedEvents from "../../hooks/useMixedEvents";
 
 const Days = {
     en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -72,10 +77,18 @@ export default React.memo(function MonthScreen() {
     const width = useWindowDimensions().width;
     const locale = useSelector(state => state.app.locale);
     const selectedDate = useSelector(state => selectDateMoment(state));
-    const events = useSelector(state => eventsByMonthPerDay(state));
+    const events = useMixedEvents('month');
+    const semesters = useSelector(state => state.semesters);
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
+    const [semesterId, setSemesterId] = React.useState(null);
+    const [showPicker, setShowPicker] = React.useState(false);
 
+    const semesterOptions = React.useMemo(() => (semesters || []).map(semester => ({
+        value: semester.id,
+        label: semester.name
+    })), [semesters]);
+    const semester = React.useMemo(() => (semesters || []).find(semester => String(semester.id) === String(semesterId)), [semesters, semesterId]);
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
     const sections = React.useMemo(() => {
         const sections = [];
@@ -98,13 +111,22 @@ export default React.memo(function MonthScreen() {
             setSelectedMonth(selectedDate);
     }, [selectedDate]);
 
+    React.useEffect(() => {
+        setSemesterId(semesters?.[0]?.id);
+    }, [semesters]);
+
+    const openPicker = () => setShowPicker(true);
+    const hidePicker = () => setShowPicker(false);
+    const setMonth = date => {
+        hidePicker();
+        dispatch(Actions.Calendar.SetDate(date.toISOString()));
+    };
+
     const setSelectedDate = date => dispatch(Actions.Calendar.SetDate(date.toISOString()));
     const prevMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).subtract(1, 'month').toISOString()));
     const nextMonth = () => dispatch(Actions.Calendar.SetDate(moment(selectedDate).add(1, 'month').toISOString()));
 
-    const deleteEvent = event => {
-        API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
-    };
+    const deleteEvent = event => API.events.delete(event.id).then(() => dispatch(Actions.Calendar.removeOne(event.id)));
 
     return (
         <SectionList
@@ -118,7 +140,7 @@ export default React.memo(function MonthScreen() {
                             <TouchableOpacity style={arrowStyle} onPress={prevMonth}>
                                 <Feather name="arrow-left" size={22} color={theme.icon_color}/>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.controlCenter}>
+                            <TouchableOpacity style={styles.controlCenter} onPress={openPicker}>
                                 <Text style={{
                                     fontFamily: Fonts.ProximaNova.Regular,
                                     color: theme.blue_text,
@@ -135,6 +157,22 @@ export default React.memo(function MonthScreen() {
                                 <Feather name="arrow-right" size={22} color={theme.icon_color}/>
                             </TouchableOpacity>
                         </View>
+
+                        <Modal visible={showPicker} animationType={'fade'} onRequestClose={hidePicker} transparent>
+                            <View style={{flex: 1, justifyContent: 'center', padding: 20}}>
+                                <MonthPicker
+                                    maxDate={moment().add(10, 'years')}
+                                    containerStyle={{backgroundColor: theme.box_bg, borderRadius: 20}}
+                                    selectedBackgroundColor={Colors.Blue}
+                                    yearTextStyle={{fontFamily: Fonts.ProximaNova.Regular, color: theme.blue_text}}
+                                    monthTextStyle={{fontFamily: Fonts.ProximaNova.Bold, color: theme.dark_text}}
+                                    currentMonthTextStyle={{color: Colors.Blue}}
+                                    localeLanguage={locale}
+                                    selectedDate={selectedDate}
+                                    onMonthChange={setMonth}
+                                />
+                            </View>
+                        </Modal>
 
                         <View style={styles.day_names}>
                             {translate(Days).map(day => (
@@ -176,7 +214,26 @@ export default React.memo(function MonthScreen() {
                     </View>
                 </>
             }
-            ListFooterComponent={<View style={{height: 20}}/>}
+            ListFooterComponent={(
+                <>
+                    <View style={{marginTop: 20, marginBottom: 80, paddingHorizontal: 20}}>
+                        <Text style={[GeneralStyles.text_bold, {color: theme.dark_text, marginBottom: 5}]}>
+                            {translate(Translations.CalendarEventSemestersTitle)}
+                        </Text>
+
+                        {!!semesterId && (
+                            <Dropdown
+                                placeholder={translate(Translations.EventFormCategory)}
+                                init_value={semesterId}
+                                options={semesterOptions}
+                                onChange={({value}) => setSemesterId(value)}
+                            />
+                        )}
+
+                        {!!semester && <HtmlParser html={translate(semester.organization)}/>}
+                    </View>
+                </>
+            )}
             renderItem={({item}) => (
                 <ColorCard
                     style={{
@@ -185,7 +242,7 @@ export default React.memo(function MonthScreen() {
                     }}
                     title={translate(item.title)}
                     html={translate(item.description)}
-                    color={eventCategories?.find(category => String(category.id) === String(item.category_id))?.color}
+                    color={eventCategories?.find(category => String(category.id) === String(item.category_id))?.color || Colors.NoCategoryColor}
                     from={moment(item.start_date).format('HH:mm')}
                     to={moment(item.end_date).format('HH:mm')}
                     onPress={() => navigation.navigate(Routes.CalendarEvent, item)}

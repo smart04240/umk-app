@@ -14,20 +14,17 @@ export default {
     Theme: {
         Toggle: createAction('theme/toggle'),
     },
-    Reminders: {
-        MarkAsRead: createAction('reminders/mark-as-read'),
-        MarkAsReadAll: createAction('reminders/mark-as-read-all')
-    },
     ToDos: {
         upsertOne: createAction('todos/create'),
     },
     Calendar: {
+        SetPermission: createAction('calendar/setPermission'),
+        SetCalendarIds: createAction('calendar/setCalendarIds'),
         SetDate: createAction('calendar/setDate'),
+        SetMap: createAction('calendar/setMap'),
         setAll: createAction('calendar/upsertMany'),
         upsertOne: createAction('calendar/upsertOne'),
         removeOne: createAction('calendar/removeOne'),
-        filterByDay: createAction('calendar/filterByDay', (start, end) => ({payload: {lol: 'lol'}})),
-        filterByWeek: createAction('calendar/filterByWeek')
     },
     Locale: {
         Toggle: createAction('locale/toggle'),
@@ -38,7 +35,6 @@ export default {
         USOSOAuth: createAction('user/usos-oauth'),
         USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
             const state = {...thunkAPI.getState().user, ...payload};
-            // console.log('state', state);
             const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
             return {
                 oauth_token: null,
@@ -63,7 +59,11 @@ export default {
     },
     Notifications: {
         upsertOne: createAction('notification/upsertOne'),
-        removeOne: createAction('notifications/removeOne')
+        removeOne: createAction('notifications/removeOne'),
+        setAll: createAction('notifications/setAll'),
+        upsertMany: createAction('notifications/upsertMany'),
+        markAsRead: createAction('notification/markAsRead'),
+        markAsReadAll: createAction('notification/markAsReadAll')
     },
     ChangeMapSearch: createAction('changeMapSearch'),
     ChangeMapSearchDebounced: createAction('changeMapSearchDebounced'),

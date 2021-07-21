@@ -13,13 +13,12 @@ import Fonts from "../../constants/Fonts";
 import Swiper from "react-native-screens-swiper";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
 import FloatAddButton from "../../components/tasks/FloatAddButton";
-import {useFocusEffect, useNavigation} from "@react-navigation/core";
+import {useNavigation} from "@react-navigation/core";
 import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
-import {replacePushNotifications} from "../../helpers/Notification";
+import * as Calendar from "expo-calendar";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -27,25 +26,19 @@ export default function CalendarScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
-    const selectedDate = useSelector(state => state.events.selectedDate);
+    const {selectedDate, permissionGranted, projectCalendarId, otherCalendarIds} = useSelector(state => state.calendar);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
+        Calendar.requestCalendarPermissionsAsync().then(({status}) => dispatch(Actions.Calendar.SetPermission(status === 'granted')));
+        return () => {
+            dispatch(Actions.Calendar.SetDate(null));
+        };
     }, []);
 
-    React.useEffect(() => {
-        if (!selectedDate)
-            return;
-
-        let startOfMonth = moment(selectedDate).startOf('month').day(-7).format('YYYY-MM-DD'),
-            endOfMonth = moment(selectedDate).endOf('month').day(+7).format('YYYY-MM-DD');
-
-        API.events.byRange(startOfMonth, endOfMonth).then(res => dispatch(Actions.Calendar.setAll(res?.data)));
-    }, [selectedDate]);
-
-    useFocusEffect(React.useCallback(() => {
-        API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-    }, []));
+    // useFocusEffect(React.useCallback(() => {
+    // API.events.notifications().then(async res => await replacePushNotifications(res?.data));
+    // }, []));
 
     const style = useMemo(() => ({
         pillContainer: {
@@ -68,8 +61,23 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-    if (!selectedDate)
-        return null;
+    if (permissionGranted === false) {
+        return (
+            <WithHeaderConfig semitransparent={true}>
+                <MainWithNavigation>
+                    <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                </MainWithNavigation>
+            </WithHeaderConfig>
+        );
+    }
+
+    if (!selectedDate || !otherCalendarIds || !projectCalendarId) {
+        return (
+            <WithHeaderConfig borderless={true}>
+                <MainWithNavigation/>
+            </WithHeaderConfig>
+        );
+    }
 
     // offline
     if (!isOnline) {
