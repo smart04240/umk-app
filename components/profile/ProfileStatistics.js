@@ -9,7 +9,7 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 
 import Range from '../form/Range';
 import Container from "../general/Container";
-import {percentCounter} from "../../helpers/ectsCounter";
+import {percentCounter, statusRules} from "../../helpers/ectsCounter";
 import useTranslator from "../../hooks/useTranslator";
 import Translations from "../../constants/Translations";
 
@@ -66,9 +66,15 @@ const ProfileStatistics = () => {
             ],
         });
 
+        if (!user?.studies?.length) {
+            setStatistics(preparedData);
+            return;
+        }
+
         user?.studies?.forEach((study, index) => {
             const progressColor = PROGRAMS_PALETTE[index];
             const totalSemesters = Number(study?.study?.duration?.charAt(0)) * 2;
+            const studentStatus = statusRules.find(statusRule => statusRule === study?.status);
 
             preparedData.push({
                 heading: study?.study?.faculty?.name + ' ' + study?.study?.level_of_study_short ?? '',
@@ -79,7 +85,7 @@ const ProfileStatistics = () => {
                         colorAlternative: progressColor.semesterAlternative,
                         data: {
                             type: "range",
-                            value: study?.graduation_dates?.filter(gradDate => gradDate?.is_passes === true)?.length,
+                            value: !!studentStatus ? totalSemesters : study?.graduation_dates?.filter(gradDate => gradDate?.is_passes === true)?.length,
                             total: totalSemesters
                         }
                     },
