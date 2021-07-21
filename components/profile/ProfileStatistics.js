@@ -71,7 +71,7 @@ const ProfileStatistics = () => {
             return;
         }
 
-        user?.studies?.forEach((study, index) => {
+        user?.studies?.forEach?.((study, index) => {
             const progressColor = PROGRAMS_PALETTE[index];
             const totalSemesters = Number(study?.study?.duration?.charAt(0)) * 2;
             const studentStatus = statusRules.find(statusRule => statusRule === study?.status);

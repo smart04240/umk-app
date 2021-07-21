@@ -1,68 +1,72 @@
 import {useDispatch, useSelector} from "react-redux";
 import React from "react";
-import API from "./API";
-import {replacePushNotifications} from "./Notification";
 import moment from "moment";
 import Actions from "../redux/Actions";
 import {v4 as uuidv4} from "uuid";
 import {NotificationsSelector} from "../redux/selectors/notificationsSelectors";
-import * as Notifications from "expo-notifications";
 import {eventsSelectors} from "../redux/selectors/eventsSelector";
 
 export default function NotificationsManager() {
     const dispatch = useDispatch();
-    const isOnline = useSelector(state => state.app.online);
     const events = useSelector(state => eventsSelectors.All(state));
+    const loginDate = useSelector(state => state.user.loggedInAt);
     const localNotifications = useSelector(state => NotificationsSelector.All(state));
-    const [updating, setUpdating] = React.useState(false);
 
     React.useEffect(() => {
         getPushNotifications();
-    }, [isOnline, events]);
 
-    React.useEffect(() => {
-        const subscription = Notifications.addNotificationReceivedListener(() => {
-            getPushNotifications();
-        });
-        return () => subscription.remove();
+        let timeout = null;
+
+        const update = () => {
+            timeout = setTimeout(() => {
+                getPushNotifications();
+                update();
+            }, 60000);
+        };
+        update();
+
+        return () => clearTimeout(timeout);
     }, []);
 
     const getPushNotifications = () => {
-        if (!isOnline || updating)
+        if (!loginDate)
             return;
 
-        setUpdating(true);
+        const receivedNotifications = [];
+        const now = moment().toISOString();
 
-        API.events.notifications().then(res => {
-            replacePushNotifications(res?.data);
-            const receivedNotifications = [];
-            const today = moment().add(1, 'second'); // fix for when notification arrives a bit too early
+        events.forEach(event => {
+            if (!event.reminder_offset)
+                return;
 
-            res?.data?.forEach(event => {
-                const oldNotification = localNotifications.find(notification => String(notification.eventID) === String(event.id))
-                const reminderDate = moment(event.start_date).subtract(event?.reminder_offset, 'seconds');
+            const reminderDate = moment(event.start_date).subtract(event.reminder_offset, 'seconds').toISOString();
 
-                // only add notifications that have past
-                if (!today.isSameOrAfter(reminderDate))
-                    return;
+            // only add notifications after login date
+            if (reminderDate > loginDate)
+                return;
 
-                // dont add new notification if there was already one
-                if (oldNotification && oldNotification.reminderDate === reminderDate.toISOString())
-                    return;
+            // only add notifications that have past
+            if (reminderDate > now)
+                return;
 
-                receivedNotifications.push({
-                    id: uuidv4(),
-                    eventID: event.id,
-                    title: event.title,
-                    description: event.description,
-                    reminderDate: reminderDate.toISOString(),
-                    read: false,
-                });
+            const oldNotification = localNotifications.find(notification => String(notification.eventID) === String(event.id));
+
+            // dont add new notification if there was already one with same date
+            if (oldNotification && oldNotification.reminderDate === reminderDate)
+                return;
+
+            receivedNotifications.push({
+                id: uuidv4(),
+                eventID: event.id,
+                title: event.title,
+                description: event.description,
+                reminderDate: reminderDate,
+                read: false,
             });
+        });
 
-            dispatch(Actions.Notifications.upsertMany(receivedNotifications));
-        }).finally(() => setUpdating(false));
-    }
+        dispatch(Actions.Notifications.upsertMany(receivedNotifications));
+    };
 
     return null;
 }
