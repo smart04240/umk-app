@@ -1,8 +1,8 @@
 import axios from "axios";
 import Storage from "./Storage";
 
-// export const baseURL = 'https://api.gra.umk.pl';
-export const baseURL = 'https://e5fd08fd99fe.ngrok.io';
+export const baseURL = 'https://api.gra.umk.pl';
+// export const baseURL = 'https://1509ffc65340.ngrok.io';
 
 const API = axios.create({
     baseURL

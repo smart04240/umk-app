@@ -19,7 +19,7 @@ const BadgeWithRange = ({ badge }) => {
 	const navigation = useNavigation();
 	const ThemeStyles = useThemeStyles();
 
-	const total = badge.conditions_count;
+	const total = parseInt(badge.conditions_count);
 	const value = Math.floor((badge.progress / 100) * total);
 
 	const range_props = {
