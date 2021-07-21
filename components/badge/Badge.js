@@ -23,27 +23,27 @@ const Badge = props => {
 	}
 
 	return (
-		<TouchableWithoutFeedback>
-			<View
-				style={[
-					{ marginBottom: 35, opacity: active ? 1 : 0.35, width: '50%', alignItems: 'center' },
-					props.badgeContainerStyle
-				]}
-			>
-				<BadgeImage image_uri={badge.image} />
-				<Text style={[GeneralStyles.text_regular, { textAlign: "center", color: ThemeStyles.dark_text }]}>
-					{translate(badge.name)}
-				</Text>
+		<View
+			style={[
+				{ marginBottom: 35, opacity: active ? 1 : 0.35, width: '50%', alignItems: 'center' },
+				props.badgeContainerStyle
+			]}
+		>
+			<BadgeImage image_uri={badge.image} />
+			<Text style={[GeneralStyles.text_regular, { textAlign: "center", color: ThemeStyles.dark_text }]}>
+				{translate(badge.name)}
+			</Text>
+
+			<TouchableWithoutFeedback onPress={handlePress}>
 				<Text
-					onPress={handlePress}
 					style={[
 						GeneralStyles.text_regular,
 						{ textAlign: "center", fontSize: 12, color: ThemeStyles.blue_text, textTransform: "lowercase" }
 					]}>
 					{translate(Translations.FindOutMore)}
 				</Text>
-			</View>
-		</TouchableWithoutFeedback>
+			</TouchableWithoutFeedback>
+		</View>
 	)
 }
 

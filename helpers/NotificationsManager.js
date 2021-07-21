@@ -26,7 +26,7 @@ export default function NotificationsManager() {
         update();
 
         return () => clearTimeout(timeout);
-    }, []);
+    }, [events, loginDate, localNotifications]);
 
     const getPushNotifications = () => {
         if (!loginDate)
@@ -42,7 +42,7 @@ export default function NotificationsManager() {
             const reminderDate = moment(event.start_date).subtract(event.reminder_offset, 'seconds').toISOString();
 
             // only add notifications after login date
-            if (reminderDate > loginDate)
+            if (reminderDate < loginDate)
                 return;
 
             // only add notifications that have past
@@ -69,4 +69,4 @@ export default function NotificationsManager() {
     };
 
     return null;
-}
+};
