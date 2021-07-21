@@ -83,8 +83,9 @@ export default React.memo(function MonthScreen() {
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
     const [semesterId, setSemesterId] = React.useState(null);
     const [showPicker, setShowPicker] = React.useState(false);
+    const filteredSemesters = semesters.filter(semester => !semester.name.includes('Rok akademicki '));
 
-    const semesterOptions = React.useMemo(() => (semesters || []).map(semester => ({
+    const semesterOptions = React.useMemo(() => (filteredSemesters || []).map(semester => ({
         value: semester.id,
         label: semester.name
     })), [semesters]);
