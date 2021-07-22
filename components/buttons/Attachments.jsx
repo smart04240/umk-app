@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Linking, Text, TouchableWithoutFeedback, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -9,6 +9,8 @@ import useTranslator from "../../hooks/useTranslator";
 export const Attachments = ({attachments}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
+
+    const downloadFile = (att) => Linking.openURL(att.url);
 
     return (
         attachments && !!attachments.length && (
@@ -20,7 +22,7 @@ export const Attachments = ({attachments}) => {
                     {translate(Translations.Attachments)}
                 </Text>
                 {attachments.map((att, index) => (
-                    <TouchableWithoutFeedback key={index} onPress={() => console.log(att.uri)}>
+                    <TouchableWithoutFeedback key={index} onPress={() => downloadFile(att)}>
                         <View style={styles.attachment}>
                             <MaterialCommunityIcons
                                 name="download-outline"
