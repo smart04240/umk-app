@@ -183,6 +183,7 @@ export const TopBoxWithContent = ({id, event, isTask}) => {
                         return (
                             <Button
                                 key={index}
+                                disabled={isTask ? !!todos?.completed : false}
                                 style={b?.style || styles.bottom_button}
                                 isDangerButton={b?.isDangerButton}
                                 transparent_bg={true}

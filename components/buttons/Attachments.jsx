@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Linking, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Alert, Linking, Text, TouchableOpacity, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -38,7 +38,7 @@ export const Attachments = ({attachments}) => {
                     {translate(Translations.Attachments)}
                 </Text>
                 {attachments.map((att, index) => (
-                    <TouchableWithoutFeedback key={index} onPress={() => downloadFile(att)}>
+                    <TouchableOpacity key={index} onPress={() => downloadFile(att)}>
                         <View style={styles.attachment}>
                             <MaterialCommunityIcons
                                 name="download-outline"
@@ -52,7 +52,7 @@ export const Attachments = ({attachments}) => {
                                 {att.name}
                             </Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                 ))}
             </View>
         )
