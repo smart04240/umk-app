@@ -1,10 +1,9 @@
 import React from "react";
-import {Text, StyleSheet } from "react-native";
+import {StyleSheet, Text} from "react-native";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
-import {Attachments} from "../../components/buttons/Attachments";
 import {TopBoxWithContent} from "../../components/general/TobBoxWithContent";
 
 
@@ -25,7 +24,7 @@ export default function TaskSingleScreen(props) {
 						{dataFromParams?.description}
 					</Text>
 				)}
-				<Attachments attachments={dataFromParams?.files}/>
+				{/*<Attachments attachments={dataFromParams?.files}/>*/}
 			</ContainerWithScroll>
 		</MainWithNavigation>
 	)

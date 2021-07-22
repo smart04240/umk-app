@@ -1,5 +1,5 @@
 import React from 'react';
-import {Linking, Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Alert, Linking, Text, TouchableWithoutFeedback, View} from 'react-native';
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
@@ -10,7 +10,23 @@ export const Attachments = ({attachments}) => {
     const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
 
-    const downloadFile = (att) => Linking.openURL(att.url);
+    const downloadFile = (att) => {
+        if (!att.url) {
+            Alert.alert(
+                translate(Translations.FilesExceptionTitle),
+                translate(Translations.FilesExceptionDescription),
+                [
+                    {
+                        text: "OK",
+                    },
+                ]
+            );
+
+            return;
+        }
+
+        Linking.openURL(att.url)
+    };
 
     return (
         attachments && !!attachments.length && (

@@ -111,7 +111,7 @@ export const EventTaskEditForm = ({onChange, isToDo, categoryValue, formTitle, t
                 numberOfLines={6}
                 onChangeText={text => onChange({name: 'description', value: text})}
             />
-            <DocPicker files={files} onChange={onChange}/>
+            {!isToDo && <DocPicker files={files} onChange={onChange}/>}
             {!isToDo && eventData && <TaskEditReminderSection data={eventData} onChange={onChange}/>}
             <Button
                 disabled={canSave}
