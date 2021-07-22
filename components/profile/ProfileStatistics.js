@@ -77,7 +77,7 @@ const ProfileStatistics = () => {
             const studentStatus = statusRules.find(statusRule => statusRule === study?.status);
 
             preparedData.push({
-                heading: study?.study?.faculty?.name + ' ' + study?.study?.level_of_study_short ?? '',
+                heading: study?.study?.name,
                 items: [
                     {
                         label: translate(Translations.EndedSemesters),
