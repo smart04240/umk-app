@@ -116,6 +116,15 @@ export default React.memo(function MonthScreen() {
         setSemesterId(semesters?.[0]?.id);
     }, [semesters]);
 
+    React.useEffect(() => {
+        const currentSemester = filteredSemesters.find(semester => {
+            if (moment().isSameOrBefore(moment(semester.end_date).toISOString()) && moment().isSameOrAfter(moment(semester.start_date).toISOString())) {
+                return semester
+            }
+        });
+        setSemesterId(currentSemester.id);
+    },[]);
+
     const openPicker = () => setShowPicker(true);
     const hidePicker = () => setShowPicker(false);
     const setMonth = date => {
