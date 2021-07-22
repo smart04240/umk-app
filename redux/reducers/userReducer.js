@@ -15,13 +15,14 @@ export default createReducer(null, builder => {
             ...payload,
             loggedInAt: moment().toISOString(),
         }))
-        .addCase(Actions.API.DataLoaded, (state, {payload: {user, profile}}) => ({
+        .addCase(Actions.API.DataLoaded, (state, {payload: { user, profile, studies_maps }}) => ({
             ...state,
             ...user,
             first_name: profile.first_name,
             last_name: profile.last_name,
             avatar_url: profile.avatar_url,
             studies: profile.studies,
+			all_studies_maps: studies_maps,
             graduation_dates: profile.graduation_dates,
             ects: profile.ects,
         }))

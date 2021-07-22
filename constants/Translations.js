@@ -768,6 +768,11 @@ export default {
         pl: "Początek studiów"
     },
 
+	ObtainingADiploma: {
+		en: "Obtaining a diploma",
+		pl: "Zdobycie dyplomu"
+	},
+
     TaskCategory1: {
         en: "Important and urgent",
         pl: "Ważne i pilne"
