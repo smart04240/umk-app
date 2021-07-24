@@ -33,12 +33,14 @@ export default [
 		end: "half",
 		branches: [
 			{
+				Component: Branch,
 				children: [
 					{ Component: Point, label: "Sesja egzaminacyjna zimowa", small_label: "(od 21.01.2016 do 22.02.2016)", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna letnia", small_label: "(od 21.01.2016 do 22.02.2016)", bottom_margin: 20 },
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "niezłożenie programu", bottom_margin: 20 },
@@ -53,6 +55,7 @@ export default [
 		end: "half-right",
 		branches: [
 			{
+				Component: Branch,
 				children: [
 					{ Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
 					{ Component: Point, label: "ROK II", bottom_margin: 20 },
@@ -64,6 +67,7 @@ export default [
 						inner: true,
 						branches: [
 							{
+								Component: Branch,
 								dead_end: true,
 								absolute: true,
 								left: 0,
@@ -73,6 +77,7 @@ export default [
 								]
 							},
 							{
+								Component: Branch,
 								left: MOSConstants.Column.Default,
 								children: {
 									Component: Point, 
@@ -85,6 +90,7 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
@@ -116,6 +122,7 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
@@ -139,12 +146,14 @@ export default [
 		end: "middle",
 		branches: [
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
 				]
 			},
 			{
+				Component: Branch,
 				children: [
 					{ 
 						Component: Point,
@@ -156,6 +165,7 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },

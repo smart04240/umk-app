@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { View } from "react-native";
 
@@ -11,17 +11,7 @@ import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHe
 
 import Dropdown from "../../components/form/Dropdown";
 import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesStructure";
-
-import bachelor_structure from "../../components/map-of-studies/structures/bachelor";
-import master_structure from "../../components/map-of-studies/structures/master";
-import mish_structure from "../../components/map-of-studies/structures/mish";
-
-
-const STRUCTURES = {
-	"(s1)": bachelor_structure,
-	"(s2)": master_structure,
-	"(sj)": mish_structure
-}
+import { getStructureAndData } from "../../helpers/map-of-studies";
 
 export default function MapOfStudiesScreen() {
 
@@ -31,6 +21,8 @@ export default function MapOfStudiesScreen() {
 	const all_studies_maps = user.all_studies_maps;
     const user_studies = user.studies
 	
+	const [ structure, setStructure ] = useState( null );
+	const [ structure_data, setStructureData ] = useState( null );
 	const [ chosen_study_id, setChosenStudyId ] = useState( null );
 
 	const studies_options = useMemo(() => (
@@ -45,7 +37,7 @@ export default function MapOfStudiesScreen() {
 	const current_study = useMemo(() => (
 		chosen_study_id
 			? user_studies.find( item => item.id === chosen_study_id )
-			: {}	
+			: null	
 	), [ chosen_study_id ]);
 	
 
@@ -56,16 +48,26 @@ export default function MapOfStudiesScreen() {
 	), [ current_study ]);
 
 
-	const { studies_maps, graduation_dates } = current_study;
+	useEffect(() => {
 
-	const structure_type = current_study?.study?.level_of_study_short;
-	const structure = STRUCTURES[ structure_type ];
+		if ( current_study ) {
 
+			const degree = current_study?.study?.level_of_study_short;
+			const graduation_dates = current_study?.graduation_dates;
+
+			const { structure, data } = getStructureAndData( degree, graduation_dates, all_current_study_studies_maps );
+			setStructure( structure );
+			setStructureData( data );
+		}
+
+	}, [ current_study ])
+
+	// console.log( "ALL STUDIES MAPS", all_studies_maps );
 	console.log( "USER STUDIES", user_studies );
 	console.log( "CURRENT STUDY", current_study );
-	console.log( "GRADUATION DATES", graduation_dates );
-	console.log( "CURRENT STUDY STUDIES MAPS", all_current_study_studies_maps );
-
+	console.log( "GRADUATION DATES", current_study?.graduation_dates );
+	console.log( "ALL CURRENT STUDY STUDIES MAPS", all_current_study_studies_maps );
+	console.log( "DATA:", structure_data );
 
 	return (
 		<ScreenWithRoundedHeader>
@@ -80,9 +82,12 @@ export default function MapOfStudiesScreen() {
 						/>
 					</View>
 
-					<MapOfStudiesStructure
-						structure={ structure }
-					/>				
+					{ structure && 
+						<MapOfStudiesStructure
+							structure={ structure }
+							structure_data={ structure_data }
+						/>				
+					}
 					
 				</ContainerWithScroll>
 			</MainWithNavigation>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
+import { putDataIntoStructure } from '../../helpers/map-of-studies';
 
 
 const MapOfStudiesStructure = props => {
 
-	const { structure } = props;
+	const structure = putDataIntoStructure( props.structure, props.structure_data );
 
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>

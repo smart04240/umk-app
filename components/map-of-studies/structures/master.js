@@ -14,32 +14,40 @@ export default [
 			},
 			{
 				Component: Point,
-				label: "ROK I (2015/2016)",
-				small_label: "Wnioski ogólne\n(do 02.03.2016)",
+				year: 1,
+				term_field_id: 1,
+				label: "ROK I #year#years",
+				small_label: "Wnioski ogólne\n(do #term_field#start_date)",
 				label_position: "left",
 				bottom_margin: 5,
 			},
 			{
 				Component: Point,
+				year: 1,
+				term_field_id: 6,
 				label: "Sesja egzaminacyjna zimowa",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
+				small_label: "(od #term_field#start_date do #term_field#end_date)",
 				label_position: "left",
 				bottom_margin: 5
 			},
 			{
 				Component: Point,
+				year: 1,
+				term_field_id: 7,
 				label: "Sesja egzaminacyjna letnia",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
+				small_label: "(od #term_field#start_date do #term_field#end_date)",
 				label_position: "left",
 				bottom_margin: 5
 			}
 		]
 	},
+
 	{
 		Component: BranchesNode,
 		end: "half-right",
 		branches: [
 			{
+				Component: Branch,
 				children: [
 					{ Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
 					{ Component: Point, label: "ROK II", bottom_margin: 20 },
@@ -50,6 +58,7 @@ export default [
 						inner: true,
 						branches: [
 							{
+								Component: Branch,
 								dead_end: true,
 								absolute: true,
 								left: 0,
@@ -59,6 +68,7 @@ export default [
 								]
 							},
 							{
+								Component: Branch,
 								left: MOSConstants.Column.Default,
 								children: { Component: Point, label: "zaliczenie II roku", bottom_margin: 60 }
 							}
@@ -67,10 +77,18 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o wpis warunkowy", small_label: "(do 02.03.2016)", bottom_margin: 20 },
+					{ 
+						Component: Point,
+						year: 1,
+						term_field_id: 3,
+						label: "podanie o wpis warunkowy", 
+						small_label: "(do #term_field#start_date)", 
+						bottom_margin: 20 
+					},
 					{ Component: Point, label: "ROK II\n(wpis warunkowy)", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 20 },
@@ -79,6 +97,7 @@ export default [
 						inner: true,
 						branches: [
 							{
+								Component: Branch,
 								dead_end: true,
 								absolute: true,
 								left: 0,
@@ -88,6 +107,7 @@ export default [
 								]
 							},
 							{
+								Component: Branch,
 								left: MOSConstants.Column.Default,
 								children: { Component: Point, label: "zaliczenie warunku i II roku", bottom_margin: 235 }
 							}
@@ -96,10 +116,18 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o powtarzanie", small_label: "(do 06.02.2016)", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 1,
+						term_field_id: 3,
+						label: "podanie o powtarzanie", 
+						small_label: "(do #term_field#start_date)", 
+						bottom_margin: 20 
+					},
 					{ Component: Point, label: "powtarzanie I roku" }
 				]
 			}
@@ -119,23 +147,28 @@ export default [
 		end: "middle",
 		branches: [
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
 				]
 			},
 			{
+				Component: Branch,
 				children: [
 					{
 						Component: Point,
+						year: 2,
+						term_field_id: 8,
 						label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
-						small_label: "(do 02.03.2016)",
+						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20
 					},
 
 				]
 			},
 			{
+				Component: Branch,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
