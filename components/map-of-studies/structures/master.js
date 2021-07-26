@@ -49,7 +49,7 @@ export default [
 			{
 				Component: Branch,
 				children: [
-					{ Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
+					{ year: 1, Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
 					{ Component: Point, label: "ROK II", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
 					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 350 },
@@ -80,7 +80,7 @@ export default [
 				Component: Branch,
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
+					{ year: 1, Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
 					{ 
 						Component: Point,
 						year: 1,
@@ -119,7 +119,7 @@ export default [
 				Component: Branch,
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
+					{ year: 1, Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
 					{ 
 						Component: Point, 
 						year: 1,
@@ -149,23 +149,18 @@ export default [
 			{
 				Component: Branch,
 				dead_end: true,
-				children: [
-					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
-				]
+				children: { Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
 			},
 			{
 				Component: Branch,
-				children: [
-					{
+				children: {
 						Component: Point,
 						year: 2,
 						term_field_id: 8,
 						label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
 						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20
-					},
-
-				]
+					}
 			},
 			{
 				Component: Branch,

@@ -18,7 +18,6 @@ export default function MapOfStudiesScreen() {
 	const translate = useTranslator();
 
 	const user = useSelector( state => state.user );
-	const all_studies_maps = user.all_studies_maps;
     const user_studies = user.studies
 	
 	const [ structure, setStructure ] = useState( null );
@@ -39,13 +38,6 @@ export default function MapOfStudiesScreen() {
 			? user_studies.find( item => item.id === chosen_study_id )
 			: null	
 	), [ chosen_study_id ]);
-	
-
-	const all_current_study_studies_maps = useMemo(() => (
-		current_study?.id
-			? all_studies_maps.filter( item => item.study_id === current_study.id )
-			: []
-	), [ current_study ]);
 
 
 	useEffect(() => {
@@ -53,20 +45,16 @@ export default function MapOfStudiesScreen() {
 		if ( current_study ) {
 
 			const degree = current_study?.study?.level_of_study_short;
-			const graduation_dates = current_study?.graduation_dates;
-
-			const { structure, data } = getStructureAndData( degree, graduation_dates, all_current_study_studies_maps );
+			const { structure, data } = getStructureAndData( degree, current_study );
+			
 			setStructure( structure );
 			setStructureData( data );
 		}
 
 	}, [ current_study ])
 
-	// console.log( "ALL STUDIES MAPS", all_studies_maps );
 	console.log( "USER STUDIES", user_studies );
-	console.log( "CURRENT STUDY", current_study );
-	console.log( "GRADUATION DATES", current_study?.graduation_dates );
-	console.log( "ALL CURRENT STUDY STUDIES MAPS", all_current_study_studies_maps );
+	console.log( "CURRENT STUDY", current_study );	
 	console.log( "DATA:", structure_data );
 
 	return (

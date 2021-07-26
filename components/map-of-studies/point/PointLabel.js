@@ -32,9 +32,11 @@ const PointLabel = props => {
 				backgroundColor: ThemeStyles.main_bg
 			},
 		]}>
-			<Text style={ text_styles }>
-				{ label }
-			</Text>
+			{ label && 
+				<Text style={ text_styles }>
+					{ label }
+				</Text>
+			}
 
 			{ small_label &&
 				<Text style={[
