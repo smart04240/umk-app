@@ -44,31 +44,68 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 1,
 		end: "half-right",
 		branches: [
 			{
 				Component: Branch,
+				year: 1,
+				year_status: [ "Z", "A" ],
 				children: [
 					{ year: 1, Component: Point, label: "zaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point, label: "ROK II", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 350 },
+					{ 
+						
+						Component: Point, 
+						year: 2,
+						term_id: 1,
+						label: "ROK II #year#years",
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_id: 6,
+						label: "Sesja egzaminacyjna zimowa",
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2, 
+						term_id: 7,
+						label: "Sesja egzaminacyjna letnia",
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 350 
+					},
 					{
 						Component: BranchesNode,
+						year: 2,
 						inner: true,
 						branches: [
 							{
 								Component: Branch,
+								year: 2,
+								year_status: [ "N", "R" ],
 								dead_end: true,
 								absolute: true,
 								left: 0,
 								children: [
 									{ Component: Point, label: "niezaliczenie II roku", bottom_margin: 20 },
-									{ Component: Point, label: "podanie o powtarzanie", bottom_margin: 0 },
+									{
+										Component: Point, 
+										year: 2,
+										term_field_id: 3,
+										label: "podanie o powtarzanie", 
+										small_label: "(do #term_field#start_date)", 
+										bottom_margin: 0 
+									}
 								]
 							},
 							{
 								Component: Branch,
+								year: 2,
+								year_status: [ "Z", "A" ],
 								left: MOSConstants.Column.Default,
 								children: { Component: Point, label: "zaliczenie II roku", bottom_margin: 60 }
 							}
@@ -78,6 +115,8 @@ export default [
 			},
 			{
 				Component: Branch,
+				year: 1,
+				year_status: "W",
 				dead_end: true,
 				children: [
 					{ year: 1, Component: Point, label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
@@ -89,15 +128,39 @@ export default [
 						small_label: "(do #term_field#start_date)", 
 						bottom_margin: 20 
 					},
-					{ Component: Point, label: "ROK II\n(wpis warunkowy)", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2,
+						term_id: 1,
+						label: "ROK II #year#years\n(wpis warunkowy)",
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_id: 6,
+						label: "Sesja egzaminacyjna zimowa",
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2, 
+						term_id: 7,
+						label: "Sesja egzaminacyjna letnia",
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
 					{
 						Component: BranchesNode,
+						year: 2,
 						inner: true,
 						branches: [
 							{
 								Component: Branch,
+								year: 2,
+								year_status: "S",
 								dead_end: true,
 								absolute: true,
 								left: 0,
@@ -108,6 +171,8 @@ export default [
 							},
 							{
 								Component: Branch,
+								year: 2,
+								year_status: "T",
 								left: MOSConstants.Column.Default,
 								children: { Component: Point, label: "zaliczenie warunku i II roku", bottom_margin: 235 }
 							}
@@ -117,9 +182,11 @@ export default [
 			},
 			{
 				Component: Branch,
+				year: 1,
+				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ year: 1, Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
+					{ Component: Point, year: 1, label: "niezaliczenie I roku", bottom_margin: 20 },
 					{ 
 						Component: Point, 
 						year: 1,

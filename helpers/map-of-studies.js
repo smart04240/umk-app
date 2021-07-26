@@ -84,9 +84,14 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 			for ( const match of pattern_matches ) {
 
-				if ( !data?.[ year ]) return null;
-
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
+
+				if ( !data?.[ year ]) { 
+					return data_param_kind === "year"
+						? str.replace(/(#\w+)/g, "")
+						: null;
+				}
+
 				let value;
 
 				switch ( data_param_kind ) {
