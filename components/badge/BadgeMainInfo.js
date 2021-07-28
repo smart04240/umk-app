@@ -16,7 +16,7 @@ const BadgeMainInfo = props => {
 	const [info, setInfo] = useState([
 		{
 			heading: 'Ile studentów ma odznakę',
-			item: { value: ``, label: '' },
+			item: [{ value: ``, label: '' }],
 		},
 		{
 			heading: 'Punkty za odznakę',
@@ -24,35 +24,31 @@ const BadgeMainInfo = props => {
 		}
 	]);
 	useEffect(() => {
-		let facultyUSOS = null;
-		// badge?.conditions.forEach(condition => {
-		// 	if(condition.condition_id === 1) {
-		// 		facultyUSOS = condition.value;
-		// 		return;
-		// 	}
-		// });
+		let params = {badge_id: badge.id, is_subtype: false};
+		if(badge?.badge_id) params = {...params, is_subtype: true}
 
-		if(!facultyUSOS) {
+		API.badges.getEarnedPercentage(params).then(response => {
+			console.log(response.data);
+			let data = response.data.data;
 			setInfo(prev => {
 				let _prev = [...prev];
-				_prev[0].item = { label: `na kierunku`, value: `100%` };
+				_prev[0].item = data;
 				return _prev;
 			});
-			return;
-		}
-
-		// API.badges.getEarnedPercentage(facultyUSOS, badge.id).then(response => {
-		// 	let data = response.data.data;
-		// 	setInfo(prev => {
-		// 		let _prev = [...prev];
-		// 		_prev[0].item = { label: `na kierunku ${data.name}`, value: `${data.value}%` };
-		// 		return _prev;
-		// 	});
-		// });
+		});
 	}, []);
 
+	const itemJsx = (item, i) => (
+		<View style={[GeneralStyles.row_wrap, { alignItems: "center"}]} >
+			<Text style={[styles.font_family, styles.big, text_color]}>
+				{item?.value}
+			</Text>
+			<Text style={[styles.font_family, styles.small, text_color]}> {item?.label} </Text>
+		</View>
+	);
+
 	return (
-		<View style={{ flexGrow: 1, paddingLeft: 20 }}>
+		<View style={{ flexGrow: 1, paddingLeft: 20}}>
 
 			<Text style={[styles.font_family, styles.big, text_color, { marginBottom: 19 }]}>
 				{translate(badge.name)}
@@ -61,18 +57,16 @@ const BadgeMainInfo = props => {
 
 			<View>
 				{info.map(({ heading, item }, index) => (
-					<View key={index}>
+					<View key={index} style={{marginBottom: 10}}>
 
 						<Text style={[styles.font_family, styles.small, text_color]}>
 							{heading}
 						</Text>
 
-						<View style={[GeneralStyles.row_wrap, { alignItems: "flex-end" }]}>
-							<Text style={[styles.font_family, styles.big, text_color]}>
-								{item?.value}
-							</Text>
-							<Text style={[styles.font_family, styles.small, text_color]}> {item?.label} </Text>
-						</View>
+						{Array.isArray(item)
+							? item.map(_item => itemJsx(_item))
+							: itemJsx(item)
+						}
 					</View>
 				))}
 			</View>
