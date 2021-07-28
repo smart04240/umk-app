@@ -21,7 +21,7 @@ const DEGREES = {
 
 	"(sj)": {
 		years_amount: 5,
-		strucrure: null 
+		structure: null 
 	},
 
 	"(mish)": {
@@ -56,15 +56,16 @@ const getDataForAllYears = current_study => {
 }
 
 
-export const getStructureAndData = ( degree, current_study ) => {
+export const getBasicStructureAndData = ( degree, current_study ) => {
 
 	const current_degree = DEGREES?.[ degree ];
 	if ( !current_degree ) return {};
 
-	const structure = current_degree?.structure
+	const { structure, years_amount } = current_degree;
 
 	return { 
 		structure,
+		years_amount,
 		data: getDataForAllYears( current_study )
 	}
 }
@@ -86,7 +87,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
 
-				if ( !data?.[ year ]) { 
+				if ( !data?.[ year ] || !term_field ) { 
 					return data_param_kind === "year"
 						? str.replace(/(#\w+)/g, "")
 						: null;
@@ -121,19 +122,13 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 		const term_field = data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
 
-		// const passed = data?.[ year ] 
-		// 	? data?.[ year ]?.status !== "X"
-		// 		? true
-		// 		: term_field 
-		// 			? moment(term_field.start_date) <= moment()
-		// 			: false 
-		// 	: false 
+		const passed = data?.[ year ] && data?.[ year ].status !== "X";
 
 		return {
 			...component_obj,
 			label: getStrWithData( label, year, term_field ),
 			small_label: getStrWithData( small_label, year, term_field ),
-			passed: false
+			passed 
 		};
 	}
 
@@ -166,4 +161,150 @@ export const putDataIntoStructure = ( structure, data ) => {
 	} 
 
 	return getStructureWithData( structure )
+}
+
+
+export const getFinalStructure = ( whole_structure, data, years_amount ) => {
+
+	const maybe_next_year_part = [];
+
+	const getPastPartOfStructure = past_years_data => {
+
+		const past_part = [{
+			Component: Branch,
+			children: []
+		}];
+		
+		const isNodePassed = ( node, year, status ) => {
+
+			if ( node.year === year ) {
+
+				const node_year_status = node?.year_status;
+
+				if ( !node_year_status ) return true;
+				
+				const is_status_arr = Array.isArray( status );
+
+				return Array.isArray( node_year_status )
+					? is_status_arr 
+						? !!status.filter( s => node_year_status.includes( s ))?.length 
+						: node_year_status.includes( status )
+					: is_status_arr ? status.includes( node_year_status ) : node_year_status === status;
+			}
+
+			return false;
+		}
+
+
+		const parseStructureForPastNodes = ( year, status ) => {
+
+			const parserStructureLevel = level => {
+
+				level.forEach( item => {
+					if ( item.year === year ) {
+						
+						switch ( item.Component ) {
+							case Branch:
+									if ( isNodePassed( item, year, status )) {
+
+										let children;
+										let branches_nodes;
+
+										const is_children_array = Array.isArray( item.children ); 
+
+										if ( is_children_array ) {
+
+											children = item.children
+												.filter( child => child.Component !== BranchesNode )
+												.map( child => {
+													return child.Component === Point
+														? {...child, bottom_margin: 20, label_position: "left" }
+														: child
+												});
+
+											branches_nodes = item.children
+												.filter( child => child.Component === BranchesNode )
+												.map( branch_node => ({
+													...branch_node,
+													inner: false,
+													branches: branch_node.branches.map( branch => ({
+														...branch,
+														left: 0,
+														absolute: false
+													})) 
+												}));	
+
+										} else {
+											children = {...item.children, bottom_margin: 20, label_position: "left" };
+										}
+
+
+										is_children_array
+											? past_part[0].children.push( ...children )
+											: past_part[0].children.push( children ) 
+
+
+										if ( branches_nodes && branches_nodes.length ) { 
+											branches_nodes.forEach( branch_nodes => {
+												maybe_next_year_part.push( branch_nodes );
+											});
+										}
+									}
+								break;
+		
+							case BranchesNode:
+								if ( item.year === year ) parserStructureLevel( item.branches );
+								break;
+						}
+					}
+				})
+			}
+
+			parserStructureLevel([...maybe_next_year_part, ...whole_structure ]);
+		}
+
+
+		for ( let i = 1; i < past_years_data.length; i++ ) {
+
+			const past_year_obj = past_years_data[ i ];
+			parseStructureForPastNodes( i, past_year_obj.status );
+		}
+
+		return past_part;
+	}
+
+
+	const getFuturePartOfStructure = current_year_num => {
+
+		const future_part = [];
+
+		maybe_next_year_part?.length && maybe_next_year_part.forEach( item => {
+			item.year === current_year_num && future_part.push( item )
+		});
+
+		const whole_structure_future_index = whole_structure.findIndex( item => item.year === current_year_num );
+		whole_structure_future_index !== -1 && future_part.push( ...whole_structure.slice( whole_structure_future_index )) 
+
+		return future_part;
+	}
+
+
+	const buildFinalStructure = () => {
+
+		const current_year_num = data.findIndex( year => year?.status === "X" );
+		const past_years_data = [ null, ...data.filter( year => year?.status !== "X" )];
+
+		const past_part = getPastPartOfStructure( past_years_data );
+		const future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
+		
+		// console.log( past_part );
+		// console.log( future_part );
+
+		return [...past_part, ...future_part ];
+	}
+
+
+	return !data.length || data?.[1]?.status === "X"
+		? whole_structure
+		: buildFinalStructure();
 }

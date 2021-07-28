@@ -8,6 +8,7 @@ import MOSConstants from "../../../constants/MOSConstants";
 export default [
 	{
 		Component: Branch,
+		year: 1,
 		children: [
 			{
 				Component: StartCircle
@@ -203,6 +204,7 @@ export default [
 
 	{
 		Component: Branch,
+		year: 2,
 		children: {
 			Component: Point,
 			label: "PRACA DYPLOMOWA"
@@ -211,15 +213,18 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 2,
 		end: "middle",
 		branches: [
 			{
 				Component: Branch,
+				year: 2,
 				dead_end: true,
 				children: { Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
 			},
 			{
 				Component: Branch,
+				year: 2,
 				children: {
 						Component: Point,
 						year: 2,
@@ -231,6 +236,7 @@ export default [
 			},
 			{
 				Component: Branch,
+				year: 2,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
@@ -242,6 +248,7 @@ export default [
 
 	{
 		Component: Branch,
+		year: 2,
 		dead_end: true,
 		children: [
 			{

@@ -9,6 +9,7 @@ export default [
 
 	{
 		Component: Branch,
+		year: 1,
 		children: [
 			{
 				Component: StartCircle
@@ -194,7 +195,7 @@ export default [
 					},
 					{ 
 						Component: Point, 
-						year: 2,
+						year: 3,
 						term_field_id: 6,
 						label: "Sesja egzainacyjna zimowa", 
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
@@ -202,7 +203,7 @@ export default [
 					},
 					{ 
 						Component: Point, 
-						year: 2,
+						year: 3,
 						term_field_id: 7,
 						label: "Sesja egzaminacyjna letnia", 
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
@@ -340,6 +341,7 @@ export default [
 
 	{
 		Component: Branch,
+		year: 3,
 		children: {
 			Component: Point,
 			label: "PRACA DYPLOMOWA"
@@ -348,10 +350,12 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 3,
 		end: "middle",
 		branches: [
 			{
 				Component: Branch,
+				year: 3,
 				dead_end: true,
 				children: [
 					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
@@ -359,6 +363,7 @@ export default [
 			},
 			{
 				Component: Branch,
+				year: 3,
 				children: [
 					{
 						Component: Point,
@@ -373,6 +378,7 @@ export default [
 			},
 			{
 				Component: Branch,
+				year: 3,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
@@ -383,6 +389,7 @@ export default [
 	},
 	{
 		Component: Branch,
+		year: 3,
 		dead_end: true,
 		children: [
 			{

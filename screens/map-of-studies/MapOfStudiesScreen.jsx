@@ -11,7 +11,7 @@ import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHe
 
 import Dropdown from "../../components/form/Dropdown";
 import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesStructure";
-import { getStructureAndData } from "../../helpers/map-of-studies";
+import { getBasicStructureAndData } from "../../helpers/map-of-studies";
 
 export default function MapOfStudiesScreen() {
 
@@ -22,6 +22,7 @@ export default function MapOfStudiesScreen() {
 	
 	const [ structure, setStructure ] = useState( null );
 	const [ structure_data, setStructureData ] = useState( null );
+	const [ years_amount, setYearsAmount ] = useState( null );
 	const [ chosen_study_id, setChosenStudyId ] = useState( null );
 
 	const studies_options = useMemo(() => (
@@ -45,16 +46,18 @@ export default function MapOfStudiesScreen() {
 		if ( current_study ) {
 
 			const degree = current_study?.study?.level_of_study_short;
-			const { structure, data } = getStructureAndData( degree, current_study );
-			
+			const { structure, data, years_amount } = getBasicStructureAndData( degree, current_study );
+		
+
 			setStructure( structure );
 			setStructureData( data );
+			setYearsAmount( years_amount );
 		}
 
 	}, [ current_study ])
 
-	console.log( "USER STUDIES", user_studies );
-	console.log( "CURRENT STUDY", current_study );	
+	// console.log( "USER STUDIES", user_studies );
+	// console.log( "CURRENT STUDY", current_study );	
 	console.log( "DATA:", structure_data );
 
 	return (
@@ -74,6 +77,7 @@ export default function MapOfStudiesScreen() {
 						<MapOfStudiesStructure
 							structure={ structure }
 							structure_data={ structure_data }
+							years_amount={ years_amount }
 						/>				
 					}
 					
