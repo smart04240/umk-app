@@ -64,6 +64,16 @@ export default {
         pl: "konto"
     },
 
+    FilesExceptionTitle: {
+        en: "Downloading failed",
+        pl: "Pobieranie nie powiodło się"
+    },
+
+    FilesExceptionDescription: {
+        en: "Sorry file is broken !",
+        pl: "Przepraszamy, plik jest uszkodzony!"
+    },
+
     ReminderDisable: {
         en: "Are you sure do you want to disable reminder ?",
         pl: "Czy na pewno chcesz wyłączyć przypomnienie ?"
@@ -757,6 +767,11 @@ export default {
         en: "Beginning of studies",
         pl: "Początek studiów"
     },
+
+	ObtainingADiploma: {
+		en: "Obtaining a diploma",
+		pl: "Zdobycie dyplomu"
+	},
 
     TaskCategory1: {
         en: "Important and urgent",

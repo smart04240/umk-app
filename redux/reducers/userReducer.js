@@ -15,7 +15,7 @@ export default createReducer(null, builder => {
             ...payload,
             loggedInAt: moment().toISOString(),
         }))
-        .addCase(Actions.API.DataLoaded, (state, {payload: {user, profile}}) => ({
+        .addCase(Actions.API.DataLoaded, (state, {payload: { user, profile }}) => ({
             ...state,
             ...user,
             first_name: profile.first_name,

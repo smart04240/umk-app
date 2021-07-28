@@ -9,31 +9,35 @@ export default [
 
 	{
 		Component: Branch,
+		year: 1,
 		children: [
 			{
 				Component: StartCircle
 			},
 			{
 				Component: Point,
-
-				label: "ROK I (2015/2016)",
-				small_label: "Wnioski ogólne\n(do 02.03.2016)",
+				year: 1,
+				term_field_id: 1,
+				label: "ROK I #year#years",
+				small_label: "Wnioski ogólne\n(do #term_field#start_date)",
 				label_position: "left",
 				bottom_margin: 5,
 			},
 			{
 				Component: Point,
-
+				year: 1,
+				term_field_id: 6,
 				label: "Sesja egzaminacyjna zimowa",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
+				small_label: "(od #term_field#start_date do #term_field#end_date)",
 				label_position: "left",
 				bottom_margin: 5
 			},
 			{
 				Component: Point,
-
+				year: 1,
+				term_field_id: 7,
 				label: "Sesja egzaminacyjna letnia",
-				small_label: "(od 21.01.2016 do 22.02.2016)",
+				small_label: "(od #term_field#start_date do #term_field#end_date)",
 				label_position: "left",
 				bottom_margin: 5
 			},
@@ -42,28 +46,93 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 1,
 		end: "half",
 		branches: [
 			{
+				Component: Branch,
+				year: 1,
+				year_status: [ "Z", "A" ],
 				children: [
-					{ Component: Point,  label: "zaliczenie I roku", bottom_margin: 20  },
-					{ Component: Point,  label: "ROK II", bottom_margin: 20  },
-					{ Component: Point,  label: "Sesja egzaminacyjna zimowa", bottom_margin: 20  },
-					{ Component: Point,  label: "Sesja egzaminacyjna letnia", bottom_margin: 20  }
+					{ Component: Point, year: 1, label: "zaliczenie I roku", bottom_margin: 20  },
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 1,
+						label: "ROK II #year#years",
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20  
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 6,
+						label: "Sesja egzaminacyjna zimowa", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20  
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 7,
+						label: "Sesja egzaminacyjna letnia", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20  
+					}
 				]
 			},
 			{
+				Component: Branch,
+				year: 1,
+				year_status: "W",
 				children: [
-					{ Component: Point,  label: "warunkowe zaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point,  label: "podanie o wpis warunkowy", small_label: "(do 02.03.2016)", bottom_margin: 20, },
-					{ Component: Point,  label: "ROK II\n(wpis warunkowy)", bottom_margin: 20 },
-					{ Component: Point,  label: "Sesja egzaminacyjna zimowa", bottom_margin: 20 },
-					{ Component: Point,  label: "Sesja egzaminacyjna letnia", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 1,
+						label: "warunkowe zaliczenie I roku",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point,
+						year: 1,
+						term_field_id: 3,
+						label: "podanie o wpis warunkowy", 
+						small_label: "(do #term_field#start_date)", 
+						bottom_margin: 20
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_id: 1,
+						label: "ROK II #year#years\n(wpis warunkowy)", 
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 6,
+						label: "Sesja egzaminacyjna zimowa",
+						small_label: "(od #term_field#start_date do #term_field#end_date)", 
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 7,
+						label: "Sesja egzaminacyjna letnia",
+						small_label: "(od #term_field#start_date do #term_field#end_date)", 
+						bottom_margin: 20 
+					},
 					{
 						Component: BranchesNode,
+						year: 2,
 						inner: true,
 						branches: [
 							{
+								Component: Branch,
+								year: 2,
+								year_status: "S",
 								children: {
 									Component: Point,
 									label: "zaliczenie warunku",
@@ -71,6 +140,9 @@ export default [
 								}
 							},
 							{
+								Component: Branch,
+								year: 2,
+								year_status: "T",
 								dead_end: true,
 								absolute: true,
 								left: MOSConstants.Column.Default,
@@ -84,10 +156,19 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
+				year: 1,
+				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "niezaliczenie I roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o powtarzanie", small_label: "(do 02.03.2016)" }
+					{ Component: Point, year: 1, label: "niezaliczenie I roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 1,
+						term_field_id: 3,
+						label: "podanie o powtarzanie", 
+						small_label: "(do #term_field#start_date)" 
+					}
 				]
 			}
 		]
@@ -95,41 +176,105 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 2,
 		end: "half",
 		branches: [
 			{
+				Component: Branch,
+				year: 2,
+				year_status: [ "Z", "A" ],
 				children: [
-					{ Component: Point, label: "zaliczenie II roku", bottom_margin: 20 },
-					{ Component: Point, label: "ROK III", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzainacyjna zimowa", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 20 }
+					{ Component: Point, year: 2, label: "zaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point,
+						year: 3,
+						term_field_id: 1, 
+						label: "ROK III #year#years", 
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 3,
+						term_field_id: 6,
+						label: "Sesja egzainacyjna zimowa", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 3,
+						term_field_id: 7,
+						label: "Sesja egzaminacyjna letnia", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					}
 				]
 			},
 			{
+				Component: Branch,
+				year: 2,
+				year_status: "W",
 				children: [
-					{ Component: Point, label: "warunkowe zaliczenie II roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o wpis warunkowy", bottom_margin: 20 },
-					{ Component: Point, label: "ROK III\n(wpis warunkowy)", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzainacyjna zimowa", bottom_margin: 20 },
-					{ Component: Point, label: "Sesja egzaminacyjna letnia", bottom_margin: 20 },
+					{ Component: Point, year: 2, label: "warunkowe zaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2,
+						term_field_id: 3,
+						label: "podanie o wpis warunkowy", 
+						small_label: "(do #term_field#start_date)", 
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point,
+						year: 3,
+						term_field_id: 1, 
+						label: "ROK III #year#years\n(wpis warunkowy)", 
+						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 3,
+						term_field_id: 6,
+						label: "Sesja egzainacyjna zimowa", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 3,
+						term_field_id: 7,
+						label: "Sesja egzaminacyjna letnia", 
+						small_label: "(od #term_field#start_date do #term_field#end_date)",
+						bottom_margin: 20 
+					},
 					{
 						Component: BranchesNode,
+						year: 3,
 						inner: true,
 						branches: [
 							{
+								Component: Branch,
+								year: 3,
+								year_status: "S",
 								children: {
 									Component: Point,
+									year: 3,
 									label: "zaliczenie warunku",
 									bottom_margin: 100
 								}
 							},
 							{
+								Component: Branch,
+								year: 3,
+								year_status: "T",
 								dead_end: true,
 								absolute: true,
 								left: MOSConstants.Column.Default,
 								children: [
-									{ Component: Point, label: "niezaliczenie warunku", bottom_margin: 20 },
-									{ Component: Point, label: "powtarzanie II roku" }
+									{ Component: Point, year: 3, label: "niezaliczenie warunku", bottom_margin: 20 },
+									{ Component: Point, year: 3, label: "powtarzanie II roku" }
 								]
 							}
 						]
@@ -137,11 +282,21 @@ export default [
 				]
 			},
 			{
+				Component: Branch,
+				year: 2,
+				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "niezaliczenie II roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o powtarzanie", bottom_margin: 20 },
-					{ Component: Point, label: "powtarzanie II roku" }
+					{ Component: Point, year: 2, label: "niezaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2, 
+						term_field_id: 3,
+						label: "podanie o powtarzanie", 
+						small_label: "(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ Component: Point, year: 2, label: "powtarzanie II roku" }
 				]
 			}
 		]
@@ -150,20 +305,35 @@ export default [
 	{
 
 		Component: BranchesNode,
+		year: 3,
 		end: "half",
 		branches: [
 			{
+				Component: Branch,
+				year: 3,
+				year_status: [ "Z", "A" ],
 				children: {
 					Component: Point,
+					year: 3,
 					label: "zaliczenie III roku"
 				}
 			},
 			{
+				Component: Branch,
+				year: 3,
+				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "niezaliczenie III roku", bottom_margin: 20 },
-					{ Component: Point, label: "podanie o powtarzanie", small_label: "(do 02.03.2016)", bottom_margin: 20 },
-					{ Component: Point, label: "powtarzanie III roku" }
+					{ Component: Point, year: 3, label: "niezaliczenie III roku", bottom_margin: 20 },
+					{
+						Component: Point, 
+						year: 3, 
+						term_field_id: 3,
+						label: "podanie o powtarzanie", 
+						small_label: "(do #term_field#start_date)",
+						bottom_margin: 20 
+					},
+					{ Component: Point, year: 3, label: "powtarzanie III roku" }
 				]
 			}
 		]
@@ -171,6 +341,7 @@ export default [
 
 	{
 		Component: Branch,
+		year: 3,
 		children: {
 			Component: Point,
 			label: "PRACA DYPLOMOWA"
@@ -179,25 +350,35 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year: 3,
 		end: "middle",
 		branches: [
 			{
+				Component: Branch,
+				year: 3,
 				dead_end: true,
 				children: [
 					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
 				]
 			},
 			{
+				Component: Branch,
+				year: 3,
 				children: [
 					{
 						Component: Point,
+						year: 3,
+						term_field_id: 8,
 						label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
+						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20
 					},
 
 				]
 			},
 			{
+				Component: Branch,
+				year: 3,
 				dead_end: true,
 				children: [
 					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
@@ -208,6 +389,7 @@ export default [
 	},
 	{
 		Component: Branch,
+		year: 3,
 		dead_end: true,
 		children: [
 			{

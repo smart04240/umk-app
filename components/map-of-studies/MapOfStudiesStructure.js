@@ -1,34 +1,17 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { useSelector } from 'react-redux';
-
-import bachelor_structure from "./structures/bachelor";
-import master_structure from "./structures/master";
-import mish_structure from "./structures/mish";
-
-const STRUCTURES = {
-	"(s1)": bachelor_structure,
-	"(s2)": master_structure,
-	"(sj)": mish_structure
-}
+import { putDataIntoStructure, getFinalStructure } from '../../helpers/map-of-studies';
 
 
-const MapOfStudiesStructure = () => {
+const MapOfStudiesStructure = props => {
 
-    const user_studies = useSelector( state => state.user?.studies );
-
-	const structure_type = useMemo(() => (
-		user_studies && !!user_studies.length
-			? user_studies.filter( item => item.year_of_study !== "absolwent" )?.[0]?.study?.level_of_study_short
-			: null
-	), []); 
-
-	const structure = STRUCTURES[ structure_type ];
-
+	const dated_structure = putDataIntoStructure( props.structure, props.structure_data );
+	const final_structure = getFinalStructure( dated_structure, props.structure_data, props.years_amount );
+	
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>
-			{ structure && !!structure.length &&
-				structure.map(({ Component, ...props }, index ) => {
+			{ final_structure && !!final_structure.length &&
+				final_structure.map(({ Component, ...props }, index ) => {
 
 					return <Component key={ index } { ...props }/>
 				})

@@ -109,7 +109,7 @@ export const TopBoxWithContent = ({id, event, isTask}) => {
     });
 
     const toDoButtons = [
-        {label: translate(Translations.MarkAsDone), onPress: () => completeTask()},
+        {label: translate(Translations.MarkAsDone), onPress: () => completeTask(), style: {backgroundColor: todos?.completed ? '#a9a9a9' : null}},
         {label: translate(Translations.EditTheTask), onPress: () => navigation.navigate(Routes.TaskEdit, {id})},
     ];
 
@@ -183,6 +183,7 @@ export const TopBoxWithContent = ({id, event, isTask}) => {
                         return (
                             <Button
                                 key={index}
+                                disabled={isTask ? !!todos?.completed : false}
                                 style={b?.style || styles.bottom_button}
                                 isDangerButton={b?.isDangerButton}
                                 transparent_bg={true}
