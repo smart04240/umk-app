@@ -15,20 +15,19 @@ const BadgeMainInfo = props => {
 	const text_color = { color: ThemeStyles.dark_blue_text };
 	const [info, setInfo] = useState([
 		{
-			heading: {pl: 'Ile studentów ma odznakę', en: 'How many students have a badge'},
+			heading: { pl: 'Ile studentów ma odznakę', en: 'How many students have a badge' },
 			item: [{ value: ``, label: '' }],
 		},
 		{
-			heading: {pl: 'Punkty za odznakę', en: 'Badge points'},
+			heading: { pl: 'Punkty za odznakę', en: 'Badge points' },
 			item: { value: `${badge?.points}` }
 		}
 	]);
 	useEffect(() => {
-		let params = {badge_id: badge.id, is_subtype: false};
-		if(badge?.badge_id) params = {...params, is_subtype: true}
+		let params = { badge_id: badge.id, is_subtype: false };
+		if (badge?.badge_id) params = { ...params, is_subtype: true }
 
 		API.badges.getEarnedPercentage(params).then(response => {
-			console.log(response.data);
 			let data = response.data.data;
 			setInfo(prev => {
 				let _prev = [...prev];
@@ -39,16 +38,16 @@ const BadgeMainInfo = props => {
 	}, []);
 
 	const itemJsx = (item, i) => (
-		<View key={i} style={[GeneralStyles.row_wrap, { alignItems: "center"}]} >
+		<View key={i} style={[GeneralStyles.row_wrap]} >
 			<Text style={[styles.font_family, styles.big, text_color]}>
-				{item?.value}
+				{item?.value}{i > -1 && `%`}
 			</Text>
-			<Text style={[styles.font_family, styles.small, text_color]}> {item?.label} </Text>
+			<Text style={[styles.font_family, styles.small, text_color, { flex: 1, marginLeft: 10 }]}> {item?.label} </Text>
 		</View>
 	);
 
 	return (
-		<View style={{ flexGrow: 1, paddingLeft: 20}}>
+		<View style={{ flexGrow: 1, paddingLeft: 20 }}>
 
 			<Text style={[styles.font_family, styles.big, text_color, { marginBottom: 19 }]}>
 				{translate(badge.name)}
@@ -57,7 +56,7 @@ const BadgeMainInfo = props => {
 
 			<View>
 				{info.map(({ heading, item }, index) => (
-					<View key={index} style={{marginBottom: 10}}>
+					<View key={index} style={{ marginBottom: 10 }}>
 
 						<Text style={[styles.font_family, styles.small, text_color]}>
 							{translate(heading)}
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
 
 	big: { fontSize: 20 },
 
-	small: { fontSize: 14 }
+	small: { fontSize: 14 },
 });
 
 export default BadgeMainInfo;
