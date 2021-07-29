@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {ucfirst} from "../../helpers/functions";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -70,7 +70,13 @@ export default function RegistrationScreen(props) {
         API.user.update({nick_name: nick}).then(() => {
             dispatch(Actions.User.Registered(nick));
             props.navigation.reset({index: 0, routes: [{name: tutorialViewed ? Routes.Start : Routes.Tutorial}]});
-        }).finally(() => setRegistering(false));
+        })
+            .catch(error => {
+                if (error?.response?.status === 422 && error?.response?.data?.nick_name) {
+                    Alert.alert(translate(Translations.ProfileUserUniqueError));
+                }
+            })
+            .finally(() => setRegistering(false));
     };
     const cancelRegister = () => dispatch(Actions.User.Logout());
 
