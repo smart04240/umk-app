@@ -15,6 +15,7 @@ import RoundedPhoneButton from "../../components/buttons/RoundedPhoneButton";
 import RoundedMailButton from "../../components/buttons/RoundedMailButton";
 import RoundedLocationButton from "../../components/buttons/RoundedLocationButton";
 import Links from "../../helpers/Links";
+import {HtmlParser} from "../../components/general/HtmlParser";
 
 const image = require('../../assets/stockimage.png');
 
@@ -41,9 +42,10 @@ export default function MarkerScreen({route}) {
                                 <Text style={[styles.card.title, {color: theme.blue_text}]}>
                                     {translate(marker.title)}
                                 </Text>
-                                <Text style={[styles.card.text, {color: theme.blue_text}]}>
-                                    {translate(marker.description)}
-                                </Text>
+                                <HtmlParser
+                                    textStyles={{...styles.card.text, color: theme.blue_text}}
+                                    html={translate(marker.description)}
+                                />
                             </View>
                             <TouchableOpacity style={styles.card.button} onPress={openMarker}>
                                 <LinearGradient style={styles.card.buttonGradient} colors={['#1E69BF', '#034EA2']}>
@@ -55,9 +57,7 @@ export default function MarkerScreen({route}) {
                             </TouchableOpacity>
                         </View>
 
-                        <Text style={[styles.text, {color: theme.dark_text}]}>
-                            {translate(marker.content)}
-                        </Text>
+                        <HtmlParser html={translate(marker.content)}/>
 
                         {!!marker.phone && <RoundedPhoneButton phone={marker.phone}/>}
                         {!!marker.email && <RoundedMailButton email={marker.email}/>}
