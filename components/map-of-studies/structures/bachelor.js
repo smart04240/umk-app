@@ -47,14 +47,18 @@ export default [
 	{
 		Component: BranchesNode,
 		year: 1,
-		end: "half",
 		branches: [
 			{
 				Component: Branch,
 				year: 1,
 				year_status: [ "Z", "A" ],
 				children: [
-					{ Component: Point, year: 1, label: "zaliczenie I roku", bottom_margin: 20  },
+					{ 
+						Component: Point, 
+						year: 1, 
+						label: "zaliczenie I roku", 
+						bottom_margin: 20  
+					},
 					{ 
 						Component: Point, 
 						year: 2,
@@ -161,7 +165,12 @@ export default [
 				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, year: 1, label: "niezaliczenie I roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 1, 
+						label: "niezaliczenie I roku", 
+						bottom_margin: 20 
+					},
 					{ 
 						Component: Point, 
 						year: 1,
@@ -177,14 +186,18 @@ export default [
 	{
 		Component: BranchesNode,
 		year: 2,
-		end: "half",
 		branches: [
 			{
 				Component: Branch,
 				year: 2,
 				year_status: [ "Z", "A" ],
 				children: [
-					{ Component: Point, year: 2, label: "zaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2, 
+						label: "zaliczenie II roku", 
+						bottom_margin: 20 
+					},
 					{ 
 						Component: Point,
 						year: 3,
@@ -216,7 +229,12 @@ export default [
 				year: 2,
 				year_status: "W",
 				children: [
-					{ Component: Point, year: 2, label: "warunkowe zaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2, 
+						label: "warunkowe zaliczenie II roku", 
+						bottom_margin: 20 
+					},
 					{ 
 						Component: Point, 
 						year: 2,
@@ -287,7 +305,12 @@ export default [
 				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, year: 2, label: "niezaliczenie II roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 2, 
+						label: "niezaliczenie II roku", 
+						bottom_margin: 20 
+					},
 					{ 
 						Component: Point, 
 						year: 2, 
@@ -306,7 +329,6 @@ export default [
 
 		Component: BranchesNode,
 		year: 3,
-		end: "half",
 		branches: [
 			{
 				Component: Branch,
@@ -324,7 +346,12 @@ export default [
 				year_status: [ "N", "R" ],
 				dead_end: true,
 				children: [
-					{ Component: Point, year: 3, label: "niezaliczenie III roku", bottom_margin: 20 },
+					{ 
+						Component: Point, 
+						year: 3, 
+						label: "niezaliczenie III roku", 
+						bottom_margin: 20 
+					},
 					{
 						Component: Point, 
 						year: 3, 
@@ -351,38 +378,32 @@ export default [
 	{
 		Component: BranchesNode,
 		year: 3,
-		end: "middle",
 		branches: [
 			{
 				Component: Branch,
 				year: 3,
 				dead_end: true,
-				children: [
-					{ Component: Point,  label: "Przedłużenie terminu obrony do 3 miesięcy" }
-				]
+				children: { Component: Point, year: 3, label: "Przedłużenie terminu obrony do 3 miesięcy" }
 			},
 			{
 				Component: Branch,
 				year: 3,
-				children: [
-					{
-						Component: Point,
-						year: 3,
-						term_field_id: 8,
-						label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
-						small_label: "(do #term_field#start_date)",
-						bottom_margin: 20
-					},
-
-				]
+				children: {
+					Component: Point,
+					year: 3,
+					term_field_id: 8,
+					label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
+					small_label: "(do #term_field#start_date)",
+					bottom_margin: 20
+				}
 			},
 			{
 				Component: Branch,
 				year: 3,
 				dead_end: true,
 				children: [
-					{ Component: Point, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
-					{ Component: Point, label: "skreślenie z listy studentów" }
+					{ Component: Point, year: 3, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
+					{ Component: Point, year: 3, label: "skreślenie z listy studentów" }
 				]
 			}
 		]
@@ -394,11 +415,13 @@ export default [
 		children: [
 			{
 				Component: Point,
+				year: 3,
 				label: "Wgranie pracy do APD\n\nZatwierdzenie przez promotora\n\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n- wydrukowana praca z APD\n- 4 zdjęcia w formacie 3,5 x 4,5 cm\n- dowód wpłaty 60 zł za dyplom\n- informacje o dodatkowych osiągnieciach",
 				bottom_margin: 20
 			},
 			{
 				Component: Point,
+				year: 3,
 				label: "OBRONA",
 				bottom_margin: 20
 			},

@@ -8,6 +8,37 @@ import BranchesNode from "../components/map-of-studies/BranchesNode";
 
 import moment from "moment";
 
+export const detectBranchesNodeEndType = branches => {
+
+	if ( !branches.filter( item => item.dead_end ).length ) 
+		return "full";
+
+	const first_branch = branches[0];
+	const second_branch = branches[1];
+	const third_branch = branches[2];
+
+	switch ( branches.length ) {
+		case 2 :
+
+			if ( !first_branch.dead_end && second_branch.dead_end ) return "half";
+
+			if ( first_branch.dead_end && !second_branch.dead_end ) return "half-right";
+
+			break;
+
+		case 3:
+ 
+			if ( first_branch.dead_end && !second_branch.dead_end && third_branch.dead_end ) return "middle";
+
+			if ( !first_branch.dead_end && !second_branch.dead_end && third_branch.dead_end ) return "half";
+			
+			if ( first_branch.dead_end && !second_branch.dead_end && !third_branch.dead_end ) return "half-right";
+
+			break;
+	}
+} 
+
+
 const DEGREES = {
 	"(s1)": {
 		years_amount: 3,
