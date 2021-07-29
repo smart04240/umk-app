@@ -25,7 +25,7 @@ export const CalendarEvent = props => {
             <ContainerWithScroll
                 header={
                     <>
-                        <TopBoxWithContent id={event.id} event={event}/>
+                        <TopBoxWithContent id={event?.id} event={event}/>
                         {!!props.src && (
                             <Image
                                 source={props.src}
