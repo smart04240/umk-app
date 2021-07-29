@@ -73,7 +73,7 @@ export const TopBoxWithContent = ({id, event, isTask}) => {
             value: typeof category?.title === 'string' ? category?.title : category?.title[locale]
         },
         {icon: "map-marker", value: !isTask && extractAddress(data)},
-        {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('MM.DD.YYYY, HH:mm')},
+        {icon: "calendar-range", value: !isTask && moment(data?.start_date).format('DD.MM.YYYY, HH:mm')},
         {icon: "playlist-check", value: isTask && status},
     ];
 

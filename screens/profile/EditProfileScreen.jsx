@@ -26,7 +26,7 @@ export default function EditProfileScreen() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
     const [nickName, setNickName] = React.useState(user?.nick_name || '');
-    const [image, setImage] = React.useState(user?.avatar_url || '');
+    const [image, setImage] = React.useState(null);
 
     const message = {
         title: translate(Translations.DeleteConfirmTitle),
@@ -42,19 +42,30 @@ export default function EditProfileScreen() {
             return;
         }
 
-        let selectedImage = await FileSystem.getInfoAsync(image);
+        const data = {
+            nick_name: nickName,
+        };
 
-        API.user.update(makeFormData({nick_name: nickName, avatar: {
+        if (image) {
+            const selectedImage = await FileSystem.getInfoAsync(image);
+            data.avatar = {
                 name: selectedImage?.uri?.split('/')[11],
                 size: selectedImage?.size,
                 uri: selectedImage?.uri,
-            }})).then(response => {
-                dispatch(Actions.User.Update({user_name: nickName, avatar: response?.data?.avatar}));
-                navigation.navigate(Routes.Profile);
-        }).catch(() => Alert.alert(
-            'Cant save',
-            'User with the same nick already exist'
-        ))
+            };
+        }
+
+        API.user.update(makeFormData(data)).then(response => {
+            dispatch(Actions.User.Update({user_name: nickName, avatar: response?.data?.avatar}));
+            navigation.navigate(Routes.Profile);
+        }).catch(error => {
+            if (error?.response?.status === 422 && error?.response?.data?.nick_name) {
+                Alert.alert(
+                    'Cant save',
+                    'User with the same nick already exist'
+                );
+            }
+        })
     }
 
     const deleteAccount = () => Alert.alert(
@@ -100,7 +111,7 @@ export default function EditProfileScreen() {
     return (
         <MainWithNavigation>
             <TopBox style={{alignItems: "center"}}>
-                <ProfileAvatar size={132} imageSrc={image || ''}/>
+                <ProfileAvatar size={132} imageSrc={user?.avatar_url || ''}/>
                 <TouchableOpacity onPress={() => pickImage()}>
                     <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text, marginTop: 20}]}>
                         {translate(Translations.EditAvatar)}

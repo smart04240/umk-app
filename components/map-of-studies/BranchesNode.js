@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Layout from '../../constants/Layout';
 import MOSConstants from '../../constants/MOSConstants';
+import { detectBranchesNodeEndType } from '../../helpers/map-of-studies';
 
 import Branch from './Branch';
 import Line from "./Line";
@@ -17,14 +18,17 @@ const CentralNode = () => (
 
 const BranchesNode = props => {
 
-	const { branches, inner, end } = props;
+	const { branches, inner } = props;
 
 	const one_column_width = Layout.width / branches.length;
 	const start_line_width = ( one_column_width * ( branches.length - 1 )) + MOSConstants.Line.Size;
 
 	let end_line_left = 0;
 	let end_line_width;
-	switch ( end ) {
+
+	const end_type = !inner ? detectBranchesNodeEndType( branches ) : null;
+
+	switch ( end_type ) {
 
 		case "full": end_line_width = start_line_width;
 			break;
@@ -83,10 +87,10 @@ const BranchesNode = props => {
 				</View>
 			}
 
-			{ end &&
+			{ end_type &&
 				<>
-					{ end !== "middle" &&
-						<View style={ end === "full" ? GeneralStyles.row_center_around : GeneralStyles.row_ac }>
+					{ end_type !== "middle" &&
+						<View style={ end_type === "full" ? GeneralStyles.row_center_around : GeneralStyles.row_ac }>
 							<Line
 								position="relative"
 								width={ end_line_width }
