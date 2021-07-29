@@ -74,7 +74,7 @@ const ProfileMain = () => {
     const locale = useSelector(state => state.app.locale);
     const [studies, setStudies] = React.useState([]);
     const [studentData, setStudentData] = React.useState([]);
-    const [selectedPath, setSelectedPath] = React.useState(null);
+    const [selectedPath, setSelectedPath] = React.useState(user.studies?.[0]?.study?.id || null);
     const [facultyId, setFacultyId] = React.useState(null);
     const selectedData = studentData?.find(gradDate => gradDate.study_id === selectedPath);
     const progressColor = PROGRESS_COLORS.find(color => Number(color?.id) === Number(facultyId));
@@ -173,6 +173,7 @@ const ProfileMain = () => {
                             </View>
                         ) : (
                             <Dropdown
+                                init_value={selectedPath}
                                 name="study_path"
                                 options={studies}
                                 onChange={e => setSelectedPath(e.value)}
