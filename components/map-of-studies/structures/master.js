@@ -45,6 +45,7 @@ export default [
 
 	{
 		Component: BranchesNode,
+		end: "half-right",
 		year: 1,
 		branches: [
 			{
@@ -189,7 +190,7 @@ export default [
 								year: 2,
 								year_status: "T",
 								left: MOSConstants.Column.Default,
-								children: { Component: Point, year: 2, label: "zaliczenie warunku i II roku", bottom_margin: 235 }
+								children: { Component: Point, year: 2, label: "zaliczenie warunku i II roku", bottom_margin: 250 }
 							}
 						]
 					}

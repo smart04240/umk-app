@@ -18,7 +18,7 @@ const CentralNode = () => (
 
 const BranchesNode = props => {
 
-	const { branches, inner } = props;
+	const { branches, inner, end } = props;
 
 	const one_column_width = Layout.width / branches.length;
 	const start_line_width = ( one_column_width * ( branches.length - 1 )) + MOSConstants.Line.Size;
@@ -26,7 +26,7 @@ const BranchesNode = props => {
 	let end_line_left = 0;
 	let end_line_width;
 
-	const end_type = !inner ? detectBranchesNodeEndType( branches ) : null;
+	const end_type = end || ( !inner ? detectBranchesNodeEndType( branches ) : null );
 
 	switch ( end_type ) {
 

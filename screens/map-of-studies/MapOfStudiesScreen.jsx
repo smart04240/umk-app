@@ -48,7 +48,6 @@ export default function MapOfStudiesScreen() {
 			const degree = current_study?.study?.level_of_study_short;
 			const { structure, data, years_amount } = getBasicStructureAndData( degree, current_study );
 		
-
 			setStructure( structure );
 			setStructureData( data );
 			setYearsAmount( years_amount );
@@ -73,8 +72,9 @@ export default function MapOfStudiesScreen() {
 						/>
 					</View>
 
-					{ structure && 
+					{ !!structure && 
 						<MapOfStudiesStructure
+							study_id={ current_study?.id }
 							structure={ structure }
 							structure_data={ structure_data }
 							years_amount={ years_amount }
