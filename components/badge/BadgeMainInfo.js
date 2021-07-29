@@ -15,11 +15,11 @@ const BadgeMainInfo = props => {
 	const text_color = { color: ThemeStyles.dark_blue_text };
 	const [info, setInfo] = useState([
 		{
-			heading: 'Ile studentów ma odznakę',
+			heading: {pl: 'Ile studentów ma odznakę', en: 'How many students have a badge'},
 			item: [{ value: ``, label: '' }],
 		},
 		{
-			heading: 'Punkty za odznakę',
+			heading: {pl: 'Punkty za odznakę', en: 'Badge points'},
 			item: { value: `${badge?.points}` }
 		}
 	]);
@@ -60,7 +60,7 @@ const BadgeMainInfo = props => {
 					<View key={index} style={{marginBottom: 10}}>
 
 						<Text style={[styles.font_family, styles.small, text_color]}>
-							{heading}
+							{translate(heading)}
 						</Text>
 
 						{Array.isArray(item)
