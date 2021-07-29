@@ -20,9 +20,7 @@ export default function MapOfStudiesScreen() {
 	const user = useSelector( state => state.user );
     const user_studies = user.studies
 	
-	const [ structure, setStructure ] = useState( null );
-	const [ structure_data, setStructureData ] = useState( null );
-	const [ years_amount, setYearsAmount ] = useState( null );
+	const [ all_structure_data, setAllStructureData ] = useState( null );
 	const [ chosen_study_id, setChosenStudyId ] = useState( null );
 
 	const studies_options = useMemo(() => (
@@ -45,19 +43,19 @@ export default function MapOfStudiesScreen() {
 
 		if ( current_study ) {
 
+			setAllStructureData( null );
+
 			const degree = current_study?.study?.level_of_study_short;
-			const { structure, data, years_amount } = getBasicStructureAndData( degree, current_study );
+			const all_data = getBasicStructureAndData( degree, current_study );
 		
-			setStructure( structure );
-			setStructureData( data );
-			setYearsAmount( years_amount );
+			setTimeout(() => setAllStructureData( all_data ), 50 )
 		}
 
 	}, [ current_study ])
 
 	// console.log( "USER STUDIES", user_studies );
 	// console.log( "CURRENT STUDY", current_study );	
-	console.log( "DATA:", structure_data );
+	!!all_structure_data && console.log( "DATA:", all_structure_data );
 
 	return (
 		<ScreenWithRoundedHeader>
@@ -72,13 +70,8 @@ export default function MapOfStudiesScreen() {
 						/>
 					</View>
 
-					{ !!structure && 
-						<MapOfStudiesStructure
-							study_id={ current_study?.id }
-							structure={ structure }
-							structure_data={ structure_data }
-							years_amount={ years_amount }
-						/>				
+					{ !!all_structure_data && 
+						<MapOfStudiesStructure all_data={ all_structure_data }/>				
 					}
 					
 				</ContainerWithScroll>

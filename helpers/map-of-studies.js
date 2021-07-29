@@ -99,14 +99,14 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 	return { 
 		structure,
 		years_amount,
-		data: getDataForAllYears( current_study )
+		years_data: getDataForAllYears( current_study )
 	}
 }
 
 
-export const putDataIntoStructure = ( structure, data ) => {
+export const changeAPointsInStructure = ( structure, years_data ) => {
 
-	if ( !structure || !data ) return null;
+	if ( !structure || !years_data ) return null;
 
 	const getStrWithData = ( str, year, term_field ) => {
 		
@@ -120,7 +120,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
 
-				if ( !data?.[ year ] || !term_field ) { 
+				if ( !years_data?.[ year ] || !term_field ) { 
 					return data_param_kind === "year"
 						? str.replace(/(#\w+)/g, "")
 						: null;
@@ -129,7 +129,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 				let value;
 
 				switch ( data_param_kind ) {
-					case "year": value = data[ year ][ data_param_name ];
+					case "year": value = years_data[ year ][ data_param_name ];
 						break;
 
 					case "term_field":
@@ -151,8 +151,8 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 		const { label, small_label, year, term_field_id } = component_obj;
 
-		const term_field = data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
-		const passed = data?.[ year ] && data?.[ year ].status !== "X";
+		const term_field = years_data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
+		const passed = years_data?.[ year ] && years_data?.[ year ].status !== "X";
 
 		return {
 			...component_obj,
@@ -196,7 +196,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 }
 
 
-export const getFinalStructure = ( whole_structure, data, years_amount ) => {
+export const getFinalStructure = ( whole_structure, years_data, years_amount ) => {
 
 	if ( !whole_structure ) return null;
 
@@ -217,13 +217,9 @@ export const getFinalStructure = ( whole_structure, data, years_amount ) => {
 
 				if ( !node_year_status ) return true;
 				
-				const is_status_arr = Array.isArray( status );
-
 				return Array.isArray( node_year_status )
-					? is_status_arr 
-						? !!status.filter( s => node_year_status.includes( s ))?.length 
-						: node_year_status.includes( status )
-					: is_status_arr ? status.includes( node_year_status ) : node_year_status === status;
+					? node_year_status.includes( status )
+					: node_year_status === status;
 			}
 
 			return false;
@@ -325,8 +321,8 @@ export const getFinalStructure = ( whole_structure, data, years_amount ) => {
 
 	const buildFinalStructure = () => {
 
-		const current_year_num = data.findIndex( year => year?.status === "X" );
-		const past_years_data = [ null, ...data.filter( year => year?.status !== "X" )];
+		const current_year_num = years_data.findIndex( year => year?.status === "X" );
+		const past_years_data = [ null, ...years_data.filter( year => year?.status !== "X" )];
 
 		const past_part = getPastPartOfStructure( past_years_data );
 		const future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
@@ -335,7 +331,7 @@ export const getFinalStructure = ( whole_structure, data, years_amount ) => {
 	}
 
 
-	return !data?.length || data?.[1]?.status === "X"
+	return !years_data?.length || years_data?.[1]?.status === "X"
 		? whole_structure
 		: buildFinalStructure();
 }
