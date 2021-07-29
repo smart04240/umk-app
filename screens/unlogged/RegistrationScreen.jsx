@@ -69,9 +69,7 @@ export default function RegistrationScreen(props) {
 
         API.user.update({ nick_name: nick }).then(() => {
             dispatch(Actions.User.Registered(nick));
-            API.badges.scoring().then(res => {
-                props.navigation.reset({ index: 0, routes: [{ name: tutorialViewed ? Routes.Start : Routes.Tutorial }] });
-            });
+            props.navigation.reset({ index: 0, routes: [{ name: tutorialViewed ? Routes.Start : Routes.Tutorial }] });
         })
             .catch(error => {
                 if (error?.response?.status === 422 && error?.response?.data?.nick_name) {

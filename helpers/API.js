@@ -193,7 +193,6 @@ API.badges = {
     getPromoted: () => API.get('badge/promoted'),
     getEarnedPercentage: (params) => API.get('badge/earnedPercentage', {params}),
     getStartedEarning: () => API.get('badge/startedEarning'),
-    scoring: () => API.get('badge/scoring')
 }
 
 /**

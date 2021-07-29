@@ -39,7 +39,7 @@ const BadgeMainInfo = props => {
 	}, []);
 
 	const itemJsx = (item, i) => (
-		<View style={[GeneralStyles.row_wrap, { alignItems: "center"}]} >
+		<View key={i} style={[GeneralStyles.row_wrap, { alignItems: "center"}]} >
 			<Text style={[styles.font_family, styles.big, text_color]}>
 				{item?.value}
 			</Text>
@@ -64,7 +64,7 @@ const BadgeMainInfo = props => {
 						</Text>
 
 						{Array.isArray(item)
-							? item.map(_item => itemJsx(_item))
+							? item.map((_item, i) => itemJsx(_item, i))
 							: itemJsx(item)
 						}
 					</View>

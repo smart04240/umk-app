@@ -927,6 +927,6 @@ export default {
     },
     Required: {
         en: "This field is required",
-        pl: "Wpisanie tytułu jest obowiązkowe!"
+        pl: "Zaakceptowanie powyższej zgody jest obowiązkowe!"
     },
 };
