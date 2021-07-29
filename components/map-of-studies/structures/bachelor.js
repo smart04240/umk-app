@@ -174,7 +174,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 1,
-						term_field_id: 3,
+						term_field_id: 2,
 						label: "podanie o powtarzanie", 
 						small_label: "(do #term_field#start_date)" 
 					}
@@ -314,7 +314,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2, 
-						term_field_id: 3,
+						term_field_id: 2,
 						label: "podanie o powtarzanie", 
 						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20 
@@ -355,7 +355,7 @@ export default [
 					{
 						Component: Point, 
 						year: 3, 
-						term_field_id: 3,
+						term_field_id: 2,
 						label: "podanie o powtarzanie", 
 						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20 

@@ -45,6 +45,7 @@ export default [
 
 	{
 		Component: BranchesNode,
+		end: "half-right",
 		year: 1,
 		branches: [
 			{
@@ -105,7 +106,7 @@ export default [
 									{
 										Component: Point, 
 										year: 2,
-										term_field_id: 3,
+										term_field_id: 2,
 										label: "podanie o powtarzanie", 
 										small_label: "(do #term_field#start_date)", 
 										bottom_margin: 0 
@@ -189,7 +190,7 @@ export default [
 								year: 2,
 								year_status: "T",
 								left: MOSConstants.Column.Default,
-								children: { Component: Point, year: 2, label: "zaliczenie warunku i II roku", bottom_margin: 235 }
+								children: { Component: Point, year: 2, label: "zaliczenie warunku i II roku", bottom_margin: 250 }
 							}
 						]
 					}
@@ -210,7 +211,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 1,
-						term_field_id: 3,
+						term_field_id: 2,
 						label: "podanie o powtarzanie", 
 						small_label: "(do #term_field#start_date)", 
 						bottom_margin: 20 

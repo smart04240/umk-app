@@ -8,6 +8,29 @@ import BranchesNode from "../components/map-of-studies/BranchesNode";
 
 import moment from "moment";
 
+const DEGREES = {
+	"(s1)": {
+		years_amount: 3,
+		structure: bachelor_structure
+	},
+	
+	"(s2)": {
+		years_amount: 2,
+		structure: master_structure
+	},
+
+	"(sj)": {
+		years_amount: 5,
+		structure: null 
+	},
+
+	"(mish)": {
+		years_amount: 2,
+		structure: mish_structure
+	}
+}
+
+
 export const detectBranchesNodeEndType = branches => {
 
 	if ( !branches.filter( item => item.dead_end ).length ) 
@@ -34,32 +57,11 @@ export const detectBranchesNodeEndType = branches => {
 			
 			if ( first_branch.dead_end && !second_branch.dead_end && !third_branch.dead_end ) return "half-right";
 
+			if ( !first_branch.dead_end && second_branch.dead_end && !third_branch.dead_end ) return "full";
+
 			break;
 	}
 } 
-
-
-const DEGREES = {
-	"(s1)": {
-		years_amount: 3,
-		structure: bachelor_structure
-	},
-	
-	"(s2)": {
-		years_amount: 2,
-		structure: master_structure
-	},
-
-	"(sj)": {
-		years_amount: 5,
-		structure: null 
-	},
-
-	"(mish)": {
-		years_amount: 2,
-		structure: mish_structure
-	}
-}
 
 
 const getDataForAllYears = current_study => {
@@ -97,14 +99,14 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 	return { 
 		structure,
 		years_amount,
-		data: getDataForAllYears( current_study )
+		years_data: getDataForAllYears( current_study )
 	}
 }
 
 
-export const putDataIntoStructure = ( structure, data ) => {
+export const changeAPointsInStructure = ( structure, years_data ) => {
 
-	if ( !structure || !data ) return null;
+	if ( !structure || !years_data ) return null;
 
 	const getStrWithData = ( str, year, term_field ) => {
 		
@@ -118,7 +120,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
 
-				if ( !data?.[ year ] || !term_field ) { 
+				if ( !years_data?.[ year ] || !term_field ) { 
 					return data_param_kind === "year"
 						? str.replace(/(#\w+)/g, "")
 						: null;
@@ -127,7 +129,7 @@ export const putDataIntoStructure = ( structure, data ) => {
 				let value;
 
 				switch ( data_param_kind ) {
-					case "year": value = data[ year ][ data_param_name ];
+					case "year": value = years_data[ year ][ data_param_name ];
 						break;
 
 					case "term_field":
@@ -145,57 +147,58 @@ export const putDataIntoStructure = ( structure, data ) => {
 	}
 
 
-	const getChangedComponentObj = component_obj => {
-
-		if ( !component_obj.year ) return component_obj;
+	const getChangedPointObj = component_obj => {
 
 		const { label, small_label, year, term_field_id } = component_obj;
 
-		const term_field = data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
-
-		const passed = data?.[ year ] && data?.[ year ].status !== "X";
+		const term_field = years_data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
+		const passed = years_data?.[ year ] && years_data?.[ year ].status !== "X";
 
 		return {
 			...component_obj,
 			label: getStrWithData( label, year, term_field ),
-			small_label: getStrWithData( small_label, year, term_field ),
-			passed 
+			small_label: getStrWithData( small_label, year, term_field ), 
+			passed
 		};
 	}
 
 
-	const getStructureWithData = structure => {
-
-		return structure.map( component_obj => {
+	const getStructureWithData = structure => (
+		structure.map( component_obj => {
 
 			const { Component, children } = component_obj;
-
+			
 			switch ( Component ) {
 				
-				case Point: return getChangedComponentObj( component_obj );
+				case Point: return getChangedPointObj( component_obj );
 
 				case Branch: return { 
 					...component_obj, 
 					children: Array.isArray( children )
 						? getStructureWithData( children )
 						: children?.Component === Point 
-							? getChangedComponentObj( children )
-							: component_obj 
+							? getChangedPointObj( children )
+							: children 
 				}
 
-				case BranchesNode: return { ...component_obj, branches: getStructureWithData( component_obj.branches )}
+				case BranchesNode: return { 
+					...component_obj, 
+					branches: getStructureWithData( component_obj.branches )
+				}
 
 				default: return component_obj;
 			}
-		
 		})
-	} 
+	)
+
 
 	return getStructureWithData( structure )
 }
 
 
-export const getFinalStructure = ( whole_structure, data, years_amount ) => {
+export const getFinalStructure = ( whole_structure, years_data, years_amount ) => {
+
+	if ( !whole_structure ) return null;
 
 	const maybe_next_year_part = [];
 
@@ -214,13 +217,9 @@ export const getFinalStructure = ( whole_structure, data, years_amount ) => {
 
 				if ( !node_year_status ) return true;
 				
-				const is_status_arr = Array.isArray( status );
-
 				return Array.isArray( node_year_status )
-					? is_status_arr 
-						? !!status.filter( s => node_year_status.includes( s ))?.length 
-						: node_year_status.includes( status )
-					: is_status_arr ? status.includes( node_year_status ) : node_year_status === status;
+					? node_year_status.includes( status )
+					: node_year_status === status;
 			}
 
 			return false;
@@ -322,20 +321,17 @@ export const getFinalStructure = ( whole_structure, data, years_amount ) => {
 
 	const buildFinalStructure = () => {
 
-		const current_year_num = data.findIndex( year => year?.status === "X" );
-		const past_years_data = [ null, ...data.filter( year => year?.status !== "X" )];
+		const current_year_num = years_data.findIndex( year => year?.status === "X" );
+		const past_years_data = [ null, ...years_data.filter( year => year?.status !== "X" )];
 
 		const past_part = getPastPartOfStructure( past_years_data );
 		const future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
-		
-		// console.log( past_part );
-		// console.log( future_part );
 
 		return [...past_part, ...future_part ];
 	}
 
 
-	return !data.length || data?.[1]?.status === "X"
+	return !years_data?.length || years_data?.[1]?.status === "X"
 		? whole_structure
 		: buildFinalStructure();
 }
