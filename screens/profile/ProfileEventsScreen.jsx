@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
@@ -157,12 +157,9 @@ const ProfileEventsScreen = props => {
 					</Container>
 				</Swiper>
 
-				<View style={{ marginVertical: 20, marginHorizontal: 20}}>
-					<Button
-						transparent_bg={ true }
-						onPress={ () => navigation.navigate( Routes.ProfileEdit )}
-					>
-						{ translate( Translations.ReturnToProfileEdit )}
+				<View style={{marginVertical: 20, marginHorizontal: 20}}>
+					<Button onPress={() => navigation.navigate(Routes.ProfileEdit)}>
+						{translate(Translations.ReturnToProfileEdit)}
 					</Button>
 				</View>
 			</MainWithNavigation>
