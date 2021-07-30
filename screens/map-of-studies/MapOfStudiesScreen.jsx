@@ -40,7 +40,6 @@ export default function MapOfStudiesScreen() {
 
 
 	useEffect(() => {
-
 		if ( current_study ) {
 
 			setAllStructureData( null );
@@ -50,8 +49,12 @@ export default function MapOfStudiesScreen() {
 		
 			setTimeout(() => setAllStructureData( all_data ), 100 )
 		}
-
 	}, [ current_study ])
+
+
+	useEffect(() => {
+		studies_options.length === 1 && setChosenStudyId( studies_options[0].value )
+	}, [ studies_options ])
 
 	// console.log( "USER STUDIES", user_studies );
 	// console.log( "CURRENT STUDY", current_study );	
@@ -62,13 +65,15 @@ export default function MapOfStudiesScreen() {
 			<MainWithNavigation>
 				<ContainerWithScroll container_style={{ paddingHorizontal: 0 }}>
 					
-					<View style={{ paddingHorizontal: 10, marginBottom: 20 }}>
-						<Dropdown
-							label={ translate( Translations.FilterSelectDirection )}
-							options={ studies_options }
-							onChange={ option => setChosenStudyId( option.value )}
-						/>
-					</View>
+					{ studies_options.length > 1 &&
+						<View style={{ paddingHorizontal: 10, marginBottom: 20 }}>
+							<Dropdown
+								label={ translate( Translations.FilterSelectDirection )}
+								options={ studies_options }
+								onChange={ option => setChosenStudyId( option.value )}
+							/>
+						</View>
+					}
 
 					{ !!all_structure_data && 
 						<MapOfStudiesStructure all_data={ all_structure_data }/>				

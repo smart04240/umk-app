@@ -65,26 +65,48 @@ export const detectBranchesNodeEndType = branches => {
 } 
 
 
-const getDataForAllYears = current_study => {
+const detectYearByCode = code => {
+	if ( !code ) return null;
+	return +code.match(/-\d\d?/)?.[0]?.replace("-", "")?.[0] || null;
+}
+
+
+const getDataForAllYears = ( current_study, years_amount ) => {
 
 	const data = [];
 	const { graduation_dates, studies_maps } = current_study;
 	
 	const getStudiesMapsForYear = id => studies_maps.filter( item => item.term_id === id );
 
-	graduation_dates.forEach( item  => {
+	if ( !!graduation_dates.length ) {
+		graduation_dates.forEach( item => {
 
-		const year = item.kolejnosc_etapu_osoby;
-		const year_id = item.academic_year_term.id; 
+			const year = detectYearByCode( item.kod_etapu_osoby );
+			const year_id = item.academic_year_term.id; 
+	
+			if ( year && !data?.[ year ]) {
+				data[ year ] = {
+					years: item.academic_year_term.usos_id,
+					status: item.status_zaliczenia_etapu_osoby || "X",
+					studies_maps: getStudiesMapsForYear( year_id )
+				};
+			}
+		});
 
-		if ( year && !data?.[ year ]) {
-			data[ year ] = {
-				years: item.academic_year_term.usos_id,
-				status: item.status_zaliczenia_etapu_osoby || "X",
-				studies_maps: getStudiesMapsForYear( year_id )
-			};
+		if ( data.length - 1 < years_amount ) {
+
+			const last_data_year = data[ data.length - 1 ]; 
+	
+			if ( last_data_year.status !== "X" ) {
+				if ( ![ "T", "N", "R" ].includes( last_data_year.status )) {
+					data.push({
+						status: "X",
+						studies_maps: []
+					})
+				}
+			}
 		}
-	});
+	}
 
 	return data;
 }
@@ -100,7 +122,7 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 	return { 
 		structure,
 		years_amount,
-		years_data: getDataForAllYears( current_study )
+		years_data: getDataForAllYears( current_study, years_amount )
 	}
 }
 
