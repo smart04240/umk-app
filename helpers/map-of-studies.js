@@ -5,6 +5,7 @@ import mish_structure from "../components/map-of-studies/structures/mish";
 import Point from "../components/map-of-studies/point/Point";
 import Branch from "../components/map-of-studies/Branch";
 import BranchesNode from "../components/map-of-studies/BranchesNode";
+import DropdownGroup from "../components/map-of-studies/DropdownGroup";
 
 import moment from "moment";
 
@@ -200,7 +201,7 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 
 	if ( !whole_structure ) return null;
 
-	const maybe_next_year_part = [];
+	const maybe_next_year_parts = [];
 
 	const getPastPartOfStructure = past_years_data => {
 
@@ -276,7 +277,7 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 
 										if ( branches_nodes && branches_nodes.length ) { 
 											branches_nodes.forEach( branch_nodes => {
-												maybe_next_year_part.push( branch_nodes );
+												maybe_next_year_parts.push( branch_nodes );
 											});
 										}
 									}
@@ -290,7 +291,7 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 				})
 			}
 
-			parserStructureLevel([...maybe_next_year_part, ...whole_structure ]);
+			parserStructureLevel([...maybe_next_year_parts, ...whole_structure ]);
 		}
 
 
@@ -308,7 +309,7 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 
 		const future_part = [];
 
-		maybe_next_year_part?.length && maybe_next_year_part.forEach( item => {
+		maybe_next_year_parts?.length && maybe_next_year_parts.forEach( item => {
 			item.year === current_year_num && future_part.push( item )
 		});
 
@@ -319,15 +320,51 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 	}
 
 
+	const getPastPartWithDropdownGroup = past_part => {
+	
+		const all_brach_children = past_part[0].children;
+		const new_children = [ all_brach_children[0] ];
+		
+		const year_points = all_brach_children.filter( item => item.Component === Point && /^ROK/.test( item.label ))
+		const year_points_length = year_points.length; 
+
+		if ( year_points_length <= 1 ) return past_part;
+		else {
+
+			const not_ended_year_point_index = year_points_length - 1; 
+
+			for ( let i = 0; i < not_ended_year_point_index; i++ ) {
+				const year = year_points[i].year;
+				new_children.push( year_points[ i ]);
+				new_children.push({
+					Component: DropdownGroup,
+					children: all_brach_children.filter( item => item.year === year && !/^ROK/.test( item.label )) 
+				})
+			}
+
+			const not_ended_year = year_points[ not_ended_year_point_index ].year;
+			const not_ended_year_points = all_brach_children.filter( item => item.year === not_ended_year );
+
+			new_children.push(...not_ended_year_points );
+
+			return [{
+				Component: Branch,
+				children: new_children
+			}]
+		}
+	}
+
+
 	const buildFinalStructure = () => {
 
 		const current_year_num = years_data.findIndex( year => year?.status === "X" );
 		const past_years_data = [ null, ...years_data.filter( year => year?.status !== "X" )];
 
 		const past_part = getPastPartOfStructure( past_years_data );
+		const past_part_with_dropdowns = getPastPartWithDropdownGroup( past_part );
 		const future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
 
-		return [...past_part, ...future_part ];
+		return [...past_part_with_dropdowns, ...future_part ];
 	}
 
 

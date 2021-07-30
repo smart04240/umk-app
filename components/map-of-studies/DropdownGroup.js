@@ -15,16 +15,24 @@ if (
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
+
+const getChildComponent = ( obj, extra ) => {
+	const { Component, ...props } = obj;
+	return 
+}
+
 const DropdownGroup = props => {
 
 	const [ open, setOpen ] = useState( false );
 	const icon_name = open ? "minus" : "plus";
 
-	return (
-		<View>
+	const { children } = props;
 
-			<Row style={{ justifyContent: "center" }}>
-				<View>
+	return (
+		<View style={{ width: "100%" }}>
+
+			<View style={{ alignItems: "center" }}>
+				<View style={{ alignItems: "center" }}>
 
 					<TouchableOpacity 
 						activeOpacity={ 0.8 }
@@ -40,7 +48,6 @@ const DropdownGroup = props => {
 							colors={[ "#034EA2", "#226EC5" ]}
 							style={{
 								...GeneralStyles.row_centered,
-								marginBottom: 22,
 								width: MOSConstants.DropdownCircle.Size,
 								height: MOSConstants.DropdownCircle.Size,
 								borderRadius: MOSConstants.DropdownCircle.Radius
@@ -56,16 +63,20 @@ const DropdownGroup = props => {
 					</TouchableOpacity>
 
 					<Line
-						height={ MOSConstants.DropdownCircle.Size + 22}
-						left={ MOSConstants.DropdownCircle.Radius - MOSConstants.Line.Size / 2 + 5  }
+						position="relative"
+						height={ 20 }
 					/>
 
 				</View>
-			</Row>
+			</View>
 
 			{ open && 
 				<View>
-					{ props.children }
+					{ children && !!children.length && 
+						children.map(({ Component, ...props }, i ) => (
+							<Component key={ i } {...props } />
+						))
+					}
 				</View>
 			}
 		</View>

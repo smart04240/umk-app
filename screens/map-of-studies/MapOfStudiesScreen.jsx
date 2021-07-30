@@ -48,14 +48,14 @@ export default function MapOfStudiesScreen() {
 			const degree = current_study?.study?.level_of_study_short;
 			const all_data = getBasicStructureAndData( degree, current_study );
 		
-			setTimeout(() => setAllStructureData( all_data ), 50 )
+			setTimeout(() => setAllStructureData( all_data ), 100 )
 		}
 
 	}, [ current_study ])
 
 	// console.log( "USER STUDIES", user_studies );
 	// console.log( "CURRENT STUDY", current_study );	
-	!!all_structure_data && console.log( "DATA:", all_structure_data );
+	// !!all_structure_data && console.log( "DATA:", all_structure_data );
 
 	return (
 		<ScreenWithRoundedHeader>
