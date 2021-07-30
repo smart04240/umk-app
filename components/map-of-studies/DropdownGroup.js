@@ -15,12 +15,6 @@ if (
 	UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-
-const getChildComponent = ( obj, extra ) => {
-	const { Component, ...props } = obj;
-	return 
-}
-
 const DropdownGroup = props => {
 
 	const [ open, setOpen ] = useState( false );
