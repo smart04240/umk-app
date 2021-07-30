@@ -76,19 +76,19 @@ const getDataForAllYears = ( current_study, years_amount ) => {
 	const data = [];
 	const { graduation_dates, studies_maps } = current_study;
 	
-	const getStudiesMapsForYear = id => studies_maps.filter( item => item.term_id === id );
+	const getStudiesMapsForYear = term_id => studies_maps.filter( item => item.term_id === term_id );
 
 	if ( !!graduation_dates.length ) {
 		graduation_dates.forEach( item => {
 
 			const year = detectYearByCode( item.kod_etapu_osoby );
-			const year_id = item.academic_year_term.id; 
+			const term_id = item.academic_year_term?.id; 
 	
-			if ( year && !data?.[ year ]) {
+			if ( year ) {
 				data[ year ] = {
-					years: item.academic_year_term.usos_id,
+					years: item.academic_year_term?.usos_id,
 					status: item.status_zaliczenia_etapu_osoby || "X",
-					studies_maps: getStudiesMapsForYear( year_id )
+					studies_maps: getStudiesMapsForYear( term_id )
 				};
 			}
 		});
