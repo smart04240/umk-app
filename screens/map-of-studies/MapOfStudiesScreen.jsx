@@ -12,6 +12,7 @@ import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHe
 import Dropdown from "../../components/form/Dropdown";
 import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesStructure";
 import { getBasicStructureAndData } from "../../helpers/map-of-studies";
+import useDidChange from "../../hooks/useDidChange";
 
 export default function MapOfStudiesScreen() {
 
@@ -39,10 +40,11 @@ export default function MapOfStudiesScreen() {
 	), [ chosen_study_id ]);
 
 
-	useEffect(() => {
-		if ( current_study ) {
+	useDidChange(() => {
 
-			setAllStructureData( null );
+		setAllStructureData( null );
+
+		if ( current_study ) {
 
 			const degree = current_study?.study?.level_of_study_short;
 			const all_data = getBasicStructureAndData( degree, current_study );
@@ -56,6 +58,7 @@ export default function MapOfStudiesScreen() {
 		studies_options.length === 1 && setChosenStudyId( studies_options[0].value )
 	}, [ studies_options ])
 
+	// console.log( "USER", user );
 	// console.log( "USER STUDIES", user_studies );
 	// console.log( "CURRENT STUDY", current_study );	
 	// !!all_structure_data && console.log( "DATA:", all_structure_data );
