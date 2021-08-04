@@ -94,22 +94,6 @@ const getDataForAllYears = ( current_study, years_amount ) => {
 				});
 			}
 		});
-
-
-		if ( data[ data.length - 1 ].year < years_amount ) {
-
-			const last_data_year = data[ data.length - 1 ]; 
-	
-			if ( last_data_year.status !== "X" ) {
-				if ( ![ "T", "N", "R" ].includes( last_data_year.status )) {
-					data.push({
-						year: last_data_year.year + 1,
-						status: "X",
-						studies_maps: []
-					})
-				}
-			}
-		}
 	}
 
 	return data;
@@ -314,16 +298,16 @@ export const getFinalStructure = ( structure, years_data ) => {
 
 										if ( is_children_array ) {
 
-											const not_from_current_year = item.children.filter( item => item.year !== year && item.Component !== BranchesNode );
-											const from_current_year = item.children.filter( item => item.year === year );
+											const updated_children = item.children.map( child => {
+												return child.Component === Point
+													? {...child, bottom_margin: 20, label_position: "left" }
+													: child
+											});
 
-											children = from_current_year
-												.filter( child => child.Component !== BranchesNode )
-												.map( child => {
-													return child.Component === Point
-														? {...child, bottom_margin: 20, label_position: "left" }
-														: child
-												});
+											const not_from_current_year = updated_children.filter( item => item.year !== year && item.Component !== BranchesNode )
+											const from_current_year = updated_children.filter( item => item.year === year );
+
+											children = from_current_year.filter( child => child.Component !== BranchesNode )
 
 											branches_nodes = item.children
 												.filter( child => child.Component === BranchesNode )
@@ -334,7 +318,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 														...branch,
 														left: 0,
 														absolute: false
-													})) 
+													}))
 												}));	
 
 											!!not_from_current_year.length && maybe_next_year_parts.push(...not_from_current_year );	
