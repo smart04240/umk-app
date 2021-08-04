@@ -177,7 +177,7 @@ export default [
 							{
 								Component: Branch,
 								year: 2,
-								year_status: "S",
+								year_status: "T",
 								dead_end: true,
 								absolute: true,
 								left: 0,
@@ -189,7 +189,7 @@ export default [
 							{
 								Component: Branch,
 								year: 2,
-								year_status: "T",
+								year_status: "S",
 								left: MOSConstants.Column.Default,
 								children: { Component: Point, year: 2, label: "zaliczenie warunku i II roku", bottom_margin: 250 }
 							}
@@ -229,7 +229,7 @@ export default [
 
 	{
 		Component: Branch,
-		year_status: [ "A", "Z" ],
+		year_status: [ "A", "Z", "S" ],
 		year: 2,
 		children: {
 			Component: Point,
@@ -240,7 +240,7 @@ export default [
 
 	{
 		Component: BranchesNode,
-		year_status: [ "A", "Z" ],
+		year_status: [ "A", "Z", "S" ],
 		year: 2,
 		branches: [
 			{
@@ -289,8 +289,7 @@ export default [
 	{
 		Component: Branch,
 		year: 2,
-		year_status: [ "A", "Z" ],
-		dead_end: true,
+		year_status: [ "A", "Z", "S" ],
 		children: [
 			{
 				Component: Point,
@@ -303,10 +302,13 @@ export default [
 				year: 2,
 				label: "OBRONA",
 				bottom_margin: 20
-			},
-			{
-				Component: FinishCircle
 			}
 		]
+	},
+
+	{
+		Component: Branch,
+		dead_end: true,
+		children: { Component: FinishCircle }
 	}
 ]

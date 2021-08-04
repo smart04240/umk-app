@@ -48,7 +48,7 @@ export default function MapOfStudiesScreen() {
 
 			const degree = current_study?.study?.level_of_study_short;
 			const all_data = getBasicStructureAndData( degree, current_study );
-		
+
 			setTimeout(() => setAllStructureData( all_data ), 100 )
 		}
 	}, [ current_study ])

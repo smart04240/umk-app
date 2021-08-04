@@ -10,6 +10,7 @@ export default [
 		Component: Branch,
 		children: { Component: StartCircle }
 	},
+
 	{
 		Component: Branch,
 		year: 1,
@@ -139,7 +140,8 @@ export default [
 								year_status: "S",
 								children: {
 									Component: Point,
-									label: "zaliczenie warunku",
+									year: 2,
+									label: "zaliczenie warunku i II roku",
 									bottom_margin: 100
 								}
 							},
@@ -152,7 +154,7 @@ export default [
 								left: MOSConstants.Column.Default,
 								children: [
 									{ Component: Point, year: 2, label: "niezaliczenie warunku", bottom_margin: 20 },
-									{ Component: Point, year: 2, label: "powtarzanie I roku" }
+									{ Component: Point, year: 2, label: "powtarzanie II roku" }
 								]
 							}
 						]
@@ -279,7 +281,7 @@ export default [
 								children: {
 									Component: Point,
 									year: 3,
-									label: "zaliczenie warunku",
+									label: "zaliczenie warunku i III roku",
 									bottom_margin: 100
 								}
 							},
@@ -292,7 +294,7 @@ export default [
 								left: MOSConstants.Column.Default,
 								children: [
 									{ Component: Point, year: 3, label: "niezaliczenie warunku", bottom_margin: 20 },
-									{ Component: Point, year: 3, label: "powtarzanie II roku" }
+									{ Component: Point, year: 3, label: "powtarzanie III roku" }
 								]
 							}
 						]
@@ -371,7 +373,7 @@ export default [
 
 	{
 		Component: Branch,
-		year_status: [ "A", "Z" ],
+		year_status: [ "A", "Z", "S" ],
 		year: 3,
 		children: {
 			Component: Point,
@@ -382,7 +384,7 @@ export default [
 
 	{
 		Component: BranchesNode,
-		year_status: [ "A", "Z" ],
+		year_status: [ "A", "Z", "S" ],
 		year: 3,
 		branches: [
 			{
@@ -408,15 +410,25 @@ export default [
 				year: 3,
 				dead_end: true,
 				children: [
-					{ Component: Point, year: 3, label: "Niezłożenie wymaganych dokumentów w terminie", bottom_margin: 20 },
-					{ Component: Point, year: 3, label: "skreślenie z listy studentów" }
+					{ 
+						Component: Point,
+						year: 3, 
+						label: "Niezłożenie wymaganych dokumentów w terminie", 
+						bottom_margin: 20 
+					},
+					{ 
+						Component: Point, 
+						year: 3, 
+						label: "skreślenie z listy studentów" 
+					}
 				]
 			}
 		]
 	},
+
 	{
 		Component: Branch,
-		year_status: [ "A", "Z" ],
+		year_status: [ "A", "Z", "S" ],
 		year: 3,
 		dead_end: true,
 		children: [
@@ -431,10 +443,13 @@ export default [
 				year: 3,
 				label: "OBRONA",
 				bottom_margin: 20
-			},
-			{
-				Component: FinishCircle
 			}
 		]
+	},
+
+	{
+		Component: Branch,
+		dead_end: true,
+		children: { Component: FinishCircle }
 	}
 ]

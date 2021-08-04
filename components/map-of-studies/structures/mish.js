@@ -10,6 +10,7 @@ export default [
 		Component: Branch,
 		children: { Component: StartCircle }
 	},
+	
 	{
 		Component: Branch,
 		year: 1,
@@ -371,10 +372,13 @@ export default [
 				year: 2,
 				label: "OBRONA",
 				bottom_margin: 20
-			},
-			{
-				Component: FinishCircle
 			}
 		]
+	},
+
+	{
+		Component: Branch,
+		dead_end: true,
+		children: { Component: FinishCircle }
 	}
 ]

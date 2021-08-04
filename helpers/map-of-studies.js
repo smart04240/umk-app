@@ -1,3 +1,5 @@
+import moment from "moment";
+
 import bachelor_structure from "../components/map-of-studies/structures/bachelor";
 import master_structure from "../components/map-of-studies/structures/master";
 import mish_structure from "../components/map-of-studies/structures/mish";
@@ -7,8 +9,8 @@ import Branch from "../components/map-of-studies/Branch";
 import BranchesNode from "../components/map-of-studies/BranchesNode";
 import DropdownGroup from "../components/map-of-studies/DropdownGroup";
 
-import moment from "moment";
 import StartCircle from "../components/map-of-studies/StartCircle";
+import FinishCircle from "../components/map-of-studies/FinishCircle";
 
 const DEGREES = {
 	"(s1)": {
@@ -32,6 +34,17 @@ const DEGREES = {
 	}
 }
 
+const getBranchStartCircle = () => ({
+	Component: Branch,
+	children: { Component: StartCircle }
+})
+
+
+const getBrachFinishCircle = () => ({
+	Component: Branch, 
+	dead_end: true, 
+	children: { Component: FinishCircle }
+})
 
 export const detectBranchesNodeEndType = branches => {
 
@@ -426,8 +439,13 @@ export const getFinalStructure = ( structure, years_data ) => {
 	
 		let future_part = current_year_num ? getFuturePartOfStructure( current_year_num ) : [];
 		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
+		if ( !future_part.length ) future_part = [ getBrachFinishCircle()];
 
-		return [ { Component: Branch, children: { Component: StartCircle }}, ...past_part_with_dropdowns, ...future_part ];
+		return [
+			getBranchStartCircle(), 
+			...past_part_with_dropdowns, 
+			...future_part 
+		];
 	}
 
 
