@@ -8,6 +8,7 @@ import BranchesNode from "../components/map-of-studies/BranchesNode";
 import DropdownGroup from "../components/map-of-studies/DropdownGroup";
 
 import moment from "moment";
+import StartCircle from "../components/map-of-studies/StartCircle";
 
 const DEGREES = {
 	"(s1)": {
@@ -85,21 +86,24 @@ const getDataForAllYears = ( current_study, years_amount ) => {
 			const term_id = item.academic_year_term?.id; 
 	
 			if ( year ) {
-				data[ year ] = {
+				data.push({
+					year: year,
 					years: item.academic_year_term?.usos_id,
 					status: item.status_zaliczenia_etapu_osoby || "X",
 					studies_maps: getStudiesMapsForYear( term_id )
-				};
+				});
 			}
 		});
 
-		if ( data.length - 1 < years_amount ) {
+
+		if ( data[ data.length - 1 ].year < years_amount ) {
 
 			const last_data_year = data[ data.length - 1 ]; 
 	
 			if ( last_data_year.status !== "X" ) {
 				if ( ![ "T", "N", "R" ].includes( last_data_year.status )) {
 					data.push({
+						year: last_data_year.year + 1,
 						status: "X",
 						studies_maps: []
 					})
@@ -127,11 +131,12 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 }
 
 
-export const changeAPointsInStructure = ( structure, years_data ) => {
+const changePointsInStructure = ( structure, years_data ) => {
 
 	if ( !structure || !years_data ) return null;
 
-	const getStrWithData = ( str, year, term_field ) => {
+
+	const getStrWithData = ( str, current_year_data, term_field ) => {
 		
 		if ( !str ) return null;
 
@@ -143,7 +148,7 @@ export const changeAPointsInStructure = ( structure, years_data ) => {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
 
-				if ( !years_data?.[ year ] || !term_field ) { 
+				if ( !current_year_data || !term_field ) { 
 					return data_param_kind === "year"
 						? str.replace(/(#\w+)/g, "")
 						: null;
@@ -152,7 +157,7 @@ export const changeAPointsInStructure = ( structure, years_data ) => {
 				let value;
 
 				switch ( data_param_kind ) {
-					case "year": value = years_data[ year ][ data_param_name ];
+					case "year": value = current_year_data[ data_param_name ];
 						break;
 
 					case "term_field":
@@ -170,18 +175,52 @@ export const changeAPointsInStructure = ( structure, years_data ) => {
 	}
 
 
+	const getPointСhronology = ( current_year_data, component_obj, term_field ) => {
+
+		let passed, current;
+
+		if ( current_year_data ) {
+
+			if ( current_year_data?.status !== "X" ) {
+				passed = true;
+			} else {
+				
+				if ( term_field ) {
+
+					switch ( component_obj.term_field_id ) {
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 9:			
+							passed = moment() > moment( term_field.start_date )
+							break;
+
+						case 6:
+						case 7:
+							passed = moment() > moment( term_field.end_date )
+							break;	
+					}
+				}
+			}
+		}
+
+		return { passed, current }
+	}
+
+
 	const getChangedPointObj = component_obj => {
 
-		const { label, small_label, year, term_field_id } = component_obj;
-
-		const term_field = years_data?.[ year ]?.studies_maps?.find( item => item.term_field_id === term_field_id );
-		const passed = years_data?.[ year ] && years_data?.[ year ].status !== "X";
+		const current_year_data = years_data?.find( item => item.year === component_obj?.year ); 
+		const term_field = current_year_data?.studies_maps?.find( item => item.term_field_id === component_obj.term_field_id );
+		const chronology = getPointСhronology( current_year_data, component_obj, term_field );
 
 		return {
 			...component_obj,
-			label: getStrWithData( label, year, term_field ),
-			small_label: getStrWithData( small_label, year, term_field ), 
-			passed
+			label: getStrWithData( component_obj.label, current_year_data, term_field ),
+			small_label: getStrWithData( component_obj.small_label, current_year_data, term_field ), 
+			...chronology
 		};
 	}
 
@@ -219,18 +258,19 @@ export const changeAPointsInStructure = ( structure, years_data ) => {
 }
 
 
-export const getFinalStructure = ( whole_structure, years_data, years_amount ) => {
+export const getFinalStructure = ( structure, years_data ) => {
 
-	if ( !whole_structure ) return null;
+	if ( !structure ) return null;
 
 	const maybe_next_year_parts = [];
 
+
 	const getPastPartOfStructure = past_years_data => {
 
-		const past_part = [{
+		const full_past_part = [{
 			Component: Branch,
 			children: []
-		}];
+		}] 
 		
 		const isNodePassed = ( node, year, status ) => {
 
@@ -251,12 +291,19 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 
 		const parseStructureForPastNodes = ( year, status ) => {
 
+			const past_part = [];
+
 			const parserStructureLevel = level => {
 
 				level.forEach( item => {
 					if ( item.year === year ) {
 						
 						switch ( item.Component ) {
+
+							case Point:
+								item.year === year && past_part.push({...item, bottom_margin: 20, label_position: "left" });
+								break;
+
 							case Branch:
 									if ( isNodePassed( item, year, status )) {
 
@@ -267,7 +314,10 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 
 										if ( is_children_array ) {
 
-											children = item.children
+											const not_from_current_year = item.children.filter( item => item.year !== year );
+											const from_current_year = item.children.filter( item => item.year === year );
+
+											children = from_current_year
 												.filter( child => child.Component !== BranchesNode )
 												.map( child => {
 													return child.Component === Point
@@ -287,14 +337,16 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 													})) 
 												}));	
 
+											!!not_from_current_year.length && maybe_next_year_parts.push(...not_from_current_year );	
+
 										} else {
 											children = {...item.children, bottom_margin: 20, label_position: "left" };
 										}
 
 
 										is_children_array
-											? past_part[0].children.push( ...children )
-											: past_part[0].children.push( children ) 
+											? past_part.push( ...children )
+											: past_part.push( children ) 
 
 
 										if ( branches_nodes && branches_nodes.length ) { 
@@ -306,24 +358,29 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 								break;
 		
 							case BranchesNode:
-								if ( item.year === year ) parserStructureLevel( item.branches );
+								item.year === year && parserStructureLevel( item.branches );
 								break;
 						}
 					}
 				})
 			}
 
-			parserStructureLevel([...maybe_next_year_parts, ...whole_structure ]);
+			parserStructureLevel([...maybe_next_year_parts, ...structure ]);
+
+			return past_part;
 		}
 
 
-		for ( let i = 1; i < past_years_data.length; i++ ) {
+		for ( let i = 0; i < past_years_data.length; i++ ) {
 
 			const past_year_obj = past_years_data[ i ];
-			parseStructureForPastNodes( i, past_year_obj.status );
+			const current_year_part = parseStructureForPastNodes( past_year_obj.year, past_year_obj.status );
+			const dated_current_year_part = changePointsInStructure( current_year_part, [ past_year_obj ]);
+
+			full_past_part[0].children.push( ...dated_current_year_part );
 		}
 
-		return past_part;
+		return full_past_part;
 	}
 
 
@@ -335,8 +392,8 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 			item.year === current_year_num && future_part.push( item )
 		});
 
-		const whole_structure_future_index = whole_structure.findIndex( item => item.year === current_year_num );
-		whole_structure_future_index !== -1 && future_part.push( ...whole_structure.slice( whole_structure_future_index )) 
+		const structure_future_index = structure.findIndex( item => item.year === current_year_num );
+		structure_future_index !== -1 && future_part.push( ...structure.slice( structure_future_index )) 
 
 		return future_part;
 	}
@@ -345,52 +402,49 @@ export const getFinalStructure = ( whole_structure, years_data, years_amount ) =
 	const getPastPartWithDropdownGroup = past_part => {
 	
 		const all_brach_children = past_part[0].children;
-		const new_children = [ all_brach_children[0] ];
+		const new_children = [];
 		
-		const year_points = all_brach_children.filter( item => item.Component === Point && /^ROK/.test( item.label ))
-		const year_points_length = year_points.length; 
+		const grouped_by_year = all_brach_children.reduce(( total, current ) => {
 
-		if ( year_points_length <= 1 ) return past_part;
-		else {
+			!total[ current.year ]
+				? total[ current.year ] = [ current ]
+				: total[ current.year ].push( current )
 
-			const not_ended_year_point_index = year_points_length - 1; 
+			return total;
+		}, {})
 
-			for ( let i = 0; i < not_ended_year_point_index; i++ ) {
-				const year = year_points[i].year;
-				new_children.push( year_points[ i ]);
-				new_children.push({
-					Component: DropdownGroup,
-					children: all_brach_children.filter( item => item.year === year && !/^ROK/.test( item.label )) 
-				})
-			}
-
-			const not_ended_year = year_points[ not_ended_year_point_index ].year;
-			const not_ended_year_points = all_brach_children.filter( item => item.year === not_ended_year );
-
-			new_children.push(...not_ended_year_points );
-
-			return [{
-				Component: Branch,
-				children: new_children
-			}]
-		}
+		Object.values( grouped_by_year ).forEach( items => {
+			new_children.push( items[0]);
+			new_children.push({
+				Component: DropdownGroup,
+				children: items.slice(1)
+			})
+		})
+		
+		return [{
+			Component: Branch,
+			children: new_children
+		}]
 	}
 
 
 	const buildFinalStructure = () => {
-
-		const current_year_num = years_data.findIndex( year => year?.status === "X" );
-		const past_years_data = [ null, ...years_data.filter( year => year?.status !== "X" )];
+	
+		const current_year_num = years_data.find( year => year?.status === "X" ).year;
+		const past_years_data = [...years_data.filter( year => year?.status !== "X" )];
+		const future_years_data = [...years_data.filter( year => year?.status === "X" )]
 
 		const past_part = getPastPartOfStructure( past_years_data );
 		const past_part_with_dropdowns = getPastPartWithDropdownGroup( past_part );
-		const future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
+		
+		let future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
+		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
 
-		return [...past_part_with_dropdowns, ...future_part ];
+		return [ { Component: Branch, children: { Component: StartCircle }}, ...past_part_with_dropdowns, ...future_part ];
 	}
 
 
-	return !years_data?.length || years_data?.[1]?.status === "X"
-		? whole_structure
+	return !years_data?.length || years_data?.[0]?.status === "X"
+		? changePointsInStructure( structure, years_data )
 		: buildFinalStructure();
 }

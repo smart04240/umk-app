@@ -8,11 +8,12 @@ import MOSConstants from "../../../constants/MOSConstants";
 export default [
 	{
 		Component: Branch,
+		children: { Component: StartCircle }
+	},
+	{
+		Component: Branch,
 		year: 1,
 		children: [
-			{
-				Component: StartCircle
-			},
 			{
 				Component: Point,
 				year: 1,
@@ -218,6 +219,7 @@ export default [
 					},
 					{ 
 						Component: Point, 
+						year: 1,
 						label: "powtarzanie I roku" 
 					}
 				]

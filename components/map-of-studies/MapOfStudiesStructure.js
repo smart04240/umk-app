@@ -1,14 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { changeAPointsInStructure, getFinalStructure } from '../../helpers/map-of-studies';
+import { getFinalStructure } from '../../helpers/map-of-studies';
 
 
 const MapOfStudiesStructure = props => {
 
 	const { structure, years_data, years_amount } = props.all_data;
-
-	const dated_structure = changeAPointsInStructure( structure, years_data );
-	const final_structure = getFinalStructure( dated_structure, years_data, years_amount );
+	const final_structure = getFinalStructure( structure, years_data );
 
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>
