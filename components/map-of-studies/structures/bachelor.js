@@ -107,7 +107,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2,
-						term_id: 1,
+						term_field_id: 1,
 						label: "ROK II #year#years\n(wpis warunkowy)", 
 						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
 						bottom_margin: 20 

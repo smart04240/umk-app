@@ -63,7 +63,7 @@ export default [
 						
 						Component: Point, 
 						year: 2,
-						term_id: 1,
+						term_field_id: 1,
 						label: "ROK II #year#years",
 						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
 						bottom_margin: 20 
@@ -71,7 +71,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2,
-						term_id: 6,
+						term_field_id: 6,
 						label: "Sesja egzaminacyjna zimowa",
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
 						bottom_margin: 20 
@@ -79,7 +79,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2, 
-						term_id: 7,
+						term_field_id: 7,
 						label: "Sesja egzaminacyjna letnia",
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
 						bottom_margin: 350 
@@ -147,7 +147,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2,
-						term_id: 1,
+						term_field_id: 1,
 						label: "ROK II #year#years\n(wpis warunkowy)",
 						small_label: "Wnioski ogólne\n(do #term_field#start_date)",
 						bottom_margin: 20 
@@ -155,7 +155,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2,
-						term_id: 6,
+						term_field_id: 6,
 						label: "Sesja egzaminacyjna zimowa",
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
 						bottom_margin: 20 
@@ -163,7 +163,7 @@ export default [
 					{ 
 						Component: Point, 
 						year: 2, 
-						term_id: 7,
+						term_field_id: 7,
 						label: "Sesja egzaminacyjna letnia",
 						small_label: "(od #term_field#start_date do #term_field#end_date)",
 						bottom_margin: 20 
