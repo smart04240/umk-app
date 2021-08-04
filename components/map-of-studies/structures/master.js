@@ -183,7 +183,7 @@ export default [
 								left: 0,
 								children: [
 									{ Component: Point, year: 2, label: "niezaliczenie warunku lub II roku", bottom_margin: 20 },
-									{ Component: Point, year: 2, label: "powtarzanie I roku" },
+									{ Component: Point, year: 2, label: "powtarzanie II roku" },
 								]
 							},
 							{
@@ -229,6 +229,7 @@ export default [
 
 	{
 		Component: Branch,
+		year_status: [ "A", "Z" ],
 		year: 2,
 		children: {
 			Component: Point,
@@ -239,6 +240,7 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year_status: [ "A", "Z" ],
 		year: 2,
 		branches: [
 			{
@@ -287,6 +289,7 @@ export default [
 	{
 		Component: Branch,
 		year: 2,
+		year_status: [ "A", "Z" ],
 		dead_end: true,
 		children: [
 			{

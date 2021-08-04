@@ -326,7 +326,6 @@ export default [
 	},
 
 	{
-
 		Component: BranchesNode,
 		year: 3,
 		branches: [
@@ -360,7 +359,11 @@ export default [
 						small_label: "(do #term_field#start_date)",
 						bottom_margin: 20 
 					},
-					{ Component: Point, year: 3, label: "powtarzanie III roku" }
+					{ 
+						Component: Point, 
+						year: 3, 
+						label: "powtarzanie III roku" 
+					}
 				]
 			}
 		]
@@ -368,6 +371,7 @@ export default [
 
 	{
 		Component: Branch,
+		year_status: [ "A", "Z" ],
 		year: 3,
 		children: {
 			Component: Point,
@@ -378,6 +382,7 @@ export default [
 
 	{
 		Component: BranchesNode,
+		year_status: [ "A", "Z" ],
 		year: 3,
 		branches: [
 			{
@@ -411,6 +416,7 @@ export default [
 	},
 	{
 		Component: Branch,
+		year_status: [ "A", "Z" ],
 		year: 3,
 		dead_end: true,
 		children: [

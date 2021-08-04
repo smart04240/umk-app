@@ -297,6 +297,7 @@ export default [
 
 	{
 		Component: Branch,
+		year_status: [ "A", "Z" ],
 		children: { 
 			Component: Point, 
 			year: 2,
@@ -306,6 +307,7 @@ export default [
 
 	{	
 		Component: BranchesNode,
+		year_status: [ "A", "Z" ],
 		year: 2,
 		end: "middle",
 		branches: [
@@ -355,6 +357,7 @@ export default [
 	{
 		Component: Branch,
 		year: 2,
+		year_status: [ "A", "Z" ],
 		dead_end: true,
 		children: [
 			{

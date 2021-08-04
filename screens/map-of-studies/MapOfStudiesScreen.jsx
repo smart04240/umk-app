@@ -61,7 +61,7 @@ export default function MapOfStudiesScreen() {
 	// console.log( "USER", user );
 	// console.log( "USER STUDIES", user_studies );
 	// console.log( "CURRENT STUDY", current_study );	
-	// !!all_structure_data && console.log( "DATA:", all_structure_data );
+	!!all_structure_data && console.log( "DATA:", all_structure_data );
 
 	return (
 		<ScreenWithRoundedHeader>

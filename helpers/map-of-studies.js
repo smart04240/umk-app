@@ -301,7 +301,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 						switch ( item.Component ) {
 
 							case Point:
-								item.year === year && past_part.push({...item, bottom_margin: 20, label_position: "left" });
+								isNodePassed( item, year, status ) && past_part.push({...item, bottom_margin: 20, label_position: "left" });
 								break;
 
 							case Branch:
@@ -314,7 +314,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 
 										if ( is_children_array ) {
 
-											const not_from_current_year = item.children.filter( item => item.year !== year );
+											const not_from_current_year = item.children.filter( item => item.year !== year && item.Component !== BranchesNode );
 											const from_current_year = item.children.filter( item => item.year === year );
 
 											children = from_current_year
@@ -358,7 +358,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 								break;
 		
 							case BranchesNode:
-								item.year === year && parserStructureLevel( item.branches );
+								isNodePassed( item, year, status ) && parserStructureLevel( item.branches );
 								break;
 						}
 					}
@@ -404,22 +404,25 @@ export const getFinalStructure = ( structure, years_data ) => {
 		const all_brach_children = past_part[0].children;
 		const new_children = [];
 		
-		const grouped_by_year = all_brach_children.reduce(( total, current ) => {
+		const year_points_indexes = all_brach_children.reduce(( result, current, i ) => {
 
-			!total[ current.year ]
-				? total[ current.year ] = [ current ]
-				: total[ current.year ].push( current )
+			/^ROK/.test( current.label ) && result.push( i )
+			return result;
+		}, []);
 
-			return total;
-		}, {})
+		year_points_indexes.forEach(( year_point_index, index ) => {
 
-		Object.values( grouped_by_year ).forEach( items => {
-			new_children.push( items[0]);
+			const next_year_point_index = year_points_indexes?.[ index + 1 ];
+			const dropdown_children = next_year_point_index
+				? all_brach_children.slice( year_point_index + 1, next_year_point_index )
+				: all_brach_children.slice( year_point_index + 1)
+
+			new_children.push( all_brach_children[ year_point_index ])
 			new_children.push({
 				Component: DropdownGroup,
-				children: items.slice(1)
+				children: dropdown_children
 			})
-		})
+		});
 		
 		return [{
 			Component: Branch,
@@ -430,14 +433,14 @@ export const getFinalStructure = ( structure, years_data ) => {
 
 	const buildFinalStructure = () => {
 	
-		const current_year_num = years_data.find( year => year?.status === "X" ).year;
+		const current_year_num = years_data.find( year => year?.status === "X" )?.year;
 		const past_years_data = [...years_data.filter( year => year?.status !== "X" )];
 		const future_years_data = [...years_data.filter( year => year?.status === "X" )]
 
 		const past_part = getPastPartOfStructure( past_years_data );
 		const past_part_with_dropdowns = getPastPartWithDropdownGroup( past_part );
-		
-		let future_part = current_year_num !== -1 ? getFuturePartOfStructure( current_year_num ) : [];
+	
+		let future_part = current_year_num ? getFuturePartOfStructure( current_year_num ) : [];
 		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
 
 		return [ { Component: Branch, children: { Component: StartCircle }}, ...past_part_with_dropdowns, ...future_part ];
