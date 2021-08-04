@@ -164,6 +164,7 @@ export default [
 								left: MOSConstants.Column.Default,
 								children: {
 									Component: Point, 
+									year: 2,
 									label: "zaliczenie II roku",
 									bottom_margin: 60
 								}

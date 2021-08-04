@@ -151,8 +151,8 @@ export default [
 								absolute: true,
 								left: MOSConstants.Column.Default,
 								children: [
-									{ Component: Point,  label: "niezaliczenie warunku", bottom_margin: 20 },
-									{ Component: Point,  label: "powtarzanie I roku" }
+									{ Component: Point, year: 2, label: "niezaliczenie warunku", bottom_margin: 20 },
+									{ Component: Point, year: 2, label: "powtarzanie I roku" }
 								]
 							}
 						]
@@ -371,6 +371,7 @@ export default [
 		year: 3,
 		children: {
 			Component: Point,
+			year: 3,
 			label: "PRACA DYPLOMOWA"
 		}
 	},
