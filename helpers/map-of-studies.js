@@ -109,7 +109,7 @@ const getDataForAllYears = ( current_study, years_amount ) => {
 		});
 	}
 
-	return data;
+	return data.sort(( a, b ) => a.year > b.year ? 1 : -1 );
 }
 
 
@@ -434,8 +434,8 @@ export const getFinalStructure = ( structure, years_data ) => {
 		const past_years_data = [...years_data.filter( year => year?.status !== "X" )];
 		const future_years_data = [...years_data.filter( year => year?.status === "X" )]
 
-		const past_part = getPastPartOfStructure( past_years_data );
-		const past_part_with_dropdowns = getPastPartWithDropdownGroup( past_part );
+		const past_part = !!past_years_data.length ? getPastPartOfStructure( past_years_data ) : [];
+		const past_part_with_dropdowns = !!past_part.length ? getPastPartWithDropdownGroup( past_part ) : [];
 	
 		let future_part = current_year_num ? getFuturePartOfStructure( current_year_num ) : [];
 		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
@@ -448,8 +448,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 		];
 	}
 
-
-	return !years_data?.length || years_data?.[0]?.status === "X"
+	return !years_data.length 
 		? changePointsInStructure( structure, years_data )
-		: buildFinalStructure();
+		: buildFinalStructure()
 }
