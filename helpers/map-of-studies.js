@@ -439,7 +439,6 @@ export const getFinalStructure = ( structure, years_data ) => {
 	
 		let future_part = current_year_num ? getFuturePartOfStructure( current_year_num ) : [];
 		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
-		if ( !future_part.length ) future_part = [ getBrachFinishCircle()];
 
 		return [
 			getBranchStartCircle(), 

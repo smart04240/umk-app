@@ -443,13 +443,8 @@ export default [
 				year: 3,
 				label: "OBRONA",
 				bottom_margin: 20
-			}
+			},
+			{ Component: FinishCircle }
 		]
-	},
-
-	{
-		Component: Branch,
-		dead_end: true,
-		children: { Component: FinishCircle }
 	}
 ]
