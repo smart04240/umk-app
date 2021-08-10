@@ -34,7 +34,7 @@ export default [
         icon: "comment-question-outline",
         icon_active: "comment-question",
         bottom: true,
-        screen: "",
+        screen: Routes.Simulations,
     },
     {
         label: Translations.ToDoList,

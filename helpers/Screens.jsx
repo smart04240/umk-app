@@ -34,6 +34,8 @@ import CalendarScreen from "../screens/calendar/CalendarScreen";
 import CreateEventScreen from "../screens/calendar/CreateEventScreen";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
+import SimulationsScreen from "../screens/simulations/SimulationsScreen";
+
 import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
 import Actions from "../redux/Actions";
@@ -164,6 +166,11 @@ const RegisteredScreens = {
             title: Translations.MapOfStudies,
             component: MapOfStudiesScreen
         },
+		{
+			name: Routes.Simulations,
+			title: Translations.Simulations,
+			component: SimulationsScreen
+		},
         {
             name: Routes.Map,
             title: Translations.Map,

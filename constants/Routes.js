@@ -14,6 +14,7 @@ export default {
 	ProfileEvents: "profile.events",
 
 	MapOfStudies: "map_of_studies",
+	Simulations: "simulations",
 
 	Map: "map",
 	MarkersList: "markers.list",

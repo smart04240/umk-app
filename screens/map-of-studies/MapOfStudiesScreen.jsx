@@ -4,6 +4,7 @@ import { View } from "react-native";
 
 import Translations from "../../constants/Translations";
 import useTranslator from "../../hooks/useTranslator";
+import useDidChange from "../../hooks/useDidChange";
 
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
@@ -12,7 +13,6 @@ import ScreenWithRoundedHeader from "../../components/layout/ScreenWithRoundedHe
 import Dropdown from "../../components/form/Dropdown";
 import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesStructure";
 import { getBasicStructureAndData } from "../../helpers/map-of-studies";
-import useDidChange from "../../hooks/useDidChange";
 
 export default function MapOfStudiesScreen() {
 
