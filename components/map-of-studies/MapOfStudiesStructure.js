@@ -5,7 +5,7 @@ import { getFinalStructure } from '../../helpers/map-of-studies';
 
 const MapOfStudiesStructure = props => {
 
-	const { structure, years_data, years_amount } = props.all_data;
+	const { structure, years_data } = props.all_data;
 	const final_structure = getFinalStructure( structure, years_data );
 
 	return (
