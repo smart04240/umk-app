@@ -141,7 +141,7 @@ export default [
 								children: {
 									Component: Point,
 									year: 2,
-									label: "zaliczenie warunku i II roku",
+									label: "zaliczenie warunku",
 									bottom_margin: 100
 								}
 							},
@@ -281,7 +281,7 @@ export default [
 								children: {
 									Component: Point,
 									year: 3,
-									label: "zaliczenie warunku i III roku",
+									label: "zaliczenie warunku",
 									bottom_margin: 100
 								}
 							},

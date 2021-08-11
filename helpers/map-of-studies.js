@@ -4,6 +4,7 @@ import bachelor_structure from "../components/map-of-studies/structures/bachelor
 import master_structure from "../components/map-of-studies/structures/master";
 import mish_structure from "../components/map-of-studies/structures/mish";
 
+import bachelor_simulations from "../components/map-of-studies/simulations/bachelor";
 import master_simulations from "../components/map-of-studies/simulations/master";
 
 import Point from "../components/map-of-studies/point/Point";
@@ -17,7 +18,8 @@ import FinishCircle from "../components/map-of-studies/FinishCircle";
 const DEGREES = {
 	"(s1)": {
 		years_amount: 3,
-		structure: bachelor_structure
+		structure: bachelor_structure,
+		simulations: bachelor_simulations
 	},
 	
 	"(s2)": {
@@ -117,6 +119,16 @@ const getDataForAllYears = ( current_study, years_amount ) => {
 }
 
 
+const getTilEndOfStudy = study => {
+
+	const planned_end_date = study?.graduation_dates?.find( item => !!item?.planowana_data_ukonczenia)?.planowana_data_ukonczenia;
+
+	return planned_end_date 
+		? moment.duration(moment().diff( planned_end_date )).humanize(false,{ M: 99999 })
+		: "N/A"
+}
+
+
 export const getBasicStructureAndData = ( degree, current_study ) => {
 
 	const current_degree = DEGREES?.[ degree ];
@@ -128,6 +140,7 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 		simulations,
 		structure,
 		years_amount,
+		til_end_of_study: getTilEndOfStudy( current_study ),
 		years_data: getDataForAllYears( current_study, years_amount )
 	}
 }
@@ -453,6 +466,18 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 		let future_part = current_year_num ? getFuturePartOfStructure( current_year_num ) : [];
 		if ( !!future_part.length ) future_part = changePointsInStructure( future_part, future_years_data );
 
+		if ( simulation_mode ) {
+
+			const last_future_part_el = future_part[ future_part.length - 1 ];
+			if ( last_future_part_el?.Component === Point ) {
+				last_future_part_el.bottom_margin = 0;
+			} else if ( last_future_part_el?.Component === Branch ) {
+				const last_point = last_future_part_el.children[ last_future_part_el.children.length - 1 ]; 
+				last_point.bottom_margin = 0;
+				last_future_part_el.dead_end = true;
+			}
+		}
+
 		return [
 			getBranchStartCircle(), 
 			...past_part_with_dropdowns, 
@@ -493,7 +518,7 @@ export const getBasicSimulationsStructure = data => {
 	const { years_data, simulations } = data;
 	const changed_years_data = years_data
 		.filter( item => ![ "X", "N", "R", "T" ].includes( item.status ))
-		.map( item => item.status )
+		.map( item => item.status )	
 
 	return getSimulationOptionByHistory( changed_years_data, simulations )?.options;
 }

@@ -5,8 +5,10 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Layout from '../../constants/Layout';
 import { getSimulationOptionByHistory } from '../../helpers/map-of-studies';
+import useTranslator from '../../hooks/useTranslator';
 
 import Button from "../form/Button";
+import Translations from '../../constants/Translations';
 
 
 const isButtonActive = ( value, choice ) => (
@@ -18,9 +20,10 @@ const isButtonActive = ( value, choice ) => (
 
 const StudySimulations = props => {
 
+	const translate = useTranslator();
     const ThemeStyles = useThemeStyles();
-	const { base } = props;
-	
+
+	const { base } = props;	
 	const [ choices, setChoices ] = useState([]);
 	
 	const text_styles = [
@@ -30,12 +33,15 @@ const StudySimulations = props => {
 
 	if ( !base ) return null;
 
-	console.log( choices );
-
 	return (
 		<View style={{ paddingHorizontal: Layout.paddingHorizontal }}>
-			<Text style={ text_styles }> Co może się wydarzyć? </Text>
-			<Text style={[ text_styles, { marginBottom: 10 }]}> Wybierz jedną z możliwych opcji! </Text>
+			<Text style={ text_styles }>
+				{ translate( Translations.WhatCouldHappen )}
+			</Text>
+			
+			<Text style={[ text_styles, { marginBottom: 10 }]}>
+				{ translate( Translations.ChooseOneOFOptions )}
+			</Text>
 
 			{ base && !!base.length &&
 				base.map(( item, i ) => (
@@ -57,8 +63,10 @@ const StudySimulations = props => {
 					return !choice_option?.options
 						? <Text key={ choice } style={ text_styles }> { choice_option.text } </Text>
 						: (
-							<>
-								<Text style={[ text_styles, { marginBottom: 10 }]}> Co dalej? </Text>
+							<React.Fragment key={ choice + index }>
+								<Text style={[ text_styles, { marginBottom: 10 }]}>
+									{ translate( Translations.WhatsNext )}
+								</Text>
 
 								{ choice_option.options && !!choice_option.options.length &&
 									choice_option.options.map(( item, i ) => (
@@ -76,7 +84,7 @@ const StudySimulations = props => {
 										</Button>
 									)) 
 								}
-							</>
+							</React.Fragment>
 						) 
 				})
 			}

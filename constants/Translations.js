@@ -343,6 +343,26 @@ export default {
         pl: "Do końca studiów"
     },
 
+	EndOfStudies2: {
+		pl: "Do zakończenia studiów pozostało:",
+		en: "Until the end of studies:"
+	},
+
+	WhatCouldHappen: {
+		en: "What could happen?",
+		pl: "Co może się wydarzyć?"
+	},
+
+	ChooseOneOFOptions: {
+		en: "Wybierz jedną z możliwych opcji!",
+		pl: "Wybierz jedną z możliwych opcji!"
+	},
+
+	WhatsNext: {
+		en: "What's next?",
+		pl: "Co dalej?"
+	},
+
     EditAvatar: {
         en: "Edit avatar",
         pl: "Edytuj awatar"
