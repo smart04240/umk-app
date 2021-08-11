@@ -22,10 +22,12 @@ export default [
 	{
 		name: "zaliczenie I roku",
 		value: [ "Z", "A" ],
+		text: "Jeżeli zaliczysz I rok zostajesz zapisany na rok II",
 		options: [
 			{
 				name: "zaliczenie II roku",
 				value: [ "Z", "A" ],
+				text: "Jeśli zaliczysz II rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!",
 				options: same_last_part
 			},
 			{
@@ -38,10 +40,12 @@ export default [
 	{
 		name: "warunkowe zaliczenie I roku",
 		value: "W",
+		text: "Jeśli zaliczysz warunek, a następnie zaliczysz I rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok II!",
 		options: [
 			{
 				name: "zaliczenie warunku i II roku",
 				value: "S",
+				text: "Jeśli zaliczysz II rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!",
 				options: same_last_part
 			},
 			{

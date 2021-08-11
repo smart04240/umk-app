@@ -60,16 +60,22 @@ const StudySimulations = props => {
 
 					const choice_option = getSimulationOptionByHistory( choices.slice( 0, index + 1 ), base );
 
-					return !choice_option?.options
-						? <Text key={ choice } style={ text_styles }> { choice_option.text } </Text>
-						: (
-							<React.Fragment key={ choice + index }>
-								<Text style={[ text_styles, { marginBottom: 10 }]}>
-									{ translate( Translations.WhatsNext )}
-								</Text>
+					return (
+						<React.Fragment key={ choice + index }>
 
-								{ choice_option.options && !!choice_option.options.length &&
-									choice_option.options.map(( item, i ) => (
+							{ !!choice_option?.text && 
+								<Text style={[ text_styles, { marginBottom: 15 }]}> 
+									{ choice_option.text } 
+								</Text>
+							}
+
+							{ choice_option.options && !!choice_option.options.length &&
+								<>
+									<Text style={[ text_styles, { marginBottom: 10 }]}>
+										{ translate( Translations.WhatsNext )}
+									</Text>
+
+									{ choice_option.options.map(( item, i ) => (
 										<Button
 											key={ i }
 											transparent_bg={ !isButtonActive( item.value, choices?.[ index + 1 ]) }
@@ -82,10 +88,11 @@ const StudySimulations = props => {
 										>
 											{ item.name }
 										</Button>
-									)) 
-								}
-							</React.Fragment>
-						) 
+									)) }
+								</> 
+							}
+						</React.Fragment>
+					) 
 				})
 			}
 		</View>

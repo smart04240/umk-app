@@ -3,6 +3,7 @@ const same_last_part =  [
 	{
 		name: "zaliczenie III roku",
 		value: [ "Z", "A" ],
+		text: "Jeśli zaliczysz III rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!",
 		options: [
 			{
 				value: "1",
@@ -33,14 +34,17 @@ export default [
 	{
 		name: "zaliczenie I roku",
 		value: [ "Z", "A" ],
+		text: "Jeżeli zaliczysz I rok zostajesz zapisany na rok II",
 		options: [
 			{
 				name: "zaliczenie II roku",
 				value: [ "Z", "A" ],
+				text: "Jeżeli zaliczysz II rok zostajesz zapisany na rok III",
 				options: same_last_part
 			},
 			{
 				name: "warunkowe zaliczenie II roku",
+				text: "Jeśli zaliczysz warunek, a następnie zaliczysz II rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok III!",
 				value: "W",
 				options: [
 					{
@@ -51,7 +55,6 @@ export default [
 					{
 						name: "niezaliczenie warunku lub III roku",
 						value: "T",
-						options: null,
 						text: "Jeśli nie zaliczysz III roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie III roku!"
 					}
 				]
@@ -59,7 +62,6 @@ export default [
 			{
 				name: "niezaliczenie II roku",
 				value: [ "N", "R" ],
-				options: null,
 				text: "Jeśli nie zaliczysz II roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie II roku!"
 			}
 		]
@@ -67,6 +69,7 @@ export default [
 	{
 		name: "warunkowe zaliczenie I roku",
 		value: "W",
+		text: "Jeśli zaliczysz warunek, a następnie zaliczysz I rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok II!",
 		options: [
 			{
 				name: "zaliczenie warunku",
@@ -75,11 +78,13 @@ export default [
 					{
 						name: "zaliczenie II roku",
 						value: [ "Z", "A" ],
+						text: "Jeżeli zaliczysz II rok zostajesz zapisany na rok III",
 						options: same_last_part
 					},
 					{
 						name: "warunkowe zaliczenie II roku",
 						value: "W",
+						text: "Jeśli zaliczysz warunek, a następnie zaliczysz II rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok III!",
 						options: [
 							{
 								name: "zaliczenie warunku",
@@ -97,7 +102,6 @@ export default [
 					{
 						name: "niezaliczenie II roku",
 						value: [ "N", "R" ],
-						options: null,
 						text: "Jeśli nie zaliczysz II roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie II roku!"
 					}
 				]
@@ -105,7 +109,6 @@ export default [
 			{
 				name: "niezaliczenie warunku lub II roku",
 				value: "T",
-				options: null,
 				text: "Jeśli nie zaliczysz II roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie II roku!"
 			}
 		]
@@ -113,7 +116,6 @@ export default [
 	{
 		name: "niezaliczenie I roku",
 		value: [ "N", "R" ],
-		options: null,
 		text: "Jeśli nie zaliczysz I roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie I roku!"
 	}
 ]
