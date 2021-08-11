@@ -5,8 +5,9 @@ import { getFinalStructure } from '../../helpers/map-of-studies';
 
 const MapOfStudiesStructure = props => {
 
-	const { structure, years_data } = props.all_data;
-	const final_structure = getFinalStructure( structure, years_data );
+	const { all_data, simulation_mode } = props;
+	const { structure, years_data } = all_data;
+	const final_structure = getFinalStructure( structure, years_data, simulation_mode );
 
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>

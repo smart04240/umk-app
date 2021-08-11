@@ -4,6 +4,8 @@ import bachelor_structure from "../components/map-of-studies/structures/bachelor
 import master_structure from "../components/map-of-studies/structures/master";
 import mish_structure from "../components/map-of-studies/structures/mish";
 
+import master_simulations from "../components/map-of-studies/simulations/master";
+
 import Point from "../components/map-of-studies/point/Point";
 import Branch from "../components/map-of-studies/Branch";
 import BranchesNode from "../components/map-of-studies/BranchesNode";
@@ -20,7 +22,8 @@ const DEGREES = {
 	
 	"(s2)": {
 		years_amount: 2,
-		structure: master_structure
+		structure: master_structure,
+		simulations: master_simulations
 	},
 
 	"(sj)": {
@@ -45,6 +48,7 @@ const getBrachFinishCircle = () => ({
 	dead_end: true, 
 	children: { Component: FinishCircle }
 })
+
 
 export const detectBranchesNodeEndType = branches => {
 
@@ -118,9 +122,10 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 	const current_degree = DEGREES?.[ degree ];
 	if ( !current_degree ) return {};
 
-	const { structure, years_amount } = current_degree;
+	const { structure, years_amount, simulations } = current_degree;
 
 	return { 
+		simulations,
 		structure,
 		years_amount,
 		years_data: getDataForAllYears( current_study, years_amount )
@@ -255,7 +260,7 @@ const changePointsInStructure = ( structure, years_data ) => {
 }
 
 
-export const getFinalStructure = ( structure, years_data ) => {
+export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 
 	if ( !structure ) return null;
 
@@ -390,7 +395,15 @@ export const getFinalStructure = ( structure, years_data ) => {
 		});
 
 		const structure_future_index = structure.findIndex( item => item.year === current_year_num );
-		structure_future_index !== -1 && future_part.push( ...structure.slice( structure_future_index )) 
+		structure_future_index !== -1 && future_part.push( ...structure.slice( structure_future_index ));
+
+		if ( simulation_mode ) {
+			return future_part.filter( item => {
+				
+				if ( item.Component !== Branch && item.Component !== Point ) return false;
+				return !item.year_status && item.year === current_year_num;
+			})
+		}
 
 		return future_part;
 	}
@@ -430,7 +443,7 @@ export const getFinalStructure = ( structure, years_data ) => {
 
 	const buildFinalStructure = () => {
 	
-		const current_year_num = years_data.find( year => year?.status === "X" )?.year;
+		const current_year_num = !years_data.length ? 1 : years_data.find( year => year?.status === "X" )?.year;
 		const past_years_data = [...years_data.filter( year => year?.status !== "X" )];
 		const future_years_data = [...years_data.filter( year => year?.status === "X" )]
 
@@ -447,7 +460,40 @@ export const getFinalStructure = ( structure, years_data ) => {
 		];
 	}
 
-	return !years_data.length 
-		? changePointsInStructure( structure, years_data )
-		: buildFinalStructure()
+	return buildFinalStructure()
+}
+
+
+export const findSimulationsOptionByValue = ( value, simulations ) => (
+	simulations.find( item => Array.isArray( item.value ) 
+		? item.value.includes( value ) 
+		: item.value === value 
+	)
+)
+
+
+export const getSimulationOptionByHistory = ( history, simulations ) => {
+
+	const iteration = ( i, sim_part ) => {
+		return i === history.length - 1 
+			? findSimulationsOptionByValue( history[i], sim_part ) 
+			: iteration( i + 1, findSimulationsOptionByValue( history[i], sim_part )?.options );
+	}
+
+	return iteration( 0, simulations );
+}
+
+
+export const getBasicSimulationsStructure = data => {
+	
+	if ( !data ) return null;
+
+	if ( !data.years_data?.length ) return data.simulations;
+
+	const { years_data, simulations } = data;
+	const changed_years_data = years_data
+		.filter( item => ![ "X", "N", "R", "T" ].includes( item.status ))
+		.map( item => item.status )
+
+	return getSimulationOptionByHistory( changed_years_data, simulations )?.options;
 }
