@@ -512,13 +512,13 @@ export const getSimulationOptionByHistory = ( history, simulations ) => {
 export const getBasicSimulationsStructure = data => {
 	
 	if ( !data ) return null;
-
 	if ( !data.years_data?.length ) return data.simulations;
 
-	const { years_data, simulations } = data;
-	const changed_years_data = years_data
+	const changed_years_data = data?.years_data
 		.filter( item => ![ "X", "N", "R", "T" ].includes( item.status ))
 		.map( item => item.status )	
 
-	return getSimulationOptionByHistory( changed_years_data, simulations )?.options;
+	return !changed_years_data?.length 
+		? data.simulations
+		: getSimulationOptionByHistory( changed_years_data, data.simulations )?.options;
 }
