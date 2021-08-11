@@ -354,7 +354,7 @@ export default {
 	},
 
 	ChooseOneOFOptions: {
-		en: "Wybierz jedną z możliwych opcji!",
+		en: "Choose one of the possible options!",
 		pl: "Wybierz jedną z możliwych opcji!"
 	},
 
