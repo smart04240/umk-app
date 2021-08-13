@@ -7,6 +7,7 @@ import sj_structure from "../components/map-of-studies/structures/sj";
 
 import bachelor_simulations from "../components/map-of-studies/simulations/bachelor";
 import master_simulations from "../components/map-of-studies/simulations/master";
+import mish_simulations from "../components/map-of-studies/simulations/mish";
 
 import Point from "../components/map-of-studies/point/Point";
 import Branch from "../components/map-of-studies/Branch";
@@ -36,7 +37,8 @@ const DEGREES = {
 
 	"(mish)": {
 		years_amount: 2,
-		structure: mish_structure
+		structure: mish_structure,
+		simulations: mish_simulations
 	}
 }
 
@@ -131,6 +133,7 @@ export const getBasicStructureAndData = ( degree, current_study ) => {
 	const { structure, years_amount, simulations } = current_degree;
 
 	return { 
+		degree,
 		simulations,
 		structure,
 		years_amount,
@@ -463,11 +466,17 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 		if ( simulation_mode ) {
 
 			const last_future_part_el = future_part[ future_part.length - 1 ];
+
 			if ( last_future_part_el?.Component === Point ) {
 				last_future_part_el.bottom_margin = 0;
 			} else if ( last_future_part_el?.Component === Branch ) {
-				const last_point = last_future_part_el.children[ last_future_part_el.children.length - 1 ]; 
-				last_point.bottom_margin = 0;
+			
+				const last_point = Array.isArray( last_future_part_el.children ) 
+					? last_future_part_el.children[ last_future_part_el.children.length - 1 ]
+					: last_future_part_el.children 
+			
+				if ( last_point ) last_point.bottom_margin = 0;
+				
 				last_future_part_el.dead_end = true;
 			}
 		}

@@ -3,7 +3,7 @@ import Point from "../point/Point";
 import Branch from "../Branch";
 import BranchesNode from "../BranchesNode";
 
-import { getBeginningBranch, getCompletionBranch, getConditionalCompletionBranch, getFailureBranch, getPreDiplomaPart, getDiplomaParts } from "./structure_parts";
+import { getCompletionBranch, getConditionalCompletionBranch, getFailureBranch, getPreDiplomaPart, getDiplomaParts } from "./structure_parts";
 
 
 export default [
@@ -15,36 +15,34 @@ export default [
 	{
 		Component: Branch,
 		year: 1,
-		children: [
-			{ 
-				Component: Point,
-				year: 1,
-				term_field_id: 1, 
-				label_position: "left",
-				label: "ROK I #year#years", 
-				small_label: "Wnioski ogólne\n(do #term_field#start_date)", 
-				bottom_margin: 5 
-			},
-			{
-				Component: Point,
-				year: 1,
-				term_field_id: 4,
-				label_position: "left",
-				label: "Złożenie wniosków\n(programy studiów)",
-				small_label: "(do #term_field#start_date)",
-				bottom_margin: 5
-			}
-		]
+		children: { 
+			Component: Point,
+			year: 1,
+			term_field_id: 1, 
+			label_position: "left",
+			label: "ROK I #year#years", 
+			small_label: "Wnioski ogólne\n(do #term_field#start_date)", 
+			bottom_margin: 5 
+		}
 	},
 
 	{
 		Component: BranchesNode,
 		year: 1,
+		year_status: "1",
 		branches: [
 			{
 				Component: Branch,
 				year: 1,
 				children: [
+					{
+						Component: Point,
+						year: 1,
+						term_field_id: 4,
+						label: "Złożenie wniosków\n(programy studiów)",
+						small_label: "(do #term_field#start_date)",
+						bottom_margin: 5
+					},
 					{ 
 						Component: Point, 
 						year: 1,
