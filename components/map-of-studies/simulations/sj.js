@@ -1,4 +1,4 @@
 
 import { buildSimulations } from "./simulations_parts";
 
-export default buildSimulations(3);
+export default buildSimulations(5);

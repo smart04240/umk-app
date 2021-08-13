@@ -2,13 +2,14 @@ import { yearToRomanNumeral } from "../../../helpers/functions";
 
 export const getCompletionYear = year => ({
 	name: `zaliczenie ${ yearToRomanNumeral( year )} roku`,
-	value: [ "Z", "A" ],
+	value: [ "Z", "A", "S" ],
 	text: `Jeżeli zaliczysz ${ yearToRomanNumeral( year )} rok zostajesz zapisany na rok ${ yearToRomanNumeral( year + 1 )}`,
-})
+});
+
 
 export const getLastCompletionYear = year => ({
 	name: `zaliczenie ${ yearToRomanNumeral( year )} roku`,
-	value: [ "Z", "A" ],
+	value: [ "Z", "A", "S" ],
 	text: `Jeśli zaliczysz ${ yearToRomanNumeral( year )} rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!`,
 	options: [
 		{
@@ -27,22 +28,63 @@ export const getLastCompletionYear = year => ({
 			text: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
 		}
 	]
-})
+});
+
 
 export const getConditionalCompletionYear = year => ({
 	name: `warunkowe zaliczenie ${ yearToRomanNumeral( year )} roku`,
 	value: "W",
 	text: `Jeśli zaliczysz warunek, a następnie zaliczysz ${ yearToRomanNumeral( year )} rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok ${ yearToRomanNumeral( year + 1 )}!`,
-})
+});
+
 
 export const getFailureYear = year => ({
 	name: `niezaliczenie ${ yearToRomanNumeral( year )} roku`,
 	value: [ "N", "R" ],
 	text: `Jeśli nie zaliczysz ${ yearToRomanNumeral( year )} roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie ${ yearToRomanNumeral( year )} roku!`
-})
+});
+
 
 export const getFailureCondition = year => ({
 	name: `niezaliczenie warunku lub ${ yearToRomanNumeral( year )} roku`,
 	value: "T",
 	text: `Jeżeli nie zaliczysz warunku, musisz złożyć podanie o powtarzanie. Czeka Cię powtórka ${ yearToRomanNumeral( year )} roku!`
-})
+});
+
+
+export const buildSimulations = end_year => {
+	
+	const buildOneYear = year => {
+		
+		if ( year === end_year ) {
+			return [
+				getLastCompletionYear( year ),
+				getFailureYear( year )
+			]
+		}
+
+		return [
+			{
+				...getCompletionYear( year ),
+				options: [ ...buildOneYear( year + 1)]
+			},
+
+			{
+				...getConditionalCompletionYear( year ),
+				options: [
+					{
+						name: "zaliczenie warunku",
+						value: "S",
+						options: [...buildOneYear( year + 1 )]
+					},
+					
+					getFailureCondition( year + 1 )
+				]
+			},
+		
+			getFailureYear( year )
+		]
+	}
+
+	return buildOneYear(1)
+}
