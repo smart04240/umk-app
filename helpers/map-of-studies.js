@@ -161,27 +161,24 @@ const changePointsInStructure = ( structure, years_data ) => {
 			for ( const match of pattern_matches ) {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
-
-				if ( !current_year_data || !term_field ) { 
-					return data_param_kind === "year"
-						? str.replace(/(#\w+)/g, "")
-						: null;
-				}
-
 				let value;
 
 				switch ( data_param_kind ) {
-					case "year": value = current_year_data[ data_param_name ];
+					case "year": 
+						value = current_year_data?.[ data_param_name ] || "";
 						break;
 
 					case "term_field":
-						value = term_field?.[ data_param_name ];
+
+						if ( !term_field ) return null;
+
+						value = term_field?.[ data_param_name ] || "";
 						if ( value && [ "start_date", "end_date" ].includes( data_param_name ))
 							value = moment(value).format("DD.MM.YYYY");
 					break;
 				}
 
-				str = value ? str.replace( match, value ) : str;
+				str = str.replace( match, value );
 			}
 		}
 
