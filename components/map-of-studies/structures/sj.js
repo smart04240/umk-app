@@ -10,7 +10,7 @@ export default [
 		Component: Branch,
 		children: { Component: StartCircle }
 	},
-	
+
 	getBeginningBranch(),
 
 	{
@@ -23,7 +23,37 @@ export default [
 		]
 	},
 
-	getPreDiplomaPart(2),
+	{
+		Component: BranchesNode,
+		year: 2,
+		branches: [
+			getCompletionBranch(2),
+			getConditionalCompletionBranch(2),
+			getFailureBranch(2)
+		]
+	},
 
-	...getDiplomaParts(2)
+	{
+		Component: BranchesNode,
+		year: 3,
+		branches: [
+			getCompletionBranch(3),
+			getConditionalCompletionBranch(3),
+			getFailureBranch(3)
+		]
+	},
+
+	{
+		Component: BranchesNode,
+		year: 4,
+		branches: [
+			getCompletionBranch(4),
+			getConditionalCompletionBranch(4),
+			getFailureBranch(4)
+		]
+	},
+
+	getPreDiplomaPart(5),
+
+	...getDiplomaParts(5)
 ]

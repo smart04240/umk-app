@@ -3,6 +3,7 @@ import moment from "moment";
 import bachelor_structure from "../components/map-of-studies/structures/bachelor";
 import master_structure from "../components/map-of-studies/structures/master";
 import mish_structure from "../components/map-of-studies/structures/mish";
+import sj_structure from "../components/map-of-studies/structures/sj";
 
 import bachelor_simulations from "../components/map-of-studies/simulations/bachelor";
 import master_simulations from "../components/map-of-studies/simulations/master";
@@ -30,7 +31,7 @@ const DEGREES = {
 
 	"(sj)": {
 		years_amount: 5,
-		structure: null 
+		structure: sj_structure 
 	},
 
 	"(mish)": {
