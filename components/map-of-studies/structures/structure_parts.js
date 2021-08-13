@@ -1,19 +1,10 @@
-import StartCircle from "../StartCircle";
+import MOSConstants from "../../../constants/MOSConstants";
+import { yearToRomanNumeral } from "../../../helpers/functions";
+
 import Point from "../point/Point";
 import Branch from "../Branch";
 import BranchesNode from "../BranchesNode";
 import FinishCircle from "../FinishCircle";
-import MOSConstants from "../../../constants/MOSConstants";
-
-const yearToRomanNumeral = year => {
-	switch ( year ) {
-		case 1: return "I";
-		case 2: return "II";
-		case 3: return "III";		
-		case 4: return "IV";		
-		case 5: return "V";		
-	}
-}
 
 export const getBeginningBranch = () => (
 	{
@@ -232,6 +223,7 @@ export const getPreDiplomaPart = year => (
 		]
 	}
 )
+
 
 export const getDiplomaParts = year => (
 	[

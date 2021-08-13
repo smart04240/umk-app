@@ -14,7 +14,7 @@ import BranchesNode from "../components/map-of-studies/BranchesNode";
 import DropdownGroup from "../components/map-of-studies/DropdownGroup";
 
 import StartCircle from "../components/map-of-studies/StartCircle";
-import FinishCircle from "../components/map-of-studies/FinishCircle";
+
 
 const DEGREES = {
 	"(s1)": {
@@ -43,13 +43,6 @@ const DEGREES = {
 const getBranchStartCircle = () => ({
 	Component: Branch,
 	children: { Component: StartCircle }
-})
-
-
-const getBrachFinishCircle = () => ({
-	Component: Branch, 
-	dead_end: true, 
-	children: { Component: FinishCircle }
 })
 
 
