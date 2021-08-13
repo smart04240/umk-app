@@ -47,7 +47,7 @@ export const getCompletionBranch = year => (
 	{
 		Component: Branch,
 		year: year,
-		year_status: [ "Z", "A" ],
+		year_status: [ "Z", "A", "S" ],
 		children: [
 			{ 
 				Component: Point, 

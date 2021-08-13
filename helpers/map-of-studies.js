@@ -8,6 +8,7 @@ import sj_structure from "../components/map-of-studies/structures/sj";
 import bachelor_simulations from "../components/map-of-studies/simulations/bachelor";
 import master_simulations from "../components/map-of-studies/simulations/master";
 import mish_simulations from "../components/map-of-studies/simulations/mish";
+import sj_simulations from "../components/map-of-studies/simulations/sj";
 
 import Point from "../components/map-of-studies/point/Point";
 import Branch from "../components/map-of-studies/Branch";
@@ -32,7 +33,8 @@ const DEGREES = {
 
 	"(sj)": {
 		years_amount: 5,
-		structure: sj_structure 
+		structure: sj_structure ,
+		simulations: sj_simulations
 	},
 
 	"(mish)": {
