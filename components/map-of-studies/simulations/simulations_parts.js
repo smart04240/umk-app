@@ -31,6 +31,20 @@ export const getLastCompletionYear = year => ({
 });
 
 
+export const getLastCompletionMISHYear = () => ({
+	name: 'zaliczenie II roku',
+	value: [ "Z", "A", "S" ],
+	text: `Jeśli zaliczysz II rok, zostaniesz przeniesiony na rok III kierunku, którego minimum programowe realizujesz.`
+});
+
+
+export const getLastFailureMISHYear = () => ({
+	name: `niezaliczenie II roku`,
+	value: [ "N", "R" ],
+	text: `Jeśli nie zaliczysz II roku, możesz złożyć podanie o powtarzanie. Jeśli zostanie rozpatrzone pozytywnie czeka Cię repeta drugiego roku!`
+})
+
+
 export const getConditionalCompletionYear = year => ({
 	name: `warunkowe zaliczenie ${ yearToRomanNumeral( year )} roku`,
 	value: "W",

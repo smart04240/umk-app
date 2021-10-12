@@ -309,3 +309,18 @@ export const getDiplomaParts = year => (
 		}
 	]
 )
+
+
+export const getMISHEndPart = () => (
+	{
+		Component: Branch,
+		year: 2,
+		year_status: [ "A", "Z", "S" ],
+		dead_end: true,
+		children: { 
+			Component: FinishCircle,
+			mish: true,
+			text: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz " 
+		}
+	}
+)

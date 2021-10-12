@@ -3,7 +3,7 @@ import Point from "../point/Point";
 import Branch from "../Branch";
 import BranchesNode from "../BranchesNode";
 
-import { getCompletionBranch, getConditionalCompletionBranch, getFailureBranch, getPreDiplomaPart, getDiplomaParts } from "./structure_parts";
+import { getCompletionBranch, getConditionalCompletionBranch, getFailureBranch, getPreDiplomaPart, getMISHEndPart } from "./structure_parts";
 
 
 export default [
@@ -95,5 +95,5 @@ export default [
 
 	getPreDiplomaPart(2),
 
-	...getDiplomaParts(2)
+	getMISHEndPart()
 ]

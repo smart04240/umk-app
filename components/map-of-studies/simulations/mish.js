@@ -1,4 +1,11 @@
-import { getCompletionYear, getLastCompletionYear, getConditionalCompletionYear, getFailureYear, getFailureCondition } from "./simulations_parts";
+import { 
+	getCompletionYear, 
+	getLastCompletionMISHYear, 
+	getConditionalCompletionYear, 
+	getFailureYear, 
+	getLastFailureMISHYear, 
+	getFailureCondition 
+} from "./simulations_parts";
 
 export default [
 	{
@@ -9,8 +16,8 @@ export default [
 			{
 				...getCompletionYear(1),
 				options: [
-					getLastCompletionYear(2),
-					getFailureYear(2)
+					getLastCompletionMISHYear(2),
+					getLastFailureMISHYear(2)
 				]
 			},
 			
@@ -21,8 +28,8 @@ export default [
 						name: "zaliczenie warunku",
 						value: "S",
 						options: [
-							getLastCompletionYear(2),
-							getFailureYear(2)
+							getLastCompletionMISHYear(2),
+							getLastFailureMISHYear(2)
 						]
 					},
 					

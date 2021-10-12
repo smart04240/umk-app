@@ -793,6 +793,11 @@ export default {
 		pl: "Zdobycie dyplomu"
 	},
 
+	MISHEndYear: {
+		en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
+		pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "
+	},
+
     TaskCategory1: {
         en: "Important and urgent",
         pl: "Ważne i pilne"

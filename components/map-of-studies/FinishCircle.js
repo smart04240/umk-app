@@ -2,19 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import Layout from "../../constants/Layout";
 import GeneralStyles from '../../constants/GeneralStyles';
 import MOSConstants from '../../constants/MOSConstants';
 import Translations from '../../constants/Translations';
 import useTranslator from '../../hooks/useTranslator';
 
-const FinishCircle = () => {
+const FinishCircle = props => {
 	
 	const translate = useTranslator();
 
 	return (
 		<View style={ styles.circle }>
 			<Text style={ styles.text }>
-				{ translate( Translations.ObtainingADiploma)}
+				{ translate( props.mish ? Translations.MISHEndYear : Translations.ObtainingADiploma)}
 			</Text>
 		</View>
 	)
@@ -37,7 +38,11 @@ const styles = StyleSheet.create({
 		...GeneralStyles.text_regular,
 		textAlign: "center",
 		color: Colors.Blue,
-		textTransform: "uppercase"
+		textTransform: "uppercase",
+		position: "absolute",
+		paddingHorizontal: 10,
+		width: Layout.width,
+		marginLeft: -Layout.width / 2 
 	}
 });
 
