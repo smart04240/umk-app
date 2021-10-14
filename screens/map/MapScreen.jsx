@@ -1,5 +1,14 @@
 import * as React from 'react';
-import {ActivityIndicator, Keyboard, ScrollView, Text, TouchableOpacity, useWindowDimensions, View} from 'react-native';
+import {
+    ActivityIndicator,
+    Keyboard,
+    Platform,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    useWindowDimensions,
+    View
+} from 'react-native';
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import ClusteredMapView from "../../components/map/ClusteredMapView";
@@ -73,19 +82,32 @@ export default function MapScreen() {
         );
     }, [markers, map]);
 
-    const renderMarker = marker => (
-        <MapView.Marker
-            key={marker.id}
-            onPress={() => setCallout(marker)}
-            tracksViewChanges={false}
-            coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude,
-            }}
-        >
-            <FontAwesome5 name="map-marker" size={32} color={marker.category.color}/>
-        </MapView.Marker>
-    );
+    const renderMarker = marker => {
+        // use onSelect because onPress doesn't work on ios
+        const actionFunction = Platform.OS === 'ios' ? {
+            onSelect: ({coordinate}) => {
+                setCallout(marker);
+                map?.current?.getMapRef().animateCamera({center: coordinate}, {duration: 200});
+            }
+        } : {
+            onPress: () => setCallout(marker)
+        };
+
+        return(
+            <MapView.Marker
+                key={marker.id}
+                onSelect={() => setCallout(marker)}
+                tracksViewChanges={false}
+                coordinate={{
+                    latitude: marker.latitude,
+                    longitude: marker.longitude,
+                }}
+                {...actionFunction}
+            >
+                <FontAwesome5 name="map-marker" size={32} color={marker.category.color}/>
+            </MapView.Marker>
+        )
+    };
 
     const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
     const searchChangeDebounced = text => dispatch(Actions.ChangeMapSearchDebounced(text));
@@ -132,6 +154,19 @@ export default function MapScreen() {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.map}>
+                    <ClusteredMapView
+                        ref={map}
+                        onPress={onMapPress}
+                        width={useWindowDimensions().width}
+                        height={MapHeight}
+                        clusteringEnabled={true}
+                        data={markers}
+                        renderMarker={renderMarker}
+                        showsUserLocation={locationPermission}
+                        showsMyLocationButton={false}
+                        initialRegion={InitialRegion}
+                    />
+
                     {!!callout && (
                         <View style={[styles.callout.card, {backgroundColor: theme.box_bg}]}>
                             <Text style={[styles.callout.title, {color: theme.dark_text}]}>
@@ -151,19 +186,6 @@ export default function MapScreen() {
                             </TouchableOpacity>
                         </View>
                     )}
-
-                    <ClusteredMapView
-                        ref={map}
-                        onPress={onMapPress}
-                        width={useWindowDimensions().width}
-                        height={MapHeight}
-                        clusteringEnabled={true}
-                        data={markers}
-                        renderMarker={renderMarker}
-                        showsUserLocation={locationPermission}
-                        showsMyLocationButton={false}
-                        initialRegion={InitialRegion}
-                    />
 
                     <TouchableOpacity style={styles.listButton.button} onPress={goToList}>
                         <Text style={styles.listButton.text}>lista</Text>
@@ -203,7 +225,6 @@ export default function MapScreen() {
 const styles = {
     callout: {
         card: {
-            ...shadowGenerator(10),
             borderRadius: 20,
             width: Layout.width * 0.5,
             padding: 15,
@@ -211,6 +232,7 @@ const styles = {
             position: 'absolute',
             alignSelf: 'center',
             zIndex: 99,
+            ...shadowGenerator(10),
         },
         title: {
             ...GeneralStyles.text_bold,
