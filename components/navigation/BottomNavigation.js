@@ -1,36 +1,36 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialCommunityIcons  } from '@expo/vector-icons'; 
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import { MaterialCommunityIcons  } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
-
-import Layout from '../../constants/Layout';
+import * as Device from 'expo-device';
+import Layout, {unibrowIOSDevices} from '../../constants/Layout';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
 
 const BottomNavigation = () => {
-
 	const ThemeStyles = useThemeStyles();
 	const route = useRoute();
 	const navigation= useNavigation();
+	const bottomTabBarOffset = unibrowIOSDevices && {paddingBottom: 40};
 
 	const isButtonActive = name => route.name.split(".")[0] === name;
 
 	return (
-		<View style={[ GeneralStyles.row_center_between, styles.nav, { backgroundColor: ThemeStyles.box_bg } ]}>
-			
+		<View style={[ GeneralStyles.row_center_between, styles.nav, { backgroundColor: ThemeStyles.box_bg }, bottomTabBarOffset]}>
+
 			{ Menu.map(( item, index ) => {
 
 				const is_active = isButtonActive( item.screen );
 				const icon = is_active ? item.icon_active : item.icon;
-				
+
 				return item.bottom
 					? (
 						<TouchableOpacity key={ index } onPress={ () => navigation.navigate( item.screen )}>
-							<MaterialCommunityIcons 
-								name={ icon } 
-								size={ 25 } 
-								color={ ThemeStyles.icon_color } 
+							<MaterialCommunityIcons
+								name={ icon }
+								size={ 25 }
+								color={ ThemeStyles.icon_color }
 							/>
 						</TouchableOpacity>
 					)
