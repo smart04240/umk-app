@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
@@ -9,21 +9,20 @@ import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesS
 export default function MapOfStudiesScreen() {
 
 	const [ all_structure_data, setAllStructureData ] = useState( null );
-	!!all_structure_data && console.log( "DATA:", all_structure_data );
 
 	return (
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>
 				<ContainerWithScroll container_style={{ paddingHorizontal: 0 }}>
-					
+
 					<ActiveStudiesSwitcher
 						changeCallback={ data => setAllStructureData( data )}
 					/>
 
-					{ !!all_structure_data && 
-						<MapOfStudiesStructure all_data={ all_structure_data }/>				
+					{ !!all_structure_data &&
+						<MapOfStudiesStructure all_data={ all_structure_data }/>
 					}
-					
+
 				</ContainerWithScroll>
 			</MainWithNavigation>
 		</ScreenWithRoundedHeader>

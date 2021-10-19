@@ -14,6 +14,11 @@ export default {
         pl: 'Twój profil',
     },
 
+    PersonalDevelopment: {
+        en: 'Personal development and support',
+        pl: 'Rozwój osobisty i wsparcie'
+    },
+
     EditProfile: {
         en: "Edit profile",
         pl: "Edytuj profil"

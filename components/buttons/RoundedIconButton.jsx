@@ -4,8 +4,9 @@ import shadowGenerator from "../../helpers/shadowGenerator";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {LinearGradient} from "expo-linear-gradient";
-import {Text} from "react-native";
+import {Text, View} from "react-native";
 import Fonts from "../../constants/Fonts";
+import Colors from "../../constants/Colors";
 
 export default function RoundedIconButton({style, icon, iconSize, iconSet, text, ...rest}) {
     const theme = useThemeStyles();
@@ -13,14 +14,34 @@ export default function RoundedIconButton({style, icon, iconSize, iconSet, text,
 
     return (
         <TouchableOpacity style={[styles.button, {backgroundColor: theme.box_bg}, style]} {...rest}>
-            <LinearGradient
-                style={styles.circle}
-                colors={['#034EA2', '#1F6BC1']}
-                start={{x: 0, y: 0.5}}
-                end={{x: 0.5, y: 0}}
+            <View
+                style={{
+                    flex: 0.2
+                }}
             >
-                <IconSet name={icon} size={24} color={'white'}/>
-            </LinearGradient>
+                <View
+                    style={{
+                        height: 50,
+                        width: 50,
+                        overflow: 'hidden',
+                        borderRadius: 99999,
+                    }}
+                >
+                    <LinearGradient
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        colors={[Colors.PrussianBlue, Colors.Blue]}
+                        start={{x: 0, y: 0.5}}
+                        end={{x: 0.5, y: 0}}
+                    >
+                        <IconSet name={icon} size={28} color={'white'}/>
+                    </LinearGradient>
+                </View>
+            </View>
             <Text style={[styles.text, {color: theme.dark_text}]}>
                 {text}
             </Text>
@@ -37,14 +58,8 @@ const styles = {
         alignItems: 'center',
         marginVertical: 5,
     },
-    circle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 99999,
-        padding: 10,
-    },
     text: {
-        flex: 1,
+        flex: 0.8,
         marginHorizontal: 20,
         fontSize: 16,
         fontFamily: Fonts.ProximaNova.Regular,

@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Linking, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
@@ -22,11 +22,11 @@ export default function StartScreen(props) {
 						GeneralStyles.row_wrap,
 						{justifyContent: "space-between"}
 					]}>
-						{Menu.map(({screen, label, icon}, index) => (
+						{Menu.map(({screen, label, icon, link}, index) => (
 							<TouchableOpacity
 								key={index}
 								style={styles.box}
-								onPress={() => props.navigation.navigate(screen)}
+								onPress={!!link ? () => Linking.openURL(link) : () => props.navigation.navigate(screen)}
 							>
 								<View style={styles.circle}>
 									<MaterialCommunityIcons

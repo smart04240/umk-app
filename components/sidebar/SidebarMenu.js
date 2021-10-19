@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from "react-native";
+import {Linking, Text, TouchableOpacity, View} from "react-native";
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Menu from "../../constants/Menu";
@@ -25,7 +25,7 @@ const SidebarMenu = ({navigation, route}) => {
 			{Menu.map((item, index) => (
 				<TouchableOpacity
 					key={index}
-					onPress={() => item.screen && navigate(item.screen)}
+					onPress={!!item?.link ? () => Linking.openURL(item.link) : () => navigate(item.screen)}
 					style={[
 						styles.menu_item,
 						index + 1 === Menu.length ? {borderBottomWidth: 0} : {}

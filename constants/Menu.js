@@ -63,8 +63,9 @@ export default [
         ],
     },
     {
-        label: "UOWiRO",
+        label: Translations.PersonalDevelopment,
         icon: "handshake",
         screen: "",
+        link: 'https://wsparcie.umk.pl/pages/main_page/',
     },
 ];

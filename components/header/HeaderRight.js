@@ -10,31 +10,27 @@ import RemindersBell from '../reminders/RemindersBell';
 
 const HeaderRight = props => {
     const ThemeStyles = useThemeStyles();
-	const navigation = useNavigation();
-	const openSidebar = () => navigation.openDrawer();
+    const navigation = useNavigation();
+    const openSidebar = () => navigation.openDrawer();
 
-	return (
-		<>
-			<View style={[ GeneralStyles.row_ac ]}>
-
-				<RemindersBell/>
-
-				<TouchableOpacity onPress={ openSidebar } style={[ styles.menu_button ]}>
-					<MaterialCommunityIcons name="menu" size={ 28 } color={ ThemeStyles.icon_color } />
-				</TouchableOpacity>
-			</View>
-		</>
-	)
+    return (
+        <>
+            <View style={[GeneralStyles.row_ac]}>
+                <RemindersBell/>
+                <TouchableOpacity onPress={openSidebar} style={[styles.menu_button]}>
+                    <MaterialCommunityIcons name="menu" size={28} color={ThemeStyles.icon_color}/>
+                </TouchableOpacity>
+            </View>
+        </>
+    )
 }
 
 const styles = StyleSheet.create({
-
-	button: { padding: 10 },
-	menu_button: {
-		padding: 10,
-		marginLeft: 14,
-		marginRight: Layout.paddingHorizontal - 10
-	}
+    button: {padding: 10},
+    menu_button: {
+        padding: 10,
+        marginRight: Layout.paddingHorizontal - 10
+    }
 })
 
 

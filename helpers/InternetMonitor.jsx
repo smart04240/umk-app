@@ -7,8 +7,10 @@ export default function InternetMonitor() {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        // returns removeEventListener
-        return NetInfo.addEventListener(state => dispatch(Actions.InternetChange(state.isInternetReachable)));
+        return NetInfo.addEventListener(state => {
+            if (!!state?.isInternetReachable && !!state?.isConnected)
+                dispatch(Actions.InternetChange(state.isInternetReachable));
+        });
     }, []);
 
     return null;

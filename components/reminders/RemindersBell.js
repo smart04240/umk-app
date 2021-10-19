@@ -5,7 +5,7 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import Colors from '../../constants/Colors';
-import GeneralStyles from "../../constants/GeneralStyles";
+import GeneralStyles, {isExtraSmallDevice} from "../../constants/GeneralStyles";
 import Fonts from '../../constants/Fonts';
 import Routes from '../../constants/Routes';
 import {getUnreadNotifications} from "../../redux/selectors/notificationsSelectors";
@@ -21,7 +21,7 @@ const RemindersBell = props => {
 
     return (
         <TouchableOpacity
-            style={[styles.remind_button]}
+            style={[styles.remind_button, !isExtraSmallDevice && {padding: 10}]}
             onPress={() => navigation.navigate(Routes.Reminders)}
         >
 
@@ -41,7 +41,6 @@ const RemindersBell = props => {
 
 const styles = StyleSheet.create({
     remind_button: {
-        padding: 10,
         position: "relative"
     },
     reminders_circle: {

@@ -19,8 +19,9 @@ export default createReducer(null, builder => {
             let isOnline = action.payload;
 
             return state = {
-              color: isOnline ? Colors.Green : Colors.Red,
-              message: Translations[isOnline ? 'InternetConnectionConnect' : 'InternetConnectionLost']
+                color: isOnline ? Colors.Green : Colors.Red,
+                withLoader: true,
+                message: Translations[isOnline ? 'InternetConnectionConnect' : 'InternetConnectionLost']
             };
         })
         .addCase(Actions.Toasts.Cleanup, (state, action) => {

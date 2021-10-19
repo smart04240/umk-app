@@ -9,7 +9,7 @@ import InternetMonitor from "./helpers/InternetMonitor";
 import Fonts from './constants/Fonts';
 import Interceptors from "./helpers/Interceptors";
 import "moment/locale/pl";
-import {Toast} from "./components/general/Toast";
+import ToastManager from "./helpers/ToastManager";
 
 Interceptors.register();
 
@@ -23,7 +23,7 @@ function Main(props) {
             {!props.loading && (
                 <Screens/>
             )}
-            <Toast/>
+            <ToastManager/>
         </>
     );
 }

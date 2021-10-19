@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ucfirst } from "../../helpers/functions";
+import React, {useState} from "react";
+import {ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {ucfirst} from "../../helpers/functions";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import GeneralStyles from "../../constants/GeneralStyles";
 import Translations from "../../constants/Translations";
@@ -14,7 +14,7 @@ import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Actions from "../../redux/Actions";
 import Colors from "../../constants/Colors";
 
@@ -96,6 +96,7 @@ export default function RegistrationScreen(props) {
 
                     <Input
                         style={{ marginBottom: 20 }}
+                        maxLength={20}
                         label={translate(Translations.EnterNickname)}
                         placeholder={translate(Translations.UserName)}
                         onChangeText={text => setNick(text)}

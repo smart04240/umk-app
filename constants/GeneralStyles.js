@@ -1,6 +1,7 @@
 import Fonts from "./Fonts";
 import Layout from "./Layout";
 
+export const isExtraSmallDevice = Layout.width < 375;
 export const main_font_size = Layout.width < 375 ? 14 : 16;
 
 export default {
