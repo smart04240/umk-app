@@ -14,6 +14,11 @@ export default {
         pl: 'Twój profil',
     },
 
+    FileError: {
+      en: 'The file is too large. The maximum file size is 1 MB',
+      pl: 'Plik jest za duży. Maksymalna wielkość pliku to 1 MB'
+    },
+
     PersonalDevelopment: {
         en: 'Personal development and support',
         pl: 'Rozwój osobisty i wsparcie'

@@ -85,7 +85,6 @@ const ProfileMain = () => {
 
         if (!!user?.studies?.length) {
             user?.studies?.forEach((study) => {
-
                 preparedStudies.push({
                     label: study?.study?.name,
                     value: study?.study?.id
@@ -98,7 +97,7 @@ const ProfileMain = () => {
                         ects: percentCounter(study?.study?.duration, study?.ects, study?.status),
                         status: study?.status
                     });
-                    setFacultyId(study?.study?.faculty?.usos_id)
+                    setFacultyId(study?.study?.faculty?.usos_id);
                 }
             });
 
@@ -139,6 +138,8 @@ const ProfileMain = () => {
                     uri: selectedImage?.uri,
                 }})).then(response => {
                 dispatch(Actions.User.Update({user_name: user?.nick_name, avatar: response?.data?.avatar}));
+            }).catch(() => {
+                dispatch(Actions.Toasts.Warning(Translations.FileError))
             });
         }
     };

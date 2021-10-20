@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Platform, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Platform, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/core";
 import {useDispatch, useSelector} from "react-redux";
 import useThemeStyles from "../../hooks/useThemeStyles";
@@ -11,13 +11,13 @@ import ProfileAvatar from "../../components/profile/ProfileAvatar";
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import MainWithNavigation from "../../components/general/MainWithNavigation";
-import ContainerWithScroll from "../../components/general/ContainerWithScroll";
 import useTranslator from "../../hooks/useTranslator";
 import API from "../../helpers/API";
 import Actions from "../../redux/Actions";
 import * as ImagePicker from 'expo-image-picker';
 import makeFormData from "../../helpers/makeFormData";
 import * as FileSystem from 'expo-file-system';
+import Container from "../../components/general/Container";
 
 export default function EditProfileScreen() {
     const translate = useTranslator();
@@ -104,41 +104,53 @@ export default function EditProfileScreen() {
         });
 
         if (!result.cancelled) {
-            setImage(result?.uri);
+            let selectedImage = await FileSystem.getInfoAsync(result?.uri);
+
+            API.user.update(makeFormData({avatar: {
+                    name: selectedImage?.uri?.split('/')[11],
+                    size: selectedImage?.size,
+                    uri: selectedImage?.uri,
+                }})).then(response => {dispatch(Actions.User.Update({user_name: user?.nick_name, avatar: response?.data?.avatar}));
+            }).catch(() => {
+                dispatch(Actions.Toasts.Warning(Translations.FileError))
+            });
         }
     };
 
     return (
         <MainWithNavigation>
-            <TopBox style={{alignItems: "center"}}>
-                <ProfileAvatar size={132} imageSrc={user?.avatar_url || ''}/>
-                <TouchableOpacity onPress={() => pickImage()}>
-                    <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text, marginTop: 20}]}>
-                        {translate(Translations.EditAvatar)}
-                    </Text>
-                </TouchableOpacity>
-            </TopBox>
-            <ContainerWithScroll>
-                <Input
-                    style={{marginBottom: 20}}
-                    label={translate(Translations.ChangeYouNick)}
-                    defaultValue={nickName}
-                    onChangeText={name => setNickName(name)}
-                />
-                <View style={{marginTop: 50}}>
-                    <Button onPress={() => navigation.navigate(Routes.ProfileEvents)} transparent_bg={true}>
-                        {translate(Translations.YourEvents)}
-                    </Button>
-                    <Button onPress={() => updateUserData()}>
-                        {translate(Translations.SaveChanges)}
-                    </Button>
-                    <TouchableOpacity onPress={() => deleteAccount()}>
-                        <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text}]}>
-                            {translate(Translations.DeleteAccount)}
+            <ScrollView>
+                <TopBox style={{alignItems: "center"}}>
+                    <ProfileAvatar size={132} imageSrc={user?.avatar_url || ''}/>
+                    <TouchableOpacity onPress={() => pickImage()}>
+                        <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text, marginTop: 20}]}>
+                            {translate(Translations.EditAvatar)}
                         </Text>
                     </TouchableOpacity>
-                </View>
-            </ContainerWithScroll>
+                </TopBox>
+                <Container>
+                    <Input
+                        style={{marginBottom: 20}}
+                        label={translate(Translations.ChangeYouNick)}
+                        defaultValue={nickName}
+                        onChangeText={name => setNickName(name)}
+                        maxLength={20}
+                    />
+                    <View style={{marginTop: 50}}>
+                        <Button onPress={() => navigation.navigate(Routes.ProfileEvents)} transparent_bg={true}>
+                            {translate(Translations.YourEvents)}
+                        </Button>
+                        <Button onPress={() => updateUserData()}>
+                            {translate(Translations.SaveChanges)}
+                        </Button>
+                        <TouchableOpacity onPress={() => deleteAccount()}>
+                            <Text style={[GeneralStyles.text_regular, {color: ThemeStyles.blue_text}]}>
+                                {translate(Translations.DeleteAccount)}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </Container>
+            </ScrollView>
         </MainWithNavigation>
     );
 };

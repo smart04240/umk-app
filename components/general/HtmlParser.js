@@ -28,6 +28,7 @@ export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
                     <Text
                         key={passProps.key}
                         style={{
+                            color: theme.dark_text,
                             ...convertedCSSStyles,
                             ...pStyles
                         }}
@@ -41,6 +42,7 @@ export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
                         key={passProps.key}
                         style={{
                             paddingLeft: 15,
+                            color: theme.dark_text,
                             ...convertedCSSStyles
                         }}>
                         {children}
@@ -51,7 +53,7 @@ export const HtmlParser = ({html = {}, pStyles = {}, textStyles = {}}) => {
                     <Text
                         key={passProps.key}
                         style={{
-                            color: Colors.white,
+                            color: theme.dark_text,
                             marginBottom: 6,
                             ...convertedCSSStyles
                         }}

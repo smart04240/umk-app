@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { View, Text, StyleSheet } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {StyleSheet, Text, View} from 'react-native';
 
 import API from '../../helpers/API';
 import Fonts from '../../constants/Fonts';
@@ -47,7 +47,7 @@ const BadgeMainInfo = props => {
 	);
 
 	return (
-		<View style={{ flexGrow: 1, paddingLeft: 20 }}>
+		<View style={{flex: 0.5, flexGrow: 1, paddingLeft: 20 }}>
 
 			<Text style={[styles.font_family, styles.big, text_color, { marginBottom: 19 }]}>
 				{translate(badge.name)}
