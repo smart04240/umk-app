@@ -57,6 +57,7 @@ export default function MapScreen() {
     const [locationPermission, setLocationPermission] = React.useState(false);
     const [locating, setLocating] = React.useState(false);
     const [callout, setCallout] = React.useState(null);
+    const [filtering, setFiltering] = React.useState(false);
     const map = React.useRef();
     const searchPanelHeight = React.useRef(60);
     const offset = searchPanelHeight.current - GeneralStyles.bottom_border_radius.borderBottomLeftRadius;
@@ -109,8 +110,15 @@ export default function MapScreen() {
         )
     };
 
-    const searchChange = text => dispatch(Actions.ChangeMapSearch(text));
-    const searchChangeDebounced = text => dispatch(Actions.ChangeMapSearchDebounced(text));
+    const searchChange = text => {
+        !filtering && setFiltering(true);
+        dispatch(Actions.ChangeMapSearch(text));
+    };
+    const searchChangeDebounced = text => {
+        console.log('deb')
+        filtering && setFiltering(false);
+        dispatch(Actions.ChangeMapSearchDebounced(text));
+    };
 
     const onLayout = e => searchPanelHeight.current = e.nativeEvent.layout.height;
 
@@ -145,6 +153,8 @@ export default function MapScreen() {
                     value={data.searchText}
                     onChangeText={searchChange}
                     onDebouncedChange={searchChangeDebounced}
+                    withResetButton
+                    loading={filtering}
                 />
             </TopBox>
 

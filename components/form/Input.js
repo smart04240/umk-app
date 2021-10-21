@@ -11,7 +11,7 @@ export default function Input(props) {
 	const text_color = {color: ThemeStyles.dark_text};
 
 	return (
-		<View style={{width: "100%"}}>
+		<View style={{flex: 1}}>
 
 			{props.label && (
 				<Text style={[
@@ -51,6 +51,7 @@ export default function Input(props) {
 const styles = StyleSheet.create({
 	label: { marginBottom: 8 },
 	input: {
+		flex: 1,
 		paddingHorizontal: 20,
 		paddingVertical: 10,
 		borderRadius: 7,
