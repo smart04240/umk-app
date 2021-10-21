@@ -5,14 +5,14 @@ import useThemeStyles from "../hooks/useThemeStyles";
 import Actions from "../redux/Actions";
 import shadowGenerator from "../helpers/shadowGenerator";
 import Toast from "react-native-tm";
-import * as Constants from "constants";
+import Constants from 'expo-constants';
 import {Vibrator} from "./Vibrator";
 import {getTranslated} from "./functions";
 import {InternetConnectedIcon, InternetLostIcon} from "../assets/images/svg/svgIcons";
 import {unibrowIOSDevices} from "../constants/Layout";
 
 export default function ToastManager(props) {
-    const statusBarHeight = unibrowIOSDevices ? Constants.statusBarHeight + 10 : Constants.statusBarHeight;
+    const statusBarHeight = unibrowIOSDevices ? Constants.statusBarHeight + 20 : Constants.statusBarHeight;
     const theme = useThemeStyles();
     const dispatch = useDispatch();
     const toast = useSelector(state => state.toasts);
@@ -46,7 +46,7 @@ export default function ToastManager(props) {
                     borderColor: toast?.color,
                     borderRadius: 5,
                     ...shadowGenerator(10)
-                }
+                },
             }}
         >
             {!!toast?.withLoader && (
