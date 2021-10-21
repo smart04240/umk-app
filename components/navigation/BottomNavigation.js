@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
-import { MaterialCommunityIcons  } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/core';
-import * as Device from 'expo-device';
+import {StyleSheet, TouchableOpacity, View} from "react-native";
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {useNavigation, useRoute} from '@react-navigation/core';
 import Layout, {unibrowIOSDevices} from '../../constants/Layout';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -12,7 +11,7 @@ const BottomNavigation = () => {
 	const ThemeStyles = useThemeStyles();
 	const route = useRoute();
 	const navigation= useNavigation();
-	const bottomTabBarOffset = unibrowIOSDevices && {paddingBottom: 40};
+	const bottomTabBarOffset = unibrowIOSDevices && {paddingBottom: 50};
 
 	const isButtonActive = name => route.name.split(".")[0] === name;
 
