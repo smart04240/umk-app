@@ -6,7 +6,7 @@ import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Fonts from '../../constants/Fonts';
 import LocaleSwitcher from './LocaleSwitcher';
-import Layout from '../../constants/Layout';
+import Layout, {unibrowIOSDevices} from '../../constants/Layout';
 
 const flags = {
 	"en": require("../../assets/images/flags/pl.png"),
@@ -14,12 +14,12 @@ const flags = {
 }
 
 const LocaleSwitcherBox = () => {
-
 	const locale = useSelector( state => state.app.locale );
     const ThemeStyles = useThemeStyles();
+	const topOffset = unibrowIOSDevices && {paddingTop: 50};
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box ]}>
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box, topOffset]}>
 			<LocaleSwitcher/>
 			<Image style={ styles.img } source={ flags[ locale ] }/>
 		</View>
