@@ -63,6 +63,26 @@ const PROGRESS_COLORS = [
     { id: 1100000000, color: '#AA2896', alternative: '#ffd0f9' },
 ];
 
+const Info = ({info}) => {
+    const theme = useThemeStyles();
+
+    return(
+        <View>
+            {info?.map((item, index) => {
+                if (!!item.value)
+                    return (
+                        <View key={index} style={styles.textContainer}>
+                            <Text
+                                style={[styles.font_family, styles.small, {color: theme.dark_blue_text}]}>{item.label}</Text>
+                            <Text
+                                style={[styles.font_family, styles.medium, {color: theme.dark_blue_text}]}>{item.value}</Text>
+                        </View>
+                    )
+            })}
+        </View>
+    )
+}
+
 const ProfileMain = () => {
     const translate = useTranslator();
     const theme = useThemeStyles();
@@ -111,7 +131,7 @@ const ProfileMain = () => {
             {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : '0 %'},
             {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false,{M: 99999}) : statusRules.includes(selectedData?.status) ? null : 'N/A'}
         ]
-    },[selectedPath, locale]);
+    },[user, selectedData, selectedPath, locale]);
 
     const pickImage = async () => {
         if (Platform.OS !== 'web') {
@@ -180,19 +200,7 @@ const ProfileMain = () => {
                                 onChange={e => setSelectedPath(e.value)}
                             />
                         )}
-                        <View>
-                            {info.map((item, index) => {
-                                if (!!item.value)
-                                    return (
-                                        <View key={index} style={styles.textContainer}>
-                                            <Text
-                                                style={[styles.font_family, styles.small, {color: ThemeStyles.dark_blue_text}]}>{item.label}</Text>
-                                            <Text
-                                                style={[styles.font_family, styles.medium, {color: ThemeStyles.dark_blue_text}]}>{item.value}</Text>
-                                        </View>
-                                    )
-                            })}
-                        </View>
+                        <Info info={info}/>
                     </View>
                 </View>
                 <Button onPress={() => navigation.navigate(Routes.ProfileEdit)} transparent_bg={true}>
@@ -232,4 +240,4 @@ const styles = {
 };
 
 
-export default ProfileMain;
+export default React.memo(ProfileMain);
