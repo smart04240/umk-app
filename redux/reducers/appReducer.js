@@ -1,6 +1,7 @@
 import {createReducer} from "@reduxjs/toolkit";
 import Actions from "../Actions";
 import {Appearance} from "react-native-appearance";
+import {setDeviceLang} from "../../helpers/setDeviceLang";
 
 /**
  * @typedef ApplicationState
@@ -17,7 +18,7 @@ import {Appearance} from "react-native-appearance";
  * @type {ApplicationState}
  */
 const InitialState = {
-    locale: 'en',
+    locale: setDeviceLang(),
     theme: Appearance.getColorScheme() === 'no-preference' ? 'light' : Appearance.getColorScheme(),
     cached: false,
     online: true,

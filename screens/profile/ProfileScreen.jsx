@@ -26,7 +26,7 @@ export default function ProfileScreen(props) {
             component: ProfileStatistics
         },
         {
-            tabLabel: translate(Translations.Badges),
+            tabLabel: translate(Translations.EarnedBadges),
             component: ProfileBadges
         },
     ];
@@ -45,6 +45,7 @@ export default function ProfileScreen(props) {
                 },
                 pillLabel: {
                     ...GeneralStyles.text_regular,
+                    textAlign: 'center',
                     textTransform: "uppercase",
                     color: theme.blue_text
                 },

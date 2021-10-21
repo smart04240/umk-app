@@ -11,7 +11,7 @@ import Main from "../../components/general/Main";
 import Routes from "../../constants/Routes";
 import ScreenWithHiddenHeader from "../../components/layout/ScreenWithHiddenHeader";
 import API from "../../helpers/API";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Actions from "../../redux/Actions";
 import useTranslator from "../../hooks/useTranslator";
 import {makeRedirectUri} from "expo-auth-session";
@@ -21,6 +21,7 @@ export default function LoginScreen(props) {
     const dispatch = useDispatch();
     const translate = useTranslator();
     const [authenticating, setAuthenticating] = React.useState(false);
+    const locale = useSelector(state => state.app.locale);
 
     const loginUSOS = () => {
         if (authenticating)

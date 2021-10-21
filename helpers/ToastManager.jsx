@@ -21,13 +21,13 @@ export default function ToastManager(props) {
     const cleanup = () => dispatch(Actions.Toasts.Cleanup());
 
     React.useEffect(() => {
-        if (!!toast)
+        if (!!(toast?.message && toast?.color))
             Vibrator();
     },[toast]);
 
     return (
         <Toast
-            show={!!toast}
+            show={!!(toast?.message && toast?.color)}
             withClose
             onHide={cleanup}
             animationType={'bounce'}
