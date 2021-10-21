@@ -50,7 +50,7 @@ export default function BadgeScreen(props) {
 			html: `<div style="width: 100%; height: 100%;  font-family: 'Aileron', sans-serif;">
 						<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
 							<img src="${avatar}" style="width: 100px; border-radius: 50%" />
-							<h1 style="font-size: 60px; color: #034ea2; margin-top: 20px; margin-bottom: 100px; font-weight: normal;">${user?.nick_name}</h1>
+							<h1 style="font-size: 60px; color: #034ea2; margin-top: 20px; margin-bottom: 100px; font-weight: normal;">${user?.first_name} ${user?.last_name}</h1>
 							<p style="font-size: 28px; color: #034ea2; margin: 0; margin-bottom: -30px; text-transform: uppercase">${translate(title)}</p>
 
 							<h1 style="font-size: 80px; color: #034ea2; letter-spacing: 20px; text-align: center; text-transform: uppercase; font-weight: normal; margin-bottom: 50px; width: 90%; white-space: wrap">${translate(badge?.name)}</h1>
