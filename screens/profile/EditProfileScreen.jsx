@@ -46,17 +46,8 @@ export default function EditProfileScreen() {
             nick_name: nickName,
         };
 
-        if (image) {
-            const selectedImage = await FileSystem.getInfoAsync(image);
-            data.avatar = {
-                name: selectedImage?.uri?.split('/')[11],
-                size: selectedImage?.size,
-                uri: selectedImage?.uri,
-            };
-        }
-
         API.user.update(makeFormData(data)).then(response => {
-            dispatch(Actions.User.Update({user_name: nickName, avatar: response?.data?.avatar}));
+            dispatch(Actions.User.Update({user_name: nickName, avatar: user?.avatar_url}));
             navigation.navigate(Routes.Profile);
         }).catch(error => {
             if (error?.response?.status === 422 && error?.response?.data?.nick_name) {
