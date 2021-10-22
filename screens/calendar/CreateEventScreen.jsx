@@ -49,10 +49,24 @@ export const ReminderOptions = [
         },
     },
     {
+        value: '900',
+        label: {
+            pl: '15 minut przed',
+            en: '15 minutes before',
+        },
+    },
+    {
         value: '3600',
         label: {
             pl: '1 godzinę przed',
             en: '1 hour before',
+        },
+    },
+    {
+        value: '10800',
+        label: {
+            pl: '3 godzinę przed',
+            en: '3 hour before',
         },
     },
     {
