@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import Actions from "../../redux/Actions";
 import * as Calendar from "expo-calendar";
+import {Platform} from "react-native";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -30,7 +31,7 @@ export default function CalendarScreen() {
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
-        Calendar.requestCalendarPermissionsAsync().then(({status}) => dispatch(Actions.Calendar.SetPermission(status === 'granted')));
+        requestPermissionsForCalendar();
         return () => {
             dispatch(Actions.Calendar.SetDate(null));
         };
@@ -60,6 +61,22 @@ export default function CalendarScreen() {
             borderColor: theme.blue_text,
         },
     }), [theme]);
+
+    const requestPermissionsForCalendar = () => {
+        let permissions = {};
+
+        Calendar.requestCalendarPermissionsAsync().then(async res => {
+            permissions.calendar = (res?.status === 'granted');
+
+            if (Platform.OS === 'ios') {
+                await Calendar.requestRemindersPermissionsAsync().then(res => {
+                    permissions.reminders = (res?.status === 'granted')
+                });
+            }
+
+            dispatch(Actions.Calendar.SetPermission(Platform.OS === 'ios' ? !!(permissions?.calendar && permissions?.reminders) : !!permissions?.calendar));
+        });
+    }
 
     if (permissionGranted === false) {
         return (
