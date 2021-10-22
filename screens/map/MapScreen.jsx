@@ -74,8 +74,20 @@ export default function MapScreen() {
         if (!markers?.length || !map?.current?.getMapRef())
             return;
 
+        const locations = markers.map(marker => ({latitude: marker.latitude, longitude: marker.longitude}));
+
+        if (markers.length === 1) {
+            map.current.getMapRef().animateToRegion({
+                latitude: markers[0].latitude,
+                longitude: markers[0].longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+            }, 1);
+            return;
+        }
+
         map.current.getMapRef().fitToCoordinates(
-            markers.map(marker => ({latitude: marker.latitude, longitude: marker.longitude})),
+            locations,
             {
                 edgePadding: MapPadding,
                 animated: false,
@@ -115,7 +127,6 @@ export default function MapScreen() {
         dispatch(Actions.ChangeMapSearch(text));
     };
     const searchChangeDebounced = text => {
-        console.log('deb')
         filtering && setFiltering(false);
         dispatch(Actions.ChangeMapSearchDebounced(text));
     };
