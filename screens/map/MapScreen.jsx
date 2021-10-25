@@ -95,7 +95,7 @@ export default function MapScreen() {
         );
     }, [markers, map]);
 
-    const renderMarker = marker => {
+    const renderMarker = React.useCallback(marker => {
         // use onSelect because onPress doesn't work on ios
         const actionFunction = Platform.OS === 'ios' ? {
             onSelect: ({coordinate}) => {
@@ -120,7 +120,7 @@ export default function MapScreen() {
                 <FontAwesome5 name="map-marker" size={32} color={marker.category.color}/>
             </MapView.Marker>
         )
-    };
+    }, []);
 
     const searchChange = text => {
         !filtering && setFiltering(true);
@@ -148,10 +148,11 @@ export default function MapScreen() {
         });
     };
 
-    const onMapPress = () => {
+    const onMapPress = React.useCallback(() => {
         setCallout(null);
         Keyboard.dismiss();
-    };
+    }, []);
+    const onMapDrag = React.useCallback(() => !!callout && setCallout(null), [callout]);
 
     const navigateToMarkerDetails = () => navigation.navigate(Routes.Marker, callout);
     const openMarker = () => Links.openMap(translate(callout.title), callout.latitude, callout.longitude);
@@ -186,6 +187,7 @@ export default function MapScreen() {
                         showsUserLocation={locationPermission}
                         showsMyLocationButton={false}
                         initialRegion={InitialRegion}
+                        onPanDrag={onMapDrag}
                     />
 
                     {!!callout && (
