@@ -142,10 +142,16 @@ export default function CreateEventScreen(props) {
     const dispatch = useDispatch();
     const categories = useCategoryPreparer();
     const markers = useSelector(state => state.mapData.markers);
-    const markerOptions = React.useMemo(() => markers.map(marker => ({
-        value: String(marker.id),
-        label: translate(marker.title)
-    })), [markers, translate]);
+    const markerOptions = React.useMemo(() => {
+        return markers
+            .map(marker => ({
+                value: String(marker.id),
+                label: translate(marker.title),
+            }))
+            .sort((a, b) => {
+                return a.label > b.label;
+            });
+    }, [markers, translate]);
     const reminderOptions = React.useMemo(() => ReminderOptions.map(option => ({
         ...option,
         label: translate(option.label)

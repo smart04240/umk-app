@@ -87,18 +87,20 @@ export default React.memo(function WeekScreen() {
             keyExtractor={(item, index) => index}
             ListHeaderComponent={
                 <RangeSelector
-                    isDay={false}
+                    style={{marginHorizontal: 20, marginVertical: 20}}
                     onPress={() => setShow(true)}
                     date={selectedDay}
                     show={show}
-                    setClose={() => setShow(false)}
-                    calendarOnChange={date => {
-                        if (!!date) {
-                            dispatch(Actions.Calendar.SetDate(moment(date).toISOString()));
-                            setShow(false);
-                        }
+                    formatter={date => {
+                        return moment(date).startOf('week').locale(locale).format('D MMM').toUpperCase()
+                            + ' - '
+                            + moment(date).endOf('week').locale(locale).format('D MMM').toUpperCase();
                     }}
-                    rangeSelectorStyles={{marginHorizontal: 20, marginVertical: 20}}
+                    setClose={() => setShow(false)}
+                    onChange={date => {
+                        setShow(false);
+                        date && dispatch(Actions.Calendar.SetDate(moment(date).toISOString()));
+                    }}
                 />
             }
             ListFooterComponent={<View style={{height: 20}}/>}

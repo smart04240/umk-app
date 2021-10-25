@@ -83,12 +83,31 @@ export default React.memo(function MonthScreen() {
     const [selectedMonth, setSelectedMonth] = React.useState(moment());
     const [semesterId, setSemesterId] = React.useState(null);
     const [showPicker, setShowPicker] = React.useState(false);
-    const filteredSemesters = semesters.filter(semester => !semester.name.includes('Rok akademicki '));
 
-    const semesterOptions = React.useMemo(() => (filteredSemesters || []).map(semester => ({
-        value: semester.id,
-        label: semester.name
-    })), [semesters]);
+    const semesterOptions = React.useMemo(() => {
+        const currentYear = (new Date).getFullYear();
+        return (semesters || [])
+            .filter(semester => {
+                return !semester.name.includes('Rok akademicki ') && (
+                    semester.name.includes(String(currentYear))
+                    || semester.name.includes(String(currentYear - 1))
+                    || semester.name.includes(String(currentYear - 2))
+                );
+            })
+            .sort((a, b) => {
+                const aYear = a.name.split(' ')[2];
+                const bYear = b.name.split(' ')[2];
+
+                if (aYear === bYear)
+                    return a.name > b.name;
+
+                return aYear < bYear;
+            })
+            .map(semester => ({
+                value: semester.id,
+                label: semester.name,
+            }));
+    }, [semesters]);
     const semester = React.useMemo(() => (semesters || []).find(semester => String(semester.id) === String(semesterId)), [semesters, semesterId]);
     const calendarWeeks = React.useMemo(() => weeks(selectedMonth), [selectedMonth]);
     const sections = React.useMemo(() => {
@@ -113,17 +132,8 @@ export default React.memo(function MonthScreen() {
     }, [selectedDate]);
 
     React.useEffect(() => {
-        setSemesterId(semesters?.[0]?.id);
-    }, [semesters]);
-
-    React.useEffect(() => {
-        const currentSemester = filteredSemesters.find(semester => {
-            if (moment().isSameOrBefore(moment(semester.end_date).toISOString()) && moment().isSameOrAfter(moment(semester.start_date).toISOString())) {
-                return semester
-            }
-        });
-        setSemesterId(currentSemester.id);
-    },[]);
+        setSemesterId(semesterOptions?.[0]?.value);
+    }, [semesterOptions]);
 
     const openPicker = () => setShowPicker(true);
     const hidePicker = () => setShowPicker(false);

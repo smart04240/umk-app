@@ -20,6 +20,7 @@ import {getTranslated} from "../../helpers/functions";
 import {HtmlParser} from "../../components/general/HtmlParser";
 import Colors from "../../constants/Colors";
 import useMixedEvents from "../../hooks/useMixedEvents";
+import {selectDate} from "../../redux/selectors/eventsSelector";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -51,7 +52,7 @@ export default React.memo(function DayScreen() {
     const dispatch = useDispatch();
     const width = useWindowDimensions().width;
     const [show, setShow] = React.useState(false);
-    const selectedDay = useSelector(state => state.calendar.selectedDate);
+    const selectedDay = useSelector(state => selectDate(state));
     const [now, setNow] = React.useState(new Date());
     const events = useMixedEvents('day');
     const [eventsJSX, setEventsJSX] = React.useState(null);
@@ -160,17 +161,15 @@ export default React.memo(function DayScreen() {
             delayPressIn={200}
         >
             <RangeSelector
-                day={selectedDay}
+                style={styles.picker}
+                date={selectedDay}
                 show={show}
                 onPress={showPicker}
                 setClose={hidePicker}
-                calendarOnChange={day => {
-                    if (!!day) {
-                        dispatch(Actions.Calendar.SetDate(moment(day).toISOString()))
-                        hidePicker()
-                    }
+                onChange={day => {
+                    hidePicker();
+                    day && dispatch(Actions.Calendar.SetDate(moment(day).toISOString()));
                 }}
-                rangeSelectorStyles={styles.picker}
             />
             <View>
                 {/* hours */}

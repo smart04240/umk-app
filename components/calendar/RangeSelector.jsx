@@ -7,33 +7,29 @@ import moment from "moment";
 import {useSelector} from "react-redux";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnChange, rangeSelectorStyles}) => {
+export const RangeSelector = ({
+    style,
+    onPress,
+    date,
+    format = 'D MMMM, dddd',
+    formatter,
+    show,
+    setClose,
+    onChange
+}) => {
     const theme = useThemeStyles();
     const locale = useSelector(state => state.app.locale);
 
-    const getWeekDateRange = useMemo(() => {
-        let startDate = moment(date).startOf('week');
-        let endDate = moment(date).endOf('week');
+    const label = useMemo(() => {
+        return formatter ? formatter(date) : moment(date).locale(locale).format(format);
+    }, [date, locale, format]);
 
-        return {
-            startDate,
-            endDate,
-            formattedStartDate: startDate.locale(locale).format('D MMM').toUpperCase(),
-            formattedEndDate: endDate.locale(locale).format('D MMM').toUpperCase()
-        };
-    },[date, locale]);
-
-    const getDay = useMemo(() => {
-        if (day)
-            return moment(day).locale(locale).format('D MMMM, dddd').toUpperCase();
-    },[day, locale]);
-
-    return(
+    return (
         <>
             <TouchableOpacity
                 style={[
                     styles.weeksSelector,
-                    rangeSelectorStyles,
+                    style,
                     {borderColor: theme.blue_text}
                 ]}
                 onPress={onPress}
@@ -48,10 +44,7 @@ export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnCha
                             {color: theme.blue_text}
                         ]}
                     >
-                        {!!date
-                            ? (getWeekDateRange.formattedStartDate + ' - ' + getWeekDateRange.formattedEndDate)
-                            : (getDay)
-                        }
+                        {label}
                     </Text>
                 </View>
                 <FontAwesome
@@ -62,15 +55,14 @@ export const RangeSelector = ({onPress, date, day, show, setClose, calendarOnCha
                 />
             </TouchableOpacity>
             <DateTimePickerModal
+                date={date}
                 isVisible={show}
                 mode={'date'}
-                onConfirm={value => {
-                    calendarOnChange(value);
-                }}
+                onConfirm={onChange}
                 onCancel={setClose}
             />
         </>
-    )
+    );
 };
 
 const styles = {
