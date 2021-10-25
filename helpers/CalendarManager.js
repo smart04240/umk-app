@@ -16,6 +16,7 @@ import {Platform} from "react-native";
 import Colors from "../constants/Colors";
 import useTranslator from "../hooks/useTranslator";
 import {eventsSelectors} from "../redux/selectors/eventsSelector";
+import moment from "moment";
 
 const CalendarTitle = 'UMK Calendar';
 
@@ -116,12 +117,19 @@ export default function CalendarManager() {
                 const remoteEventId = String(event.id);
                 let systemEventId = map[remoteEventId];
 
+                const startDate = event.is_full_day
+                    ? moment(event.start_date).utcOffset(0, true).toISOString()
+                    : event.start_date;
+                const endDate = event.is_full_day
+                    ? moment(event.end_date).utcOffset(0, true).add(1, 'second').toISOString()
+                    : event.end_date;
+
                 const details = {
                     title: translate(event.title),
                     location: extractAddress(event),
                     notes: translate(event.description)?.replace?.(["<br/>", "<br>"], "\n").replace(/(<([^>]+)>)/ig, ""),
-                    startDate: event.start_date,
-                    endDate: event.end_date,
+                    startDate,
+                    endDate,
                     allDay: !!event.is_full_day,
                     alarms: [],
                 };

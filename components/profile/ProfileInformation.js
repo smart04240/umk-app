@@ -11,6 +11,7 @@ import Badge from '../badge/Badge';
 import BadgeWithRange from '../badge/BadgeWithRange';
 import Container from "../general/Container";
 import useTranslator from "../../hooks/useTranslator";
+import {ScrollView} from "react-native-gesture-handler";
 
 const ProfileInformation = props => {
     const translate = useTranslator();
@@ -20,7 +21,6 @@ const ProfileInformation = props => {
     const [promoted_badges, setPromotedBadges] = useState([]);
     const [started_badges, setStartedBadges] = useState([]);
 
-
     // Load badges the student promoted
     useEffect(() => {
         API.badges.getPromoted().then(response => {
@@ -29,7 +29,7 @@ const ProfileInformation = props => {
         API.badges.getStartedEarning().then(response => {
             setStartedBadges(response.data.data);
         })
-    }, []);;
+    }, []);
 
     const title_styles = [GeneralStyles.text_bold, { color: ThemeStyles.dark_text }];
 

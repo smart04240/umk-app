@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Colors from '../../constants/Colors';
-import Layout from '../../constants/Layout';
+import Layout, {unibrowIOSDevices} from '../../constants/Layout';
 import shadowGenerator from "../../helpers/shadowGenerator";
 
 const FloatAddButton = props => (
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 	circle: {
 		...GeneralStyles.row_centered,
 		position: "absolute",
-		bottom: 70,
+		bottom: unibrowIOSDevices ? 110 : 70,
 		left: Layout.paddingHorizontal,
 		zIndex: 5,
 		...shadowGenerator(5),
