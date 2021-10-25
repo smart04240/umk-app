@@ -17,10 +17,11 @@ const Annual = (allRankings) => {
 		all: allRankings
 	});
 	const [rankings, setRankings] = useState(allRankings);
+	let number = 0;
 
 	useEffect(() => {
 		user?.studies?.forEach((study) => {
-			setStudies(oldVal => [...oldVal, {
+			setStudies(prev => [...prev, {
 				label: study?.study?.name,
 				value: study?.study?.usos_id
 			}]);
@@ -43,6 +44,7 @@ const Annual = (allRankings) => {
 				prev[studyUsosId] = response.data.data;
 				return {...prev};
 			});
+			setRankings(response.data.data);
 		});
 	}
 
@@ -59,7 +61,7 @@ const Annual = (allRankings) => {
 			/>
 
 			{rankings && !!rankings.length && rankings.map((item, i) => {
-				let number = rankings[i - 1]?.points === item.points ? i : i + 1;
+				number = rankings[i - 1]?.points === item?.points ? number : number + 1;
 				return <RankingBox key={i} {...{ ...item, number }} />
 			})}
 		</Container>
