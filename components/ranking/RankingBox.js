@@ -30,24 +30,24 @@ const RankingBox = props => {
 			GeneralStyles.row_ac,
 			{ backgroundColor: ThemeStyles.box_bg },
 			styles.box,
-			props.box_style || {}
+			props.box_style || {},
 		]}>
 
 			<Text style={[
 				num_style,
-				{ marginRight: 12 }
+				{ width: 35, marginRight: 15 }
 			]}>{number}</Text>
 
 			{/* { avatar && */}
 			<RoundedImage
 				size={55}
-				box_style={{ marginLeft: 5 }}
-				img_source={avatar ? avatar : sampleAvatar}
+				box_style={{ marginRight: 5 }}
+				img_source={avatar ? { uri: avatar} : sampleAvatar}
 			/>
 			{/* } */}
 
-			<View>
-				<Text style={dark_blue_regular}>
+			<View style={{flex: 1}}>
+				<Text style={dark_blue_regular} numberOfLines={1}>
 					{nick_name} {user.id === id ? ' (You)' : ''}
 				</Text>
 
@@ -60,7 +60,7 @@ const RankingBox = props => {
 			</View>
 
 
-			<View style={{ marginLeft: "auto", justifyContent: "center" }}>
+			<View style={{ justifyContent: "center" }}>
 				<Text style={num_style}>{ points ? points : 0 }</Text>
 				<Text style={[
 					dark_blue_regular,
