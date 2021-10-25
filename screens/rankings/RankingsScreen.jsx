@@ -17,7 +17,7 @@ const Faculty = (data) => {
 	return (
 		<Container>
 			{data && !!data.length && data.map((item, i) => {
-				let number = data[i - 1]?.points === item.points ? i : i + 1;
+				let number = data[i - 1]?.points === item?.points ? i : i + 1;
 				return <RankingBox key={i} {...{ ...item, number }} />
 			})}
 		</Container>
