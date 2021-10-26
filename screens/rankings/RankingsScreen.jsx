@@ -14,10 +14,12 @@ import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
 import Annual from "./Annual";
 
 const Faculty = (data) => {
+	let number = 0;
+
 	return (
 		<Container>
 			{data && !!data.length && data.map((item, i) => {
-				let number = data[i - 1]?.points === item?.points ? i : i + 1;
+				number = data[i - 1]?.points === item?.points ? number : number + 1;
 				return <RankingBox key={i} {...{ ...item, number }} />
 			})}
 		</Container>
