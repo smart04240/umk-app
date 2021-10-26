@@ -40,7 +40,7 @@ export default function TutorialScreen(props) {
     const dimensions = useWindowDimensions();
     const dispatch = useDispatch();
     const flatListRef = useRef();
-    const isDarkTheme = useSelector(state => state.app.theme);
+    const isDarkTheme = useSelector(state => state.app.theme) === 'dark';
     const [currentIndex, setCurrentIndex] = React.useState(0);
 
     console.log(isDarkTheme)
@@ -67,35 +67,30 @@ export default function TutorialScreen(props) {
                 rightButtonLabel: 'Next',
                 leftButtonOnPress: () => toStartScreen(),
                 rightButtonOnPress: () => scrollToItem(1),
-                imageSource: require("../../assets/images/tutorial/profile.png")
+                imageSource: require("../../assets/images/tutorial/profile.png"),
+                title: '',
+                description: ''
             },
             {
                 leftButtonLabel: 'Back',
                 rightButtonLabel: 'Next',
                 leftButtonOnPress: () => scrollToItem(0),
                 rightButtonOnPress: () => scrollToItem(2),
-                imageSource: require("../../assets/images/tutorial/calendar.png")
+                imageSource: require("../../assets/images/tutorial/map.png")
             },
             {
                 leftButtonLabel: 'Back',
                 rightButtonLabel: 'Next',
                 leftButtonOnPress: () => scrollToItem(1),
                 rightButtonOnPress: () => scrollToItem(3),
-                imageSource: require("../../assets/images/tutorial/profile.png")
-            },
-            {
-                leftButtonLabel: 'Back',
-                rightButtonLabel: 'Next',
-                leftButtonOnPress: () => scrollToItem(2),
-                rightButtonOnPress: () => scrollToItem(4),
-                imageSource: require("../../assets/images/tutorial/profile.png")
+                imageSource: require("../../assets/images/tutorial/calendar.png")
             },
             {
                 leftButtonLabel: 'Back',
                 rightButtonLabel: 'Finish',
-                leftButtonOnPress: () => scrollToItem(3),
+                leftButtonOnPress: () => scrollToItem(2),
                 rightButtonOnPress: () => toStartScreen(),
-                imageSource: require("../../assets/images/tutorial/profile.png")
+                imageSource: require("../../assets/images/tutorial/rankings.png")
             },
         ];
     },[]);
@@ -112,6 +107,7 @@ export default function TutorialScreen(props) {
                     renderItem={({item}) => (
                         <View
                             style={{
+                                backgroundColor: 'red',
                                 width: dimensions?.width,
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -119,16 +115,17 @@ export default function TutorialScreen(props) {
                         >
                             <View
                                 style={{
-                                    flex: 1,
+                                    height: '100%',
+                                    width: '100%',
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    padding: 60
                                 }}
                             >
                                 <Image style={{
-                                    width: 500,
-                                    resizeMode: 'contain'
-                                }} source={require("../../assets/images/tutorial/profile.png")}/>
+                                    width: '100%',
+                                    height: '100%',
+                                    resizeMode: 'cover',
+                                }} source={item?.imageSource}/>
                             </View>
                         </View>
                     )}

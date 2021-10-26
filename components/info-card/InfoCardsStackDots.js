@@ -6,7 +6,7 @@ import GeneralStyles from '../../constants/GeneralStyles';
 
 const InfoCardsStackDots = props => {
     const {total_amount, active_index} = props;
-    const dots_amount = useMemo(() => total_amount === 2 ? 2 : 5, [total_amount]);
+    const dots_amount = useMemo(() => total_amount === 2 ? 2 : 4, [total_amount]);
 
     const dots = useMemo(() => {
 
