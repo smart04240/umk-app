@@ -19,6 +19,11 @@ export default {
         pl: 'Aplikacja przeznaczona tylko dla studentów UMK',
     },
 
+    CalendarPermissionsRevoked: {
+        en: 'Calendar permissions have been revoked',
+        pl: 'Uprawnienia kalendarza zostały cofnięte',
+    },
+
     FileError: {
         en: 'The file is too large. The maximum file size is 1 MB',
         pl: 'Plik jest za duży. Maksymalna wielkość pliku to 1 MB'

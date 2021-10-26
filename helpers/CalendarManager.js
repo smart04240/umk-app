@@ -17,6 +17,7 @@ import Colors from "../constants/Colors";
 import useTranslator from "../hooks/useTranslator";
 import {eventsSelectors} from "../redux/selectors/eventsSelector";
 import moment from "moment";
+import Translations from "../constants/Translations";
 
 const CalendarTitle = 'UMK Calendar';
 
@@ -100,7 +101,12 @@ export default function CalendarManager() {
             .then(([project, others]) => dispatch(Actions.Calendar.SetCalendarIds({
                 project,
                 others,
-            })));
+            })))
+            .catch(e => {
+                __DEV__ && console.error(e);
+                dispatch(Actions.Calendar.SetPermission(false));
+                dispatch(Actions.Toasts.Danger(Translations.CalendarPermissionsRevoked));
+            });
     }, [permissionGranted]);
 
     // sync events with project calendar
