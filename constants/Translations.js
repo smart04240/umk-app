@@ -14,9 +14,14 @@ export default {
         pl: 'Twój profil',
     },
 
+    OnlyStudentsAllowedToLogin: {
+        en: 'The application is intended only for students of UMK',
+        pl: 'Aplikacja przeznaczona tylko dla studentów UMK',
+    },
+
     FileError: {
-      en: 'The file is too large. The maximum file size is 1 MB',
-      pl: 'Plik jest za duży. Maksymalna wielkość pliku to 1 MB'
+        en: 'The file is too large. The maximum file size is 1 MB',
+        pl: 'Plik jest za duży. Maksymalna wielkość pliku to 1 MB'
     },
 
     PersonalDevelopment: {

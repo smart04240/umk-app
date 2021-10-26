@@ -1,8 +1,9 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import Colors from "../constants/Colors";
 import API from "../helpers/API";
+import Translations from "../constants/Translations";
 
-export default {
+const Actions = {
     API: {
         DataLoaded: createAction('API/fetch'),
     },
@@ -35,15 +36,21 @@ export default {
         USOSOAuth: createAction('user/usos-oauth'),
         USOSAccessToken: createAsyncThunk('user/usos-access-token', async (payload, thunkAPI) => {
             const state = {...thunkAPI.getState().user, ...payload};
-            const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
-            return {
-                oauth_token: null,
-                oauth_verifier: null,
-                secret: null,
-                access_token:   result?.data?.access_token,
-                access_secret:  result?.data?.access_secret,
-                isUnregistered: result?.data?.is_unregistered,
-            };
+            try {
+                const result = await API.oauth.getAccessToken(state.oauth_token, state.oauth_verifier, state.secret);
+                return {
+                    oauth_token: null,
+                    oauth_verifier: null,
+                    secret: null,
+                    access_token: result?.data?.access_token,
+                    access_secret: result?.data?.access_secret,
+                    isUnregistered: result?.data?.is_unregistered,
+                };
+            } catch (error) {
+                if (error.response.status === 403) {
+                    thunkAPI.dispatch(Actions.Toasts.Danger(Translations.OnlyStudentsAllowedToLogin));
+                }
+            }
         }),
         Update: createAction('user/update')
     },
@@ -77,3 +84,5 @@ export default {
         Promoted: createAction('badges/promoted'),
     }
 };
+
+export default Actions;
