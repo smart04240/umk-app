@@ -40,6 +40,7 @@ export const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware({
         serializableCheck: {
+            warnAfter: 55, // increase serializable check threshold
             // must blacklist react-persist actions in react-toolkit
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
