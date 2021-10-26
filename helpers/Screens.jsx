@@ -12,7 +12,7 @@ import HeaderRight from "../components/header/HeaderRight";
 import LoginScreen from "../screens/unlogged/LoginScreen";
 import RegistrationScreen from "../screens/unlogged/RegistrationScreen";
 import StartScreen from "../screens/start/StartScreen";
-import TutorialScreen from "../screens/start/TutorialScreen";
+import TutorialScreen from "../screens/tutorial/TutorialScreen";
 import ProfileScreen from "../screens/profile/ProfileScreen";
 import EditProfileScreen from "../screens/profile/EditProfileScreen";
 import ProfileBadgeScreen from "../screens/profile/ProfileBadgeScreen";

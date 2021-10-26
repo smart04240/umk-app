@@ -80,8 +80,8 @@ export default function EditProfileScreen() {
 
     const pickImage = async () => {
         if (Platform.OS !== 'web') {
-            const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== 'granted') {
+            const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (res.status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
                 return;
             }

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Dimensions, Easing, Platform, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, Easing, Text, TouchableOpacity, View} from "react-native";
 import Translations from '../../constants/Translations';
 import Layout from "../../constants/Layout";
 import Routes from "../../constants/Routes";
@@ -134,12 +134,10 @@ const ProfileMain = () => {
     },[user, selectedData, selectedPath, locale]);
 
     const pickImage = async () => {
-        if (Platform.OS !== 'web') {
-            const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== 'granted') {
-                alert('Sorry, we need camera roll permissions to make this work!');
-                return;
-            }
+        const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (res.status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!' + JSON.stringify(res));
+            return;
         }
 
         let result = await ImagePicker.launchImageLibraryAsync({
