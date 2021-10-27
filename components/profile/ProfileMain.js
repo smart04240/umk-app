@@ -151,7 +151,7 @@ const ProfileMain = () => {
             let selectedImage = await FileSystem.getInfoAsync(result?.uri);
 
             API.user.update(makeFormData({avatar: {
-                    name: selectedImage?.uri?.split('/')[11],
+                    name: selectedImage?.uri?.split('/').pop(),
                     size: selectedImage?.size,
                     uri: selectedImage?.uri,
                 }})).then(response => {
@@ -166,7 +166,7 @@ const ProfileMain = () => {
         <WithHeaderConfig borderless={true}>
             <View style={{padding: 15, backgroundColor: theme.box_bg}}>
                 <View style={{flexDirection: "row", marginBottom: 18}}>
-                    <TouchableOpacity onPress={() => pickImage()} style={{flexGrow: 0.5}}>
+                    <TouchableOpacity onPress={() => dispatch(Actions.Toasts.Message(''))} style={{flexGrow: 0.5}}>
                         <AnimatedCircularProgress
                             size={160}
                             width={9}

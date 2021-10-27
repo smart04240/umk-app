@@ -98,7 +98,7 @@ export default function EditProfileScreen() {
             let selectedImage = await FileSystem.getInfoAsync(result?.uri);
 
             API.user.update(makeFormData({avatar: {
-                    name: selectedImage?.uri?.split('/')[11],
+                    name: selectedImage?.uri?.split('/').pop(),
                     size: selectedImage?.size,
                     uri: selectedImage?.uri,
                 }})).then(response => {dispatch(Actions.User.Update({user_name: user?.nick_name, avatar: response?.data?.avatar}));

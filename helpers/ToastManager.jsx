@@ -20,14 +20,24 @@ export default function ToastManager(props) {
 
     const cleanup = () => dispatch(Actions.Toasts.Cleanup());
 
+    const isEmptyToast = dataToCheck => {
+        if (typeof dataToCheck === 'string' && dataToCheck?.length === 0)
+            return true;
+
+        if (typeof dataToCheck === 'object' && Object.keys(toast?.message).length === 0 && Object.getPrototypeOf(toast?.message) === Object.prototype)
+            return true;
+
+        return false;
+    }
+
     React.useEffect(() => {
-        if (!!(toast?.message && toast?.color))
+        if (!isEmptyToast(toast?.message))
             Vibrator();
     },[toast]);
 
     return (
         <Toast
-            show={!!(toast?.message && toast?.color)}
+            show={!isEmptyToast(toast?.message)}
             withClose
             onHide={cleanup}
             animationType={'bounce'}
