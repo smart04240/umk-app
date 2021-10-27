@@ -24,7 +24,7 @@ export default function ToastManager(props) {
         if (typeof dataToCheck === 'string' && dataToCheck?.length === 0)
             return true;
 
-        if (typeof dataToCheck === 'object' && Object.keys(toast?.message).length === 0 && Object.getPrototypeOf(toast?.message) === Object.prototype)
+        if (typeof dataToCheck === 'object' && Object.keys(dataToCheck).length === 0 && Object.getPrototypeOf(dataToCheck) === Object.prototype)
             return true;
 
         return false;

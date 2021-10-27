@@ -166,7 +166,7 @@ const ProfileMain = () => {
         <WithHeaderConfig borderless={true}>
             <View style={{padding: 15, backgroundColor: theme.box_bg}}>
                 <View style={{flexDirection: "row", marginBottom: 18}}>
-                    <TouchableOpacity onPress={() => dispatch(Actions.Toasts.Message(''))} style={{flexGrow: 0.5}}>
+                    <TouchableOpacity onPress={() => pickImage()} style={{flexGrow: 0.5}}>
                         <AnimatedCircularProgress
                             size={160}
                             width={9}
