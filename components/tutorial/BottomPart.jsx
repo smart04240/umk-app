@@ -4,7 +4,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import InfoCardsStackDots from "../info-card/InfoCardsStackDots";
 
-export default function BottomPart({items, currentIndex, leftButtonOnPress, rightButtonOnPress, leftButtonLabel, rightButtonLabel}) {
+export default function BottomPart({items, currentIndex, title, description, leftButtonOnPress, rightButtonOnPress, leftButtonLabel, rightButtonLabel}) {
     const theme = useThemeStyles();
 
     return(
@@ -42,7 +42,7 @@ export default function BottomPart({items, currentIndex, leftButtonOnPress, righ
                             color: theme.dark_blue_text
                         }}
                     >
-                        Twój profil
+                        {title}
                     </Text>
                     <Text
                         style={{
@@ -51,8 +51,7 @@ export default function BottomPart({items, currentIndex, leftButtonOnPress, righ
                             color: theme.dark_blue_text
                         }}
                     >
-                        W zakładce „Twój profil” znajdziesz informacje zarówno o swoich statystykach, jak i zdobytych
-                        odznakach.
+                        {description}
                     </Text>
                 </View>
                 <View

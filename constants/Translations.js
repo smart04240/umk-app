@@ -14,6 +14,56 @@ export default {
         pl: 'Twój profil',
     },
 
+    TutorialProfileTitle : {
+        en: 'Your profile',
+        pl: 'Twój profil',
+    },
+
+    TutorialProfileDescription: {
+        en: 'In the "Your Profile" tab, you will find information about both your statistics and the badges you have earned.',
+        pl: 'W zakładce „Twój profil” znajdziesz informacje zarówno o swoich statystykach, jak i zdobytych odznakach.',
+    },
+
+    TutorialSimulationsTitle: {
+        en: 'Simulations',
+        pl: 'Symulacje',
+    },
+
+    TutorialSimulationsDescription: {
+        en: 'If you are not sure what awaits you in the future, use the simulation and learn the path of your studies!',
+        pl: 'Jeśli nie jesteś pewien, co czeka Cię w przyszłości, skorzystaj z symulacji i poznaj ścieżkę swoich studiów!',
+    },
+
+    TutorialCalendarTitle: {
+        en: 'To-do list',
+        pl: 'Lista zadań',
+    },
+
+    TutorialCalendarDescription: {
+        en: 'Create your own to-do list. Thanks to this list, you will not forget about the performance of your student duties!',
+        pl: 'Twórz własną listę zadań. Dzięki takiej liście nie zapomnisz o wykonaniu swoich obowiązków studenckich!',
+    },
+
+    TutorialRankingsTitle: {
+        en: 'Ranking',
+        pl: 'Ranking',
+    },
+
+    TutorialRankingsDescription: {
+        en: 'Compete with other students from your faculty to earn more badges and control your results in the ranking!',
+        pl: 'Rywalizuj z innymi studentami ze swojego wydziału w zdobywaniu kolejnych odznak i kontroluj wyniki w rankingu!',
+    },
+
+    Back: {
+        en: 'Return',
+        pl: 'Powrót',
+    },
+
+    Finish: {
+        en: 'Finish',
+        pl: 'Skończyć',
+    },
+
     OnlyStudentsAllowedToLogin: {
         en: 'The application is intended only for students of UMK',
         pl: 'Aplikacja przeznaczona tylko dla studentów UMK',

@@ -7,43 +7,19 @@ import Actions from "../../redux/Actions";
 import {FlatList, Image, useWindowDimensions, View} from "react-native";
 import BottomPart from "../../components/tutorial/BottomPart";
 import {Vibrator} from "../../helpers/Vibrator";
-
-const cards = [
-    {
-        title: "Witaj!",
-        img_source: require("../../assets/images/tutorial/1.png"),
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-        title: "Zbieraj odznaki!",
-        img_source: require("../../assets/images/tutorial/2.png"),
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-        title: "Card 3",
-        img_source: require("../../assets/images/tutorial/1.png"),
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-        title: "Card 4",
-        img_source: require("../../assets/images/tutorial/2.png"),
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-        title: "Card 5",
-        img_source: require("../../assets/images/tutorial/1.png"),
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    }
-];
+import useThemeStyles from "../../hooks/useThemeStyles";
+import useTranslator from "../../hooks/useTranslator";
+import Translations from "../../constants/Translations";
 
 export default function TutorialScreen(props) {
     const dimensions = useWindowDimensions();
     const dispatch = useDispatch();
     const flatListRef = useRef();
+    const locale = useSelector(state => state.app.locale);
     const isDarkTheme = useSelector(state => state.app.theme) === 'dark';
+    const theme = useThemeStyles();
+    const translate = useTranslator();
     const [currentIndex, setCurrentIndex] = React.useState(0);
-
-    console.log(isDarkTheme)
 
     const toStartScreen = () => {
         // remove Tutorial screen from history so that user could not go back to it
@@ -63,37 +39,43 @@ export default function TutorialScreen(props) {
     const items = React.useMemo(() => {
         return [
             {
-                leftButtonLabel: 'Skip',
-                rightButtonLabel: 'Next',
+                leftButtonLabel: translate(Translations.SkipIt),
+                rightButtonLabel: translate(Translations.Next),
                 leftButtonOnPress: () => toStartScreen(),
                 rightButtonOnPress: () => scrollToItem(1),
-                imageSource: require("../../assets/images/tutorial/profile.png"),
-                title: '',
-                description: ''
+                imageSource: isDarkTheme ? require("../../assets/images/tutorial/profile-alternative.png") : require("../../assets/images/tutorial/profile.png"),
+                title: translate(Translations.TutorialProfileTitle),
+                description: translate(Translations.TutorialProfileDescription)
             },
             {
-                leftButtonLabel: 'Back',
-                rightButtonLabel: 'Next',
+                leftButtonLabel: translate(Translations.Back),
+                rightButtonLabel: translate(Translations.Next),
                 leftButtonOnPress: () => scrollToItem(0),
                 rightButtonOnPress: () => scrollToItem(2),
-                imageSource: require("../../assets/images/tutorial/map.png")
+                imageSource:  isDarkTheme ? require("../../assets/images/tutorial/map-alternative.png") : require("../../assets/images/tutorial/map.png"),
+                title: translate(Translations.TutorialSimulationsTitle),
+                description: translate(Translations.TutorialSimulationsDescription)
             },
             {
-                leftButtonLabel: 'Back',
-                rightButtonLabel: 'Next',
+                leftButtonLabel: translate(Translations.Back),
+                rightButtonLabel: translate(Translations.Next),
                 leftButtonOnPress: () => scrollToItem(1),
                 rightButtonOnPress: () => scrollToItem(3),
-                imageSource: require("../../assets/images/tutorial/calendar.png")
+                imageSource:  isDarkTheme ? require("../../assets/images/tutorial/calendar-alternative.png") : require("../../assets/images/tutorial/calendar.png"),
+                title: translate(Translations.TutorialCalendarTitle),
+                description: translate(Translations.TutorialCalendarDescription)
             },
             {
-                leftButtonLabel: 'Back',
-                rightButtonLabel: 'Finish',
+                leftButtonLabel: translate(Translations.Back),
+                rightButtonLabel: translate(Translations.Finish),
                 leftButtonOnPress: () => scrollToItem(2),
                 rightButtonOnPress: () => toStartScreen(),
-                imageSource: require("../../assets/images/tutorial/rankings.png")
+                imageSource:  isDarkTheme ? require("../../assets/images/tutorial/rankings-alternative.png") : require("../../assets/images/tutorial/rankings.png"),
+                title: translate(Translations.TutorialRankingsTitle),
+                description: translate(Translations.TutorialRankingsDescription)
             },
         ];
-    },[]);
+    },[theme, locale]);
 
     return (
         <ScreenWithHeaderTitleOnly>
@@ -107,7 +89,6 @@ export default function TutorialScreen(props) {
                     renderItem={({item}) => (
                         <View
                             style={{
-                                backgroundColor: 'red',
                                 width: dimensions?.width,
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -117,14 +98,15 @@ export default function TutorialScreen(props) {
                                 style={{
                                     height: '100%',
                                     width: '100%',
+                                    paddingTop: 20,
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                 }}
                             >
                                 <Image style={{
-                                    width: '100%',
                                     height: '100%',
-                                    resizeMode: 'cover',
+                                    width: '100%',
+                                    resizeMode: 'contain',
                                 }} source={item?.imageSource}/>
                             </View>
                         </View>
@@ -144,6 +126,8 @@ export default function TutorialScreen(props) {
                 rightButtonLabel={items[currentIndex]?.rightButtonLabel}
                 leftButtonOnPress={items[currentIndex]?.leftButtonOnPress}
                 rightButtonOnPress={items[currentIndex]?.rightButtonOnPress}
+                title={items[currentIndex]?.title}
+                description={items[currentIndex]?.description}
             />
         </ScreenWithHeaderTitleOnly>
     )

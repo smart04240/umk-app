@@ -35,6 +35,7 @@ import CreateEventScreen from "../screens/calendar/CreateEventScreen";
 import {CalendarEvent} from "../screens/calendar/CalendarEvent";
 import MapOfStudiesScreen from "../screens/map-of-studies/MapOfStudiesScreen";
 import SimulationsScreen from "../screens/simulations/SimulationsScreen";
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import FirstLoadingGate from "./FirstLoadingGate";
 import DataManager from "./DataManager";
@@ -307,15 +308,17 @@ export default function Screens() {
     };
 
     return (
-        <NavigationContainer linking={linking}>
-            <Drawer.Navigator
-                drawerContent={RenderDrawerContent}
-                drawerPosition={'right'}
-                overlayColor={ThemeStyles.blue_overlay_rgba(0.7)}
-                drawerStyle={[DrawerStyles, {backgroundColor: ThemeStyles.box_bg}]}
-            >
-                <Drawer.Screen name={'index'} component={StackScreens}/>
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <SafeAreaProvider>
+            <NavigationContainer linking={linking}>
+                <Drawer.Navigator
+                    drawerContent={RenderDrawerContent}
+                    drawerPosition={'right'}
+                    overlayColor={ThemeStyles.blue_overlay_rgba(0.7)}
+                    drawerStyle={[DrawerStyles, {backgroundColor: ThemeStyles.box_bg}]}
+                >
+                    <Drawer.Screen name={'index'} component={StackScreens}/>
+                </Drawer.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
     );
 }

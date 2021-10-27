@@ -1,12 +1,13 @@
 import React from 'react';
-import { Image, View, StyleSheet } from "react-native";
-import { useSelector } from 'react-redux';
+import {Image, StyleSheet, View} from "react-native";
+import {useSelector} from 'react-redux';
 
 import GeneralStyles from "../../constants/GeneralStyles";
 import useThemeStyles from "../../hooks/useThemeStyles";
 import Fonts from '../../constants/Fonts';
 import LocaleSwitcher from './LocaleSwitcher';
-import Layout, {unibrowIOSDevices} from '../../constants/Layout';
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import Layout from "../../constants/Layout";
 
 const flags = {
 	"en": require("../../assets/images/flags/pl.png"),
@@ -16,10 +17,10 @@ const flags = {
 const LocaleSwitcherBox = () => {
 	const locale = useSelector( state => state.app.locale );
     const ThemeStyles = useThemeStyles();
-	const topOffset = unibrowIOSDevices && {paddingTop: 50};
+	const offset = useSafeAreaInsets();
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box, topOffset]}>
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box]}>
 			<LocaleSwitcher/>
 			<Image style={ styles.img } source={ flags[ locale ] }/>
 		</View>
