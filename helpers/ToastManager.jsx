@@ -9,10 +9,9 @@ import Constants from 'expo-constants';
 import {Vibrator} from "./Vibrator";
 import {getTranslated} from "./functions";
 import {InternetConnectedIcon, InternetLostIcon} from "../assets/images/svg/svgIcons";
-import {unibrowIOSDevices} from "../constants/Layout";
 
 export default function ToastManager(props) {
-    const statusBarHeight = unibrowIOSDevices ? Constants.statusBarHeight + 20 : Constants.statusBarHeight;
+    const statusBarHeight = Constants.statusBarHeight;
     const theme = useThemeStyles();
     const dispatch = useDispatch();
     const toast = useSelector(state => state.toasts);

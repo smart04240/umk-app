@@ -20,7 +20,7 @@ const LocaleSwitcherBox = () => {
 	const offset = useSafeAreaInsets();
 
 	return (
-		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box]}>
+		<View style={[ { backgroundColor: ThemeStyles.box_bg }, GeneralStyles.row_ac, styles.box, {paddingTop: offset?.top + 20}]}>
 			<LocaleSwitcher/>
 			<Image style={ styles.img } source={ flags[ locale ] }/>
 		</View>

@@ -64,7 +64,9 @@
         "ACCESS_WIFI_STATE",
         "VIBRATE",
         "READ_CALENDAR",
-        "WRITE_CALENDAR"
+        "WRITE_CALENDAR",
+        "MEDIA_LIBRARY",
+        "CAMERA"
       ]
     }
   }
