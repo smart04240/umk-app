@@ -76,6 +76,23 @@ const ProfileStatistics = () => {
             const totalSemesters = Number(study?.study?.duration?.charAt(0)) * 2;
             const studentStatus = statusRules.find(statusRule => statusRule === study?.status);
 
+            const count = study.graduation_dates.reduce((count, date) => {
+                // if status Z or A, year is passed - add 2 semesters to count
+                if (['Z', 'A'].includes(date.status_zaliczenia_etapu_osoby))
+                    return count + 2;
+
+                // else, if no grades added yet - skip year
+                if (!date.grades?.length)
+                    return count;
+
+                // if there are grades and at lease one of them is not passed - year is failed
+                if (date.grades?.find?.(grade => !grade.passes))
+                    return count;
+
+                // if all grades passed, add 1 semester
+                return count + 1;
+            }, 0);
+
             preparedData.push({
                 heading: study?.study?.name,
                 items: [
@@ -85,9 +102,9 @@ const ProfileStatistics = () => {
                         colorAlternative: progressColor.semesterAlternative,
                         data: {
                             type: "range",
-                            value: !!studentStatus ? totalSemesters : study?.graduation_dates?.filter(gradDate => gradDate?.is_passes === true)?.length,
-                            total: totalSemesters
-                        }
+                            value: !!studentStatus ? totalSemesters : count,
+                            total: totalSemesters,
+                        },
                     },
                     {
                         label: translate(Translations.PassedCourses),
@@ -95,10 +112,10 @@ const ProfileStatistics = () => {
                         colorAlternative: progressColor.courseAlternative,
                         data: {
                             type: "percent",
-                            value: `${percentCounter(study?.study?.duration, study?.ects, study?.status)} %`
-                        }
-                    }
-                ]
+                            value: `${percentCounter(study?.study?.duration, study?.ects, study?.status)} %`,
+                        },
+                    },
+                ],
             });
         });
 
