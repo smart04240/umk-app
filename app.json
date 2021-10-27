@@ -7,7 +7,7 @@
       "ios"
     ],
     "scheme": "umk",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -32,7 +32,7 @@
     ],
     "ios": {
       "bundleIdentifier": "pl.nfinity.umk",
-      "buildNumber": "0.0.5",
+      "buildNumber": "0.0.6",
       "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
@@ -45,7 +45,7 @@
     },
     "android": {
       "package": "pl.nfinity.umk",
-      "versionCode": 5,
+      "versionCode": 6,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
