@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import {View} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 
 import useThemeStyles from '../../hooks/useThemeStyles';
 import GeneralStyles from '../../constants/GeneralStyles';
@@ -30,7 +30,7 @@ const ScreenWithHeaderTitleOnly = props => {
 	}, [ navigation, ThemeStyles ]);
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, backgroundColor: ThemeStyles.main_bg}}>
 			{ props.children }
 		</View>
 	)

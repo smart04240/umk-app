@@ -7,27 +7,28 @@ import shadowGenerator from "../helpers/shadowGenerator";
 import Toast from "react-native-tm";
 import Constants from 'expo-constants';
 import {Vibrator} from "./Vibrator";
-import {getTranslated} from "./functions";
 import {InternetConnectedIcon, InternetLostIcon} from "../assets/images/svg/svgIcons";
+import useTranslator from "../hooks/useTranslator";
 
-export default function ToastManager(props) {
+export default function ToastManager() {
     const statusBarHeight = Constants.statusBarHeight;
     const theme = useThemeStyles();
     const dispatch = useDispatch();
     const toast = useSelector(state => state.toasts);
-    const locale = useSelector(state => state.app.locale);
+    const translate = useTranslator();
     const isOnline = useSelector(state => state.app.online);
+
+    const message = translate(toast?.message);
 
     const cleanup = () => dispatch(Actions.Toasts.Cleanup());
 
     React.useEffect(() => {
-        if (!!(toast?.message && toast?.color))
-            Vibrator();
-    },[toast]);
+        message && Vibrator();
+    }, [message]);
 
     return (
         <Toast
-            show={!!(toast?.message && toast?.color)}
+            show={!!message}
             withClose
             onHide={cleanup}
             animationType={'bounce'}
@@ -49,14 +50,10 @@ export default function ToastManager(props) {
             }}
         >
             {!!toast?.withLoader && (
-                (isOnline) ? (
-                    <InternetConnectedIcon/>
-                ) : (
-                    <InternetLostIcon/>
-                )
+                (isOnline) ? <InternetConnectedIcon/> : <InternetLostIcon/>
             )}
             <View style={{flex: 1}}>
-                <Text style={{textAlign: 'center', color: theme.dark_text}}> {getTranslated(toast?.message || props.message, locale)}</Text>
+                <Text style={{textAlign: 'center', color: theme.dark_text}}> {message}</Text>
             </View>
         </Toast>
     );
