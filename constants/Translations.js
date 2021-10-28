@@ -994,8 +994,8 @@ export default {
 	},
 
 	CompletionYear: {
-		en: "completion year",
-		pl: "zaliczenie roku"
+		en: "Completing year",
+		pl: "Zaliczenie roku"
 	},
 
 	ConditionalAdmission: {
