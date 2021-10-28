@@ -32,7 +32,7 @@ export const getBeginningBranch = () => (
 			{
 				Component: Point,
 				year: 1,
-				term_field_id: 7,
+				term_field_id: 8,
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
 				label_position: "left",
@@ -74,7 +74,7 @@ export const getCompletionBranch = year => (
 			{ 
 				Component: Point, 
 				year: year + 1,
-				term_field_id: 7,
+				term_field_id: 8,
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
 				bottom_margin: 20  
@@ -122,7 +122,7 @@ export const getConditionalCompletionBranch = year => (
 			{ 
 				Component: Point, 
 				year: year + 1,
-				term_field_id: 7,
+				term_field_id: 8,
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
 				bottom_margin: 20 
@@ -189,7 +189,7 @@ export const getFailureBranch = year => (
 				Component: Point, 
 				year: year, 
 				term_field_id: 2,
-				term_field_tags: "#term_field#start_date",
+				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "application_for_approval_to_the_retake",
 				bottom_margin: 20 
 			},
@@ -214,7 +214,7 @@ export const getPreDiplomaPart = year => (
 				year_status: [ "Z", "A" ],
 				children: {
 					Component: Point,
-					year: 3,
+					year: year,
 					point_type: "completion_year",
 				}
 			},
@@ -259,7 +259,7 @@ export const getDiplomaParts = year => (
 					children: {
 						Component: Point,
 						year,
-						term_field_id: 8,
+						term_field_id: 10,
 						term_field_tags: "#term_field#start_date",
 						point_type: "documents",
 						bottom_margin: 20

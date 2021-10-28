@@ -33,6 +33,12 @@ const PointLabel = props => {
 	let label = "";
 	let small_label = "";
 
+	const from_start_date_to_end_date = dates?.start_date && dates?.end_date 
+		? `(${ translate( Translations.From )} ${ dates.start_date } ${ translate( Translations.To )} ${ dates.end_date })` 
+		: ""; 
+
+	const to_end_date = dates?.start_date ? `(${ translate( Translations.To )} ${ dates.start_date })` : "";	
+
 	switch ( point_type ) {
 		
 		case "year":
@@ -53,16 +59,12 @@ const PointLabel = props => {
 
 		case "winter_exam_session":
 			label = translate( Translations.WinterExamSession );
-			small_label = dates?.start_date && dates?.end_date 
-				? `(${ translate( Translations.From )} ${ dates.start_date } ${ translate( Translations.To )} ${ dates.end_date })` 
-				: ""; 
+			small_label = from_start_date_to_end_date; 
 			break;
 
 		case "summer_exam_session":
 			label = translate( Translations.SummerExamSession );
-			small_label = dates?.start_date && dates?.end_date 
-				? `(${ translate( Translations.From )} ${ dates.start_date } ${ translate( Translations.To )} ${ dates.end_date })` 
-				: ""; 
+			small_label = from_start_date_to_end_date 
 			break;
 
 		case "completion_year":
@@ -71,7 +73,7 @@ const PointLabel = props => {
 
 		case "application_for_a_conditional_admission":
 			label = translate( Translations.ApplicationForAConditionalAdmission );
-			small_label = dates?.start_date ? `(${ translate( Translations.To )} ${ dates.start_date } )` : "";  
+			small_label = from_start_date_to_end_date 
 			break;
 
 		case "conditional_completing_a_year":
@@ -92,9 +94,7 @@ const PointLabel = props => {
 
 		case "application_for_approval_to_the_retake":
 			label = translate( Translations.ApplicationForApprovalToTheRetake );
-			small_label = dates?.start_date
-				? `(${ translate( Translations.To )} ${ dates.start_date })`
-				: ""
+			small_label = from_start_date_to_end_date;
 			break;	
 
 		case "diploma_work":
@@ -107,7 +107,7 @@ const PointLabel = props => {
 
 		case "documents":
 			label = `${ translate( Translations.DocumentsPoint )}`;
-			small_label = dates?.start_date ? `(${ translate( Translations.To )} ${ dates.start_date })` : "";
+			small_label = to_end_date;
 			break;	
 
 		case "failure_to_requested_documents":
@@ -116,6 +116,15 @@ const PointLabel = props => {
 
 		case "deletion_from_the_student_list":
 			label = translate( Translations.DeletionFromTheStudentList );
+			break;	
+
+		case "submission_the_application":
+			label = translate( Translations.SubmissionTheApplicationPoint )
+			small_label = to_end_date;
+			break;	
+
+		case "failure_to_submit_the_program":
+			label = translate( Translations.FailureToSubmitTheProgram )
 			break;	
 
 		case "upload_to_APS_system":

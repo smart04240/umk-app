@@ -9,7 +9,8 @@ import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesS
 export default function MapOfStudiesScreen() {
 
 	const [ all_structure_data, setAllStructureData ] = useState( null );
-	
+	console.log( "YEARS DATA", all_structure_data?.years_data );
+
 	return (
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>

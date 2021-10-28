@@ -945,7 +945,17 @@ export default {
 
 	DeletionFromTheStudentList: {
 		en: "deletion from the student's list",
-		pl: "skreślenie z listy studentów"
+		pl: "skreślenie z listy studentów" 
+	},
+
+	SubmissionTheApplicationPoint: {
+		en: "Submission the application\n(study programs)",
+		pl: "Złożenie wniosków (programy studiów)"
+	},
+
+	FailureToSubmitTheProgram: {
+		en: "niezłożenie programu",
+		pl: "failure to submit the program"
 	},
 
 	DefenceUpperCase: {
