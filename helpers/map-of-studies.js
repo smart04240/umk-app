@@ -198,16 +198,18 @@ const changePointsInStructure = ( structure, years_data ) => {
 
 					switch ( component_obj.term_field_id ) {
 						case 1:
-						case 2:
-						case 3:
 						case 4:
 						case 5:
-						case 9:			
+						case 10:			
 							passed = moment() > moment( term_field.start_date )
 							break;
 
+						case 2:
+						case 3:
 						case 6:
 						case 7:
+						case 8:
+						case 9:		
 							passed = moment() > moment( term_field.end_date )
 							break;	
 					}
@@ -311,7 +313,8 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 						switch ( item.Component ) {
 
 							case Point:
-								isNodePassed( item, year, status ) && past_part.push({...item, bottom_margin: 20, label_position: "left" });
+								if ( ![ 7, 9 ].includes( item.term_field_id ))
+									isNodePassed( item, year, status ) && past_part.push({...item, bottom_margin: 20, label_position: "left" });
 								break;
 
 							case Branch:

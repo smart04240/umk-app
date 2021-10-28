@@ -32,12 +32,28 @@ export const getBeginningBranch = () => (
 			{
 				Component: Point,
 				year: 1,
+				term_field_id: 7,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_retake_session",
+				bottom_margin: 20 
+			},
+			{
+				Component: Point,
+				year: 1,
 				term_field_id: 8,
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
 				label_position: "left",
 				bottom_margin: 5
 			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 9,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_retake_session",
+				bottom_margin: 20 
+			}
 		]
 	}
 )
@@ -71,6 +87,14 @@ export const getCompletionBranch = year => (
 				point_type: "winter_exam_session",
 				bottom_margin: 20  
 			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 7,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_retake_session",
+				bottom_margin: 20 
+			},
 			{ 
 				Component: Point, 
 				year: year + 1,
@@ -78,6 +102,14 @@ export const getCompletionBranch = year => (
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
 				bottom_margin: 20  
+			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 9,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_retake_session",
+				bottom_margin: 20 
 			}
 		]
 	}

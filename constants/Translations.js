@@ -918,6 +918,16 @@ export default {
 		pl: "Sesja egzaminacyjna zimowa"
 	},
 
+	WinterRetakeSession: {
+		en: "Winter retake session",
+		pl: "Sesja poprawkowa zimowa"
+	},
+
+	SummerRetakeSession: {
+		en: "Summer retake session",
+		pl: "Sesja poprawkowa letnia"
+	},
+
 	RetakeYear: {
 		en: "retake of the year",
 		pl: "powtarzanie roku"

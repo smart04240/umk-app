@@ -62,10 +62,20 @@ const PointLabel = props => {
 			small_label = from_start_date_to_end_date; 
 			break;
 
+		case "winter_retake_session":
+			label = translate( Translations.WinterRetakeSession );
+			small_label = from_start_date_to_end_date; 
+			break;
+
 		case "summer_exam_session":
 			label = translate( Translations.SummerExamSession );
 			small_label = from_start_date_to_end_date 
 			break;
+		
+		case "summer_retake_session":
+			label = translate( Translations.SummerRetakeSession );
+			small_label = from_start_date_to_end_date 
+			break;	
 
 		case "completion_year":
 			label = `${ translate( Translations.CompletionYear )} ${ roman_year_num }`;
