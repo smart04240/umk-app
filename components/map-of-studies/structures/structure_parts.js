@@ -15,17 +15,17 @@ export const getBeginningBranch = () => (
 				Component: Point,
 				year: 1,
 				term_field_id: 1,
-				label: "ROK I #year#years",
-				small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+				term_field_tags: "#year#years #term_field#start_date",
+				point_type: "year",
 				label_position: "left",
-				bottom_margin: 5,
+				bottom_margin: 5
 			},
 			{
 				Component: Point,
 				year: 1,
 				term_field_id: 6,
-				label: "Sesja egzaminacyjna zimowa",
-				small_label: "(od #term_field#start_date do #term_field#end_date)",
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_exam_session",
 				label_position: "left",
 				bottom_margin: 5
 			},
@@ -33,11 +33,29 @@ export const getBeginningBranch = () => (
 				Component: Point,
 				year: 1,
 				term_field_id: 7,
-				label: "Sesja egzaminacyjna letnia",
-				small_label: "(od #term_field#start_date do #term_field#end_date)",
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_retake_session",
+				label_position: "left",
+				bottom_margin: 20 
+			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 8,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_exam_session",
 				label_position: "left",
 				bottom_margin: 5
 			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 9,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_retake_session",
+				label_position: "left",
+				bottom_margin: 20 
+			}
 		]
 	}
 )
@@ -52,32 +70,48 @@ export const getCompletionBranch = year => (
 			{ 
 				Component: Point, 
 				year: year, 
-				label: `zaliczenie ${ yearToRomanNumeral( year )} roku`, 
+				point_type: "completion_year",
 				bottom_margin: 20  
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
 				term_field_id: 1,
-				label: `ROK ${ yearToRomanNumeral( year + 1 )} #year#years`,
-				small_label: "Wnioski ogólne\n(do #term_field#start_date)",
-				bottom_margin: 20  
+				term_field_tags: "#year#years #term_field#start_date",
+				point_type: "year",
+				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
 				term_field_id: 6,
-				label: "Sesja egzaminacyjna zimowa", 
-				small_label: "(od #term_field#start_date do #term_field#end_date)",
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_exam_session",
 				bottom_margin: 20  
+			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 7,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_retake_session",
+				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
-				term_field_id: 7,
-				label: "Sesja egzaminacyjna letnia", 
-				small_label: "(od #term_field#start_date do #term_field#end_date)",
+				term_field_id: 8,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_exam_session",
 				bottom_margin: 20  
+			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 9,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_retake_session",
+				bottom_margin: 20 
 			}
 		]
 	}
@@ -93,39 +127,38 @@ export const getConditionalCompletionBranch = year => (
 			{ 
 				Component: Point, 
 				year: year,
-				label: `warunkowe zaliczenie ${ yearToRomanNumeral( year )} roku`,
+				point_type: "conditional_completing_a_year",
 				bottom_margin: 20 
 			},
 			{ 
 				Component: Point,
 				year: year,
 				term_field_id: 3,
-				label: "podanie o wpis warunkowy", 
-				small_label: "(do #term_field#start_date)", 
+				term_field_tags: "#term_field#start_date",
+				point_type: "application_for_a_conditional_admission",
 				bottom_margin: 20
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
 				term_field_id: 1,
-				label: `ROK ${ yearToRomanNumeral( year + 1)} #year#years\n(wpis warunkowy)`, 
-				small_label: "Wnioski ogólne\n(do #term_field#start_date)",
+				point_type: "year_conditional",
 				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
 				term_field_id: 6,
-				label: "Sesja egzaminacyjna zimowa",
-				small_label: "(od #term_field#start_date do #term_field#end_date)", 
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_exam_session", 
 				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
 				year: year + 1,
-				term_field_id: 7,
-				label: "Sesja egzaminacyjna letnia",
-				small_label: "(od #term_field#start_date do #term_field#end_date)", 
+				term_field_id: 8,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_exam_session",
 				bottom_margin: 20 
 			},
 			{
@@ -140,7 +173,7 @@ export const getConditionalCompletionBranch = year => (
 						children: {
 							Component: Point,
 							year: year + 1,
-							label: "zaliczenie warunku",
+							point_type: "passing_the_condition",
 							bottom_margin: 100
 						}
 					},
@@ -155,13 +188,13 @@ export const getConditionalCompletionBranch = year => (
 							{ 
 								Component: Point, 
 								year: year + 1, 
-								label: "niezaliczenie warunku", 
+								point_type: "failure_of_the_condition",
 								bottom_margin: 20 
 							},
 							{ 
 								Component: Point, 
 								year: year + 1, 
-								label: `powtarzanie ${ yearToRomanNumeral( year + 1 )} roku` 
+								point_type: "year_retake"
 							}
 						]
 					}
@@ -182,21 +215,21 @@ export const getFailureBranch = year => (
 			{ 
 				Component: Point, 
 				year: year, 
-				label: `niezaliczenie ${ yearToRomanNumeral( year )} roku`, 
+				point_type: "failure_to_past_the_year", 
 				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
 				year: year, 
 				term_field_id: 2,
-				label: "podanie o powtarzanie", 
-				small_label: "(do #term_field#start_date)",
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "application_for_approval_to_the_retake",
 				bottom_margin: 20 
 			},
 			{ 
 				Component: Point, 
-				year: 2, 
-				label: `powtarzanie ${ yearToRomanNumeral( year )} roku` 
+				year: year,
+				point_type: "year_retake"
 			}
 		]
 	}
@@ -214,8 +247,8 @@ export const getPreDiplomaPart = year => (
 				year_status: [ "Z", "A" ],
 				children: {
 					Component: Point,
-					year: 3,
-					label: `zaliczenie ${ yearToRomanNumeral( year )} roku`
+					year: year,
+					point_type: "completion_year",
 				}
 			},
 
@@ -234,7 +267,7 @@ export const getDiplomaParts = year => (
 			children: {
 				Component: Point,
 				year,
-				label: "PRACA DYPLOMOWA"
+				point_type: "diploma_work"
 			}
 		},
 	
@@ -250,7 +283,7 @@ export const getDiplomaParts = year => (
 					children: { 
 						Component: Point, 
 						year, 
-						label: "Przedłużenie terminu obrony do 3 miesięcy" 
+						point_type: "extension_of_the_diploma"
 					}
 				},
 				{
@@ -259,9 +292,9 @@ export const getDiplomaParts = year => (
 					children: {
 						Component: Point,
 						year,
-						term_field_id: 8,
-						label: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji",
-						small_label: "(do #term_field#start_date)",
+						term_field_id: 10,
+						term_field_tags: "#term_field#start_date",
+						point_type: "documents",
 						bottom_margin: 20
 					}
 				},
@@ -273,13 +306,13 @@ export const getDiplomaParts = year => (
 						{ 
 							Component: Point,
 							year, 
-							label: "Niezłożenie wymaganych dokumentów w terminie", 
+							point_type: "failure_to_requested_documents",
 							bottom_margin: 20 
 						},
 						{ 
 							Component: Point, 
 							year, 
-							label: "skreślenie z listy studentów" 
+							point_type: "deletion_from_the_student_list"
 						}
 					]
 				}
@@ -295,13 +328,13 @@ export const getDiplomaParts = year => (
 				{
 					Component: Point,
 					year,
-					label: "Wgranie pracy do APD\n\nZatwierdzenie przez promotora\n\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n- wydrukowana praca z APD\n- 4 zdjęcia w formacie 3,5 x 4,5 cm\n- dowód wpłaty 60 zł za dyplom\n- informacje o dodatkowych osiągnieciach",
+					point_type: "upload_to_APS_system",
 					bottom_margin: 20
 				},
 				{
 					Component: Point,
 					year,
-					label: "OBRONA",
+					point_type: "defence",
 					bottom_margin: 20
 				},
 				{ Component: FinishCircle }
@@ -319,8 +352,7 @@ export const getMISHEndPart = () => (
 		dead_end: true,
 		children: { 
 			Component: FinishCircle,
-			mish: true,
-			text: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz " 
+			mish: true
 		}
 	}
 )

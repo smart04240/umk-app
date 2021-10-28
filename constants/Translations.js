@@ -873,6 +873,136 @@ export default {
 		pl: "Zdobycie dyplomu"
 	},
 
+	YearUpperCase: {
+		en: "YEAR",
+		pl: "ROK"
+	},
+
+	YearPointSmallLabel: {
+		en: "Application regarding the course of study",
+		pl: "Wnioski związane z tokiem studiów"
+	},
+
+	ConditionalCompletingYear: {
+		en: "conditional completing year",
+		pl: "warunkowe zaliczenie roku"	
+	},
+
+	PassingTheCondition: {
+		en: "passing the condition",
+		pl: "zaliczenie warunku"
+	},
+
+	FailureOfTheCondition: {
+		en: "failure of the condition",
+		pl: "niezaliczenie warunku"
+	},
+
+	FailureToPastTheYear: {
+		en: "failure to pass the year",
+		pl: "niezaliczenie roku"
+	},
+
+	ApplicationForAConditionalAdmission: {
+		en: "application for a conditional admission",
+		pl: "podanie o wpis warunkowy"
+	},
+
+	ApplicationForApprovalToTheRetake: {
+		en: "application for approval to the retake",
+		pl: "podanie o powtarzanie"
+	},
+
+	From: {
+		en: "from",
+		pl: "od"
+	},
+
+	To: {
+		en: "to",
+		pl: "do"
+	},
+
+	WinterExamSession: {
+		en: "Winter exam session",
+		pl: "Sesja egzaminacyjna zimowa"
+	},
+
+	WinterRetakeSession: {
+		en: "Winter retake session",
+		pl: "Sesja poprawkowa zimowa"
+	},
+
+	SummerRetakeSession: {
+		en: "Summer retake session",
+		pl: "Sesja poprawkowa letnia"
+	},
+
+	RetakeYear: {
+		en: "retake of the year",
+		pl: "powtarzanie roku"
+	},
+
+	DiplomaWorkUpperCase: {
+		en: "DIPLOMA WORK",
+		pl: "PRACA DYPLOMOWA"
+	},
+
+	ExtensionOfTheDiploma: {
+		en: "Extension of the diploma graduation to 3 months",
+		pl: "Przedłużenie terminu obrony do 3 miesiecy"
+	},
+
+	DocumentsPoint: {
+		en: "DOCUMENTS\n\nApplication to initiate proceedings\n\nDeclaration of the independence of the work performed\n\nArchive consent\n\nWritten information on the composition of the commission",
+		pl: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji"
+	},
+
+	FailureToRequestedDocuments: {
+		en: "Failure to requested documents",
+		pl: "Niezłożenie wymaganych dokumentów"
+	},
+
+	DeletionFromTheStudentList: {
+		en: "deletion from the student's list",
+		pl: "skreślenie z listy studentów" 
+	},
+
+	SubmissionTheApplicationPoint: {
+		en: "Submission the application\n(study programs)",
+		pl: "Złożenie wniosków (programy studiów)"
+	},
+
+	FailureToSubmitTheProgram: {
+		en: "niezłożenie programu",
+		pl: "failure to submit the program"
+	},
+
+	DefenceUpperCase: {
+		en: "DEFENCE",
+		pl: "OBRONA"
+	},
+
+	UploadToAPSSystemPoint: {
+		en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n- printed work with APS\n- 4 photos in the 3.5 x 4.5 cm format\n- proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
+		pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n- wydrukowana praca z APD\n- 4 zdjęcia w formacie 3,5 x 4,5 cm\n- dowód wpłaty 60 zł za dyplom\n- informacje o dodatkowych osiągnieciach"
+	},
+
+	SummerExamSession: {
+		en: "Summer exam session",
+		pl: "Sesja egzminacyjna letnia"
+	},
+
+	CompletionYear: {
+		en: "completion year",
+		pl: "zaliczenie roku"
+	},
+
+	ConditionalAdmission: {
+		en: "conditional admission",
+		pl: "wpis warunkowy"
+	},
+
 	MISHEndYear: {
 		en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
 		pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "

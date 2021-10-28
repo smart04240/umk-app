@@ -13,13 +13,13 @@ const Point = props => {
 	const bottom_margin = props.bottom_margin || 0;
 	const main_direction = label_position === "bottom" ? "column" : "row";
 
-
 	const Circle = useMemo(() => <PointCircle passed={ props.passed } current={ props.current } />, []);
 	const Label = useMemo(() =>
 		<PointLabel
-			label={ props.label }
-			small_label={ props.small_label }
+			point_type={ props.point_type }
 			label_position={ label_position }
+			year={ props.year }
+			dates={ props.dates }
 		/>
 	, []);
 

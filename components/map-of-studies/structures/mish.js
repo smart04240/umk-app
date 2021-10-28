@@ -18,10 +18,10 @@ export default [
 		children: { 
 			Component: Point,
 			year: 1,
-			term_field_id: 1, 
-			label_position: "left",
-			label: "ROK I #year#years", 
-			small_label: "Wnioski ogólne\n(do #term_field#start_date)", 
+			term_field_id: 1,
+			term_field_tags: "#year#years #term_field#start_date", 
+			point_type: "year",
+			label_position: "left", 
 			bottom_margin: 5 
 		}
 	},
@@ -39,26 +39,42 @@ export default [
 						Component: Point,
 						year: 1,
 						term_field_id: 4,
-						label: "Złożenie wniosków\n(programy studiów)",
-						small_label: "(do #term_field#start_date)",
+						term_field_tags: "#term_field#start_date",
+						point_type: "submission_the_application",
 						bottom_margin: 5
 					},
 					{ 
 						Component: Point, 
 						year: 1,
 						term_field_id: 6,
-						label: "Sesja egzaminacyjna zimowa", 
-						small_label: "(od #term_field#start_date do #term_field#end_date)", 
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "winter_exam_session",
+						bottom_margin: 20 
+					},
+					{
+						Component: Point,
+						year: 1,
+						term_field_id: 7,
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "winter_retake_session",
 						bottom_margin: 20 
 					},
 					{
 						Component: Point, 
 						year: 1,
-						term_field_id: 7,
-						label: "Sesja egzaminacyjna letnia", 
-						small_label: "(od #term_field#start_date do #term_field#end_date)", 
+						term_field_id: 8,
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "summer_exam_session",
 						bottom_margin: 20 
-					}
+					},
+					{
+						Component: Point,
+						year: 1,
+						term_field_id: 9,
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "summer_retake_session",
+						bottom_margin: 20 
+					},
 				]
 			},
 			{
@@ -69,13 +85,13 @@ export default [
 					{ 
 						Component: Point, 
 						year: 1,
-						label: "niezłożenie programu", 
+						point_type: "failure_to_submit_the_program", 
 						bottom_margin: 20 
 					},
 					{ 
 						Component: Point,
 						year: 1,
-						label: "skreślenie z listy studnetów", 
+						point_type: "deletion_from_the_student_list",
 						bottom_margin: 0 
 					}
 				]
