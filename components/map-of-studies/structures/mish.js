@@ -41,7 +41,6 @@ export default [
 						term_field_id: 4,
 						term_field_tags: "#term_field#start_date",
 						point_type: "submission_the_application",
-						label: "Złożenie wniosków\n(programy studiów)",
 						small_label: "(do #term_field#start_date)",
 						bottom_margin: 5
 					},
