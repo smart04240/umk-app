@@ -9,6 +9,8 @@ const MapOfStudiesStructure = props => {
 	const { structure, years_data } = all_data;
 	const final_structure = getFinalStructure( structure, years_data, simulation_mode );
 
+	// console.log( "YEARS DATA", structure );
+
 	return (
 		<View style={{ flex: 1, paddingBottom: 30 }}>
 			{ final_structure && !!final_structure.length &&

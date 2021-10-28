@@ -313,8 +313,9 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 						switch ( item.Component ) {
 
 							case Point:
-								if ( ![ 7, 9 ].includes( item.term_field_id ))
-									isNodePassed( item, year, status ) && past_part.push({...item, bottom_margin: 20, label_position: "left" });
+								if (![ 7, 9 ].includes( item.term_field_id )) {
+									isNodePassed( item, year, status ) && past_part.push({...item, bottom_margin: 20, label_position: "left" })
+								}
 								break;
 
 							case Branch:
@@ -333,8 +334,11 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 													: child
 											});
 
-											const not_from_current_year = updated_children.filter( item => item.year !== year && item.Component !== BranchesNode )
-											const from_current_year = updated_children.filter( item => item.year === year );
+											const not_from_current_year = updated_children
+												.filter( item => item.year !== year && item.Component !== BranchesNode )
+											
+											const from_current_year = updated_children
+												.filter( item => item.year === year && ![ 7, 9 ].includes( item.term_field_id ));
 
 											children = from_current_year.filter( child => child.Component !== BranchesNode )
 
@@ -426,8 +430,7 @@ export const getFinalStructure = ( structure, years_data, simulation_mode ) => {
 		const new_children = [];
 		
 		const year_points_indexes = all_brach_children.reduce(( result, current, i ) => {
-
-			/^ROK/.test( current.label ) && result.push( i )
+			[ "year", "year_conditional" ].includes( current.point_type ) && result.push( i )
 			return result;
 		}, []);
 
