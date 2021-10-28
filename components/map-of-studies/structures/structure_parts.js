@@ -153,12 +153,28 @@ export const getConditionalCompletionBranch = year => (
 				point_type: "winter_exam_session", 
 				bottom_margin: 20 
 			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 7,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "winter_retake_session",
+				bottom_margin: 20 
+			},
 			{ 
 				Component: Point, 
 				year: year + 1,
 				term_field_id: 8,
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_exam_session",
+				bottom_margin: 20 
+			},
+			{
+				Component: Point,
+				year: year + 1,
+				term_field_id: 9,
+				term_field_tags: "#term_field#start_date #term_field#end_date",
+				point_type: "summer_retake_session",
 				bottom_margin: 20 
 			},
 			{
