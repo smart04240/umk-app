@@ -127,6 +127,8 @@ const ProfileMain = () => {
     }, [user]);
 
     const info = React.useMemo(() => {
+        moment.locale(locale)
+
         return [
             {label: translate(Translations.ECTSEarned), value: !!selectedData?.ects ? (selectedData?.ects + ' %') : '0 %'},
             {label: translate(Translations.EndOfStudies), value: !!selectedData?.date ? moment.duration(moment().diff(selectedData?.date)).humanize(false,{M: 99999}) : statusRules.includes(selectedData?.status) ? null : 'N/A'}

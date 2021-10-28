@@ -623,6 +623,16 @@ export default {
         pl: "Samouczek"
     },
 
+    EnterTitleOfTask: {
+        en: 'Job title *',
+        pl: "Tytuł zadania *"
+    },
+
+    EventsDescription: {
+        en: 'Learn more about other events',
+        pl: 'Dowiedz się więcej o innych zdarzeniach'
+    },
+
     SkipIt: {
         en: "Skip it",
         pl: "Pomiń"

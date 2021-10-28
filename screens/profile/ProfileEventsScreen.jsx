@@ -152,7 +152,7 @@ const ProfileEventsScreen = props => {
 						<ProfileUsosEvents/>
 
 						<Text style={{ ...GeneralStyles.text_regular, marginBottom: 13, color: ThemeStyles.dark_text }}>
-							Dowiedz się więcej o innych zdarzeniach
+							{translate(Translations.EventsDescription)}
 						</Text>
 					</Container>
 				</Swiper>

@@ -60,7 +60,9 @@ export default function MarkerScreen({route}) {
                         <HtmlParser html={translate(marker.content)}/>
 
                         {!!marker.phone && <RoundedPhoneButton phone={marker.phone}/>}
+                        {!!marker?.second_phone && <RoundedPhoneButton phone={marker.second_phone}/>}
                         {!!marker.email && <RoundedMailButton email={marker.email}/>}
+
                         <RoundedLocationButton
                             address={marker.address}
                             latitude={marker.latitude}

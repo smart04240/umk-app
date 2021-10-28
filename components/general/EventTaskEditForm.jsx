@@ -57,7 +57,7 @@ export const EventTaskEditForm = ({onChange, isToDo, categoryValue, formTitle, t
         // },
         {
             name: isToDo ? "category" : "category_id",
-            placeholder: "Kategoria *",
+            placeholder: translate(Translations.SelectCategory) + ' *',
             options: isToDo ? TaskCategories : eventsOptions,
             init_value: (isToDo ? TaskCategories : eventsOptions).find(option => option.value === categoryValue)?.value,
         }
@@ -78,7 +78,7 @@ export const EventTaskEditForm = ({onChange, isToDo, categoryValue, formTitle, t
             <View style={{width: "100%", marginBottom: 30}}>
                 <Input
                     name="title"
-                    placeholder="Tytuł zadania *"
+                    placeholder={translate(Translations.EnterTitleOfTask)}
                     defaultValue={title}
                     style={{marginBottom: 8}}
                     error_message={getErrorMessage("title")}
@@ -88,6 +88,7 @@ export const EventTaskEditForm = ({onChange, isToDo, categoryValue, formTitle, t
                    <Dropdown
                        key={dropdown.name}
                        {...dropdown}
+                       placeholder={dropdown?.placeholder}
                        error_message={getErrorMessage(dropdown.name)}
                        onChange={onChange}
                    />
