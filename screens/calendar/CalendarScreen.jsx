@@ -18,8 +18,7 @@ import Routes from "../../constants/Routes";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import Actions from "../../redux/Actions";
-import * as Calendar from "expo-calendar";
-import {Platform} from "react-native";
+import * as Permissions from 'expo-permissions';
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -62,20 +61,24 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-    const requestPermissionsForCalendar = () => {
-        let permissions = {};
+    const requestPermissionsForCalendar = async () => {
+        const { status, expires, permissions } = await Permissions.getAsync(
+            Permissions.CALENDAR,
+            Permissions.REMINDERS
+        );
 
-        Calendar.requestCalendarPermissionsAsync().then(async res => {
-            permissions.calendar = (res?.status === 'granted');
-
-            if (Platform.OS === 'ios') {
-                await Calendar.requestRemindersPermissionsAsync().then(res => {
-                    permissions.reminders = (res?.status === 'granted')
-                });
-            }
-
-            dispatch(Actions.Calendar.SetPermission(Platform.OS === 'ios' ? !!(permissions?.calendar && permissions?.reminders) : !!permissions?.calendar));
-        });
+        dispatch(Actions.Calendar.SetPermission(status === 'granted'));
+        // Calendar.requestCalendarPermissionsAsync().then(async res => {
+        //     permissions.calendar = (res?.status === 'granted');
+        //
+        //     if (Platform.OS === 'ios') {
+        //         await Calendar.requestRemindersPermissionsAsync().then(res => {
+        //             permissions.reminders = (res?.status === 'granted')
+        //         });
+        //     }
+        //
+        //     dispatch(Actions.Calendar.SetPermission(Platform.OS === 'ios' ? !!(permissions?.calendar && permissions?.reminders) : !!permissions?.calendar));
+        // });
     }
 
     if (permissionGranted === false) {

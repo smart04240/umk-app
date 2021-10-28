@@ -3426,6 +3426,14 @@ expo-location@~12.0.4:
     "@expo/config-plugins" "^1.0.18"
     unimodules-permissions-interface "~6.1.0"
 
+expo-modules-core@~0.4.4:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.4.6.tgz#b4b251043c98ecf36f7353c247e8e0d83796aa77"
+  integrity sha512-ns9kQn1titPlDsmuKNfyxUui1Nf338d+oIHb/N8jlneKukFwgQxxc5CwyKHrNKNxcUVzumpStSi4sHquKBmOiA==
+  dependencies:
+    compare-versions "^3.4.0"
+    invariant "^2.2.4"
+
 expo-notifications@~0.11.6:
   version "0.11.6"
   resolved "https://registry.yarnpkg.com/expo-notifications/-/expo-notifications-0.11.6.tgz#0ea45b23b1f5572b40d64afee24abaa5a1c10800"
@@ -3442,6 +3450,13 @@ expo-notifications@~0.11.6:
     fs-extra "^9.0.1"
     unimodules-permissions-interface "~6.1.0"
     uuid "^3.4.0"
+
+expo-permissions@^13.0.3:
+  version "13.0.3"
+  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-13.0.3.tgz#93d4395658d9967d257faa31bbec096551654aaf"
+  integrity sha512-bVjdnhYDZy06jX0J+0fGuXzEJ7r+ibl9yCAsumd3S/ELrs1wbR8/zOkQBaSyoYk0z9MiGCC4ul6UB10wEiMPmw==
+  dependencies:
+    expo-modules-core "~0.4.4"
 
 expo-permissions@~12.0.1:
   version "12.0.1"
