@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {StyleSheet, Text, View} from 'react-native';
 
 import API from '../../helpers/API';
 import Fonts from '../../constants/Fonts';
@@ -41,7 +41,7 @@ const BadgeMainInfo = props => {
 		<View key={i} style={[GeneralStyles.row_wrap]} >
 			<Text style={[styles.font_family, styles.big, text_color]}>
 				{i > -1
-					? <>{parseInt(item?.value) > 100 ? 100 : item?.value}%</>
+					? <>{parseInt(item?.value) > 100 ? 100 : Math.floor(parseInt(item?.value))}%</>
 					: item?.value
 				}
 			</Text>

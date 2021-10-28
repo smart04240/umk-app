@@ -11,7 +11,7 @@ export default function Input(props) {
 	const text_color = {color: ThemeStyles.dark_text};
 
 	return (
-		<View style={{flex: 1}}>
+		<View style={[{flex: 1}, props?.inputContainerStyles]}>
 
 			{props.label && (
 				<Text style={[

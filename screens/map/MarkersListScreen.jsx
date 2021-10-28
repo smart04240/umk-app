@@ -38,7 +38,12 @@ export default function MarkersListScreen() {
 
     return (
         <Main>
-            <TopBox>
+            <TopBox
+                style={{
+                    position: 'absolute',
+                    width: '100%'
+                }}
+            >
                 <Input
                     style={styles.search}
                     placeholder={translate(Translations.Search)}
@@ -55,6 +60,9 @@ export default function MarkersListScreen() {
             <ColorCardList
                 keyExtractor={item => String(item.id)}
                 data={markers}
+                contentContainerStyle={{
+                    paddingTop: 130
+                }}
                 renderItem={({item}) => (
                     <ColorCard
                         color={item.category.color}
