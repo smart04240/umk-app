@@ -9,7 +9,7 @@ import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesS
 export default function MapOfStudiesScreen() {
 
 	const [ all_structure_data, setAllStructureData ] = useState( null );
-
+	
 	return (
 		<ScreenWithRoundedHeader>
 			<MainWithNavigation>

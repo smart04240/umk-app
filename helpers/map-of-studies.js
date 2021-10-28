@@ -150,39 +150,37 @@ const changePointsInStructure = ( structure, years_data ) => {
 	if ( !structure || !years_data ) return null;
 
 
-	const getStrWithData = ( str, current_year_data, term_field ) => {
-		
-		if ( !str ) return null;
+	const getPointDates = ( current_year_data, term_field, tags ) => {
 
-		const pattern_matches = str.match(/(#\w+)+/g);
+		if ( !tags || !term_field ) return null;
+
+		const pattern_matches = tags.match(/(#\w+)+/g);
 
 		if ( pattern_matches ) {
+
+			const dates = {};
 
 			for ( const match of pattern_matches ) {
 
 				const [ data_param_kind, data_param_name ] = match.split("#").slice(1);
-				let value;
-
+	
 				switch ( data_param_kind ) {
 					case "year": 
-						value = current_year_data?.[ data_param_name ] || "";
+						dates[ data_param_name ] = current_year_data?.[ data_param_name ] || "";
 						break;
 
 					case "term_field":
 
-						if ( !term_field ) return null;
+						let value = term_field?.[ data_param_name ] || "";
 
-						value = term_field?.[ data_param_name ] || "";
-						if ( value && [ "start_date", "end_date" ].includes( data_param_name ))
-							value = moment(value).format("DD.MM.YYYY");
+						if ( !!value && [ "start_date", "end_date" ].includes( data_param_name ))
+							dates[ data_param_name ] = moment(value).format("DD.MM.YYYY");
 					break;
 				}
-
-				str = str.replace( match, value );
 			}
-		}
 
-		return str;
+			return dates;
+		}
 	}
 
 
@@ -225,13 +223,14 @@ const changePointsInStructure = ( structure, years_data ) => {
 
 		const current_year_data = years_data?.find( item => item.year === component_obj?.year ); 
 		const term_field = current_year_data?.studies_maps?.find( item => item.term_field_id === component_obj.term_field_id );
+		
 		const chronology = getPointСhronology( current_year_data, component_obj, term_field );
+		const dates = getPointDates( current_year_data, term_field, component_obj.term_field_tags );
 
 		return {
 			...component_obj,
-			label: getStrWithData( component_obj.label, current_year_data, term_field ),
-			small_label: getStrWithData( component_obj.small_label, current_year_data, term_field ), 
-			...chronology
+			...chronology,
+			dates
 		};
 	}
 
