@@ -1083,6 +1083,36 @@ export default {
 		pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
 	},
 
+	ExtensionOfTheTermOfDefence: {
+		en: "Extension of the period of defense",
+		pl: "Przełużenie terminu obrony"
+	},
+
+	ExtensionOfTheTermOfDefenceText: {
+		en: "You can extend the term of defense to 3 months - contact the dean's office and submit appropriate applications.",
+		pl: "Możesz przedłużyć termin obrony do 3 miesiecy - skontaktuj się z dziekanatem i złóż odpowiednie wnioski."
+	},
+
+	SubmissionOfDocuments: {
+		en: "Złożenie dokumentów",
+		pl: "Submission of documents"
+	},
+
+	SubmissionOfDocumentsText: {
+		en: "If you want to defend yourself on time, you must submit the relevant documents. The procedure is described in your profile in the \"Events\" tab",
+		pl: "Jeśli chcesz bronić się w terminie musisz złożyć odpowiednie dokumenty. Procedura opisana jest w Twoim profilu, w zakładce \"Zdarzenia\""
+	},
+
+	FailureToSubmitDocuments: {
+		en: "Failure to submit documents",
+		pl: "Niezłożenie dokumentów"
+	},
+
+	FailureToSubmitDocumentsText: {
+		en: "If you do not submit the required documents on time, unfortunately, you will be removed from the list of students!",
+		pl: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
+	},
+
 	MISHEndYear: {
 		en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
 		pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "
