@@ -893,6 +893,16 @@ export default {
 		pl: "Zaliczenie warunku"
 	},
 
+	FailureToSubmitTheStudyProgramOnTime: {
+		en: "Failure to submit the study program on time",
+		pl: "Niezłożenie w terminie programu studiów"
+	},
+
+	FailureToSubmitTheStudyProgramOnTimeText: {
+		en: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!",
+		pl: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!"
+	},
+
 	FailureOfTheCondition: {
 		en: "Failure of the condition",
 		pl: "Niezaliczenie warunku"
@@ -993,7 +1003,7 @@ export default {
 		pl: "Sesja egzminacyjna letnia"
 	},
 
-	CompletionYear: {
+	CompletingYear: {
 		en: "Completing year",
 		pl: "Zaliczenie roku"
 	},
@@ -1001,6 +1011,16 @@ export default {
 	ConditionalAdmission: {
 		en: "conditional admission",
 		pl: "wpis warunkowy"
+	},
+
+	SubmissionOfTheStudyProgram: {
+		en: "Złożenie programu studiów",
+		pl: "Złożenie programu studiów"
+	},
+
+	SubmissionOfTheStudyProgramText: {
+		en: "After submitting your applications, you will be admitted to the session!",
+		pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
 	},
 
 	MISHEndYear: {
