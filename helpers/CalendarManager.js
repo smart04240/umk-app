@@ -12,7 +12,7 @@ import {
 } from "expo-calendar";
 import {useDispatch, useSelector} from "react-redux";
 import Actions from "../redux/Actions";
-import {Platform} from "react-native";
+import {Alert, Platform} from "react-native";
 import Colors from "../constants/Colors";
 import useTranslator from "../hooks/useTranslator";
 import {eventsSelectors} from "../redux/selectors/eventsSelector";
@@ -104,6 +104,10 @@ export default function CalendarManager() {
             })))
             .catch(e => {
                 __DEV__ && console.error(e);
+                Alert.alert(
+                    'Debug error',
+                    'Error is: ' + e.message
+                );
                 dispatch(Actions.Calendar.SetPermission(false));
                 dispatch(Actions.Toasts.Danger(Translations.CalendarPermissionsRevoked));
             });
