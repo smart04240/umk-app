@@ -888,6 +888,16 @@ export default {
 		pl: "Warunkowe zaliczenie roku"	
 	},
 
+	ConditionalCompletingYearTextPart1: {
+		en: "If you pass the condition and then pass the",
+		pl: "Jeśli zaliczysz warunek, a następnie zaliczysz"
+	},
+
+	ConditionalCompletingYearTextPart2: {
+		en: "conditionally, you must apply for a conditional entry. Remember that a year later you have to pass the condition and year",
+		pl: "warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok"
+	},
+
 	PassingTheCondition: {
 		en: "Passing the condition",
 		pl: "Zaliczenie warunku"
@@ -911,6 +921,31 @@ export default {
 	FailureToPastTheYear: {
 		en: "Failure to pass the year",
 		pl: "Niezaliczenie roku"
+	},
+
+	FailureYearTextPart1: {
+		en: "If you fail the",
+		pl: "Jeśli nie zaliczysz"
+	},
+
+	FailureYearTextPart2: {
+		en: "year and want to continue your studies, you must apply for a repeat of the year",
+		pl: "roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie roku"
+	},
+
+	FailureYearTextPartMISH: {
+		en: "year, you can apply for a repeat. If it is approved, you will have a second year repeat!",
+		pl: "roku, możesz złożyć podanie o powtarzanie. Jeśli zostanie rozpatrzone pozytywnie czeka Cię repeta drugiego roku!"
+	},
+
+	FailureOfTheConditionOrYear: {
+		en: "Niezaliczenie warunku lub roku",
+		pl: "Failure to pass the condition or year"
+	},
+
+	FailureOfTheConditionOrYearText: {
+		en: "If you fail the condition, you must apply for a repeat. A repeat awaits you. The year",
+		pl: "Jeśli nie zaliczysz warunku, musisz złożyć podanie o powtarzanie. Czeka Cię powtórka roku"
 	},
 
 	ApplicationForAConditionalAdmission: {
@@ -1008,6 +1043,31 @@ export default {
 		pl: "Zaliczenie roku"
 	},
 
+	CompletingYearTextPart1: {
+		en: "If you pass the",
+		pl: "Jeżeli zaliczysz"
+	},
+
+	CompletingYearTextPart2: {
+		en: "year, you are enrolled in the year",
+		pl: "rok zostajesz zapisany na rok"
+	},
+
+	CompletingYearTextPart3: {
+		en: "year, you can start the diploma thesis submission procedure!",
+		pl: "rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!"
+	},
+
+	CompletingYearTextPart4: {
+		en: "year, you will be transferred to the year",
+		pl: "rok, zostaniesz przeniesiony na rok"
+	},
+
+	CompletingYearTextPart5: {
+		en: "of the major, the minimum program of which you follow.",
+		pl: "kierunku, którego minimum programowe realizujesz."
+	},
+
 	ConditionalAdmission: {
 		en: "conditional admission",
 		pl: "wpis warunkowy"
@@ -1021,6 +1081,36 @@ export default {
 	SubmissionOfTheStudyProgramText: {
 		en: "After submitting your applications, you will be admitted to the session!",
 		pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
+	},
+
+	ExtensionOfTheTermOfDefence: {
+		en: "Extension of the period of defense",
+		pl: "Przełużenie terminu obrony"
+	},
+
+	ExtensionOfTheTermOfDefenceText: {
+		en: "You can extend the term of defense to 3 months - contact the dean's office and submit appropriate applications.",
+		pl: "Możesz przedłużyć termin obrony do 3 miesiecy - skontaktuj się z dziekanatem i złóż odpowiednie wnioski."
+	},
+
+	SubmissionOfDocuments: {
+		en: "Submission of documents",
+		pl: "Złożenie dokumentów"
+	},
+
+	SubmissionOfDocumentsText: {
+		en: "If you want to defend yourself on time, you must submit the relevant documents. The procedure is described in your profile in the \"Events\" tab",
+		pl: "Jeśli chcesz bronić się w terminie musisz złożyć odpowiednie dokumenty. Procedura opisana jest w Twoim profilu, w zakładce \"Zdarzenia\""
+	},
+
+	FailureToSubmitDocuments: {
+		en: "Failure to submit documents",
+		pl: "Niezłożenie dokumentów"
+	},
+
+	FailureToSubmitDocumentsText: {
+		en: "If you do not submit the required documents on time, unfortunately, you will be removed from the list of students!",
+		pl: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
 	},
 
 	MISHEndYear: {
