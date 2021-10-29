@@ -23,8 +23,9 @@ const CalendarTitle = 'UMK Calendar';
 
 const getDefaultCalendarSource = async () => {
     const calendars = await getCalendarsAsync(EntityTypes.EVENT);
-    const defaultCalendars = calendars.filter(each => each.source.name === 'Default');
-    return defaultCalendars[0].source;
+    const defaultCalendars = calendars.filter(each => each.type === CalendarType.CALDAV);
+    
+    return defaultCalendars.length ? defaultCalendars[0].source : calendars[0].source;
 };
 
 /**
