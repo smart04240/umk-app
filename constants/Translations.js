@@ -884,33 +884,33 @@ export default {
 	},
 
 	ConditionalCompletingYear: {
-		en: "conditional completing year",
-		pl: "warunkowe zaliczenie roku"	
+		en: "Conditional completing year",
+		pl: "Warunkowe zaliczenie roku"	
 	},
 
 	PassingTheCondition: {
-		en: "passing the condition",
-		pl: "zaliczenie warunku"
+		en: "Passing the condition",
+		pl: "Zaliczenie warunku"
 	},
 
 	FailureOfTheCondition: {
-		en: "failure of the condition",
-		pl: "niezaliczenie warunku"
+		en: "Failure of the condition",
+		pl: "Niezaliczenie warunku"
 	},
 
 	FailureToPastTheYear: {
-		en: "failure to pass the year",
-		pl: "niezaliczenie roku"
+		en: "Failure to pass the year",
+		pl: "Niezaliczenie roku"
 	},
 
 	ApplicationForAConditionalAdmission: {
-		en: "application for a conditional admission",
-		pl: "podanie o wpis warunkowy"
+		en: "Application for a conditional admission",
+		pl: "Podanie o wpis warunkowy"
 	},
 
 	ApplicationForApprovalToTheRetake: {
-		en: "application for approval to the retake",
-		pl: "podanie o powtarzanie"
+		en: "Application for approval to the retake",
+		pl: "Podanie o powtarzanie"
 	},
 
 	From: {
@@ -939,8 +939,8 @@ export default {
 	},
 
 	RetakeYear: {
-		en: "retake of the year",
-		pl: "powtarzanie roku"
+		en: "Retake of the year",
+		pl: "Powtarzanie roku"
 	},
 
 	DiplomaWorkUpperCase: {
@@ -964,8 +964,8 @@ export default {
 	},
 
 	DeletionFromTheStudentList: {
-		en: "deletion from the student's list",
-		pl: "skreślenie z listy studentów" 
+		en: "Deletion from the student's list",
+		pl: "Skreślenie z listy studentów" 
 	},
 
 	SubmissionTheApplicationPoint: {
@@ -974,8 +974,8 @@ export default {
 	},
 
 	FailureToSubmitTheProgram: {
-		en: "niezłożenie programu",
-		pl: "failure to submit the program"
+		en: "Niezłożenie programu",
+		pl: "Failure to submit the program"
 	},
 
 	DefenceUpperCase: {
