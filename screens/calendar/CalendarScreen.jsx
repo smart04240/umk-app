@@ -62,7 +62,7 @@ export default function CalendarScreen() {
     }), [theme]);
 
     const requestPermissionsForCalendar = async () => {
-        const { status, expires, permissions } = await Permissions.getAsync(
+        const { status, expires, permissions } = await Permissions.askAsync(
             Permissions.CALENDAR,
             Permissions.REMINDERS
         );
