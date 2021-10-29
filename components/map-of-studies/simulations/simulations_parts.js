@@ -1,68 +1,69 @@
+import Translations from "../../../constants/Translations";
 import { yearToRomanNumeral } from "../../../helpers/functions";
 
 export const getCompletionYear = year => ({
-	name: `zaliczenie ${ yearToRomanNumeral( year )} roku`,
+	complex_name: `#CompletingYear ${ yearToRomanNumeral( year )}`,
 	value: [ "Z", "A", "S" ],
-	text: `Jeżeli zaliczysz ${ yearToRomanNumeral( year )} rok zostajesz zapisany na rok ${ yearToRomanNumeral( year + 1 )}`,
+	text: `#CompletingYearTextPart1 ${ yearToRomanNumeral( year )} #CompletingYearTextPart2 ${ yearToRomanNumeral( year + 1 )}`,
 });
 
 
 export const getLastCompletionYear = year => ({
-	name: `zaliczenie ${ yearToRomanNumeral( year )} roku`,
+	complex_name: `#CompletingYear ${ yearToRomanNumeral( year )}`,
 	value: [ "Z", "A", "S" ],
-	text: `Jeśli zaliczysz ${ yearToRomanNumeral( year )} rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!`,
+	complex_text: `#CompletingYearTextPart1 ${ yearToRomanNumeral( year )} #CompletingYearTextPart3`,
 	options: [
 		{
 			value: "1",
-			name: "Przełużenie terminu obrony",
-			text: "Możesz przedłużyć termin obrony do 3 miesiecy - skontaktuj się z dziekanatem i złóż odpowiednie wnioski."
+			name: Translations.ExtensionOfTheTermOfDefence,
+			text: Translations.ExtensionOfTheTermOfDefenceText
 		},
 		{
 			value: "2",
-			name: "Złożenie dokumentów",
-			text: "Jeśli chcesz bronić się w terminie musisz złożyć odpowiednie dokumenty. Procedura opisana jest w Twoim profilu, w zakładce \"Zdarzenia\""
+			name: Translations.SubmissionOfDocuments,
+			text: Translations.SubmissionOfDocumentsText
 		},
 		{
 			value: "3",
-			name: "Niezłożenie dokumentów",
-			text: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
+			name: Translations.FailureToSubmitDocuments,
+			text: Translations.FailureToSubmitDocumentsText
 		}
 	]
 });
 
 
 export const getLastCompletionMISHYear = () => ({
-	name: 'zaliczenie II roku',
+	complex_name: '#CompletingYear II',
 	value: [ "Z", "A", "S" ],
-	text: `Jeśli zaliczysz II rok, zostaniesz przeniesiony na rok III kierunku, którego minimum programowe realizujesz.`
+	complex_text: `#CompletingYearTextPart1 II #CompletingYearTextPart4 III #CompletingYearTextPart5`
 });
 
 
 export const getLastFailureMISHYear = () => ({
-	name: `niezaliczenie II roku`,
+	complex_name: `#FailureToPastTheYear II`,
 	value: [ "N", "R" ],
-	text: `Jeśli nie zaliczysz II roku, możesz złożyć podanie o powtarzanie. Jeśli zostanie rozpatrzone pozytywnie czeka Cię repeta drugiego roku!`
+	complex_text: `#FailureYearTextPart1 II #FailureYearTextPartMISH`
 })
 
 
 export const getConditionalCompletionYear = year => ({
-	name: `warunkowe zaliczenie ${ yearToRomanNumeral( year )} roku`,
+	name: `#ConditionalCompletingYear ${ yearToRomanNumeral( year )}`,
 	value: "W",
-	text: `Jeśli zaliczysz warunek, a następnie zaliczysz ${ yearToRomanNumeral( year )} rok warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok ${ yearToRomanNumeral( year + 1 )}!`,
+	complex_text: `#ConditionalCompletingYearTextPart1 ${ yearToRomanNumeral( year )} #ConditionalCompletingYearTextPart2 ${ yearToRomanNumeral( year + 1 )}!`,
 });
 
 
 export const getFailureYear = year => ({
-	name: `niezaliczenie ${ yearToRomanNumeral( year )} roku`,
+	complex_name: `#FailureToPastTheYear ${ yearToRomanNumeral( year )}`,
 	value: [ "N", "R" ],
-	text: `Jeśli nie zaliczysz ${ yearToRomanNumeral( year )} roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie ${ yearToRomanNumeral( year )} roku!`
+	complex_text: `#FailureYearTextPart1 ${ yearToRomanNumeral( year )} #FailureYearTextPart2 ${ yearToRomanNumeral( year )}!`
 });
 
 
 export const getFailureCondition = year => ({
-	name: `niezaliczenie warunku lub ${ yearToRomanNumeral( year )} roku`,
+	complex_name: `#FailureOfTheConditionOrYear ${ yearToRomanNumeral( year )}`,
 	value: "T",
-	text: `Jeżeli nie zaliczysz warunku, musisz złożyć podanie o powtarzanie. Czeka Cię powtórka ${ yearToRomanNumeral( year )} roku!`
+	text: `#FailureOfTheConditionOrYearText ${ yearToRomanNumeral( year )}!`
 });
 
 
@@ -87,7 +88,7 @@ export const buildSimulations = end_year => {
 				...getConditionalCompletionYear( year ),
 				options: [
 					{
-						name: "zaliczenie warunku",
+						complex_name: Translations.PassingTheCondition,
 						value: "S",
 						options: [...buildOneYear( year + 1 )]
 					},

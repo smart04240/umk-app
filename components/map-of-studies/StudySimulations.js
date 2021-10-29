@@ -4,11 +4,11 @@ import { View, Text } from 'react-native';
 import useThemeStyles from '../../hooks/useThemeStyles';
 import GeneralStyles from '../../constants/GeneralStyles';
 import Layout from '../../constants/Layout';
+import Translations from "../../constants/Translations";
 import { getSimulationOptionByHistory } from '../../helpers/map-of-studies';
 import useTranslator from '../../hooks/useTranslator';
 
 import Button from "../form/Button";
-import Translations from '../../constants/Translations';
 
 
 const isButtonActive = ( value, choice ) => (
@@ -31,6 +31,42 @@ const StudySimulations = props => {
 		{ color: ThemeStyles.dark_blue_text }
 	];
 
+
+	const translateComplex = complex => {
+
+		let translated = complex.slice();
+		const translation_keys = complex.match(/(#\w+)+/g);
+
+		if ( translation_keys ) {
+			
+			for ( const k of translation_keys ) {
+
+				const key = k.slice(1);
+
+				translated = Translations[ key ]
+					? translated.replace( k, translate( Translations[ key ]))
+					: translated;
+			}
+		}
+
+		return translated;
+	}
+
+	
+	const getButtonLabel = button => {
+		return button.name 
+			? translate( button.name )
+			: button.complex_name ? translateComplex( button.complex_name ) : ""
+	}
+
+
+	const getTranslatedText = option => {
+		return option.text
+			? translate( option.text )
+			: option.complex_text ? translateComplex( option.complex_text ) : "" 
+	}
+	
+
 	if ( !base ) return null;
 
 	return (
@@ -50,7 +86,7 @@ const StudySimulations = props => {
 						transparent_bg={ !isButtonActive( item.value, choices?.[0]) }
 						onPress={() => setChoices([ Array.isArray( item.value ) ? item.value[0] : item.value ])}
 					>
-						{ item.name }
+						{ getButtonLabel( item )}
 					</Button>
 				))
 			}
@@ -63,9 +99,9 @@ const StudySimulations = props => {
 					return (
 						<React.Fragment key={ choice + index }>
 
-							{ !!choice_option?.text && 
+							{( !!choice_option?.text || !!choice_option?.complex_text ) &&  
 								<Text style={[ text_styles, { marginBottom: 15 }]}> 
-									{ choice_option.text } 
+									{ getTranslatedText( choice_option )} 
 								</Text>
 							}
 
@@ -76,19 +112,20 @@ const StudySimulations = props => {
 									</Text>
 
 									{ choice_option.options.map(( item, i ) => (
-										<Button
-											key={ i }
-											transparent_bg={ !isButtonActive( item.value, choices?.[ index + 1 ]) }
-											onPress={() => {
-												const value = Array.isArray( item.value ) ? item.value[0] : item.value;
-												const new_choices = choices.slice(0, index + 1 );
-												new_choices[ index + 1 ] = value; 
-												setChoices( new_choices );
-											}}
-										>
-											{ item.name }
-										</Button>
-									)) }
+											<Button
+												key={ i }
+												transparent_bg={ !isButtonActive( item.value, choices?.[ index + 1 ]) }
+												onPress={() => {
+													const value = Array.isArray( item.value ) ? item.value[0] : item.value;
+													const new_choices = choices.slice(0, index + 1 );
+													new_choices[ index + 1 ] = value; 
+													setChoices( new_choices );
+												}}
+											>
+												{ getButtonLabel( item ) }
+											</Button>
+										))
+									}
 								</> 
 							}
 						</React.Fragment>
