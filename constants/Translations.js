@@ -1094,8 +1094,8 @@ export default {
 	},
 
 	SubmissionOfDocuments: {
-		en: "Złożenie dokumentów",
-		pl: "Submission of documents"
+		en: "Submission of documents",
+		pl: "Złożenie dokumentów"
 	},
 
 	SubmissionOfDocumentsText: {
