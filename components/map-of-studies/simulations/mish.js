@@ -1,3 +1,4 @@
+import Translations from "../../../constants/Translations";
 import { 
 	getCompletionYear, 
 	getLastCompletionMISHYear, 
@@ -9,9 +10,9 @@ import {
 
 export default [
 	{
-		name: "Złożenie programu studiów",
+		name: Translations.SubmissionOfTheStudyProgram,
 		value: "1",
-		text: "Po złożeniu wniosków zostajesz dopuszczony do sesji!",
+		text: Translations.SubmissionOfTheStudyProgramText,
 		options: [
 			{
 				...getCompletionYear(1),
@@ -25,7 +26,7 @@ export default [
 				...getConditionalCompletionYear(1),
 				options: [
 					{
-						name: "zaliczenie warunku",
+						name: Translations.PassingTheCondition,
 						value: "S",
 						options: [
 							getLastCompletionMISHYear(2),
@@ -41,8 +42,8 @@ export default [
 		]
 	},
 	{
-		name: "Niezłożenie w terminie programu studiów",
+		name: Translations.FailureToSubmitTheStudyProgramOnTime,
 		value: "2",
-		text: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!"
+		text: Translations.FailureToSubmitTheStudyProgramOnTimeText
 	}
 ]

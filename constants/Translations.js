@@ -35,12 +35,12 @@ export default {
     },
 
     TutorialCalendarTitle: {
-        en: 'To-do list',
+        en: 'Todo list',
         pl: 'Lista zadań',
     },
 
     TutorialCalendarDescription: {
-        en: 'Create your own to-do list. Thanks to this list, you will not forget about the performance of your student duties!',
+        en: 'Create your own todo list. Thanks to this list, you will not forget about the performance of your student duties!',
         pl: 'Twórz własną listę zadań. Dzięki takiej liście nie zapomnisz o wykonaniu swoich obowiązków studenckich!',
     },
 
@@ -324,8 +324,8 @@ export default {
     },
 
     IfYouDontHaveAcc: {
-        en: "If you don't have an account - ",
-        pl: "Jeśli nie masz konta - "
+        en: "If you don't have an account  ",
+        pl: "Jeśli nie masz konta  "
     },
 
     LoginInUsingNCU: {
@@ -669,13 +669,13 @@ export default {
     },
 
     FilterSelectDirection: {
-        en: "Filter - select the direction",
-        pl: "Filtruj - wybierz kierunek"
+        en: "Filter  select the direction",
+        pl: "Filtruj  wybierz kierunek"
     },
 
     FilterSelectTasksStatus: {
-        en: "Filter - select the status of tasks",
-        pl: "Filtruj - wybierz status zadań"
+        en: "Filter  select the status of tasks",
+        pl: "Filtruj  wybierz status zadań"
     },
 
     DateAsc: {
@@ -689,13 +689,13 @@ export default {
     },
 
     NameAZ: {
-        en: "Name A-Z",
-        pl: "Nazwa A-Z"
+        en: "Name AZ",
+        pl: "Nazwa AZ"
     },
 
     NameZA: {
-        en: "Name Z-A",
-        pl: "Nazwa Z-A"
+        en: "Name ZA",
+        pl: "Nazwa ZA"
     },
 
     All: {
@@ -893,6 +893,16 @@ export default {
 		pl: "Zaliczenie warunku"
 	},
 
+	FailureToSubmitTheStudyProgramOnTime: {
+		en: "Failure to submit the study program on time",
+		pl: "Niezłożenie w terminie programu studiów"
+	},
+
+	FailureToSubmitTheStudyProgramOnTimeText: {
+		en: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!",
+		pl: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!"
+	},
+
 	FailureOfTheCondition: {
 		en: "Failure of the condition",
 		pl: "Niezaliczenie warunku"
@@ -984,8 +994,8 @@ export default {
 	},
 
 	UploadToAPSSystemPoint: {
-		en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n- printed work with APS\n- 4 photos in the 3.5 x 4.5 cm format\n- proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
-		pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n- wydrukowana praca z APD\n- 4 zdjęcia w formacie 3,5 x 4,5 cm\n- dowód wpłaty 60 zł za dyplom\n- informacje o dodatkowych osiągnieciach"
+		en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n printed work with APS\n 4 photos in the 3.5 x 4.5 cm format\n proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
+		pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n wydrukowana praca z APD\n 4 zdjęcia w formacie 3,5 x 4,5 cm\n dowód wpłaty 60 zł za dyplom\n informacje o dodatkowych osiągnieciach"
 	},
 
 	SummerExamSession: {
@@ -993,7 +1003,7 @@ export default {
 		pl: "Sesja egzminacyjna letnia"
 	},
 
-	CompletionYear: {
+	CompletingYear: {
 		en: "Completing year",
 		pl: "Zaliczenie roku"
 	},
@@ -1001,6 +1011,16 @@ export default {
 	ConditionalAdmission: {
 		en: "conditional admission",
 		pl: "wpis warunkowy"
+	},
+
+	SubmissionOfTheStudyProgram: {
+		en: "Złożenie programu studiów",
+		pl: "Złożenie programu studiów"
+	},
+
+	SubmissionOfTheStudyProgramText: {
+		en: "After submitting your applications, you will be admitted to the session!",
+		pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
 	},
 
 	MISHEndYear: {

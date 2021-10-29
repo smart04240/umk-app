@@ -78,7 +78,7 @@ const PointLabel = props => {
 			break;	
 
 		case "completion_year":
-			label = `${ translate( Translations.CompletionYear )} ${ roman_year_num }`;
+			label = `${ translate( Translations.CompletingYear )} ${ roman_year_num }`;
 			break;
 
 		case "application_for_a_conditional_admission":
