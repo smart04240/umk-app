@@ -7,6 +7,7 @@ import {
     deleteEventAsync,
     EntityTypes,
     getCalendarsAsync,
+    getDefaultCalendarAsync,
     getEventAsync,
     updateEventAsync,
 } from "expo-calendar";
@@ -21,11 +22,9 @@ import Translations from "../constants/Translations";
 
 const CalendarTitle = 'UMK Calendar';
 
-const getDefaultCalendarSource = async () => {
-    const calendars = await getCalendarsAsync(EntityTypes.EVENT);
-    const defaultCalendars = calendars.filter(each => each.type === CalendarType.CALDAV);
-    
-    return defaultCalendars.length ? defaultCalendars[0].source : calendars[0].source;
+export const getDefaultCalendarSource = async () => {
+    const defaultCalendar = await getDefaultCalendarAsync();
+    return defaultCalendar?.source;
 };
 
 /**
