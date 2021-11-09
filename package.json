@@ -36,7 +36,7 @@
     "expo-location": "~13.0.4",
     "expo-notifications": "~0.13.3",
     "expo-permissions": "~13.0.3",
-    "expo-print": "~11.0.3",
+    "expo-print": "~11.0.4",
     "expo-random": "~12.0.1",
     "expo-status-bar": "~1.1.0",
     "mime": "^2.5.2",

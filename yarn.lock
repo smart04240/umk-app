@@ -3238,7 +3238,7 @@ expo-modules-autolinking@~0.3.3:
     find-up "~5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@~0.4.4, expo-modules-core@~0.4.5, expo-modules-core@~0.4.6:
+expo-modules-core@~0.4.4, expo-modules-core@~0.4.5, expo-modules-core@~0.4.6, expo-modules-core@~0.4.7:
   version "0.4.7"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.4.7.tgz#1ea4de95bb4ac1ee125efe50b6f25055c36d86c6"
   integrity sha512-boEbB3tAYO7WkgcaXToQLY8IUeEGOZeDF+StTL38FA0l8jzJwwQLU7TaWjWEMGfxvvn7KP7V7kFudJKc7dak3g==
@@ -3271,12 +3271,12 @@ expo-permissions@~13.0.3:
   dependencies:
     expo-modules-core "~0.4.4"
 
-expo-print@~11.0.3:
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-11.0.3.tgz#fe45a23beca61993905f2434cd52bea2dd6d5802"
-  integrity sha512-Nl3xHLVA8KVjuojs2zVC4+R/n5s5oO17M+RupdpGhafbKCYNo9OCWo9aOpF0TYtuV+oRQx5qQOTt3blswveGnA==
+expo-print@~11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-11.0.4.tgz#8d5096b543c130fe9d31993f1411d249db987610"
+  integrity sha512-iKFoEJavMdqNUs0mZoCp9GFC0pWEvRzi+vJS3Ufn/S3ITGMBE6FUSi7V1P7jT0leJjOD3ivreQUzWH8hiuJGvA==
   dependencies:
-    expo-modules-core "~0.4.4"
+    expo-modules-core "~0.4.7"
 
 expo-random@~12.0.1:
   version "12.0.1"
