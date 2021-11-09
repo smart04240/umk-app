@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "UMK",
+    "name": "Gra o Dyplom",
     "slug": "umk-mobile-app",
     "platforms": [
       "android",
       "ios"
     ],
     "scheme": "umk",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
