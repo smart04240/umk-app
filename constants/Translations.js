@@ -61,7 +61,12 @@ export default {
 
     Finish: {
         en: 'Finish',
-        pl: 'Skończyć',
+        pl: 'Zakończ',
+    },
+
+    CalendarError: {
+        en: 'Due to the inability to obtain an entry to an external calendar (Google), please enable the option of saving to the built-in iPhone calendar (iCloud) in the phone settings.',
+        pl: 'Ze względu na brak możliwości uzyskania zapisu do kalendarza zewnętrznego (Google) prosimy o umożliwienie w ustawieniach telefonu możliwości zapisu do wbudowanego kalendarza iPhone (iCloud).'
     },
 
     OnlyStudentsAllowedToLogin: {
