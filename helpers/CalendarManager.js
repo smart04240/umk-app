@@ -9,7 +9,9 @@ import {
     getCalendarsAsync,
     getDefaultCalendarAsync,
     getEventAsync,
+    getSourcesAsync,
     updateEventAsync,
+    SourceType,
 } from "expo-calendar";
 import {useDispatch, useSelector} from "react-redux";
 import Actions from "../redux/Actions";
@@ -22,6 +24,11 @@ import moment from "moment";
 const CalendarTitle = 'UMK Calendar';
 
 export const getDefaultCalendarSource = async () => {
+    for (const source of await getSourcesAsync()) {
+        if (source.type === SourceType.CALDAV && source.name === 'iCloud')
+            return source;
+    }
+
     const defaultCalendar = await getDefaultCalendarAsync();
     return defaultCalendar?.source;
 };
