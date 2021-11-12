@@ -23,6 +23,7 @@ const Actions = {
         SetCalendarIds: createAction('calendar/setCalendarIds'),
         SetDate: createAction('calendar/setDate'),
         SetMap: createAction('calendar/setMap'),
+        SetError: createAction('calendar/setError'),
         setAll: createAction('calendar/upsertMany'),
         upsertOne: createAction('calendar/upsertOne'),
         removeOne: createAction('calendar/removeOne'),

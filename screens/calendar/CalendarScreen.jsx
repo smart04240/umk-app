@@ -19,9 +19,7 @@ import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import Actions from "../../redux/Actions";
 import * as Calendar from 'expo-calendar';
-import {getCalendarsAsync} from 'expo-calendar';
-import {Modal, Platform, ScrollView, Share, Text, View} from "react-native";
-import Button from "../../components/form/Button";
+import {Platform} from "react-native";
 
 export default function CalendarScreen() {
     const translate = useTranslator();
@@ -29,10 +27,13 @@ export default function CalendarScreen() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const isOnline = useSelector(state => state.app.online);
-    const {selectedDate, permissionGranted, projectCalendarId, otherCalendarIds} = useSelector(state => state.calendar);
-
-    const [showDebugModal, setShowDebugModal] = React.useState(true);
-    const [debugData, setDebugData] = React.useState(null);
+    const {
+        selectedDate,
+        permissionGranted,
+        projectCalendarId,
+        otherCalendarIds,
+        error,
+    } = useSelector(state => state.calendar);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
@@ -42,39 +43,15 @@ export default function CalendarScreen() {
         };
     }, []);
 
-    React.useEffect(() => {
-        getCalendarsAsync().then(res => setDebugData(res))
-    },[]);
-
-    const onShare = async (message) => {
-        try {
-            const result = await Share.share({
-                message: message,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
-            }
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
-    // useFocusEffect(React.useCallback(() => {
-    // API.events.notifications().then(async res => await replacePushNotifications(res?.data));
-    // }, []));
-
     const style = useMemo(() => ({
         pillContainer: {
             ...shadowGenerator(5),
             ...GeneralStyles.bottom_border_radius,
             zIndex: 10,
             backgroundColor: theme.box_bg,
+        },
+        staticPillsContainer: {
+            height: 35,
         },
         pillLabel: {
             textTransform: 'uppercase',
@@ -90,7 +67,7 @@ export default function CalendarScreen() {
         },
     }), [theme]);
 
-    const requestPermissionsForCalendar = async () => {
+    const requestPermissionsForCalendar = () => {
         let permissions = {};
 
         Calendar.requestCalendarPermissionsAsync().then(async res => {
@@ -106,29 +83,12 @@ export default function CalendarScreen() {
         });
     }
 
-    if (permissionGranted === false) {
+    if (permissionGranted === false || error) {
         return (
             <WithHeaderConfig semitransparent={true}>
                 <MainWithNavigation>
-                    <ErrorView text={translate(Translations.CalendarPermissionsError)}/>
+                    <ErrorView text={translate(error || Translations.CalendarPermissionsError)}/>
                 </MainWithNavigation>
-                <Modal show={showDebugModal}>
-                    <View
-                        style={{
-                            flex: 1,
-                            padding: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <ScrollView>
-                            <Text selectable>
-                                {JSON.stringify(debugData, null, '\t')}
-                            </Text>
-                        </ScrollView>
-                        <Button style={{width: '100%'}} label={'Share'} onPress={() => onShare(JSON.stringify(debugData, null, '\t'))}>Share</Button>
-                    </View>
-                </Modal>
             </WithHeaderConfig>
         );
     }
@@ -137,23 +97,6 @@ export default function CalendarScreen() {
         return (
             <WithHeaderConfig borderless={true}>
                 <MainWithNavigation/>
-                <Modal show={showDebugModal}>
-                    <View
-                        style={{
-                            flex: 1,
-                            padding: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <ScrollView>
-                            <Text selectable>
-                                {JSON.stringify(debugData, null, '\t')}
-                            </Text>
-                        </ScrollView>
-                        <Button style={{width: '100%'}} label={'Share'} onPress={() => onShare(JSON.stringify(debugData, null, '\t'))}>Share</Button>
-                    </View>
-                </Modal>
             </WithHeaderConfig>
         );
     }
@@ -165,23 +108,6 @@ export default function CalendarScreen() {
                 <MainWithNavigation>
                     <ErrorView text={translate(Translations.CalendarOffline)}/>
                 </MainWithNavigation>
-                <Modal show={showDebugModal}>
-                    <View
-                        style={{
-                            flex: 1,
-                            padding: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
-                    >
-                        <ScrollView>
-                            <Text selectable>
-                                {JSON.stringify(debugData, null, '\t')}
-                            </Text>
-                        </ScrollView>
-                        <Button style={{width: '100%'}} label={'Share'} onPress={() => onShare(JSON.stringify(debugData, null, '\t'))}>Share</Button>
-                    </View>
-                </Modal>
             </WithHeaderConfig>
         );
     }
@@ -207,23 +133,6 @@ export default function CalendarScreen() {
                 <Swiper style={style} data={screens} isStaticPills={true}/>
             </MainWithNavigation>
             <FloatAddButton onPress={() => navigation.navigate(Routes.CalendarCreateEvent, {is_event: true})}/>
-            <Modal show={showDebugModal}>
-                <View
-                    style={{
-                        flex: 1,
-                        padding: 40,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}
-                >
-                    <ScrollView>
-                        <Text selectable>
-                            {JSON.stringify(debugData, null, '\t')}
-                        </Text>
-                    </ScrollView>
-                    <Button style={{width: '100%'}} onPress={() => onShare(JSON.stringify(debugData, null, '\t'))}>Share'</Button>
-                </View>
-            </Modal>
         </WithHeaderConfig>
     );
 }
