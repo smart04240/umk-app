@@ -52,7 +52,7 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 }}
             >
                 {!!from && <Text style={regularTextStyles}>{from}</Text>}
-                {!!to !== 'string' && <Text style={regularTextStyles}>{to}</Text>}
+                {!!to && <Text style={regularTextStyles}>{to}</Text>}
             </View>
 
             <View style={styles.content}>
@@ -114,6 +114,7 @@ const styles = {
     },
     content: {
         flex: 1,
+        overflow: 'hidden',
         flexGrow: 1,
     },
     actions: {
