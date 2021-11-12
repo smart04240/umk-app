@@ -113,6 +113,7 @@ const styles = {
         marginHorizontal: 15,
     },
     content: {
+        flex: 1,
         flexGrow: 1,
     },
     actions: {
