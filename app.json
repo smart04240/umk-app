@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "Gra o Dyplom",
+    "name": "Gra-o-Dyplom",
     "slug": "umk-mobile-app",
     "platforms": [
       "android",
       "ios"
     ],
     "scheme": "umk",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -32,7 +32,7 @@
     ],
     "ios": {
       "bundleIdentifier": "pl.nfinity.umk",
-      "buildNumber": "0.0.10",
+      "buildNumber": "0.0.12",
       "supportsTablet": false,
       "config": {
         "googleMapsApiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
@@ -45,7 +45,7 @@
     },
     "android": {
       "package": "pl.nfinity.umk",
-      "versionCode": 10,
+      "versionCode": 12,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBdIoHt7iO7wSyiWohlvX3dGOUeDWw2y9s"
