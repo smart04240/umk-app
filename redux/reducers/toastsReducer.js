@@ -3,7 +3,6 @@ import Actions from '../Actions';
 import Colors from "../../constants/Colors";
 import Translations from "../../constants/Translations";
 
-
 export default createReducer(null, builder => {
     builder
         .addCase(Actions.Toasts.Danger, (state, action) => {
@@ -18,13 +17,13 @@ export default createReducer(null, builder => {
         .addCase(Actions.InternetChange, (state, action) => {
             let isOnline = action.payload;
 
-            return state = {
+            return {
                 color: isOnline ? Colors.Green : Colors.Red,
                 withLoader: true,
                 message: Translations[isOnline ? 'InternetConnectionConnect' : 'InternetConnectionLost']
             };
         })
-        .addCase(Actions.Toasts.Cleanup, (state, action) => {
-            return state = null
-        })
+        .addCase(Actions.Toasts.Cleanup, () => {
+            return null;
+        });
 });

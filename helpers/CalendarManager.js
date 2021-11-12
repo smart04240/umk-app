@@ -109,13 +109,13 @@ export default function CalendarManager() {
                 others,
             })))
             .catch(e => {
-                dispatch(Actions.Toasts.Warning());
+                dispatch(Actions.Calendar.SetError(e.message));
             });
     }, [permissionGranted]);
 
     // sync events with project calendar
     React.useEffect(() => {
-        if (!permissionGranted)
+        if (!permissionGranted || !projectCalendarId)
             return;
 
         (async () => {
@@ -182,7 +182,7 @@ export default function CalendarManager() {
 
             dispatch(Actions.Calendar.SetMap(map));
         })();
-    }, [translate, events, permissionGranted]);
+    }, [translate, events, permissionGranted, projectCalendarId]);
 
     return null;
 }

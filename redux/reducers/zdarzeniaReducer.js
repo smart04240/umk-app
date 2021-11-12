@@ -23,5 +23,6 @@ export const zdarzenias = createSelector(
         state => state.zdarzenia.others,
         state => state.zdarzenia.graduation,
         state => state.zdarzenia.usosEvents,
-    ]
+    ],
+    () => {}
 );

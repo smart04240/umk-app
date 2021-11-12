@@ -22,6 +22,7 @@ export const eventAdapter = createEntityAdapter({
  * @property {?string} projectCalendarId - ID of UMK system calendar
  * @property {?string[]} otherCalendarIds - IDs of other system calendars
  * @property {Object} events
+ * @property {string} error - Fatal calendar error
  */
 
 /**
@@ -35,6 +36,7 @@ const InitialState = {
     projectCalendarId: null,
     otherCalendarIds: null,
     events: eventAdapter.getInitialState(),
+    error: '',
 };
 
 export default createReducer(InitialState, builder => {
@@ -60,6 +62,9 @@ export default createReducer(InitialState, builder => {
         })
         .addCase(Actions.Calendar.setAll, (state, action) => {
             state.events = eventAdapter.setAll(state.events, action);
+        })
+        .addCase(Actions.Calendar.SetError, (state, action) => {
+            state.error = action.payload;
         })
         .addCase(Actions.Calendar.SetMap, (state, action) => {
             state.systemEventsMap = action.payload;
