@@ -256,6 +256,7 @@ export default React.memo(function MonthScreen() {
             )}
             renderItem={({item}) => (
                 <ColorCard
+                    isSmall
                     style={{
                         width: width - 100,
                         left: 60

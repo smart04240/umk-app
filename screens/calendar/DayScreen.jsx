@@ -139,7 +139,7 @@ export default React.memo(function DayScreen() {
                         </View>
                         {cardHeight > 100 && (
                             <HtmlParser
-                                html={translate(event.description)}
+                                html={translate(event.description)?.substring(0, 120) + ' . . . '}
                                 textStyles={styles.eventDescription}
                             />
                         )}

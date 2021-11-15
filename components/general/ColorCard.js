@@ -18,7 +18,7 @@ const CircleButton = ({style, theme, icon, onPress}) => (
     </TouchableOpacity>
 );
 
-export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress, onPressIn, html}) {
+export default function ColorCard({title, text, color, from, to, style, onPress, onRead, onEdit, onLongPress, onPressIn, html, isSmall}) {
     const theme = useThemeStyles();
 
     const Component = onPress ? TouchableOpacity : View;
@@ -67,7 +67,7 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 </Text>
                 {!!html && (
                     <HtmlParser
-                        html={html}
+                        html={!isSmall ? html?.substring(0, 100) + ' . . . ' : html?.substring(0, 30) + ' . . . '}
                     />
                 )}
                 {!!text && (
