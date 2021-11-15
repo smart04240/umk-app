@@ -85,5 +85,5 @@ export default {
 		elevation: 5,
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20
-	}
+	},
 }

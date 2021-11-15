@@ -21,6 +21,7 @@ import {HtmlParser} from "../../components/general/HtmlParser";
 import Colors from "../../constants/Colors";
 import useMixedEvents from "../../hooks/useMixedEvents";
 import {selectDate} from "../../redux/selectors/eventsSelector";
+import {textTrim} from "../../helpers/textTrim";
 
 function range(from, to) {
     return Array.from(Array(to), (_, i) => from + i);
@@ -139,7 +140,7 @@ export default React.memo(function DayScreen() {
                         </View>
                         {cardHeight > 100 && (
                             <HtmlParser
-                                html={translate(event.description)?.substring(0, 120) + ' . . . '}
+                                html={textTrim(translate(event.description), 120)}
                                 textStyles={styles.eventDescription}
                             />
                         )}

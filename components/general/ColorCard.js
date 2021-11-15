@@ -7,6 +7,7 @@ import useThemeStyles from '../../hooks/useThemeStyles';
 import shadowGenerator from "../../helpers/shadowGenerator";
 import {Vibrator} from "../../helpers/Vibrator";
 import {HtmlParser} from "./HtmlParser";
+import {textTrim} from "../../helpers/textTrim";
 
 const CircleButton = ({style, theme, icon, onPress}) => (
     <TouchableOpacity style={[styles.circle, {borderColor: theme.blue_text}, style]} onPress={onPress}>
@@ -67,7 +68,7 @@ export default function ColorCard({title, text, color, from, to, style, onPress,
                 </Text>
                 {!!html && (
                     <HtmlParser
-                        html={!isSmall ? html?.substring(0, 100) + ' . . . ' : html?.substring(0, 30) + ' . . . '}
+                        html={textTrim(html, !isSmall ? 80 : 30)}
                     />
                 )}
                 {!!text && (

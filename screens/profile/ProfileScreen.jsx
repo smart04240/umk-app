@@ -10,6 +10,7 @@ import shadowGenerator from "../../helpers/shadowGenerator";
 import Swiper from "react-native-screens-swiper/components/Swiper";
 import GeneralStyles from "../../constants/GeneralStyles";
 import useTranslator from "../../hooks/useTranslator";
+import Fonts from "../../constants/Fonts";
 
 
 export default function ProfileScreen(props) {
@@ -31,46 +32,42 @@ export default function ProfileScreen(props) {
         },
     ];
 
-    const styles = useMemo(() => {
-        return (
-            {
-                pillContainer: {
-                    backgroundColor: theme.box_bg,
-                    borderBottomRightRadius: 15,
-                    borderBottomLeftRadius: 15,
-                    ...shadowGenerator(5),
-                },
-                borderActive: {
-                    borderColor: theme.blue_text
-                },
-                pillLabel: {
-                    ...GeneralStyles.text_regular,
-                    textAlign: 'center',
-                    textTransform: "uppercase",
-                    color: theme.blue_text
-                },
-                activeLabel: {
-                    ...GeneralStyles.text_bold,
-                    textTransform: "uppercase",
-                    color: theme.blue_text
-                },
-                pillsOverflow: {
-                    overflow: 'hidden',
-                    height: 70
-                }
-            }
-        )
-    }, [theme]);
+    const style = useMemo(() => ({
+        pillsOverflow: {
+            overflow: 'hidden',
+            height: 70
+        },
+        pillContainer: {
+            ...shadowGenerator(5),
+            ...GeneralStyles.bottom_border_radius,
+            zIndex: 10,
+            backgroundColor: theme.box_bg,
+        },
+        staticPillsContainer: {
+            height: 35,
+        },
+        pillLabel: {
+            textTransform: 'uppercase',
+            ...GeneralStyles.text_regular,
+            color: theme.blue_text,
+        },
+        activeLabel: {
+            fontFamily: Fonts.ProximaNova.Bold,
+            color: theme.blue_text,
+        },
+        borderActive: {
+            borderColor: theme.blue_text,
+        },
+    }), [theme]);
 
     return (
         <MainWithNavigation>
             <Swiper
                 data={screens}
-                style={styles}
+                style={style}
                 scrollableContainer={true}
-                stickyHeaderEnabled={true}
+                stickyHeaderEnabled
                 isStaticPills={true}
-                stickyHeaderIndex={1}
             >
                 <ProfileMain/>
             </Swiper>
