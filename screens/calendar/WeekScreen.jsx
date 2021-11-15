@@ -18,7 +18,7 @@ import API from "../../helpers/API";
 import Colors from "../../constants/Colors";
 import useMixedEvents from "../../hooks/useMixedEvents";
 
-export default React.memo(function WeekScreen() {
+export default React.memo(function WeekScreen({activeIndex}) {
     const theme = useThemeStyles();
     const navigation = useNavigation();
     const translate = useTranslator();
@@ -30,9 +30,9 @@ export default React.memo(function WeekScreen() {
     const categories = useSelector(state => state.eventCategories);
 
     React.useEffect(() => {
-        if (!events?.length)
+        if (activeIndex === 1 && !events?.length)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessageWeek, locale)));
-    },[selectedDay]);
+    },[events]);
 
     const weekPreparer = useMemo(() => {
         const week = [];

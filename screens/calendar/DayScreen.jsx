@@ -46,7 +46,7 @@ const getCardHeight = event => {
     return ((end?.getHours() * 60) + end?.getMinutes()) - ((start?.getHours() * 60) + start?.getMinutes());
 };
 
-export default React.memo(function DayScreen() {
+export default React.memo(function DayScreen({activeIndex}) {
     const theme = useThemeStyles();
     const navigation = useNavigation();
     const translate = useTranslator();
@@ -64,9 +64,9 @@ export default React.memo(function DayScreen() {
     const nowLineWidth = lineWidth - nowCircleSize / 2;
 
     React.useEffect(() => {
-        if (!events?.length)
+        if (activeIndex === 0 && !events?.length)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
-    },[selectedDay]);
+    },[events]);
 
     // move current time line every minute
     React.useEffect(() => {

@@ -34,6 +34,7 @@ export default function CalendarScreen() {
         otherCalendarIds,
         error,
     } = useSelector(state => state.calendar);
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
     React.useEffect(() => {
         dispatch(Actions.Calendar.SetDate(moment().toISOString()));
@@ -66,6 +67,8 @@ export default function CalendarScreen() {
             borderColor: theme.blue_text,
         },
     }), [theme]);
+
+    const props = useMemo(() => ({activeIndex}), [activeIndex]);
 
     const requestPermissionsForCalendar = () => {
         let permissions = {};
@@ -116,10 +119,12 @@ export default function CalendarScreen() {
         {
             component: DayScreen,
             tabLabel: translate(Translations.Day),
+            props,
         },
         {
             component: WeekScreen,
             tabLabel: translate(Translations.Week),
+            props,
         },
         {
             component: MonthScreen,
@@ -127,10 +132,17 @@ export default function CalendarScreen() {
         },
     ];
 
+    const onActiveScreenChange = index => setActiveIndex(index);
+
     return (
         <WithHeaderConfig borderless={true}>
             <MainWithNavigation>
-                <Swiper style={style} data={screens} isStaticPills={true}/>
+                <Swiper
+                    style={style}
+                    data={screens}
+                    onActiveScreenChange={onActiveScreenChange}
+                    isStaticPills
+                />
             </MainWithNavigation>
             <FloatAddButton onPress={() => navigation.navigate(Routes.CalendarCreateEvent, {is_event: true})}/>
         </WithHeaderConfig>

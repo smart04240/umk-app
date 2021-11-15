@@ -5293,9 +5293,9 @@ react-native-safe-area-context@3.3.2:
   integrity sha512-yOwiiPJ1rk+/nfK13eafbpW6sKW0jOnsRem2C1LPJjM3tfTof6hlvV5eWHATye3XOpu2cJ7N+HdkUvUDGwFD2Q==
 
 react-native-screens-swiper@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-native-screens-swiper/-/react-native-screens-swiper-1.2.5.tgz#5411cb83ea98e4c8dbb48901252bc1a0a34599de"
-  integrity sha512-yrKwhMI1TKc7H+uK/rx5mU6uunRMeMQw2xwUl+dhJIamvcAObhZrUzoHp9C4ZgUJO3nRaAmKoBNUmsw85Fo1AA==
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/react-native-screens-swiper/-/react-native-screens-swiper-1.2.6.tgz#bbfa449126aa29e762f436f1348bc42519669386"
+  integrity sha512-uctMtByvcQ/xaC++jvHyH3p7d2aDwr288aTL16OQEEI5cZGs2zbruhjj7KyO27NHoFaja/wrkj1A1xiIVDMz8Q==
 
 react-native-screens@~3.8.0:
   version "3.8.0"
