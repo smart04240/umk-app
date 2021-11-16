@@ -44,6 +44,7 @@ import {parse} from "search-params";
 import Web from "../screens/unlogged/Web";
 import CalendarManager from "./CalendarManager";
 import NotificationsManager from "./NotificationsManager";
+import Loader from "../components/general/Loader";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -208,6 +209,7 @@ const RegisteredScreens = {
 const StackScreens = () => {
     const user = useSelector(state => state.user);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
+    const authenticating = useSelector(state => state.app.authenticating);
     const loggedIn = !!user?.access_token && !!user?.access_secret;
     const firstLogin = loggedIn && !!user?.isUnregistered;
     const ThemeStyles = useThemeStyles();
@@ -244,6 +246,9 @@ const StackScreens = () => {
             </Stack.Screen>
         ));
     }, [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' or 'firstLogin' to dependencies, only used on app start
+
+    if (authenticating)
+        return <Loader text={translate(Translations.Authenticating)}/>;
 
     if (loggedIn) {
         return (

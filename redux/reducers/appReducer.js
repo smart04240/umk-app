@@ -11,6 +11,7 @@ import {setDeviceLang} from "../../helpers/setDeviceLang";
  * @property {!boolean} cached - denotes if application data was fetched at least once
  * @property {!boolean} online - denotes if internet is reachable
  * @property {!boolean} tutorialViewed - denotes if tutorial was viewed
+ * @property {!boolean} authenticating - denotes if student is being authenticated
  */
 
 /**
@@ -23,6 +24,7 @@ const InitialState = {
     cached: false,
     online: true,
     tutorialViewed: false,
+    authenticating: false,
 };
 
 export default createReducer(InitialState, builder => {
@@ -47,5 +49,14 @@ export default createReducer(InitialState, builder => {
         })
         .addCase(Actions.Theme.Toggle, state => {
             state.theme = state.theme === 'light' ? 'dark' : 'light';
+        })
+        .addCase(Actions.User.USOSAccessToken.rejected, state => {
+            state.authenticating = false;
+        })
+        .addCase(Actions.User.USOSAccessToken.fulfilled, state => {
+            state.authenticating = false;
+        })
+        .addCase(Actions.User.USOSAccessToken.pending, state => {
+            state.authenticating = true;
         });
 });

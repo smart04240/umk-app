@@ -1,4 +1,9 @@
 export default {
+    Authenticating: {
+        en: 'Authenticating...',
+        pl: 'Uwierzytelnianie...',
+    },
+
     FirstLoading: {
         en: 'Downloading data...',
         pl: 'Pobieranie danych...',
