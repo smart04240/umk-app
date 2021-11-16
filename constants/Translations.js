@@ -1,7 +1,7 @@
 export default {
     Authenticating: {
-        en: 'Authenticating...',
-        pl: 'Uwierzytelnianie...',
+        en: 'Authenticating user data',
+        pl: 'Trwa uwierzytelnianie użytkownika',
     },
 
     FirstLoading: {
