@@ -55,7 +55,7 @@ export default React.memo(function DayScreen({activeIndex}) {
     const [show, setShow] = React.useState(false);
     const selectedDay = useSelector(state => selectDate(state));
     const [now, setNow] = React.useState(new Date());
-    const events = useMixedEvents('day');
+    const [events, loading] = useMixedEvents('day');
     const [eventsJSX, setEventsJSX] = React.useState(null);
     const categories = useSelector(state => state.eventCategories);
     const locale = useSelector(state => state.app.locale);
@@ -64,9 +64,9 @@ export default React.memo(function DayScreen({activeIndex}) {
     const nowLineWidth = lineWidth - nowCircleSize / 2;
 
     React.useEffect(() => {
-        if (activeIndex === 0 && !events?.length)
+        if (activeIndex === 0 && !events?.length && !loading)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessage, locale)));
-    },[events]);
+    },[events, loading]);
 
     // move current time line every minute
     React.useEffect(() => {

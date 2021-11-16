@@ -77,7 +77,7 @@ export default React.memo(function MonthScreen() {
     const width = useWindowDimensions().width;
     const locale = useSelector(state => state.app.locale);
     const selectedDate = useSelector(state => selectDateMoment(state));
-    const events = useMixedEvents('month');
+    const [events] = useMixedEvents('month');
     const semesters = useSelector(state => state.semesters);
     const eventCategories = useSelector(state => state.eventCategories);
     const [selectedMonth, setSelectedMonth] = React.useState(moment());

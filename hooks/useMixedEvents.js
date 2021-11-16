@@ -22,10 +22,15 @@ export default function useMixedEvents(range) {
     const events = useSelector(state => eventsSelectors.All(state));
     const {selectedDate, otherCalendarIds} = useSelector(state => state.calendar);
     const [totalEvents, setTotalEvents] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        if (!selectedDate || !otherCalendarIds)
+        if (!selectedDate || !otherCalendarIds) {
+            setLoading(false);
             return;
+        }
+
+        setLoading(true);
 
         const rangeStart = moment(selectedDate).startOf(range);
         const rangeEnd = moment(selectedDate).endOf(range);
@@ -65,8 +70,8 @@ export default function useMixedEvents(range) {
             });
 
             setTotalEvents(days);
-        });
+        }).finally(() => setLoading(false));
     }, [selectedDate, otherCalendarIds, range, events]);
 
-    return totalEvents;
+    return [totalEvents, loading];
 };

@@ -26,13 +26,13 @@ export default React.memo(function WeekScreen({activeIndex}) {
     const dispatch = useDispatch();
     const locale = useSelector(state => state.app.locale);
     const [show, setShow] = React.useState(false);
-    const events = useMixedEvents('week');
+    const [events, loading] = useMixedEvents('week');
     const categories = useSelector(state => state.eventCategories);
 
     React.useEffect(() => {
-        if (activeIndex === 1 && !events?.length)
+        if (activeIndex === 1 && !events?.length && !loading)
             dispatch(Actions.Toasts.Message(getTranslated(Translations.EventMessageWeek, locale)));
-    },[events]);
+    },[events, loading]);
 
     const weekPreparer = useMemo(() => {
         const week = [];
