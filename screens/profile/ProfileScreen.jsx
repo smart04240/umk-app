@@ -27,7 +27,7 @@ export default function ProfileScreen(props) {
             component: ProfileStatistics
         },
         {
-            tabLabel: translate(Translations.EarnedBadges),
+            tabLabel: translate(Translations.EarnedBadgesTabLabel),
             component: ProfileBadges
         },
     ];
@@ -35,19 +35,26 @@ export default function ProfileScreen(props) {
     const style = useMemo(() => ({
         pillsOverflow: {
             overflow: 'hidden',
-            height: 70
+            height: 110
         },
         pillContainer: {
             ...shadowGenerator(5),
             ...GeneralStyles.bottom_border_radius,
             zIndex: 10,
+            paddingHorizontal: 12,
             backgroundColor: theme.box_bg,
         },
         staticPillsContainer: {
             height: 35,
         },
+        pillButton: {
+            paddingHorizontal: 0,
+        },
         pillLabel: {
+            textAlign: 'center',
             textTransform: 'uppercase',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
             ...GeneralStyles.text_regular,
             color: theme.blue_text,
         },

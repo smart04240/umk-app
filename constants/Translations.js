@@ -189,6 +189,11 @@ export default {
         pl: "Zdobyte odznaki",
     },
 
+    EarnedBadgesTabLabel: {
+        en: "My badges",
+        pl: "Moje odznaki",
+    },
+
     EndedSemesters: {
         en: "Completed semesters",
         pl: "Zaliczone semestry",
@@ -895,7 +900,7 @@ export default {
 
 	ConditionalCompletingYear: {
 		en: "Conditional completing year",
-		pl: "Warunkowe zaliczenie roku"	
+		pl: "Warunkowe zaliczenie roku"
 	},
 
 	ConditionalCompletingYearTextPart1: {
@@ -1020,7 +1025,7 @@ export default {
 
 	DeletionFromTheStudentList: {
 		en: "Deletion from the student's list",
-		pl: "Skreślenie z listy studentów" 
+		pl: "Skreślenie z listy studentów"
 	},
 
 	SubmissionTheApplicationPoint: {
