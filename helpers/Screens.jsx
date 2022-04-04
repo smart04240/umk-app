@@ -277,7 +277,8 @@ const DrawerStyles = {
     borderBottomLeftRadius: 20,
     overflow: 'hidden',
     elevation: 50,
-    paddingTop: 40,
+    marginTop: 40,
+    paddingTop: 20,
     width: Layout.width * 0.85,
     ...shadowGenerator(20),
 };

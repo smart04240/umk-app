@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, TouchableOpacity} from "react-native";
+import {View, Text, ScrollView, TouchableOpacity, Image} from "react-native";
 import {useDispatch, useSelector} from 'react-redux';
 import Actions from "../../redux/Actions";
 import useThemeStyles from '../../hooks/useThemeStyles';
@@ -11,9 +11,13 @@ import ThemeSwitcher from "../theme/ThemeSwitcher";
 import Translations from '../../constants/Translations';
 import GeneralStyles from '../../constants/GeneralStyles';
 import useTranslator from "../../hooks/useTranslator";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {SidebarLogosIconEn, SidebarLogosIconPl} from "../../assets/images/svg/svgIcons";
 
 export default function Drawer({state, navigation, defaultActiveRouteName}) {
+    const offset = useSafeAreaInsets();
     const user = useSelector(state => state.user);
+    const locale = useSelector(state => state.app.locale);
     const translate = useTranslator();
     const dispatch = useDispatch();
     const ThemeStyles = useThemeStyles();
@@ -30,9 +34,44 @@ export default function Drawer({state, navigation, defaultActiveRouteName}) {
     };
 
     return (
-        <View style={styles.sidebar_content}>
-            <CloseButton style={styles.close_button} onPress={navigation.closeDrawer}/>
-            <ScrollView style={{flex: 1}}>
+        <View style={[styles.sidebar_content]}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    paddingBottom: 10,
+                }}
+            >
+                <View
+                    style={{
+                        flex: 0.9,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    {locale === 'en' ? (
+                        <SidebarLogosIconEn/>
+                    ) : (
+                        <SidebarLogosIconPl/>
+                    )}
+                </View>
+                <View
+                    style={{
+                        flex: 0.1,
+                        paddingRight: 10
+                    }}
+                >
+                    <CloseButton style={styles.close_button} onPress={navigation.closeDrawer}/>
+                </View>
+            </View>
+            <ScrollView
+                style={{flex: 1}}
+                contentContainerStyle={{
+                    paddingLeft: 40,
+                    paddingRight: 10,
+                    paddingBottom: 24,
+                }}
+            >
                 <View style={{flexDirection: "row", marginBottom: 35}}>
                     <SidebarUserInfo navigation={navigation}/>
                 </View>
@@ -61,8 +100,5 @@ const styles = {
     sidebar_content: {
         flex: 1,
         elevation: 5,
-        paddingLeft: 40,
-        paddingRight: 10,
-        paddingBottom: 24,
     },
 };
