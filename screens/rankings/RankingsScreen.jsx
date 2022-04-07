@@ -8,21 +8,22 @@ import RankingBox from "../../components/ranking/RankingBox";
 import useTranslator from "../../hooks/useTranslator";
 import Swiper from "react-native-screens-swiper";
 import shadowGenerator from "../../helpers/shadowGenerator";
-import Container from "../../components/general/Container";
 import WithHeaderConfig from "../../components/layout/WithHeaderConfig";
 
 import Annual from "./Annual";
+import {View} from "react-native";
+import Fonts from "../../constants/Fonts";
 
 const Faculty = (data) => {
 	let number = 0;
 
 	return (
-		<Container>
+		<View style={{flex: 1, paddingHorizontal: 20}}>
 			{data && !!data.length && data.map((item, i) => {
 				number = data[i - 1]?.points === item?.points ? number : number + 1;
 				return <RankingBox key={i} {...{ ...item, number }} />
 			})}
-		</Container>
+		</View>
 	)
 }
 
@@ -41,35 +42,40 @@ const RankingsScreen = () => {
 		},
 	];
 
-	const styles = useMemo(() => {
-		return (
-			{
-				pillContainer: {
-					backgroundColor: theme.box_bg,
-					borderBottomRightRadius: 15,
-					borderBottomLeftRadius: 15,
-					...shadowGenerator(5),
-				},
-				borderActive: {
-					borderColor: theme.blue_text
-				},
-				pillLabel: {
-					...GeneralStyles.text_regular,
-					textTransform: "uppercase",
-					color: theme.blue_text
-				},
-				activeLabel: {
-					...GeneralStyles.text_bold,
-					textTransform: "uppercase",
-					color: theme.blue_text
-				},
-				pillsOverflow: {
-					overflow: 'hidden',
-					height: 80
-				}
-			}
-		)
-	}, [theme]);
+	const styles = useMemo(() => ({
+		pillsOverflow: {
+			overflow: 'hidden',
+			height: 70
+		},
+		pillContainer: {
+			...shadowGenerator(5),
+			...GeneralStyles.bottom_border_radius,
+			zIndex: 10,
+			paddingHorizontal: 12,
+			backgroundColor: theme.box_bg,
+		},
+		staticPillsContainer: {
+			height: 35,
+		},
+		pillButton: {
+			paddingHorizontal: 0,
+		},
+		pillLabel: {
+			textAlign: 'center',
+			textTransform: 'uppercase',
+			flexDirection: 'row',
+			flexWrap: 'wrap',
+			...GeneralStyles.text_regular,
+			color: theme.blue_text,
+		},
+		activeLabel: {
+			fontFamily: Fonts.ProximaNova.Bold,
+			color: theme.blue_text,
+		},
+		borderActive: {
+			borderColor: theme.blue_text,
+		},
+	}), [theme]);
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -87,7 +93,6 @@ const RankingsScreen = () => {
 					scrollableContainer={true}
 					stickyHeaderEnabled={true}
 					isStaticPills={true}
-					stickyHeaderIndex={0}
 				/>
 			</WithHeaderConfig>
 		</MainWithNavigation>

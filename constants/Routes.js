@@ -1,5 +1,5 @@
 export default {
-
+	PrivacyPolicy: 'PrivacyPolicy',
 	Login: "login",
 	Web: "web",
 	Registration: "registration",

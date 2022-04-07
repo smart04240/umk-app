@@ -32,6 +32,7 @@ const Actions = {
         Toggle: createAction('locale/toggle'),
     },
     User: {
+        Apply: createAction('user/apply'),
         Registered: createAction('user/registered'),
         Logout: createAction('user/logout'),
         USOSOAuth: createAction('user/usos-oauth'),

@@ -19,7 +19,12 @@ export default {
         pl: 'Twój profil',
     },
 
-    TutorialProfileTitle : {
+    Confirm: {
+        en: 'Confirm',
+        pl: 'Potwierdzam'
+    },
+
+    TutorialProfileTitle: {
         en: 'Your profile',
         pl: 'Twój profil',
     },
@@ -90,12 +95,12 @@ export default {
     },
 
     PersonalDevelopment: {
-        en: 'Personal development and support',
-        pl: 'Rozwój osobisty i wsparcie'
+        en: 'Personal development and support.',
+        pl: 'Rozwój osobisty i wsparcie.'
     },
 
     EditProfile: {
-        en: "Edit profile",
+        en: "Edit your profile",
         pl: "Edytuj profil"
     },
 
@@ -185,7 +190,7 @@ export default {
     },
 
     EarnedBadges: {
-        en: "Earned badges",
+        en: "Awarded badges",
         pl: "Zdobyte odznaki",
     },
 
@@ -195,17 +200,17 @@ export default {
     },
 
     EndedSemesters: {
-        en: "Completed semesters",
+        en: "Semesters completed",
         pl: "Zaliczone semestry",
     },
 
     PassedCourses: {
-        en: "Courses passed",
+        en: "Courses completed",
         pl: "Zaliczone kursy",
     },
 
     EventFormTitle: {
-        en: "Event title *",
+        en: "Event name *",
         pl: "Tytuł wydarzenia *",
     },
     EventFormCategory: {
@@ -213,11 +218,11 @@ export default {
         pl: "Kategoria *",
     },
     EventFormDates: {
-        en: 'Specify event date',
-        pl: 'Określ datę wydarzenia',
+        en: 'Define event date',
+        pl: 'Określ date wydarzenia',
     },
     EventFormFullDay: {
-        en: 'Full day',
+        en: 'One day event',
         pl: 'Wydarzenie jednodniowe',
     },
     EventFormReminderOption: {
@@ -259,17 +264,17 @@ export default {
     },
 
     MapOfStudies: {
-        en: "Map of studies",
+        en: "Studies map",
         pl: "Mapa studiów"
     },
 
     Rankings: {
         en: "Rankings",
-        pl: "Rankingi"
+        pl: "Rankings"
     },
 
     Simulations: {
-        en: "Simulations",
+        en: "Symulations",
         pl: "Symulacje"
     },
 
@@ -289,7 +294,7 @@ export default {
     },
 
     ToDoList: {
-        en: "To do list",
+        en: "List of tasks",
         pl: "Lista zadań"
     },
 
@@ -329,7 +334,7 @@ export default {
     },
 
     LocatingNCUFacilities: {
-        en: "Locating NCU facilities",
+        en: "NCU facilities locations",
         pl: "Lokalizowanie obiektów UMK"
     },
 
@@ -428,28 +433,28 @@ export default {
         pl: "Do końca studiów"
     },
 
-	EndOfStudies2: {
-		pl: "Do zakończenia studiów pozostało:",
-		en: "Until the end of studies:"
-	},
+    EndOfStudies2: {
+        pl: "Do zakończenia studiów pozostało:",
+        en: "Until the end of studies:"
+    },
 
-	WhatCouldHappen: {
-		en: "What could happen?",
-		pl: "Co może się wydarzyć?"
-	},
+    WhatCouldHappen: {
+        en: "What could happen?",
+        pl: "Co może się wydarzyć?"
+    },
 
-	ChooseOneOFOptions: {
-		en: "Choose one of the possible options!",
-		pl: "Wybierz jedną z możliwych opcji!"
-	},
+    ChooseOneOFOptions: {
+        en: "Choose one of the possible options!",
+        pl: "Wybierz jedną z możliwych opcji!"
+    },
 
-	WhatsNext: {
-		en: "What's next?",
-		pl: "Co dalej?"
-	},
+    WhatsNext: {
+        en: "What's next?",
+        pl: "Co dalej?"
+    },
 
     EditAvatar: {
-        en: "Edit avatar",
+        en: "Edit your avatar",
         pl: "Edytuj awatar"
     },
 
@@ -499,7 +504,7 @@ export default {
     },
 
     DeleteAccount: {
-        en: "Delete account",
+        en: "Delete your account",
         pl: "Usuń konto"
     },
 
@@ -514,7 +519,7 @@ export default {
     },
 
     Statistics: {
-        en: "Statistics",
+        en: "Statistic",
         pl: "Statystyki"
     },
 
@@ -664,12 +669,12 @@ export default {
     },
 
     Annual: {
-        en: "Annual",
+        en: "By year",
         pl: "Rocznikowy"
     },
 
     Faculty: {
-        en: "Faculty",
+        en: "By faculty",
         pl: "Wydziałowy"
     },
 
@@ -883,255 +888,255 @@ export default {
         pl: "Początek studiów"
     },
 
-	ObtainingADiploma: {
-		en: "Obtaining a diploma",
-		pl: "Zdobycie dyplomu"
-	},
+    ObtainingADiploma: {
+        en: "Obtaining a diploma",
+        pl: "Zdobycie dyplomu"
+    },
 
-	YearUpperCase: {
-		en: "YEAR",
-		pl: "ROK"
-	},
+    YearUpperCase: {
+        en: "YEAR",
+        pl: "ROK"
+    },
 
-	YearPointSmallLabel: {
-		en: "Application regarding the course of study",
-		pl: "Wnioski związane z tokiem studiów"
-	},
+    YearPointSmallLabel: {
+        en: "Application regarding the course of study",
+        pl: "Wnioski związane z tokiem studiów"
+    },
 
-	ConditionalCompletingYear: {
-		en: "Conditional completing year",
-		pl: "Warunkowe zaliczenie roku"
-	},
+    ConditionalCompletingYear: {
+        en: "Conditional completing year",
+        pl: "Warunkowe zaliczenie roku"
+    },
 
-	ConditionalCompletingYearTextPart1: {
-		en: "If you pass the condition and then pass the",
-		pl: "Jeśli zaliczysz warunek, a następnie zaliczysz"
-	},
+    ConditionalCompletingYearTextPart1: {
+        en: "If you pass the condition and then pass the",
+        pl: "Jeśli zaliczysz warunek, a następnie zaliczysz"
+    },
 
-	ConditionalCompletingYearTextPart2: {
-		en: "conditionally, you must apply for a conditional entry. Remember that a year later you have to pass the condition and year",
-		pl: "warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok"
-	},
+    ConditionalCompletingYearTextPart2: {
+        en: "conditionally, you must apply for a conditional entry. Remember that a year later you have to pass the condition and year",
+        pl: "warunkowo, musisz złożyć podanie o wpis warunkowy. Pamiętaj, że rok później muszisz zaliczyć warunek oraz rok"
+    },
 
-	PassingTheCondition: {
-		en: "Passing the condition",
-		pl: "Zaliczenie warunku"
-	},
+    PassingTheCondition: {
+        en: "Passing the condition",
+        pl: "Zaliczenie warunku"
+    },
 
-	FailureToSubmitTheStudyProgramOnTime: {
-		en: "Failure to submit the study program on time",
-		pl: "Niezłożenie w terminie programu studiów"
-	},
+    FailureToSubmitTheStudyProgramOnTime: {
+        en: "Failure to submit the study program on time",
+        pl: "Niezłożenie w terminie programu studiów"
+    },
 
-	FailureToSubmitTheStudyProgramOnTimeText: {
-		en: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!",
-		pl: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!"
-	},
+    FailureToSubmitTheStudyProgramOnTimeText: {
+        en: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!",
+        pl: "Niezłożenie programu studiów skutkuje skreśleniem z listy studentów!"
+    },
 
-	FailureOfTheCondition: {
-		en: "Failure of the condition",
-		pl: "Niezaliczenie warunku"
-	},
+    FailureOfTheCondition: {
+        en: "Failure of the condition",
+        pl: "Niezaliczenie warunku"
+    },
 
-	FailureToPastTheYear: {
-		en: "Failure to pass the year",
-		pl: "Niezaliczenie roku"
-	},
+    FailureToPastTheYear: {
+        en: "Failure to pass the year",
+        pl: "Niezaliczenie roku"
+    },
 
-	FailureYearTextPart1: {
-		en: "If you fail the",
-		pl: "Jeśli nie zaliczysz"
-	},
+    FailureYearTextPart1: {
+        en: "If you fail the",
+        pl: "Jeśli nie zaliczysz"
+    },
 
-	FailureYearTextPart2: {
-		en: "year and want to continue your studies, you must apply for a repeat of the year",
-		pl: "roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie roku"
-	},
+    FailureYearTextPart2: {
+        en: "year and want to continue your studies, you must apply for a repeat of the year",
+        pl: "roku, a chcesz kontynuować studia, musisz złożyć podanie o powtarzanie roku"
+    },
 
-	FailureYearTextPartMISH: {
-		en: "year, you can apply for a repeat. If it is approved, you will have a second year repeat!",
-		pl: "roku, możesz złożyć podanie o powtarzanie. Jeśli zostanie rozpatrzone pozytywnie czeka Cię repeta drugiego roku!"
-	},
+    FailureYearTextPartMISH: {
+        en: "year, you can apply for a repeat. If it is approved, you will have a second year repeat!",
+        pl: "roku, możesz złożyć podanie o powtarzanie. Jeśli zostanie rozpatrzone pozytywnie czeka Cię repeta drugiego roku!"
+    },
 
-	FailureOfTheConditionOrYear: {
-		en: "Niezaliczenie warunku lub roku",
-		pl: "Failure to pass the condition or year"
-	},
+    FailureOfTheConditionOrYear: {
+        en: "Niezaliczenie warunku lub roku",
+        pl: "Failure to pass the condition or year"
+    },
 
-	FailureOfTheConditionOrYearText: {
-		en: "If you fail the condition, you must apply for a repeat. A repeat awaits you. The year",
-		pl: "Jeśli nie zaliczysz warunku, musisz złożyć podanie o powtarzanie. Czeka Cię powtórka roku"
-	},
+    FailureOfTheConditionOrYearText: {
+        en: "If you fail the condition, you must apply for a repeat. A repeat awaits you. The year",
+        pl: "Jeśli nie zaliczysz warunku, musisz złożyć podanie o powtarzanie. Czeka Cię powtórka roku"
+    },
 
-	ApplicationForAConditionalAdmission: {
-		en: "Application for a conditional admission",
-		pl: "Podanie o wpis warunkowy"
-	},
+    ApplicationForAConditionalAdmission: {
+        en: "Application for a conditional admission",
+        pl: "Podanie o wpis warunkowy"
+    },
 
-	ApplicationForApprovalToTheRetake: {
-		en: "Application for approval to the retake",
-		pl: "Podanie o powtarzanie"
-	},
+    ApplicationForApprovalToTheRetake: {
+        en: "Application for approval to the retake",
+        pl: "Podanie o powtarzanie"
+    },
 
-	From: {
-		en: "from",
-		pl: "od"
-	},
+    From: {
+        en: "from",
+        pl: "od"
+    },
 
-	To: {
-		en: "to",
-		pl: "do"
-	},
+    To: {
+        en: "to",
+        pl: "do"
+    },
 
-	WinterExamSession: {
-		en: "Winter exam session",
-		pl: "Sesja egzaminacyjna zimowa"
-	},
+    WinterExamSession: {
+        en: "Winter exam session",
+        pl: "Sesja egzaminacyjna zimowa"
+    },
 
-	WinterRetakeSession: {
-		en: "Winter retake session",
-		pl: "Sesja poprawkowa zimowa"
-	},
+    WinterRetakeSession: {
+        en: "Winter retake session",
+        pl: "Sesja poprawkowa zimowa"
+    },
 
-	SummerRetakeSession: {
-		en: "Summer retake session",
-		pl: "Sesja poprawkowa letnia"
-	},
+    SummerRetakeSession: {
+        en: "Summer retake session",
+        pl: "Sesja poprawkowa letnia"
+    },
 
-	RetakeYear: {
-		en: "Retake of the year",
-		pl: "Powtarzanie roku"
-	},
+    RetakeYear: {
+        en: "Retake of the year",
+        pl: "Powtarzanie roku"
+    },
 
-	DiplomaWorkUpperCase: {
-		en: "DIPLOMA WORK",
-		pl: "PRACA DYPLOMOWA"
-	},
+    DiplomaWorkUpperCase: {
+        en: "DIPLOMA WORK",
+        pl: "PRACA DYPLOMOWA"
+    },
 
-	ExtensionOfTheDiploma: {
-		en: "Extension of the diploma graduation to 3 months",
-		pl: "Przedłużenie terminu obrony do 3 miesiecy"
-	},
+    ExtensionOfTheDiploma: {
+        en: "Extension of the diploma graduation to 3 months",
+        pl: "Przedłużenie terminu obrony do 3 miesiecy"
+    },
 
-	DocumentsPoint: {
-		en: "DOCUMENTS\n\nApplication to initiate proceedings\n\nDeclaration of the independence of the work performed\n\nArchive consent\n\nWritten information on the composition of the commission",
-		pl: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji"
-	},
+    DocumentsPoint: {
+        en: "DOCUMENTS\n\nApplication to initiate proceedings\n\nDeclaration of the independence of the work performed\n\nArchive consent\n\nWritten information on the composition of the commission",
+        pl: "DOKUMENTY\n\nPodanie o wszczęcie postępowania\n\nOświadczenie o samodzielności wykonanej pracy\n\nZgoda na archiwizację\n\nPisemna informacja o składzie komisji"
+    },
 
-	FailureToRequestedDocuments: {
-		en: "Failure to requested documents",
-		pl: "Niezłożenie wymaganych dokumentów"
-	},
+    FailureToRequestedDocuments: {
+        en: "Failure to requested documents",
+        pl: "Niezłożenie wymaganych dokumentów"
+    },
 
-	DeletionFromTheStudentList: {
-		en: "Deletion from the student's list",
-		pl: "Skreślenie z listy studentów"
-	},
+    DeletionFromTheStudentList: {
+        en: "Deletion from the student's list",
+        pl: "Skreślenie z listy studentów"
+    },
 
-	SubmissionTheApplicationPoint: {
-		en: "Submission the application\n(study programs)",
-		pl: "Złożenie wniosków (programy studiów)"
-	},
+    SubmissionTheApplicationPoint: {
+        en: "Submission the application\n(study programs)",
+        pl: "Złożenie wniosków (programy studiów)"
+    },
 
-	FailureToSubmitTheProgram: {
-		en: "Niezłożenie programu",
-		pl: "Failure to submit the program"
-	},
+    FailureToSubmitTheProgram: {
+        en: "Niezłożenie programu",
+        pl: "Failure to submit the program"
+    },
 
-	DefenceUpperCase: {
-		en: "DEFENCE",
-		pl: "OBRONA"
-	},
+    DefenceUpperCase: {
+        en: "DEFENCE",
+        pl: "OBRONA"
+    },
 
-	UploadToAPSSystemPoint: {
-		en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n printed work with APS\n 4 photos in the 3.5 x 4.5 cm format\n proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
-		pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n wydrukowana praca z APD\n 4 zdjęcia w formacie 3,5 x 4,5 cm\n dowód wpłaty 60 zł za dyplom\n informacje o dodatkowych osiągnieciach"
-	},
+    UploadToAPSSystemPoint: {
+        en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n printed work with APS\n 4 photos in the 3.5 x 4.5 cm format\n proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
+        pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n wydrukowana praca z APD\n 4 zdjęcia w formacie 3,5 x 4,5 cm\n dowód wpłaty 60 zł za dyplom\n informacje o dodatkowych osiągnieciach"
+    },
 
-	SummerExamSession: {
-		en: "Summer exam session",
-		pl: "Sesja egzminacyjna letnia"
-	},
+    SummerExamSession: {
+        en: "Summer exam session",
+        pl: "Sesja egzminacyjna letnia"
+    },
 
-	CompletingYear: {
-		en: "Completing year",
-		pl: "Zaliczenie roku"
-	},
+    CompletingYear: {
+        en: "Completing year",
+        pl: "Zaliczenie roku"
+    },
 
-	CompletingYearTextPart1: {
-		en: "If you pass the",
-		pl: "Jeżeli zaliczysz"
-	},
+    CompletingYearTextPart1: {
+        en: "If you pass the",
+        pl: "Jeżeli zaliczysz"
+    },
 
-	CompletingYearTextPart2: {
-		en: "year, you are enrolled in the year",
-		pl: "rok zostajesz zapisany na rok"
-	},
+    CompletingYearTextPart2: {
+        en: "year, you are enrolled in the year",
+        pl: "rok zostajesz zapisany na rok"
+    },
 
-	CompletingYearTextPart3: {
-		en: "year, you can start the diploma thesis submission procedure!",
-		pl: "rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!"
-	},
+    CompletingYearTextPart3: {
+        en: "year, you can start the diploma thesis submission procedure!",
+        pl: "rok, możesz rozpocząć procedurę złożenia pracy dyplomowej!"
+    },
 
-	CompletingYearTextPart4: {
-		en: "year, you will be transferred to the year",
-		pl: "rok, zostaniesz przeniesiony na rok"
-	},
+    CompletingYearTextPart4: {
+        en: "year, you will be transferred to the year",
+        pl: "rok, zostaniesz przeniesiony na rok"
+    },
 
-	CompletingYearTextPart5: {
-		en: "of the major, the minimum program of which you follow.",
-		pl: "kierunku, którego minimum programowe realizujesz."
-	},
+    CompletingYearTextPart5: {
+        en: "of the major, the minimum program of which you follow.",
+        pl: "kierunku, którego minimum programowe realizujesz."
+    },
 
-	ConditionalAdmission: {
-		en: "conditional admission",
-		pl: "wpis warunkowy"
-	},
+    ConditionalAdmission: {
+        en: "conditional admission",
+        pl: "wpis warunkowy"
+    },
 
-	SubmissionOfTheStudyProgram: {
-		en: "Złożenie programu studiów",
-		pl: "Złożenie programu studiów"
-	},
+    SubmissionOfTheStudyProgram: {
+        en: "Złożenie programu studiów",
+        pl: "Złożenie programu studiów"
+    },
 
-	SubmissionOfTheStudyProgramText: {
-		en: "After submitting your applications, you will be admitted to the session!",
-		pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
-	},
+    SubmissionOfTheStudyProgramText: {
+        en: "After submitting your applications, you will be admitted to the session!",
+        pl: "Po złożeniu wniosków zostaniesz dopuszczony do sesji!"
+    },
 
-	ExtensionOfTheTermOfDefence: {
-		en: "Extension of the period of defense",
-		pl: "Przełużenie terminu obrony"
-	},
+    ExtensionOfTheTermOfDefence: {
+        en: "Extension of the period of defense",
+        pl: "Przełużenie terminu obrony"
+    },
 
-	ExtensionOfTheTermOfDefenceText: {
-		en: "You can extend the term of defense to 3 months - contact the dean's office and submit appropriate applications.",
-		pl: "Możesz przedłużyć termin obrony do 3 miesiecy - skontaktuj się z dziekanatem i złóż odpowiednie wnioski."
-	},
+    ExtensionOfTheTermOfDefenceText: {
+        en: "You can extend the term of defense to 3 months - contact the dean's office and submit appropriate applications.",
+        pl: "Możesz przedłużyć termin obrony do 3 miesiecy - skontaktuj się z dziekanatem i złóż odpowiednie wnioski."
+    },
 
-	SubmissionOfDocuments: {
-		en: "Submission of documents",
-		pl: "Złożenie dokumentów"
-	},
+    SubmissionOfDocuments: {
+        en: "Submission of documents",
+        pl: "Złożenie dokumentów"
+    },
 
-	SubmissionOfDocumentsText: {
-		en: "If you want to defend yourself on time, you must submit the relevant documents. The procedure is described in your profile in the \"Events\" tab",
-		pl: "Jeśli chcesz bronić się w terminie musisz złożyć odpowiednie dokumenty. Procedura opisana jest w Twoim profilu, w zakładce \"Zdarzenia\""
-	},
+    SubmissionOfDocumentsText: {
+        en: "If you want to defend yourself on time, you must submit the relevant documents. The procedure is described in your profile in the \"Events\" tab",
+        pl: "Jeśli chcesz bronić się w terminie musisz złożyć odpowiednie dokumenty. Procedura opisana jest w Twoim profilu, w zakładce \"Zdarzenia\""
+    },
 
-	FailureToSubmitDocuments: {
-		en: "Failure to submit documents",
-		pl: "Niezłożenie dokumentów"
-	},
+    FailureToSubmitDocuments: {
+        en: "Failure to submit documents",
+        pl: "Niezłożenie dokumentów"
+    },
 
-	FailureToSubmitDocumentsText: {
-		en: "If you do not submit the required documents on time, unfortunately, you will be removed from the list of students!",
-		pl: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
-	},
+    FailureToSubmitDocumentsText: {
+        en: "If you do not submit the required documents on time, unfortunately, you will be removed from the list of students!",
+        pl: "Jeśli nie złożysz wymaganych dokumentów w terminie, niestety, zostaniesz skreślony z listy studentów!"
+    },
 
-	MISHEndYear: {
-		en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
-		pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "
-	},
+    MISHEndYear: {
+        en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
+        pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "
+    },
 
     TaskCategory1: {
         en: "Important and urgent",
@@ -1288,5 +1293,126 @@ export default {
     Required: {
         en: "This field is required",
         pl: "Zaakceptowanie powyższej zgody jest obowiązkowe!"
+    },
+
+    PrivacyPolicy: {
+        title: {
+            pl: 'Regulamin korzystania z aplikacji mobilnej „Gra o dyplom”',
+            en: 'Terms of Use for the “Diploma Game” mobile application',
+        },
+        description: {
+            pl: 'Niniejszy  Regulamin  (Regulamin) określa  zasady  korzystania  z  aplikacji  mobilnej  „Gra  o  dyplom”, będącejwłasnością Uniwersytetu Mikołaja Kopernika w Toruniu z siedzibą w Toruniu, ul. Gagarina 11, przeznaczonej dla studentów studiów stacjonarnych pierwszego i drugiego stopnia, studiów jednolitych magisterskich   oraz  Międzyobszarowych   Indywidualnych   Studiów  Humanistyczno-Społecznych(MISH-S) Wydziału Filozofii i Nauk Społecznych UMK.',
+            en: 'These  Terms  of  Use  define  the  rules  in  case  of  the  “Diploma  Game”  mobile  application  owned  by Nicolaus  Copernicus  University  in  Toruń  with  its  seat  in  Toruń  (Poland),  ul.  Gagarina  11.  The application is designed for students of full-time studies of the first and second cycle degree programmes, long-cycle full-time MA studies as well as Inter-Faculty Individual Studies in Humanities and Social Sciences  (MISH-S)  of  the  Faculty  of  Philosophy  and  Social  Sciences  at  the  Nicolaus  Copernicus University.'
+        },
+        p1: {
+            title: {
+                pl: '§ 1. Definicje',
+                en: 'SECTION 1: Definitions',
+            },
+            list: {
+                pl: 'Na potrzeby niniejszego Regulaminu wskazane poniżejpojęciabędąmiałynastępujące znaczenie: \n 1) Aplikacja  mobilna  (Aplikacja)  –  oprogramowanie  udostępnione  przez  Uniwersytet  MikołajaKopernika    w    Toruniu,  służące    do    korzystania    przez  Użytkownika    z  udostępnionychfunkcjonalności   systemów   uczelnianych,   instalowane   na   zaufanym  urządzeniu   mobilnym Użytkownika; \n 2) Urządzenie  mobilne  –  urządzenie  elektroniczne  pozwalające  na  przetwarzanie,  odbieranie  oraz wysyłanie  danych  bez konieczności  utrzymywania  przewodowego połączenia  z  Internetem,  np. smartfon, korzystające z systemu operacyjnego Android lub iOS; \n 3) Użytkownik – student Uniwersytetu Mikołaja Kopernika w Toruniu; \n 4) Uczelnia – Uniwersytet Mikołaja Kopernika w Toruniu.',
+                en: 'For the purposes of these Terms of Use, the terms indicated below shall have the following meanings: \n 1) Mobile application (Application) – a software made available by Nicolaus Copernicus University in  Toruń,  which  is  designed  to  use  the  functionalities  of  the  university  systems  that  is  made available to the User and installed on the User’s trusted mobile device; \n 2) Mobile device – an electronic device that allows processing, receiving, and sending data without the  need  to  maintain  a  wired  connection  to  the  Internet.  For  instance,  a  smartphone  using  the Android or iOS operating system; \n 3) User – a student of the Nicolaus Copernicus University in Toruń; \n 4) University – Nicolaus Copernicus University in Toruń.'
+            }
+        },
+        p2: {
+            title: {
+                pl: '§ 2. Postanowienia ogólne',
+                en: 'SECTION 2: General provisions'
+            },
+            list: {
+                pl: '1.   Użytkownikzobowiązany jest do zapoznania się z treścią Regulaminu, który ustanawia aktualne zasady oraz warunki korzystania z Aplikacji. \n 2.   Używanie   Aplikacji   jest  możliwe wyłącznie   po   zaakceptowaniu  postanowień   niniejszego Regulaminu. \n 3.   Użytkownik zobowiązany  jest  do  korzystania  z  Aplikacji  w  sposób  zgodny  z  obowiązującymprawem, normami społecznymi i obyczajowymi oraz postanowieniami niniejszego Regulaminu. \n 4.Przed pobraniem Aplikacji Użytkownik powinien upewnićsię, czy w jego Urządzeniu mobilnym, o  którym  mowa  w  §  1  pkt  2,  jest  wystarczająco dużo  wolnej  pamięci niezbędnej  do  pobrania Aplikacji. \n 5.   Użytkownik zobowiązuje się   nie  dokonywać   celowego  zakłócania działania   systemów komputerowych, serwerów i sieci Uczelni bądźzewnętrznegoUsługodawcy oraz nie podejmowaćprób  obejścia  regulacji  lub  procedur  obowiązujących  przy  korzystaniu  z  Aplikacji  lub  jej składowych, a także nie dokonywać samowolnej ingerencji w kształt lub treść Aplikacji. \n 6. Użytkownika w ramach korzystania z Aplikacji obowiązuje zakaz dostarczania treści o charakterze bezprawnym. \n 7.   Użytkownik ponosi odpowiedzialność za ewentualne roszczenia związane z naruszeniem, podczas korzystania z Aplikacji, praw osób trzecich.',
+                en: '1. The  User  is  obliged  to  read  the  Terms  of  Use,  which  set  out  the  current  rules  for  use  of  the Application. \n 2. Use of the Application is possible only after an acceptance of the provisions of the Terms of Use. \n 3. The User shall use the Application in a manner that is consistent with the applicable law, social norms and customs as well as the provisions of the Terms of Use. \n 4. Before downloading the Application, the User should make sure that there is sufficient memory or space  on  his/her  Mobile  Device,  as  referred  to  in  Section  1,  point  2,  in  order  to  download  the Application. \n 5. The  User  agrees  to  neither  intentionally  interfere  with  the  operation  of  the  computer  systems, servers,  and  networks  of  the  University  or  any  third  party  service  provider  nor  attempt  to circumvent the regulations or procedures applicable to the use of the Application or its components. Additionally, the User should not arbitrarily interfere with the shape or content of the Application. \n 6. While using the Application, the User is prohibited from providing unlawful content. \n 7. The User shall be liable for any claims arising from the infringement of the rights of third parties while using the Application.'
+            }
+        },
+        p3: {
+            title: {
+                en: 'SECTION 3: Technical conditions, sharing and use of the Application',
+                pl: '§ 3.  Warunki techniczne, udostępnienie i korzystanie z Aplikacji',
+            },
+            list: {
+                en: '1. The  User  will  be  able  to  install  the  Application  on  a  Mobile  Device  that  meets  the  following operating system technical requirements: 1)   Android 7 or newer; 2)   iOS 12 or newer. \n 2. The Application is shared to the User by the University in a way that it is downloaded onto a Mobile Device with installed: 1)   Android operating system from the Google Play shop. 2)   iOS operating system from the App Store. \n 3.In order to use the Application, the User must first accept the Terms of Use and agree to abide by them. \n 4.By accepting the Terms of Use, the Application User enters into an agreement with the University in terms of the provision of services by electronic means (using the Application) for the duration of the education process (or prior uninstallation of the Application by the User) to the extent and on the conditions specified in the Terms of Use. \n 5.The use of the Application is free of charge (possible costs may arise when using data transmission according to the operator’s rates). \n 6.The Application is activated by fulfilling all of the following conditions: 1)   Providing a login data by the User2)   Acceptance of the content of the Terms of Use by the User7.    Logging into the Application shall take place through the Central Authentication Service of the NCU.',
+                pl: '1. Użytkownik może zainstalować Aplikację  na  Urządzeniu  mobilnym  spełniającym następującewymagania techniczne: \n 1)   dla systemu operacyjnego Android od wersji 7; \n 2)   dla systemu operacyjnego iOS od wersji 12.2.   UdostępnienieUżytkownikowi Aplikacji przez Uczelnięnastępuje poprzez umożliwienie pobrania jej na urządzenie mobilne: \n 1)   dla systemu operacyjnego Android ze sklepu Google Play; \n 2)   dla systemu operacyjnego iOS ze sklepu App Store. \n 3.Korzystanie  z  Aplikacji  wymaga  uprzedniego  zaakceptowania  przez  Użytkownika  warunków niniejszego Regulaminu oraz zobowiązaniasię do ich przestrzegania. \n 4.   Akceptując  Regulamin,  Użytkownik  Aplikacji  zawiera  z  Uczelnią umowę  o  świadczenie usługdrogą elektroniczną   (przy  użyciu   Aplikacji)   na   czas   trwania   procesu  kształcenia   (lub wcześniejszego   odinstalowania   Aplikacji   przez  Użytkownika)   w   zakresie   i   na   warunkach określonych w Regulaminie. \n 5.Korzystanie  z  Aplikacji  jest bezpłatne  (ewentualne  koszty mogąsiępojawić  przy  korzystaniu  z transmisji danych zgodnie ze stawkami operatora). \n 6.Aktywacja Aplikacji następuje poprzez spełnieniełącznieponiższych warunków: 1)   podania przez Użytkownika danych do logowania;2)   zaakceptowania przez Użytkownikatreści niniejszego Regulaminu. \n 7.    Logowanie do Aplikacji następuje przez Centralny Punkt Logowania UMK.'
+            }
+        },
+        p4: {
+            title: {
+                en: 'SECTION 4: Principles of operation, types, and scope of services in the Application',
+                pl: '§ 4. Zasady działania, rodzaje i zakres usług w Aplikacji',
+            },
+            list: {
+                en: '1. The Application allows the User to gain an insight into her/his current situation at the University, based on the data processed in the USOS system. It also allows the User to compare her/his results and achievements against an anonymized group of other students. \n 2.Data on the User’s current situation is retrieved from the USOS system. \n 3.The Application allows the User to earn “badges” after fulfilling certain conditions. \n 4.The Application allows the User to access information regarding the following modules: \n • Profile, \n • Studies map, \n • Rankings, \n • Simulations, \n • List of tasks, \n • Calendar, \n • Reminders, \n • Locating NCU facilities, and \n • Support and Personal Development.',
+                pl: '1. Aplikacja umożliwiaUżytkownikowi uzyskanie wglądu w jego aktualnąsytuację na Uczelni, na podstawie  danych  przetwarzanych  w  systemie  USOS,  a  także  porównanie  jego  wyników  i osiągnięć na tle zanonimizowanej grupy innych studentów. \n 2.Dane o aktualnej sytuacji Użytkownikasą pobierane z systemu USOS. \n 3.Aplikacja  umożliwia Użytkownikowi   zdobywanie   tzw.   odznak   po  spełnieniu określonychwarunków. \n 4.Aplikacja umożliwiaUżytkownikowidostęp do informacji w następującychmodułach: \n • Profil, \n • Mapa studiów, \n • Rankingi, \n • Symulacje, \n • Lista zadań, \n • Kalendarz,• Przypomnienia, \n • Lokalizowanie obiektów UMK, \n • Rozwój osobisty i wsparcie.'
+            }
+        },
+        p5: {
+            title: {
+                en: 'SECTION 5: Security',
+                pl: '§ 5. Bezpieczeństwo',
+            },
+            list: {
+                en: 'The  User  is  obliged  to  protect  the  password  and  login  for  the  Application  from  being  obtained  by unauthorized persons.',
+                pl: 'Użytkownik jest zobowiązany do ochrony przed pozyskaniem przez osoby nieuprawnione hasła i loginu do Aplikacji.'
+            }
+        },
+        p6: {
+            title: {
+                en: 'SECTION 6: Restrictions on use',
+                pl: '§ 6. Ograniczenia w korzystaniu',
+            },
+            list: {
+                en: 'The University shall have the right to block or partially block access to the Application for the duration of maintenance work and in the event of the User’s failure to comply with the provisions of the Terms of Use or use of the Application in an unauthorized manner.',
+                pl: 'Uniwersytet ma prawo zablokować lub częściowozablokowaćdostęp do Aplikacji na czas prowadzenia prac  serwisowych  oraz  w  przypadku  nieprzestrzegania  przez  Użytkownika postanowień  niniejszego Regulaminu lub korzystania z Aplikacji w sposób niedozwolony.'
+            }
+        },
+        p7: {
+            title: {
+                en: 'SECTION 7: Agreement',
+                pl: '§ 7. Umowa',
+            },
+            list: {
+                en: '1. The conclusion of the Agreement for the provision of services by electronic means takes place upon acceptance of the provisions of these Terms of Use. \n 2. The  user  may  withdraw  from  the  Agreement  for  the  provision  of  services  by  electronic  means without providing reasons by making a statement within 14 days of its conclusion. \n 3. The Agreement for the provision of services by electronic means may be terminated by either party by conveying a one month’s written notice at any point of time under the pain of nullity. \n 4. The Agreement for the provision of services by electronic means may be terminated by either party without the notice period referred to in point 3 in the case of critical situations, which are considered to be in particular the violation of the provisions of the Terms of Use. \n 5.The Agreement for the provision of services by electronic means shall terminate automatically if the User uninstalls the Application.',
+                pl: '1. Zawarcie   umowy   o  świadczenie usług drogą elektroniczną następuje   z  chwilą   akceptacji postanowień Regulaminu. \n 2.   Użytkownik może odstąpić  od  umowy  o  świadczenie usług drogą elektroniczną,  bez  podania przyczyn, składającoświadczenie w terminie 14 dni od dnia jej zawarcia. \n 3.   Umowę  o  świadczenie usług drogą elektroniczną może wypowiedzieć każda  ze  stron,  poprzez złożenie   w   dowolnym   momencie  oświadczenia   na  piśmie   pod   rygorem  nieważności,   z zachowaniem 1-miesięcznego okresu wypowiedzenia. \n 4. Umowę  o  świadczenie usług drogą elektroniczną może wypowiedzieć każda  ze  stron,  bez zachowania okresu wypowiedzenia, o którym mowa w ust. 3, z ważnych przyczyn, za które uważasię w szczególności naruszenie postanowień Regulaminu. \n 5.Umowa  o  świadczenie usług drogą elektroniczną rozwiązuje się  automatycznie  w  przypadku odinstalowania Aplikacji przez Użytkownika.'
+            }
+        },
+        p8: {
+            title: {
+                en: 'SECTION 8: Complaints',
+                pl: '§ 8. Reklamacje',
+            },
+            list: {
+                en: '1. The User may direct complaints on matters related to the use of services specified in the Terms of Use to the e-mail address graodyplom@umk.pl. \n 2.The University is obliged to process the complaint within 30 (thirty) days of receipt. \n 3. In case a complaint contains deficiencies that make its processing impossible, the University may call on the User to supplement the complaint, specifying a deadline of at least 7 (seven) days and the  scope  of  such  supplementation  along  with  the  instruction  that  failure  to  supplement  the complaint within the specified deadline will result in leaving the complaint unprocessed. If the time limit expires without effect, the complaint will not be processed. \n 4. The response to the complaint shall be sent by the University to the e-mail address specified by the User in the complaint.',
+                pl: '1. Użytkownik może kierować   reklamacje   w   sprawach  związanych   z   korzystaniem   z  usługokreślonych w niniejszym Regulaminie na adres poczty elektronicznej graodyplom@umk.pl. \n 2.Uczelnia jest zobowiązanarozpatrzyćreklamację w terminie 30 (trzydzieści) dni od jej otrzymania. \n 3. W przypadku gdy złożona reklamacja zawiera braki uniemożliwiające jej rozpatrzenie, Uczelnia możewezwaćUżytkownika do jej uzupełnienia,określając termin, nie krótszy niż 7 (siedem) dni i zakres  tego  uzupełnienia  z  pouczeniem,  że nieuzupełnienie  reklamacji  w  określonym  terminie spowoduje pozostawienie reklamacji bez rozpoznania. Po bezskutecznym upływie wyznaczonego terminu reklamację pozostawia się bez rozpoznania. \n 4.   Odpowiedź  na  reklamację  Uczelnia  kieruje  na  adres  poczty  elektronicznej  wskazany  przez Użytkownika w treści reklamacji.'
+            }
+        },
+        p9: {
+            title: {
+                en: 'SECTION 9: Information on the Protection of Personal Data (GDPR)',
+                pl: '§ 9. Informacje dotyczące Ochrony Danych Osobowych (RODO)',
+            },
+            list: {
+                en: 'Nicolaus  Copernicus  University  with  its  seat  in  Toruń  (Poland),  ul.  Gagarina  11  informs  that  in accordance  with  the  current  Regulation  (EU)  2016/679  of  the  European  Parliament  and  that  of  the Council (GDPR) of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data and repealing Directive 95/46/EC (General Data Protection Regulation) hereinafter is referred to as GDPR: \n 1)   The  Controller  of  your  personal  data  is  Nicolaus  Copernicus  University  with  its  seat  in  Toruń(Poland), ul. Gagarina 11. In case of all matters concerning the processing of personal data and the exercise of rights in relation to the processing of personal data, the Data Protection Officer can be contacted via e-mail: iod@umk.pl. \n 2)   Your personal data is processed in connection with the use of the “Diploma Game” application on the basis of Article 6(1)(b) of the GDPR, that is, in connection with the conclusion and performance of the Agreement. \n 3)   Your personal data will be processed by Nicolaus Copernicus University for the purposes of using the “Diploma Game” application for the duration of the Application use. \n 4)   Your personal data will not be transferred by the Data Controller to other entities. \n 5)   You  have  the  right  to  obtain  information  concerning  the  processing  of  your  personal  data  by Nicolaus Copernicus University to request correction, deletion, or restriction of processing of your data, including the right to data portability of the data provided and the right to object to processing. \n 6)   You  have  the  right  to  lodge  a  complaint  to  the  Office  for  Personal  Data  Protection,  address:  ul. Stawki 2 in Warsaw (Poland) if you consider that the processing of your personal data violates your legal provisions. \n 7)   Your personal data is not subject to profiling.',
+                pl: 'Uniwersytet  Mikołaja  Kopernika  z  siedzibą  w  Toruniu,  ul.  Gagarina  11,  informuje,  że  zgodnie  z obowiązującymRozporządzeniem  Parlamentu  Europejskiego  i  Rady  (UE)  2016/679  (RODO)  z  dnia 27  kwietnia  2016  r.  w  sprawie  ochrony  osób  fizycznych  w  związku  z  przetwarzaniem  danych osobowych  i  w  sprawie  swobodnego przepływu  takich  danych  oraz  uchylenia  dyrektywy  95/46/WE (ogólne rozporządzenie o ochronie danych) zwane dalej RODO: \n 1)   Administratorem  Państwa  danych  osobowych  jest  Uniwersytet  Mikołaja  Kopernika  z  siedzibąw Toruniu,   ul.   Gagarina   11.   We   wszystkich   sprawach  dotyczących   przetwarzania   danych osobowych  oraz  korzystania  z  praw związanych  z  ich  przetwarzaniem możnasiękontaktować  z Inspektorem Danych Osobowych za pomocą e-mail: iod@umk.pl. \n 2)  Państwa dane osobowe przetwarzane są w związku z korzystaniem z aplikacji „Gra o dyplom”, na podstawie art. 6 ust. 1 lit. b RODO – tj. w związku z zawarciem i realizacją umowy. \n 3)  Państwa  dane  osobowe  będą  przetwarzane  przez  Uniwersytet  Mikołaja  Kopernika  na  potrzeby korzystania z aplikacji „Gra o dyplom” przez czas użytkowania Aplikacji. \n 4)  Państwa dane osobowe nie będą przekazywane przez Administratora danych do innych podmiotów. \n 5)  PrzysługujePaństwu prawo do uzyskania informacji dotyczącej przetwarzania przez Uniwersytet Mikołaja  Kopernika  danych  osobowych,  żądania  ich  sprostowania,  usunięcia  lub  ograniczenia przetwarzania  swoich  danych,  prawo  do  przenoszenia  dostarczonych  danych,  prawo  wniesienia sprzeciwu wobec przetwarzania. \n 6)  Przysługuje Państwu  prawo  do  wniesienia  skargi  do  Urzędu  Ochrony  Danych  Osobowych ul.  Stawki  2  w  Warszawie, jeżeliuznająPaństwo,że  przetwarzanie Państwa  danych  osobowych narusza przepisy prawa. \n 7)  Państwa dane osobowe nie podlegają profilowaniu. '
+            }
+        },
+        p10: {
+            title: {
+                en: 'SECTION 10: Intellectual property',
+                pl: '§ 10. Własność intelektualna',
+            },
+            list: {
+                en: '1.    Nicolaus Copernicus University in Toruń is the owner of the Application. \n 2.    Nicolaus  Copernicus  University  in  Toruń  declares  that  it  holds  the  necessary  rights  to  the Application and it is permitted to authorize the User to use the Application within the scope of these Terms of Use, and that the rights granted do not infringe the rights of third parties.',
+                pl: '1.    Uniwersytet Mikołaja Kopernika w Toruniu jest właścicielem Aplikacji. \n 2.    Uniwersytet Mikołaja Kopernika w Toruniu oświadcza,iż posiada niezbędne prawa do Aplikacji i jest uprawniony do upoważnieniaUżytkownika do korzystania z Aplikacji w zakresie wynikającymz niniejszego Regulaminu, jak również,że przyznane prawa nie naruszają prawa osób trzecich.'
+            }
+        },
+        p11: {
+            title: {
+                en: 'SECTION 11: Final provisions',
+                pl: '§ 11. Postanowienia końcowe',
+            },
+            list: {
+                en: '1. Nicolaus Copernicus University in Toruń reserves the right to introduce updates to the Application. The latest version of the Application will be placed on the online application shop relevant to the operating system of the Mobile Device. \n 2.The University is entitled to make changes to these Terms of Use, and the User will be informed of such changes through an appropriate message available after logging in to the Application. \n 3.The  University  reserves  the  right  to  improve  and  update  the  Application  and  may  withdraw  the Application. \n 4.These Terms of Use shall enter into practice on 1st March, 2022.',
+                pl: '1. Uniwersytet Mikołaja Kopernika w Toruniu zastrzega sobie możliwość wprowadzenia aktualizacji Aplikacji. Najnowsza wersja Aplikacji będzie umieszczona w internetowym sklepie z aplikacjami właściwym dla danego systemu operacyjnego Urządzenia mobilnego. \n  2.Uczelnia jest uprawniona do dokonywania zmian w Regulaminie, a o ich dokonaniu Użytkownikbędzie informowany poprzez stosowny komunikat dostępny po zalogowaniu się do Aplikacji. \n 3.Uczelnia  zastrzega  sobie  możliwość  udoskonalenia  i  aktualizowania  Aplikacji,  jak  równieżmożliwość wycofania Aplikacji. \n 4.Regulamin wchodzi w życie z dniem 1 marca 2022 r.'
+            }
+        }
     },
 };

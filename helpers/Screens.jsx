@@ -45,6 +45,7 @@ import Web from "../screens/unlogged/Web";
 import CalendarManager from "./CalendarManager";
 import NotificationsManager from "./NotificationsManager";
 import Loader from "../components/general/Loader";
+import PrivacyPolicyScreen from "../screens/unlogged/PrivacyPolicyScreen";
 
 const ScreenOptions = {
     gestureEnabled: false,
@@ -97,6 +98,12 @@ const RegisteredScreens = {
             name: Routes.Web,
             component: Web,
         },
+    ],
+    PrivacyPolicy: [
+        {
+            name: Routes.PrivacyPolicy,
+            component: PrivacyPolicyScreen
+        }
     ],
     LoggedIn: [
         {
@@ -208,6 +215,7 @@ const RegisteredScreens = {
 
 const StackScreens = () => {
     const user = useSelector(state => state.user);
+    const appliedPrivacyPolicy = useSelector(state => state.app.appliedPrivacyPolicy);
     const tutorialViewed = useSelector(state => state.app.tutorialViewed);
     const authenticating = useSelector(state => state.app.authenticating);
     const loggedIn = !!user?.access_token && !!user?.access_secret;
@@ -216,8 +224,11 @@ const StackScreens = () => {
     const translate = useTranslator();
 
     const screens = React.useMemo(() => {
-        return (loggedIn ? RegisteredScreens.LoggedIn : RegisteredScreens.LoggedOut).filter(screen => {
+        return (loggedIn ? (appliedPrivacyPolicy ? RegisteredScreens.LoggedIn : RegisteredScreens.PrivacyPolicy) : RegisteredScreens.LoggedOut).filter(screen => {
             if (tutorialViewed && screen.name === Routes.Tutorial)
+                return false;
+
+            if (appliedPrivacyPolicy && screen.name === Routes.PrivacyPolicy)
                 return false;
 
             if (!firstLogin && screen.name === Routes.Registration)
@@ -245,7 +256,7 @@ const StackScreens = () => {
                 {props => <screen.component {...props} />}
             </Stack.Screen>
         ));
-    }, [loggedIn, ThemeStyles, translate]); // do NOT add 'tutorialViewed' or 'firstLogin' to dependencies, only used on app start
+    }, [loggedIn, ThemeStyles, appliedPrivacyPolicy, translate]); // do NOT add 'tutorialViewed' or 'firstLogin' to dependencies, only used on app start
 
     if (authenticating)
         return <Loader text={translate(Translations.Authenticating)}/>;

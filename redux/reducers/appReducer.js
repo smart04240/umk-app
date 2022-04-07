@@ -25,6 +25,7 @@ const InitialState = {
     online: true,
     tutorialViewed: false,
     authenticating: false,
+    appliedPrivacyPolicy: false
 };
 
 export default createReducer(InitialState, builder => {
@@ -34,6 +35,9 @@ export default createReducer(InitialState, builder => {
         })
         .addCase(Actions.User.Logout, state => {
             state.cached = false;
+        })
+        .addCase(Actions.User.Apply, state => {
+            state.appliedPrivacyPolicy = true;
         })
         .addCase(Actions.Tutorial.Passed, state => {
             state.tutorialViewed = true;
