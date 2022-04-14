@@ -8,14 +8,16 @@ import Button from "../../components/form/Button";
 import {useDispatch} from "react-redux";
 import Actions from "../../redux/Actions";
 import Fonts from "../../constants/Fonts";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export default function PrivacyPolicyScreen() {
     const dispatch = useDispatch();
     const translate = useTranslator();
+    const offset = useSafeAreaInsets();
 
     return (
         <ScreenWithHiddenHeader>
-            <Main style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Main style={{justifyContent: 'center', alignItems: 'center', paddingTop: offset.top}}>
                 <ScrollView style={{flex: 0.9}} contentContainerStyle={{justifyContent: 'center', alignItems: 'center', paddingTop: 50, paddingHorizontal: 20}}>
                     <View>
                         <Text style={{color: 'black', fontFamily: Fonts.ProximaNova.Bold, fontSize: 19, textAlign: 'center'}}>{translate(Translations.PrivacyPolicy.title)}</Text>
