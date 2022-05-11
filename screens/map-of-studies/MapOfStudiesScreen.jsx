@@ -7,24 +7,18 @@ import ActiveStudiesSwitcher from "../../components/map-of-studies/ActiveStudies
 import MapOfStudiesStructure from "../../components/map-of-studies/MapOfStudiesStructure";
 
 export default function MapOfStudiesScreen() {
+    const [all_structure_data, setAllStructureData] = useState(null);
 
-	const [ all_structure_data, setAllStructureData ] = useState( null );
-
-	return (
-		<ScreenWithRoundedHeader>
-			<MainWithNavigation>
-				<ContainerWithScroll container_style={{ paddingHorizontal: 0 }}>
-
-					<ActiveStudiesSwitcher
-						changeCallback={ data => setAllStructureData( data )}
-					/>
-
-					{ !!all_structure_data &&
-						<MapOfStudiesStructure all_data={ all_structure_data }/>
-					}
-
-				</ContainerWithScroll>
-			</MainWithNavigation>
-		</ScreenWithRoundedHeader>
-	)
-}
+    return (
+        <ScreenWithRoundedHeader>
+            <MainWithNavigation>
+                <ContainerWithScroll container_style={{paddingHorizontal: 0}}>
+                    <ActiveStudiesSwitcher
+                        changeCallback={data => setAllStructureData(data)}
+                    />
+                    {!!all_structure_data && <MapOfStudiesStructure all_data={all_structure_data}/>}
+                </ContainerWithScroll>
+            </MainWithNavigation>
+        </ScreenWithRoundedHeader>
+    )
+};

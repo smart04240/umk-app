@@ -1049,8 +1049,12 @@ export default {
     },
 
     UploadToAPSSystemPoint: {
-        en: "Upload the diploma work to APS System\nApproval by the promoter\nDelivery of documents to the dean's office\n(within two days):\n printed work with APS\n 4 photos in the 3.5 x 4.5 cm format\n proof of payment of PLN 60 for the diploma\ninformation on additional achievements",
-        pl: "Wgranie pracy do APD\nZatwierdzenie przez promotora\nDostarczenie dokumentów do dziekanatu\n(w ciągu dwóch dni):\n wydrukowana praca z APD\n 4 zdjęcia w formacie 3,5 x 4,5 cm\n dowód wpłaty 60 zł za dyplom\n informacje o dodatkowych osiągnieciach"
+        en: "Uploading work to APD\n" +
+            "Approval by the promoter\n" +
+            "Providing the dean's office with information about additional achievements",
+        pl: "Wgranie pracy do APD  \n" +
+            "Zatwierdzenie przez promotora\n" +
+            "Dostarczenie do dziekanatu informacji o dodatkowych osiągnięciach"
     },
 
     SummerExamSession: {

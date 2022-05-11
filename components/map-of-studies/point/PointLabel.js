@@ -37,7 +37,7 @@ const PointLabel = props => {
 		? `(${ translate( Translations.From )} ${ dates.start_date } ${ translate( Translations.To )} ${ dates.end_date })` 
 		: ""; 
 
-	const to_end_date = dates?.start_date ? `(${ translate( Translations.To )} ${ dates.start_date })` : "";	
+	const to_end_date = (!!dates?.start_date && dates?.start_date !== 'Invalid date') ? `(${ translate( Translations.To )} ${ dates.start_date })` : "";
 
 	switch ( point_type ) {
 		

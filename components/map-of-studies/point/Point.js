@@ -23,6 +23,8 @@ const Point = props => {
 		/>
 	, []);
 
+	console.log(props.dates)
+
 	return (
 		<View style={{
 			width: "100%",
