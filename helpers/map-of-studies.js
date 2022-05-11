@@ -203,8 +203,6 @@ const changePointsInStructure = (structure, years_data) => {
         const chronology = getPointСhronology(current_year_data, component_obj, term_field);
         const dates = getPointDates(current_year_data, term_field, component_obj.term_field_tags);
 
-        console.log(dates)
-
         return {
             ...component_obj,
             ...chronology,
