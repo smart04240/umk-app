@@ -37,13 +37,6 @@ export default function RegistrationScreen(props) {
             init_checked: regulationsAccepted,
             onChange: ({ value }) => setRegulationsAccepted(value),
         },
-        {
-            name: "personal_data",
-            label: translate(Translations.RegCheckboxLabel2),
-            required: true,
-            init_checked: dataProcessingAccepted,
-            onChange: ({ value }) => setDataProcessingAccepted(value),
-        },
     ];
 
     const register = () => {

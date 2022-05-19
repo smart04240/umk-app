@@ -30,7 +30,7 @@ export default function SimulationsScreen() {
             <TopBox>
                 <View style={[GeneralStyles.row_center_between, {paddingVertical: 20}]}>
                     <Text style={[top_text_styles]}>{translate(Translations.EndOfStudies2)}</Text>
-                    <Text style={[top_text_styles, {fontSize: 18}]}>{all_structure_data?.til_end_of_study}</Text>
+                    <Text style={[top_text_styles]}>{all_structure_data?.til_end_of_study}</Text>
                 </View>
             </TopBox>
             <ContainerWithScroll container_style={{paddingHorizontal: 0}}>

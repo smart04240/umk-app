@@ -29,6 +29,11 @@ export default {
         pl: 'Twój profil',
     },
 
+    AmendmentsSession: {
+        en: '',
+        pl: ''
+    },
+
     TutorialProfileDescription: {
         en: 'In the "Your Profile" tab, you will find information about both your statistics and the badges you have earned.',
         pl: 'W zakładce „Twój profil” znajdziesz informacje zarówno o swoich statystykach, jak i zdobytych odznakach.',
