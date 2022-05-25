@@ -969,8 +969,8 @@ export default {
     },
 
     FailureOfTheConditionOrYear: {
-        en: "Niezaliczenie warunku lub roku",
-        pl: "Failure to pass the condition or year"
+        en: "Failure to pass the condition or year",
+        pl: "Niezaliczenie warunku lub roku"
     },
 
     FailureOfTheConditionOrYearText: {
@@ -1059,8 +1059,8 @@ export default {
     },
 
     FailureToSubmitTheProgram: {
-        en: "Niezłożenie programu",
-        pl: "Failure to submit the program"
+        en: "Failure to submit the program",
+        pl: "Niezłożenie programu"
     },
 
     DefenceUpperCase: {
@@ -1118,7 +1118,7 @@ export default {
     },
 
     SubmissionOfTheStudyProgram: {
-        en: "Złożenie programu studiów",
+        en: "Submission of the study program",
         pl: "Złożenie programu studiów"
     },
 
