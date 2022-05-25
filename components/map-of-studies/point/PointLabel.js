@@ -66,6 +66,20 @@ const PointLabel = props => {
             small_label = from_start_date_to_end_date;
             break;
 
+        case "summer_prepare_docs":
+            label = translate(Translations.SummerPrepareDocs);
+            small_label = from_start_date_to_end_date;
+            break;
+
+        case "chose_study_path":
+            label = translate(Translations.ChoseStudyPath);
+            small_label = from_start_date_to_end_date;
+            break;
+
+        case "summer_after_session":
+            label = translate(Translations.SummerAfterSession);
+            break;
+
         case "winter_retake_session":
             label = translate(Translations.WinterRetakeSession);
             small_label = from_start_date_to_end_date;

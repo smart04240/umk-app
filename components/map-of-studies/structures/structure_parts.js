@@ -55,7 +55,14 @@ export const getBeginningBranch = () => (
 				point_type: "summer_retake_session",
 				label_position: "left",
 				bottom_margin: 20 
-			}
+			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 8,
+				point_type: "summer_after_session",
+				bottom_margin: 20
+			},
 		]
 	}
 )
@@ -112,7 +119,14 @@ export const getCompletionBranch = year => (
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_retake_session",
 				bottom_margin: 20 
-			}
+			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 8,
+				point_type: "summer_after_session",
+				bottom_margin: 20
+			},
 		]
 	}
 )
@@ -176,6 +190,13 @@ export const getConditionalCompletionBranch = year => (
 				term_field_tags: "#term_field#start_date #term_field#end_date",
 				point_type: "summer_retake_session",
 				bottom_margin: 20 
+			},
+			{
+				Component: Point,
+				year: 1,
+				term_field_id: 8,
+				point_type: "summer_after_session",
+				bottom_margin: 20
 			},
 			{
 				Component: BranchesNode,

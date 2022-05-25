@@ -11,7 +11,6 @@ export default [
 		Component: Branch,
 		children: { Component: StartCircle }
 	},
-	
 	{
 		Component: Branch,
 		year: 1,
@@ -25,7 +24,6 @@ export default [
 			bottom_margin: 5 
 		}
 	},
-
 	{
 		Component: BranchesNode,
 		year: 1,
@@ -60,6 +58,22 @@ export default [
 						bottom_margin: 20 
 					},
 					{
+						Component: Point,
+						year: 1,
+						term_field_id: 11,
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "summer_prepare_docs",
+						bottom_margin: 20
+					},
+					{
+						Component: Point,
+						year: 1,
+						term_field_id: 12,
+						term_field_tags: "#term_field#start_date #term_field#end_date",
+						point_type: "chose_study_path",
+						bottom_margin: 20
+					},
+					{
 						Component: Point, 
 						year: 1,
 						term_field_id: 8,
@@ -74,6 +88,13 @@ export default [
 						term_field_tags: "#term_field#start_date #term_field#end_date",
 						point_type: "summer_retake_session",
 						bottom_margin: 20 
+					},
+					{
+						Component: Point,
+						year: 1,
+						term_field_id: 8,
+						point_type: "summer_after_session",
+						bottom_margin: 20
 					},
 				]
 			},
@@ -98,18 +119,16 @@ export default [
 			}
 		]
 	},
-
-	{
-		Component: BranchesNode,
-		year: 1,
-		branches: [
-			getCompletionBranch(1),
-			getConditionalCompletionBranch(1),
-			getFailureBranch(1)
-		]
-	},
-
-	getPreDiplomaPart(2),
-
+	// If you uncomment this part it will add one more year to map
+	// {
+	// 	Component: BranchesNode,
+	// 	year: 1,
+	// 	branches: [
+	// 		getCompletionBranch(1),
+	// 		getConditionalCompletionBranch(1),
+	// 		getFailureBranch(1)
+	// 	]
+	// },
+	getPreDiplomaPart(1),
 	getMISHEndPart()
-]
+];

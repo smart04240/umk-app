@@ -465,19 +465,17 @@ export const findSimulationsOptionByValue = (value, simulations) => (
 
 
 export const getSimulationOptionByHistory = (history, simulations) => {
-
     const iteration = (i, sim_part) => {
         return i === history.length - 1
             ? findSimulationsOptionByValue(history[i], sim_part)
             : iteration(i + 1, findSimulationsOptionByValue(history[i], sim_part)?.options);
-    }
+    };
 
     return iteration(0, simulations);
 };
 
 
 export const getBasicSimulationsStructure = data => {
-
     if (!data) return null;
     if (!data.years_data?.length) return data.simulations;
 

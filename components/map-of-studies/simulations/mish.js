@@ -16,27 +16,27 @@ export default [
 		options: [
 			{
 				...getCompletionYear(1),
-				options: [
-					getLastCompletionMISHYear(2),
-					getLastFailureMISHYear(2)
-				]
+				// options: [
+				// 	getLastCompletionMISHYear(1),
+				// 	getLastFailureMISHYear(2)
+				// ]
 			},
 			
-			{
-				...getConditionalCompletionYear(1),
-				options: [
-					{
-						name: Translations.PassingTheCondition,
-						value: "S",
-						options: [
-							getLastCompletionMISHYear(2),
-							getLastFailureMISHYear(2)
-						]
-					},
-					
-					getFailureCondition(2)
-				]
-			},
+			// {
+			// 	...getConditionalCompletionYear(1),
+			// 	options: [
+			// 		{
+			// 			name: Translations.PassingTheCondition,
+			// 			value: "S",
+			// 			options: [
+			// 				getLastCompletionMISHYear(2),
+			// 				getLastFailureMISHYear(2)
+			// 			]
+			// 		},
+			//
+			// 		getFailureCondition(2)
+			// 	]
+			// },
 
 			getFailureYear(1)
 		]

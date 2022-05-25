@@ -34,6 +34,11 @@ export default {
         pl: ''
     },
 
+    SummerAfterSession: {
+        en: 'Make sure that all your grades are in the USOS system before September 20. Report the missing grade to the teacher as soon as possible.',
+        pl: 'Upewnij się czy przed 20 września wszystkie twoje oceny znalazły się w systemie USOS. Brakująnce oceny zgłooś jak najszybciej prowadzącemu zajęcia.'
+    },
+
     TutorialProfileDescription: {
         en: 'In the "Your Profile" tab, you will find information about both your statistics and the badges you have earned.',
         pl: 'W zakładce „Twój profil” znajdziesz informacje zarówno o swoich statystykach, jak i zdobytych odznakach.',
@@ -998,6 +1003,16 @@ export default {
         pl: "Sesja egzaminacyjna zimowa"
     },
 
+    SummerPrepareDocs: {
+        en: 'Submission of applications (study program) for the summer semester',
+        pl: 'Złożenie wniosków (program studiów) na semestr letni'
+    },
+
+    ChoseStudyPath: {
+        en: 'Submission of the minimum curriculum in the fields of your choice(s)',
+        pl: 'Złożenie minimum programowego na wybranym/ych przez Ciebie kierunkach',
+    },
+
     WinterRetakeSession: {
         en: "Winter retake session",
         pl: "Sesja poprawkowa zimowa"
@@ -1059,7 +1074,7 @@ export default {
             "Providing the dean's office with information about additional achievements",
         pl: "Wgranie pracy do APD  \n" +
             "Zatwierdzenie przez promotora\n" +
-            "Dostarczenie do dziekanatu informacji o dodatkowych osiągnięciach"
+            "Dostarczenie dokumentów do dziekanatu: informacje o dodatkowych osiągnięciach"
     },
 
     SummerExamSession: {
@@ -1143,8 +1158,8 @@ export default {
     },
 
     MISHEndYear: {
-        en: "120 ECTS\nTransferring to the 3rd year of the field of study, the minimum curriculum of which you pursue",
-        pl: "120 ECTS\nPrzeniesienie na III rok kierunku, którego minimum programowe realizujesz "
+        en: "60 ECTS\nTransferring to the 2rd year of the field of study, the minimum curriculum of which you pursue",
+        pl: "60 ECTS\nPrzeniesienie na II rok kierunku, którego minimum programowe realizujesz "
     },
 
     TaskCategory1: {

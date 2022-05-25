@@ -29,9 +29,7 @@ const StudySimulations = props => {
         {color: ThemeStyles.dark_blue_text}
     ];
 
-
     const translateComplex = complex => {
-		console.log(typeof complex, complex)
         let translated = complex;
         const translation_keys = complex.match(/(#\w+)+/g);
 
@@ -48,13 +46,11 @@ const StudySimulations = props => {
         return translated;
     };
 
-
     const getButtonLabel = button => {
         return button.name
             ? translate(button.name)
             : button.complex_name ? translateComplex(button.complex_name) : ""
     };
-
 
     const getTranslatedText = option => {
         return option.text
@@ -86,27 +82,22 @@ const StudySimulations = props => {
                     </Button>
                 ))
             }
-
             {choices && !!choices.length &&
                 choices.map((choice, index) => {
-
                     const choice_option = getSimulationOptionByHistory(choices.slice(0, index + 1), base);
 
                     return (
                         <React.Fragment key={choice + index}>
-
                             {(!!choice_option?.text || !!choice_option?.complex_text) &&
                                 <Text style={[text_styles, {marginBottom: 15}]}>
                                     {getTranslatedText(choice_option)}
                                 </Text>
                             }
-
                             {choice_option.options && !!choice_option.options.length &&
                                 <>
                                     <Text style={[text_styles, {marginBottom: 10}]}>
                                         {translate(Translations.WhatsNext)}
                                     </Text>
-
                                     {choice_option.options.map((item, i) => (
                                         <Button
                                             key={i}
