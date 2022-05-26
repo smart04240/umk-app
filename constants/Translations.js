@@ -1129,7 +1129,7 @@ export default {
 
     ExtensionOfTheTermOfDefence: {
         en: "Extension of the period of defense",
-        pl: "Przełużenie terminu obrony"
+        pl: "Przedłużenie terminu obrony"
     },
 
     ExtensionOfTheTermOfDefenceText: {
